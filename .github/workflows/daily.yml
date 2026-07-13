@@ -59,9 +59,8 @@ jobs:
           [CI 환경 안내]
           - 오늘 날짜(KST)는 ${REPORT_DATE} 이다. data/${REPORT_DATE}/ 와 assets/charts/${REPORT_DATE}/ 를 사용하라.
           - git 명령은 직접 실행하지 마라. _posts/${REPORT_DATE}-market-report.md 파일만 생성하면, 커밋·push는 워크플로가 처리한다."
-          claude -p "$PROMPT" \
-            --allowedTools "Read,Write,Edit,Glob,Grep,WebSearch,WebFetch" \
-            --max-turns 40
+          claude --version
+          claude -p "$PROMPT" --permission-mode bypassPermissions --verbose
 
       - name: 커밋 & 푸시
         run: |
