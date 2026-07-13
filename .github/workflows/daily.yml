@@ -48,6 +48,20 @@ jobs:
       - name: Claude Code 설치
         run: npm install -g @anthropic-ai/claude-code
 
+      - name: 토큰 진단 (값 노출 안 함 — 길이/형태만)
+        env:
+          CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+        run: |
+          echo "토큰 길이: ${#CLAUDE_CODE_OAUTH_TOKEN}"
+          if [ -z "$CLAUDE_CODE_OAUTH_TOKEN" ]; then
+            echo "결과: ❌ 비어있음 → Secret 이름이 CLAUDE_CODE_OAUTH_TOKEN 인지 확인"
+          else
+            case "$CLAUDE_CODE_OAUTH_TOKEN" in
+              sk-ant-oat*) echo "결과: ✅ 형태 정상(sk-ant-oat 로 시작). 401이면 만료/오타/일부누락 가능" ;;
+              *) echo "결과: ⚠️ sk-ant-oat 로 시작 안 함 → 토큰이 아닌 다른 값(코드/URL)을 넣었을 가능성" ;;
+            esac
+          fi
+
       - name: Claude 분석·리포트 생성
         env:
           # 구독(Max) 토큰만 사용. API 키는 넣지 않음 → Max 사용량으로 차감.
