@@ -13,18 +13,26 @@ _config.yml                     # Jekyll 사이트 설정
 index.md                        # 홈 (리포트 목록 자동 표시)
 _posts/YYYY-MM-DD-market-report.md   # 매일 생성되는 리포트
 prompts/daily-report.md         # 매일 실행되는 지시문(Claude에게)
-scripts/run-daily.ps1           # 예약 실행 스크립트
+scripts/collect_data.py         # 시세 데이터 수집 (yfinance)
+scripts/run-daily.ps1           # 예약 실행 스크립트 (수집→분석→push)
+requirements.txt                # 파이썬 패키지 목록
 AUTOMATION.md                   # 예약(루틴) 설정 방법
+TOOLING.md                      # 파이썬/venv 도구 설정
 DESIGN.md                       # 전체 설계 문서
 ```
 
 ## 동작 흐름
 
 ```
-스케줄러(오전 8시) → Claude Code 실행
-  → 웹검색으로 데이터 수집 → 분석 → _posts/오늘.md 생성 → git push
+스케줄러(오전 8시)
+  → (1) 파이썬(scripts/collect_data.py)이 시세·지표 수집 → data/오늘/market.json
+  → (2) Claude Code가 그 데이터 + 웹검색(뉴스)으로 분석 → _posts/오늘.md 생성 → git push
 GitHub Pages → 사이트 자동 반영
 ```
+
+- **숫자 데이터**(지수·환율·금리·VIX·지표)는 Python(yfinance)이 안정적으로 수집
+- **뉴스·시황**은 Claude 웹검색으로 여러 소스 커버
+- 파이썬 환경 설정은 [TOOLING.md](TOOLING.md) 참고
 
 ## 자동화 켜기
 
@@ -32,7 +40,8 @@ GitHub Pages → 사이트 자동 반영
 
 ## 단계
 
-- **1단계 (현재)**: 웹검색 기반 뉴스·시황 리포트 (Python 불필요)
-- **2단계 (예정)**: Python `yfinance`로 차트·지표 추가
+- **1단계 (현재)**: Python 시세 수집(지수·환율·금리·지표) + 웹검색 뉴스 → 리포트
+- **2단계 (예정)**: 수집 데이터로 차트(PNG) 생성해 리포트에 삽입
+- **3단계 (선택)**: 한국 상세수급(pykrx)·경제지표(FRED)·특정 사이트 크롤러 확장
 
 > ⚠️ 투자 조언이 아닙니다. 매매 판단과 책임은 본인에게 있습니다.
