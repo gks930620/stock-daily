@@ -27,18 +27,34 @@
 이 저장소의 `scripts/run-daily.ps1` 을 사용합니다 (아래에서 함께 생성해 둠).
 
 ### 2) 작업 스케줄러 등록
-1. 시작 메뉴 → **작업 스케줄러** 실행
-2. 우측 **기본 작업 만들기**
-3. 이름: `주식리포트` / 트리거: **매일** / 시간: 예 `08:00`
-4. 동작: **프로그램 시작**
-   - 프로그램: `powershell.exe`
-   - 인수 추가:
-     ```
-     -ExecutionPolicy Bypass -File "C:\Users\gks93\workspace\주식시장예상클로드코드\scripts\run-daily.ps1"
-     ```
-5. 완료
 
-> 헤드리스 실행에서 권한 프롬프트가 뜨지 않도록, 스크립트는 `claude`에 필요한 도구(웹검색·파일쓰기·git) 사용을 허용한 상태로 돌립니다. 자세한 건 스크립트 주석 참고.
+> ⚠️ **이 등록은 반드시 본인이 직접 실행하세요.** 이 예약은 매일 무인으로
+> `claude -p ... --dangerously-skip-permissions`(권한 확인 없이 도구를 쓰는 자율 실행)를
+> 돌립니다. 편리하지만, 신뢰하는 이 저장소 자동화 용도로만 본인 판단하에 켜세요.
+> (Claude가 대신 등록하는 건 안전상 차단됩니다 — 그래서 본인이 켜는 게 맞습니다.)
+
+**방법 ①: PowerShell 한 줄로 등록 (간단)**
+PowerShell을 열고 아래를 붙여넣기:
+
+```powershell
+$repo = "C:\Users\gks93\workspace\주식시장예상클로드코드"
+$action  = New-ScheduledTaskAction -Execute "powershell.exe" -Argument "-ExecutionPolicy Bypass -NoProfile -File `"$repo\scripts\run-daily.ps1`""
+$trigger = New-ScheduledTaskTrigger -Daily -At 8:00am
+$settings = New-ScheduledTaskSettingsSet -StartWhenAvailable -ExecutionTimeLimit (New-TimeSpan -Hours 1)
+Register-ScheduledTask -TaskName "StockDailyReport" -Action $action -Trigger $trigger -Settings $settings -Description "매일 주식시장 리포트 (stock-daily)" -Force
+```
+
+- 확인: `Get-ScheduledTask -TaskName StockDailyReport`
+- 지금 한 번 테스트 실행: `Start-ScheduledTask -TaskName StockDailyReport`
+- 해제: `Unregister-ScheduledTask -TaskName StockDailyReport -Confirm:$false`
+
+**방법 ②: 작업 스케줄러 GUI**
+1. 시작 메뉴 → **작업 스케줄러** → **기본 작업 만들기**
+2. 이름 `StockDailyReport` / 트리거 **매일** / 시간 `08:00`
+3. 동작 **프로그램 시작** →
+   - 프로그램: `powershell.exe`
+   - 인수: `-ExecutionPolicy Bypass -NoProfile -File "C:\Users\gks93\workspace\주식시장예상클로드코드\scripts\run-daily.ps1"`
+4. 완료
 
 ---
 
