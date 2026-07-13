@@ -1,0 +1,75 @@
+# 수집 대상 종목 목록.
+# 형식: 티커: 표시이름   (yfinance 티커 기준)
+# 여기만 편집하면 collect_data.py가 자동으로 반영합니다. 자유롭게 추가/삭제하세요.
+
+# 미국 지수
+us_index:
+  "^GSPC": S&P500
+  "^IXIC": 나스닥종합
+  "^NDX": 나스닥100
+  "^DJI": 다우
+  "^RUT": 러셀2000
+
+# 미국 섹터 ETF (업종 흐름 파악)
+us_sector:
+  "SMH": 반도체ETF
+  "XLK": 기술ETF
+  "XLF": 금융ETF
+  "XLE": 에너지ETF
+  "XLV": 헬스케어ETF
+
+# 리스크·금리 지표
+risk:
+  "^VIX": VIX 변동성
+  "^IRX": 미 13주 금리
+  "^FVX": 미 5년물 금리
+  "^TNX": 미 10년물 금리
+  "^TYX": 미 30년물 금리
+  "DX-Y.NYB": 달러인덱스
+
+# 원자재
+commodity:
+  "CL=F": WTI 유가
+  "GC=F": 금
+  "SI=F": 은
+  "HG=F": 구리
+  "NG=F": 천연가스
+
+# 암호화폐
+crypto:
+  "BTC-USD": 비트코인
+  "ETH-USD": 이더리움
+  "SOL-USD": 솔라나
+
+# 환율
+fx:
+  "KRW=X": 원/달러
+  "EURUSD=X": 유로/달러
+  "JPY=X": 엔/달러
+
+# 한국 지수
+kr_index:
+  "^KS11": 코스피
+  "^KQ11": 코스닥
+
+# 한국 주요 종목
+kr_stock:
+  "005930.KS": 삼성전자
+  "000660.KS": SK하이닉스
+  "373220.KS": LG에너지솔루션
+  "207940.KS": 삼성바이오로직스
+  "005380.KS": 현대차
+  "000270.KS": 기아
+  "035420.KS": NAVER
+  "035720.KS": 카카오
+
+# 미국 주요 종목
+us_stock:
+  "NVDA": 엔비디아
+  "MSFT": 마이크로소프트
+  "AAPL": 애플
+  "GOOGL": 알파벳(구글)
+  "AMZN": 아마존
+  "META": 메타
+  "TSLA": 테슬라
+  "AMD": AMD

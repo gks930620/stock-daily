@@ -13,6 +13,7 @@ _config.yml                     # Jekyll 사이트 설정
 index.md                        # 홈 (리포트 목록 자동 표시)
 _posts/YYYY-MM-DD-market-report.md   # 매일 생성되는 리포트
 prompts/daily-report.md         # 매일 실행되는 지시문(Claude에게)
+config/watchlist.yaml           # 수집 종목 목록 (여기만 편집하면 반영)
 scripts/collect_data.py         # 시세 데이터 수집 (yfinance)
 scripts/run-daily.ps1           # 예약 실행 스크립트 (수집→분석→push)
 requirements.txt                # 파이썬 패키지 목록
@@ -30,7 +31,8 @@ DESIGN.md                       # 전체 설계 문서
 GitHub Pages → 사이트 자동 반영
 ```
 
-- **숫자 데이터**(지수·환율·금리·VIX·지표)는 Python(yfinance)이 안정적으로 수집
+- **숫자 데이터**(약 45종목: 지수·섹터ETF·원자재·암호화폐·채권금리·환율·주요주 + MACD·볼린저·추세배열 등 지표)는 Python(yfinance)이 안정적으로 수집
+- 수집 종목은 [config/watchlist.yaml](config/watchlist.yaml)에서 자유롭게 추가/삭제
 - **뉴스·시황**은 Claude 웹검색으로 여러 소스 커버
 - 파이썬 환경 설정은 [TOOLING.md](TOOLING.md) 참고
 
