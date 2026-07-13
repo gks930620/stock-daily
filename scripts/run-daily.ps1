@@ -1,7 +1,9 @@
 # 매일 실행 스크립트 — 작업 스케줄러가 이 파일을 호출합니다.
-# 순서: 저장소 이동 → (1) 파이썬으로 시세 데이터 수집 → (2) Claude가 분석·리포트 생성·push
-
-$ErrorActionPreference = "Stop"
+# 순서: 저장소 이동 → (1) 시세·경제지표 수집 → (2) 차트 생성 → (3) 스크리너 → (4) Claude 분석·리포트·push
+#
+# 주의: $ErrorActionPreference를 Stop으로 두지 않습니다.
+#   PowerShell 5.1에서 git 같은 네이티브 명령의 stderr 출력이 Stop과 만나면
+#   정상 실행도 실패로 처리되어 스크립트가 중단되기 때문입니다.
 
 # 이 저장소 경로 / 프로젝트 전용 파이썬(venv) / claude CLI 경로
 $repo = "C:\Users\gks93\workspace\주식시장예상클로드코드"
@@ -9,11 +11,23 @@ $venvPython = "$repo\.venv\Scripts\python.exe"
 $claude = "C:\Users\gks93\AppData\Roaming\npm\claude.cmd"
 Set-Location $repo
 
-# 최신 상태로 동기화
-git pull --rebase 2>&1 | Out-Null
+# 실행 로그 (실패 시 원인 확인용) — logs\last-run.log 에 기록
+$logDir = "$repo\logs"
+New-Item -ItemType Directory -Force $logDir | Out-Null
+try { Start-Transcript -Path "$logDir\last-run.log" -Force | Out-Null } catch {}
 
-# (1) 시세·지표·경제지표 수집 → data\<오늘날짜>\market.json
-Write-Host "[1/3] 시세·경제지표 수집..."
+Write-Host "===== 시작: $(Get-Date) ====="
+
+# 최신 상태로 동기화 (실패해도 계속 진행. --autostash로 로컬 변경 자동 보관)
+try {
+    git pull --rebase --autostash
+    if ($LASTEXITCODE -ne 0) { Write-Warning "git pull 실패(무시하고 계속)" }
+} catch {
+    Write-Warning "git pull 예외(무시하고 계속): $_"
+}
+
+# (1) 시세·경제지표 수집 → data\<오늘날짜>\market.json
+Write-Host "[1/4] 시세·경제지표 수집..."
 & $venvPython "$repo\scripts\collect_data.py"
 if ($LASTEXITCODE -ne 0) { Write-Warning "데이터 수집 일부 실패(계속 진행)" }
 
@@ -35,4 +49,5 @@ Write-Host "[4/4] 분석·리포트 생성..."
 $prompt = Get-Content -Raw "$repo\prompts\daily-report.md"
 & $claude -p $prompt --dangerously-skip-permissions
 
-Write-Host "완료: $(Get-Date)"
+Write-Host "===== 완료: $(Get-Date) ====="
+try { Stop-Transcript | Out-Null } catch {}
