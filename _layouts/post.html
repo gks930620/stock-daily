@@ -3,15 +3,17 @@ layout: default
 ---
 <article class="post">
   <a class="back" href="{{ '/' | relative_url }}">← 목록으로</a>
-  <header class="post-head">
-    <time class="post-date" datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%Y년 %m월 %d일" }}</time>
-    <h1 class="post-title">{{ page.title }}</h1>
+  <header class="hero-panel">
+    <p class="eyebrow">{{ page.date | date: "%Y.%m.%d" }} 리포트</p>
+    <h1 class="hero-title">{{ page.title }}</h1>
   </header>
-  <div class="post-content">
-    {{ content }}
+  <div class="content-card">
+    <div class="post-content">
+      {{ content }}
+    </div>
+    <nav class="post-nav">
+      {% if page.next %}<a class="pn newer" href="{{ page.next.url | relative_url }}">← 다음 (최신)</a>{% endif %}
+      {% if page.previous %}<a class="pn older" href="{{ page.previous.url | relative_url }}">이전 →</a>{% endif %}
+    </nav>
   </div>
-  <nav class="post-nav">
-    {% if page.next %}<a class="pn newer" href="{{ page.next.url | relative_url }}">← 다음 (최신)</a>{% endif %}
-    {% if page.previous %}<a class="pn older" href="{{ page.previous.url | relative_url }}">이전 →</a>{% endif %}
-  </nav>
 </article>

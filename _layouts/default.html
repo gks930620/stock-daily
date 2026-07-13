@@ -5,8 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{% if page.title %}{{ page.title }} · {% endif %}{{ site.title }}</title>
   <meta name="description" content="{{ page.description | default: site.description }}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}">
-  {%- if jekyll.environment != "development" -%}{% feed_meta %}{%- endif -%}
+  {% feed_meta %}
 </head>
 <body>
   <header class="site-header">
@@ -29,5 +32,28 @@
       <p class="muted small">자동 생성 리포트 · 투자 조언이 아닙니다 · <a href="{{ '/' | relative_url }}">홈</a></p>
     </div>
   </footer>
+
+  <!-- 이미지 클릭 확대 (라이트박스) -->
+  <div id="image-lightbox" class="lightbox" hidden aria-hidden="true">
+    <div class="lightbox__backdrop" data-lightbox-close></div>
+    <figure class="lightbox__figure" role="dialog" aria-modal="true" aria-label="이미지 미리보기">
+      <button type="button" class="lightbox__close" data-lightbox-close aria-label="닫기">×</button>
+      <img class="lightbox__image" src="" alt="">
+    </figure>
+  </div>
+  <script>
+    (function () {
+      var lb = document.getElementById("image-lightbox");
+      if (!lb) return;
+      var img = lb.querySelector(".lightbox__image");
+      function close() { lb.hidden = true; lb.setAttribute("aria-hidden","true"); document.body.classList.remove("lightbox-open"); img.src=""; }
+      function open(src, alt) { if(!src) return; img.src=src; img.alt=alt||""; lb.hidden=false; lb.setAttribute("aria-hidden","false"); document.body.classList.add("lightbox-open"); }
+      document.querySelectorAll(".content-card img").forEach(function (el) {
+        el.addEventListener("click", function () { open(el.getAttribute("src"), el.getAttribute("alt")); });
+      });
+      lb.querySelectorAll("[data-lightbox-close]").forEach(function (b) { b.addEventListener("click", close); });
+      document.addEventListener("keydown", function (e) { if (e.key === "Escape" && !lb.hidden) close(); });
+    })();
+  </script>
 </body>
 </html>
