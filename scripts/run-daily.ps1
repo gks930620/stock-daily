@@ -3,9 +3,10 @@
 
 $ErrorActionPreference = "Stop"
 
-# 이 저장소 경로 / 프로젝트 전용 파이썬(venv)
+# 이 저장소 경로 / 프로젝트 전용 파이썬(venv) / claude CLI 경로
 $repo = "C:\Users\gks93\workspace\주식시장예상클로드코드"
 $venvPython = "$repo\.venv\Scripts\python.exe"
+$claude = "C:\Users\gks93\AppData\Roaming\npm\claude.cmd"
 Set-Location $repo
 
 # 최신 상태로 동기화
@@ -22,6 +23,6 @@ if ($LASTEXITCODE -ne 0) { Write-Warning "데이터 수집 일부 실패(계속 
 #     (개인 자동화용. 신뢰하는 이 저장소에서만 사용.)
 Write-Host "[2/2] 분석·리포트 생성..."
 $prompt = Get-Content -Raw "$repo\prompts\daily-report.md"
-claude -p $prompt --dangerously-skip-permissions
+& $claude -p $prompt --dangerously-skip-permissions
 
 Write-Host "완료: $(Get-Date)"
