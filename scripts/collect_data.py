@@ -164,6 +164,48 @@ def load_watchlist() -> list[tuple[str, str, str]]:
     return items
 
 
+# FRED 경제지표 (키 없이 CSV 다운로드)
+FRED_SERIES = {
+    "DFF": "미 연방기금금리(%)",
+    "T10Y2Y": "미 10년-2년 스프레드(%p, 음수=침체신호)",
+    "T10Y3M": "미 10년-3개월 스프레드(%p)",
+    "UNRATE": "미 실업률(%)",
+}
+
+
+def _fred_latest(series_id: str):
+    url = f"https://fred.stlouisfed.org/graph/fredgraph.csv?id={series_id}"
+    df = pd.read_csv(url)
+    df.columns = ["date", "value"]
+    df["value"] = pd.to_numeric(df["value"], errors="coerce")
+    df = df.dropna()
+    if df.empty:
+        return None, None
+    return float(df["value"].iloc[-1]), str(df["date"].iloc[-1])
+
+
+def collect_macro() -> dict:
+    macro: dict = {}
+    for sid, label in FRED_SERIES.items():
+        try:
+            val, date = _fred_latest(sid)
+            macro[sid] = {"label": label, "value": r(val), "date": date}
+        except Exception as e:  # noqa: BLE001
+            macro[sid] = {"label": label, "error": str(e)}
+    # CPI 전년동월비 (CPIAUCSL 월간 지수 → YoY)
+    try:
+        df = pd.read_csv("https://fred.stlouisfed.org/graph/fredgraph.csv?id=CPIAUCSL")
+        df.columns = ["date", "value"]
+        df["value"] = pd.to_numeric(df["value"], errors="coerce")
+        df = df.dropna().reset_index(drop=True)
+        if len(df) >= 13:
+            yoy = (df["value"].iloc[-1] / df["value"].iloc[-13] - 1) * 100
+            macro["CPI_YoY"] = {"label": "미 CPI 전년비(%)", "value": r(yoy), "date": str(df["date"].iloc[-1])}
+    except Exception as e:  # noqa: BLE001
+        macro["CPI_YoY"] = {"label": "미 CPI 전년비(%)", "error": str(e)}
+    return macro
+
+
 def main() -> int:
     today = datetime.now(KST).strftime("%Y-%m-%d")
     out_dir = REPO / "data" / today
@@ -198,12 +240,16 @@ def main() -> int:
         "top_losers": fmt(ranked[:5]),
     }
 
+    print("경제지표(FRED) 수집...")
+    macro = collect_macro()
+
     result = {
         "as_of": today,
         "generated_at_kst": datetime.now(KST).isoformat(timespec="seconds"),
-        "source": "yfinance",
+        "source": "yfinance + FRED",
         "count": len(instruments),
         "movers": movers,
+        "macro": macro,
         "instruments": instruments,
         "errors": errors,
     }

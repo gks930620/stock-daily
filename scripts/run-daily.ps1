@@ -12,16 +12,21 @@ Set-Location $repo
 # 최신 상태로 동기화
 git pull --rebase 2>&1 | Out-Null
 
-# (1) 시세 데이터 수집 → data\<오늘날짜>\market.json 생성
-Write-Host "[1/2] 데이터 수집..."
+# (1) 시세·지표·경제지표 수집 → data\<오늘날짜>\market.json
+Write-Host "[1/3] 시세·경제지표 수집..."
 & $venvPython "$repo\scripts\collect_data.py"
 if ($LASTEXITCODE -ne 0) { Write-Warning "데이터 수집 일부 실패(계속 진행)" }
 
-# (2) Claude Code 헤드리스 실행 → 분석·리포트 생성·push
+# (2) 비인기 종목 후보 스크리닝 → data\<오늘날짜>\screener.json
+Write-Host "[2/3] 비인기 종목 스크리닝..."
+& $venvPython "$repo\scripts\screener.py"
+if ($LASTEXITCODE -ne 0) { Write-Warning "스크리너 실패(계속 진행)" }
+
+# (3) Claude Code 헤드리스 실행 → 분석·리포트 생성·push
 #   -p : 프롬프트 주고 결과 출력 후 종료 (헤드리스)
 #   --dangerously-skip-permissions : 무인 실행이라 도구(웹검색·파일쓰기·git) 자동 허용
 #     (개인 자동화용. 신뢰하는 이 저장소에서만 사용.)
-Write-Host "[2/2] 분석·리포트 생성..."
+Write-Host "[3/3] 분석·리포트 생성..."
 $prompt = Get-Content -Raw "$repo\prompts\daily-report.md"
 & $claude -p $prompt --dangerously-skip-permissions
 
