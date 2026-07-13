@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 780 440" font-family="'Malgun Gothic','Apple SD Gothic Neo',sans-serif">
+  <rect width="780" height="440" fill="#f8fafc"/>
+  <text x="390" y="36" text-anchor="middle" font-size="22" font-weight="700" fill="#0f172a">비동기(AJAX) 실행 흐름</text>
+  <text x="390" y="58" text-anchor="middle" font-size="13" fill="#64748b">요청은 브라우저에 위임하고, JS는 멈추지 않고 다음 코드를 실행한다</text>
+
+  <!-- lanes -->
+  <text x="150" y="100" text-anchor="middle" font-size="14" font-weight="700" fill="#1d4ed8">JS (Call Stack)</text>
+  <text x="620" y="100" text-anchor="middle" font-size="14" font-weight="700" fill="#c2410c">Browser (Web API)</text>
+  <line x1="390" y1="110" x2="390" y2="410" stroke="#cbd5e1" stroke-width="1.5" stroke-dasharray="4 4"/>
+
+  <!-- time axis -->
+  <text x="20" y="135" font-size="11" fill="#94a3b8">시간</text>
+  <line x1="30" y1="115" x2="30" y2="405" stroke="#cbd5e1" stroke-width="1.5" marker-end="url(#down)"/>
+
+  <!-- JS steps -->
+  <rect x="55" y="125" width="200" height="34" rx="6" fill="#dbeafe" stroke="#3b82f6"/>
+  <text x="155" y="147" text-anchor="middle" font-size="13" fill="#1e3a8a">① 작업1() 실행</text>
+
+  <rect x="55" y="175" width="200" height="34" rx="6" fill="#dbeafe" stroke="#3b82f6"/>
+  <text x="155" y="197" text-anchor="middle" font-size="13" fill="#1e3a8a">② ajax 요청 (위임만)</text>
+
+  <rect x="55" y="225" width="200" height="34" rx="6" fill="#dbeafe" stroke="#3b82f6"/>
+  <text x="155" y="247" text-anchor="middle" font-size="13" fill="#1e3a8a">③ 작업2() 실행</text>
+
+  <rect x="55" y="275" width="200" height="30" rx="6" fill="#f1f5f9" stroke="#cbd5e1" stroke-dasharray="4 3"/>
+  <text x="155" y="295" text-anchor="middle" font-size="12" fill="#64748b">Stack 비움 (대기)</text>
+
+  <rect x="55" y="360" width="200" height="34" rx="6" fill="#dcfce7" stroke="#22c55e" stroke-width="2"/>
+  <text x="155" y="382" text-anchor="middle" font-size="13" font-weight="700" fill="#15803d">⑥ 성공처리() 콜백 실행</text>
+
+  <!-- Browser side -->
+  <rect x="490" y="195" width="240" height="120" rx="8" fill="#ffedd5" stroke="#fb923c" stroke-width="2"/>
+  <text x="610" y="222" text-anchor="middle" font-size="13" font-weight="700" fill="#9a3412">④ 네트워크 요청 처리 중</text>
+  <text x="610" y="248" text-anchor="middle" font-size="12" fill="#9a3412">(서버 응답 대기)</text>
+  <text x="610" y="288" text-anchor="middle" font-size="12" fill="#9a3412">⑤ 응답 도착 →</text>
+  <text x="610" y="305" text-anchor="middle" font-size="12" fill="#9a3412">콜백을 Task Queue에 등록</text>
+
+  <!-- delegation arrow JS -> browser -->
+  <path d="M258 192 L488 210" stroke="#f97316" stroke-width="2.5" fill="none" marker-end="url(#ao)"/>
+  <text x="375" y="188" text-anchor="middle" font-size="11" fill="#c2410c">요청 위임</text>
+
+  <!-- response arrow browser -> queue -> callback -->
+  <path d="M488 300 C 350 330, 300 345, 258 372" stroke="#22c55e" stroke-width="2.5" fill="none" marker-end="url(#ag)"/>
+  <text x="368" y="345" text-anchor="middle" font-size="11" fill="#15803d">Stack이 비면 실행</text>
+
+  <text x="30" y="428" font-size="12" fill="#64748b">핵심: ②에서 멈추지 않고 ③이 먼저 실행된다 → 그래서 "동시에 도는 것처럼" 보인다</text>
+
+  <defs>
+    <marker id="down" markerWidth="9" markerHeight="9" refX="4" refY="7" orient="auto"><path d="M0 0 L4 8 L8 0 z" fill="#cbd5e1"/></marker>
+    <marker id="ao" markerWidth="9" markerHeight="9" refX="7" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 z" fill="#f97316"/></marker>
+    <marker id="ag" markerWidth="9" markerHeight="9" refX="7" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 z" fill="#22c55e"/></marker>
+  </defs>
+</svg>

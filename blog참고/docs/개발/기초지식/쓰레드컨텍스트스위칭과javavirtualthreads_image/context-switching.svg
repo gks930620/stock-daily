@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 780 470" font-family="'Malgun Gothic','Apple SD Gothic Neo',sans-serif">
+  <rect width="780" height="470" fill="#f8fafc"/>
+  <text x="390" y="36" text-anchor="middle" font-size="22" font-weight="700" fill="#0f172a">CPU 타임 슬라이싱과 컨텍스트 스위칭</text>
+  <text x="390" y="58" text-anchor="middle" font-size="13" fill="#64748b">CPU 1개가 여러 요청을 "조금씩 번갈아" 처리한다</text>
+
+  <!-- CPU -->
+  <rect x="330" y="80" width="120" height="46" rx="10" fill="#0f172a"/>
+  <text x="390" y="108" text-anchor="middle" font-size="15" font-weight="700" fill="#fff">CPU (1개)</text>
+
+  <!-- time slice bar -->
+  <text x="60" y="160" font-size="13" font-weight="700" fill="#334155">시간 →</text>
+  <g>
+    <rect x="60" y="170" width="70" height="34" fill="#bfdbfe" stroke="#3b82f6"/>
+    <text x="95" y="192" text-anchor="middle" font-size="12" fill="#1e3a8a">1번 조금</text>
+    <rect x="130" y="170" width="70" height="34" fill="#bbf7d0" stroke="#22c55e"/>
+    <text x="165" y="192" text-anchor="middle" font-size="12" fill="#166534">2번 조금</text>
+    <rect x="200" y="170" width="70" height="34" fill="#fde68a" stroke="#f59e0b"/>
+    <text x="235" y="192" text-anchor="middle" font-size="12" fill="#92400e">3번 조금</text>
+    <rect x="270" y="170" width="55" height="34" fill="#e2e8f0" stroke="#94a3b8"/>
+    <text x="297" y="192" text-anchor="middle" font-size="12" fill="#475569">···</text>
+    <rect x="325" y="170" width="80" height="34" fill="#fecaca" stroke="#ef4444"/>
+    <text x="365" y="192" text-anchor="middle" font-size="12" fill="#991b1b">200번 조금</text>
+    <rect x="405" y="170" width="70" height="34" fill="#bfdbfe" stroke="#3b82f6"/>
+    <text x="440" y="192" text-anchor="middle" font-size="12" fill="#1e3a8a">1번 다시</text>
+    <rect x="475" y="170" width="70" height="34" fill="#bbf7d0" stroke="#22c55e"/>
+    <text x="510" y="192" text-anchor="middle" font-size="12" fill="#166534">2번 다시</text>
+    <rect x="545" y="170" width="55" height="34" fill="#e2e8f0" stroke="#94a3b8"/>
+    <text x="572" y="192" text-anchor="middle" font-size="12" fill="#475569">···</text>
+  </g>
+
+  <!-- context switch callout -->
+  <path d="M440 208 L440 250" stroke="#ef4444" stroke-width="2" fill="none" marker-end="url(#ar)"/>
+  <rect x="300" y="255" width="290" height="70" rx="10" fill="#fef2f2" stroke="#ef4444" stroke-width="2"/>
+  <text x="445" y="280" text-anchor="middle" font-size="13" font-weight="700" fill="#b91c1c">컨텍스트 스위칭 비용</text>
+  <text x="445" y="302" text-anchor="middle" font-size="11" fill="#475569">1번으로 돌아왔을 때 "어디까지 했지?"</text>
+  <text x="445" y="318" text-anchor="middle" font-size="11" fill="#475569">상태를 저장·복원하는 데 드는 비용</text>
+
+  <!-- trade-off -->
+  <rect x="60" y="360" width="330" height="90" rx="10" fill="#fff7ed" stroke="#f97316" stroke-width="2"/>
+  <text x="225" y="386" text-anchor="middle" font-size="14" font-weight="700" fill="#c2410c">스레드가 너무 많으면</text>
+  <text x="225" y="410" text-anchor="middle" font-size="12" fill="#475569">번갈아 바꾸는 횟수 ↑</text>
+  <text x="225" y="430" text-anchor="middle" font-size="12" fill="#475569">→ 컨텍스트 스위칭 비용이 커져 비효율</text>
+
+  <rect x="410" y="360" width="330" height="90" rx="10" fill="#eff6ff" stroke="#3b82f6" stroke-width="2"/>
+  <text x="575" y="386" text-anchor="middle" font-size="14" font-weight="700" fill="#1d4ed8">스레드가 너무 적으면 (1개)</text>
+  <text x="575" y="410" text-anchor="middle" font-size="12" fill="#475569">한 작업이 막히면(병목)</text>
+  <text x="575" y="430" text-anchor="middle" font-size="12" fill="#475569">→ 다른 요청이 계속 대기</text>
+
+  <text x="390" y="150" text-anchor="middle" font-size="12" fill="#94a3b8">예) 톰캣 기본 최대 스레드 200개 — 적당한 균형점</text>
+
+  <defs>
+    <marker id="ar" markerWidth="9" markerHeight="9" refX="7" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 z" fill="#ef4444"/></marker>
+  </defs>
+</svg>

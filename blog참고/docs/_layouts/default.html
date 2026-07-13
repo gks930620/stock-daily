@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="{{ page.lang | default: site.lang | default: 'ko' }}">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% if page.title %}{{ page.title }} | {{ site.title }}{% else %}{{ site.title }}{% endif %}</title>
+    <meta name="description" content="{{ page.description | default: site.description }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
+    {% seo %}
+  </head>
+  <body>
+    <header class="page-header" role="banner">
+      <div class="hero-panel">
+        <p class="eyebrow">MD Docs</p>
+        <h1 class="project-name">{{ page.title | default: site.title }}</h1>
+        <h2 class="project-tagline">{{ page.description | default: site.description }}</h2>
+        {% if page.url != '/' and page.url != '/index.html' %}
+          <p class="page-path">{{ page.url | remove: '.html' }}</p>
+        {% endif %}
+        <div class="hero-actions">
+          <a href="{{ site.repository_url | default: site.github.repository_url }}" class="btn btn-solid">View on GitHub</a>
+          <a href="{{ '/' | relative_url }}" class="btn btn-outline">{{ site.home_label | default: 'Go to Main' }}</a>
+        </div>
+      </div>
+    </header>
+
+    <main id="content" class="main-content" role="main">
+      <article class="content-card">
+        {{ content }}
+      </article>
+      <footer class="site-footer">
+        <span class="site-footer-owner"><a href="{{ site.repository_url | default: site.github.repository_url }}">{{ site.title }}</a></span>
+        <span class="site-footer-credits">Hosted on GitHub Pages</span>
+      </footer>
+    </main>
+
+    <div id="image-lightbox" class="lightbox" hidden aria-hidden="true">
+      <div class="lightbox__backdrop" data-lightbox-close></div>
+      <figure class="lightbox__figure" role="dialog" aria-modal="true" aria-label="Image Preview">
+        <button type="button" class="lightbox__close" data-lightbox-close aria-label="Close Preview">X</button>
+        <img class="lightbox__image" src="" alt="">
+      </figure>
+    </div>
+
+    <script>
+      (function () {
+        var lightbox = document.getElementById("image-lightbox");
+        if (!lightbox) return;
+
+        var lightboxImage = lightbox.querySelector(".lightbox__image");
+        var lightboxTriggers = document.querySelectorAll("[data-lightbox]");
+
+        function closeLightbox() {
+          lightbox.hidden = true;
+          lightbox.setAttribute("aria-hidden", "true");
+          document.body.classList.remove("lightbox-open");
+          lightboxImage.src = "";
+          lightboxImage.alt = "";
+        }
+
+        function openLightbox(src, alt) {
+          if (!src) return;
+          lightboxImage.src = src;
+          lightboxImage.alt = alt || "";
+          lightbox.hidden = false;
+          lightbox.setAttribute("aria-hidden", "false");
+          document.body.classList.add("lightbox-open");
+        }
+
+        lightboxTriggers.forEach(function (trigger) {
+          trigger.addEventListener("click", function (event) {
+            event.preventDefault();
+            var targetImage = trigger.querySelector("img");
+            var src = trigger.getAttribute("href") || (targetImage && targetImage.getAttribute("src"));
+            var alt = trigger.getAttribute("data-lightbox-alt") || (targetImage && targetImage.getAttribute("alt")) || "";
+            openLightbox(src, alt);
+          });
+        });
+
+        lightbox.querySelectorAll("[data-lightbox-close]").forEach(function (button) {
+          button.addEventListener("click", closeLightbox);
+        });
+
+        document.addEventListener("keydown", function (event) {
+          if (event.key === "Escape" && !lightbox.hidden) {
+            closeLightbox();
+          }
+        });
+      })();
+    </script>
+  </body>
+</html>

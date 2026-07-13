@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 470" font-family="'Malgun Gothic','Apple SD Gothic Neo',sans-serif">
+  <rect width="800" height="470" fill="#f8fafc"/>
+  <text x="400" y="36" text-anchor="middle" font-size="22" font-weight="700" fill="#0f172a">HTTP 메소드와 CRUD 한눈에</text>
+  <text x="400" y="58" text-anchor="middle" font-size="13" fill="#64748b">Safe = 서버 데이터를 안 바꿈 · Idempotent = 여러 번 보내도 결과 같음</text>
+
+  <!-- header -->
+  <rect x="30" y="78" width="130" height="40" fill="#1e293b"/>
+  <text x="95" y="103" text-anchor="middle" font-size="13" font-weight="700" fill="#fff">메소드</text>
+  <rect x="160" y="78" width="150" height="40" fill="#1e293b"/>
+  <text x="235" y="103" text-anchor="middle" font-size="13" font-weight="700" fill="#fff">용도 (CRUD)</text>
+  <rect x="310" y="78" width="90" height="40" fill="#1e293b"/>
+  <text x="355" y="103" text-anchor="middle" font-size="13" font-weight="700" fill="#fff">Safe</text>
+  <rect x="400" y="78" width="110" height="40" fill="#1e293b"/>
+  <text x="455" y="103" text-anchor="middle" font-size="13" font-weight="700" fill="#fff">Idempotent</text>
+  <rect x="510" y="78" width="260" height="40" fill="#1e293b"/>
+  <text x="640" y="103" text-anchor="middle" font-size="13" font-weight="700" fill="#fff">예시</text>
+
+  <!-- GET -->
+  <rect x="30" y="118" width="130" height="60" fill="#eff6ff" stroke="#cbd5e1"/>
+  <text x="95" y="153" text-anchor="middle" font-size="15" font-weight="700" fill="#1d4ed8">GET</text>
+  <rect x="160" y="118" width="150" height="60" fill="#fff" stroke="#cbd5e1"/>
+  <text x="235" y="146" text-anchor="middle" font-size="12" fill="#334155">조회 (Read)</text>
+  <text x="235" y="165" text-anchor="middle" font-size="10" fill="#94a3b8">데이터를 가져옴</text>
+  <rect x="310" y="118" width="90" height="60" fill="#fff" stroke="#cbd5e1"/>
+  <text x="355" y="153" text-anchor="middle" font-size="14" fill="#16a34a">⭕</text>
+  <rect x="400" y="118" width="110" height="60" fill="#fff" stroke="#cbd5e1"/>
+  <text x="455" y="153" text-anchor="middle" font-size="14" fill="#16a34a">⭕</text>
+  <rect x="510" y="118" width="260" height="60" fill="#fff" stroke="#cbd5e1"/>
+  <text x="640" y="152" text-anchor="middle" font-size="12" font-family="monospace" fill="#475569">GET /users/1</text>
+
+  <!-- POST -->
+  <rect x="30" y="178" width="130" height="60" fill="#f0fdf4" stroke="#cbd5e1"/>
+  <text x="95" y="213" text-anchor="middle" font-size="15" font-weight="700" fill="#15803d">POST</text>
+  <rect x="160" y="178" width="150" height="60" fill="#fff" stroke="#cbd5e1"/>
+  <text x="235" y="206" text-anchor="middle" font-size="12" fill="#334155">생성 (Create)</text>
+  <text x="235" y="225" text-anchor="middle" font-size="10" fill="#94a3b8">새 리소스 추가</text>
+  <rect x="310" y="178" width="90" height="60" fill="#fff" stroke="#cbd5e1"/>
+  <text x="355" y="213" text-anchor="middle" font-size="14" fill="#dc2626">❌</text>
+  <rect x="400" y="178" width="110" height="60" fill="#fef2f2" stroke="#cbd5e1"/>
+  <text x="455" y="213" text-anchor="middle" font-size="14" fill="#dc2626">❌</text>
+  <rect x="510" y="178" width="260" height="60" fill="#fff" stroke="#cbd5e1"/>
+  <text x="640" y="212" text-anchor="middle" font-size="12" font-family="monospace" fill="#475569">POST /users</text>
+
+  <!-- PUT -->
+  <rect x="30" y="238" width="130" height="60" fill="#fff7ed" stroke="#cbd5e1"/>
+  <text x="95" y="273" text-anchor="middle" font-size="15" font-weight="700" fill="#c2410c">PUT</text>
+  <rect x="160" y="238" width="150" height="60" fill="#fff" stroke="#cbd5e1"/>
+  <text x="235" y="266" text-anchor="middle" font-size="12" fill="#334155">전체 수정 (Update)</text>
+  <text x="235" y="285" text-anchor="middle" font-size="10" fill="#94a3b8">리소스 통째로 교체</text>
+  <rect x="310" y="238" width="90" height="60" fill="#fff" stroke="#cbd5e1"/>
+  <text x="355" y="273" text-anchor="middle" font-size="14" fill="#dc2626">❌</text>
+  <rect x="400" y="238" width="110" height="60" fill="#fff" stroke="#cbd5e1"/>
+  <text x="455" y="273" text-anchor="middle" font-size="14" fill="#16a34a">⭕</text>
+  <rect x="510" y="238" width="260" height="60" fill="#fff" stroke="#cbd5e1"/>
+  <text x="640" y="272" text-anchor="middle" font-size="12" font-family="monospace" fill="#475569">PUT /users/1</text>
+
+  <!-- PATCH -->
+  <rect x="30" y="298" width="130" height="60" fill="#faf5ff" stroke="#cbd5e1"/>
+  <text x="95" y="333" text-anchor="middle" font-size="15" font-weight="700" fill="#7e22ce">PATCH</text>
+  <rect x="160" y="298" width="150" height="60" fill="#fff" stroke="#cbd5e1"/>
+  <text x="235" y="326" text-anchor="middle" font-size="12" fill="#334155">부분 수정 (Update)</text>
+  <text x="235" y="345" text-anchor="middle" font-size="10" fill="#94a3b8">일부 필드만 변경</text>
+  <rect x="310" y="298" width="90" height="60" fill="#fff" stroke="#cbd5e1"/>
+  <text x="355" y="333" text-anchor="middle" font-size="14" fill="#dc2626">❌</text>
+  <rect x="400" y="298" width="110" height="60" fill="#fff" stroke="#cbd5e1"/>
+  <text x="455" y="329" text-anchor="middle" font-size="12" fill="#d97706">△</text>
+  <text x="455" y="348" text-anchor="middle" font-size="9" fill="#94a3b8">구현에 따라</text>
+  <rect x="510" y="298" width="260" height="60" fill="#fff" stroke="#cbd5e1"/>
+  <text x="640" y="332" text-anchor="middle" font-size="12" font-family="monospace" fill="#475569">PATCH /users/1</text>
+
+  <!-- DELETE -->
+  <rect x="30" y="358" width="130" height="60" fill="#fef2f2" stroke="#cbd5e1"/>
+  <text x="95" y="393" text-anchor="middle" font-size="15" font-weight="700" fill="#b91c1c">DELETE</text>
+  <rect x="160" y="358" width="150" height="60" fill="#fff" stroke="#cbd5e1"/>
+  <text x="235" y="386" text-anchor="middle" font-size="12" fill="#334155">삭제 (Delete)</text>
+  <text x="235" y="405" text-anchor="middle" font-size="10" fill="#94a3b8">리소스 제거</text>
+  <rect x="310" y="358" width="90" height="60" fill="#fff" stroke="#cbd5e1"/>
+  <text x="355" y="393" text-anchor="middle" font-size="14" fill="#dc2626">❌</text>
+  <rect x="400" y="358" width="110" height="60" fill="#fff" stroke="#cbd5e1"/>
+  <text x="455" y="393" text-anchor="middle" font-size="14" fill="#16a34a">⭕</text>
+  <rect x="510" y="358" width="260" height="60" fill="#fff" stroke="#cbd5e1"/>
+  <text x="640" y="392" text-anchor="middle" font-size="12" font-family="monospace" fill="#475569">DELETE /users/1</text>
+
+  <text x="400" y="445" text-anchor="middle" font-size="11" fill="#94a3b8">△ PATCH는 "부분 수정"이라 요청 내용에 따라 멱등일 수도, 아닐 수도 있다</text>
+</svg>

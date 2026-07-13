@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 780 440" font-family="'Malgun Gothic','Apple SD Gothic Neo',sans-serif">
+  <rect width="780" height="440" fill="#f8fafc"/>
+  <text x="390" y="36" text-anchor="middle" font-size="22" font-weight="700" fill="#0f172a">플랫폼 스레드 vs 가상 스레드</text>
+
+  <!-- Left: Platform thread 1:1 -->
+  <rect x="30" y="60" width="345" height="350" rx="12" fill="#eff6ff" stroke="#3b82f6" stroke-width="2"/>
+  <text x="202" y="88" text-anchor="middle" font-size="16" font-weight="700" fill="#1d4ed8">플랫폼 스레드 (1 : 1)</text>
+  <text x="202" y="110" text-anchor="middle" font-size="12" fill="#475569">자바 스레드 1개 = OS 스레드 1개</text>
+
+  <rect x="70" y="130" width="90" height="36" rx="6" fill="#dbeafe" stroke="#60a5fa"/>
+  <text x="115" y="153" text-anchor="middle" font-size="12" fill="#1e3a8a">Java T1</text>
+  <rect x="245" y="130" width="90" height="36" rx="6" fill="#dbeafe" stroke="#60a5fa"/>
+  <text x="290" y="153" text-anchor="middle" font-size="12" fill="#1e3a8a">Java T2</text>
+
+  <path d="M115 168 L115 220" stroke="#3b82f6" stroke-width="2" fill="none" marker-end="url(#ab)"/>
+  <path d="M290 168 L290 220" stroke="#3b82f6" stroke-width="2" fill="none" marker-end="url(#ab)"/>
+
+  <rect x="70" y="223" width="90" height="36" rx="6" fill="#1e293b"/>
+  <text x="115" y="246" text-anchor="middle" font-size="12" fill="#fff">OS T1</text>
+  <rect x="245" y="223" width="90" height="36" rx="6" fill="#1e293b"/>
+  <text x="290" y="246" text-anchor="middle" font-size="12" fill="#fff">OS T2</text>
+
+  <rect x="60" y="290" width="285" height="100" rx="8" fill="#dbeafe"/>
+  <text x="202" y="316" text-anchor="middle" font-size="12" fill="#1e3a8a">• OS가 관리 → 만들기 무거움</text>
+  <text x="202" y="340" text-anchor="middle" font-size="12" fill="#1e3a8a">• 스레드 1개당 약 1MB 점유</text>
+  <text x="202" y="364" text-anchor="middle" font-size="12" fill="#1e3a8a">• 개수 제한적 (수천 개가 한계)</text>
+
+  <!-- Right: Virtual thread M:N -->
+  <rect x="405" y="60" width="345" height="350" rx="12" fill="#f0fdf4" stroke="#22c55e" stroke-width="2"/>
+  <text x="577" y="88" text-anchor="middle" font-size="16" font-weight="700" fill="#15803d">가상 스레드 (M : N)</text>
+  <text x="577" y="110" text-anchor="middle" font-size="12" fill="#475569">수만 개 가상 스레드 = 소수 OS 스레드</text>
+
+  <!-- many virtual threads -->
+  <g fill="#dcfce7" stroke="#22c55e">
+    <rect x="430" y="130" width="42" height="26" rx="4"/>
+    <rect x="478" y="130" width="42" height="26" rx="4"/>
+    <rect x="526" y="130" width="42" height="26" rx="4"/>
+    <rect x="574" y="130" width="42" height="26" rx="4"/>
+    <rect x="622" y="130" width="42" height="26" rx="4"/>
+    <rect x="670" y="130" width="42" height="26" rx="4"/>
+    <rect x="454" y="164" width="42" height="26" rx="4"/>
+    <rect x="502" y="164" width="42" height="26" rx="4"/>
+    <rect x="550" y="164" width="42" height="26" rx="4"/>
+    <rect x="598" y="164" width="42" height="26" rx="4"/>
+    <rect x="646" y="164" width="42" height="26" rx="4"/>
+  </g>
+  <text x="577" y="210" text-anchor="middle" font-size="11" fill="#15803d">가상 스레드 수만 개 (가볍고 쌈)</text>
+
+  <path d="M520 216 L520 246" stroke="#16a34a" stroke-width="2" fill="none" marker-end="url(#ag)"/>
+  <path d="M635 216 L635 246" stroke="#16a34a" stroke-width="2" fill="none" marker-end="url(#ag)"/>
+
+  <rect x="475" y="248" width="90" height="36" rx="6" fill="#166534"/>
+  <text x="520" y="271" text-anchor="middle" font-size="11" fill="#fff">OS T1 (운반)</text>
+  <rect x="590" y="248" width="90" height="36" rx="6" fill="#166534"/>
+  <text x="635" y="271" text-anchor="middle" font-size="11" fill="#fff">OS T2 (운반)</text>
+
+  <rect x="435" y="300" width="285" height="90" rx="8" fill="#dcfce7"/>
+  <text x="577" y="326" text-anchor="middle" font-size="12" fill="#166534">• JVM이 관리 → 만들기 매우 가벼움</text>
+  <text x="577" y="350" text-anchor="middle" font-size="12" fill="#166534">• 수만~수십만 개 생성 가능</text>
+  <text x="577" y="374" text-anchor="middle" font-size="12" fill="#166534">• Java 21 정식 도입 (JEP 444)</text>
+
+  <defs>
+    <marker id="ab" markerWidth="9" markerHeight="9" refX="7" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 z" fill="#3b82f6"/></marker>
+    <marker id="ag" markerWidth="9" markerHeight="9" refX="7" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 z" fill="#16a34a"/></marker>
+  </defs>
+</svg>

@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% if page.title %}{{ page.title }} · {% endif %}{{ site.title }}</title>
+  <meta name="description" content="{{ page.description | default: site.description }}">
+  <link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}">
+  {%- if jekyll.environment != "development" -%}{% feed_meta %}{%- endif -%}
+</head>
+<body>
+  <header class="site-header">
+    <div class="container bar">
+      <a class="brand" href="{{ '/' | relative_url }}">
+        <span class="brand-mark" aria-hidden="true">📈</span>
+        <span>{{ site.title }}</span>
+      </a>
+      <a class="rss" href="{{ '/feed.xml' | relative_url }}" title="RSS 구독">RSS</a>
+    </div>
+  </header>
+
+  <main class="container">
+    {{ content }}
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p class="foot-desc">{{ site.description }}</p>
+      <p class="muted small">자동 생성 리포트 · 투자 조언이 아닙니다 · <a href="{{ '/' | relative_url }}">홈</a></p>
+    </div>
+  </footer>
+</body>
+</html>

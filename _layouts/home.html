@@ -1,0 +1,29 @@
+---
+layout: default
+---
+<section class="hero">
+  <p class="eyebrow">매일 시장 리포트</p>
+  <h1 class="hero-title">{{ site.title }}</h1>
+  <p class="hero-lede">{{ site.description }}</p>
+  <div class="hero-note">⚠️ 근거 있는 확률·시나리오 기록입니다. 예측 적중이 아니라 자기검증이 목적이며, 매매 판단·책임은 본인에게 있습니다.</div>
+  {{ content }}
+</section>
+
+<section class="post-list" aria-label="리포트 목록">
+  <div class="list-head">
+    <h2>리포트</h2>
+    <span class="count">{{ site.posts | size }}편</span>
+  </div>
+  <ol class="posts">
+    {% for post in site.posts %}
+    <li class="post-item{% if forloop.first %} latest{% endif %}">
+      <a href="{{ post.url | relative_url }}">
+        <time class="p-date" datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%Y.%m.%d" }}</time>
+        <span class="p-title">{{ post.title }}</span>
+        {% if forloop.first %}<span class="p-badge">최신</span>{% endif %}
+        <span class="p-arrow" aria-hidden="true">→</span>
+      </a>
+    </li>
+    {% endfor %}
+  </ol>
+</section>

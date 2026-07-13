@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 780 350" font-family="'Malgun Gothic','Apple SD Gothic Neo',sans-serif">
+  <rect width="780" height="350" fill="#f8fafc"/>
+  <text x="390" y="36" text-anchor="middle" font-size="22" font-weight="700" fill="#0f172a">메시징 — 객체 간의 분업과 소통</text>
+  <text x="390" y="58" text-anchor="middle" font-size="13" fill="#64748b">각 객체는 자기 역할이 있고, 서로 메시지(메서드 호출)로 협력한다</text>
+
+  <!-- 사람 객체 -->
+  <rect x="70" y="110" width="200" height="150" rx="12" fill="#eff6ff" stroke="#3b82f6" stroke-width="2"/>
+  <text x="170" y="140" text-anchor="middle" font-size="28">🙋</text>
+  <text x="170" y="172" text-anchor="middle" font-size="15" font-weight="700" fill="#1d4ed8">사람 객체</text>
+  <text x="170" y="198" text-anchor="middle" font-size="11" fill="#475569">역할: 돈을 쓰고 관리</text>
+  <text x="170" y="228" text-anchor="middle" font-size="11" fill="#94a3b8">"계좌에서 돈 좀 빼줘"</text>
+
+  <!-- 계좌 객체 -->
+  <rect x="510" y="110" width="200" height="150" rx="12" fill="#f0fdf4" stroke="#22c55e" stroke-width="2"/>
+  <text x="610" y="140" text-anchor="middle" font-size="28">🏦</text>
+  <text x="610" y="172" text-anchor="middle" font-size="15" font-weight="700" fill="#15803d">계좌 객체</text>
+  <text x="610" y="198" text-anchor="middle" font-size="11" fill="#475569">역할: 잔액 보관·관리</text>
+  <text x="610" y="228" text-anchor="middle" font-size="11" fill="#94a3b8">잔액 확인 후 차감</text>
+
+  <!-- message -->
+  <path d="M275 165 L505 165" stroke="#3b82f6" stroke-width="2.5" fill="none" marker-end="url(#ab)"/>
+  <rect x="300" y="128" width="180" height="30" rx="15" fill="#1e293b"/>
+  <text x="390" y="148" text-anchor="middle" font-size="12" font-family="monospace" fill="#fde68a">사람.인출(계좌)</text>
+
+  <path d="M505 205 L275 205" stroke="#22c55e" stroke-width="2.5" fill="none" marker-end="url(#ag)"/>
+  <text x="390" y="225" text-anchor="middle" font-size="11" fill="#15803d">현금 반환</text>
+
+  <text x="390" y="300" text-anchor="middle" font-size="12" fill="#64748b">사람은 "돈 빼줘"라고 요청만 할 뿐, 잔액을 어떻게 관리하는지는 계좌 객체가 알아서 한다</text>
+  <text x="390" y="322" text-anchor="middle" font-size="11" fill="#94a3b8">→ 이렇게 객체들이 메시지를 주고받으며 일을 나눠 처리하는 것이 "메시징"</text>
+
+  <defs>
+    <marker id="ab" markerWidth="9" markerHeight="9" refX="7" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 z" fill="#3b82f6"/></marker>
+    <marker id="ag" markerWidth="9" markerHeight="9" refX="7" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 z" fill="#22c55e"/></marker>
+  </defs>
+</svg>

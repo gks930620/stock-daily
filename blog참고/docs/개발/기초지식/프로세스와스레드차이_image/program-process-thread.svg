@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 780 340" font-family="'Malgun Gothic','Apple SD Gothic Neo',sans-serif">
+  <rect width="780" height="340" fill="#f8fafc"/>
+  <text x="390" y="38" text-anchor="middle" font-size="22" font-weight="700" fill="#0f172a">프로그램 → 프로세스 → 스레드</text>
+
+  <!-- Program -->
+  <rect x="40" y="90" width="200" height="160" rx="12" fill="#f1f5f9" stroke="#94a3b8" stroke-width="2"/>
+  <text x="140" y="118" text-anchor="middle" font-size="16" font-weight="700" fill="#334155">Program</text>
+  <text x="140" y="150" text-anchor="middle" font-size="12" fill="#475569">디스크의 실행 파일</text>
+  <text x="140" y="172" text-anchor="middle" font-size="12" fill="#475569">(정적 · 실행 전)</text>
+  <text x="140" y="210" text-anchor="middle" font-size="30">💾</text>
+
+  <!-- Process -->
+  <rect x="290" y="90" width="200" height="160" rx="12" fill="#eff6ff" stroke="#3b82f6" stroke-width="2"/>
+  <text x="390" y="118" text-anchor="middle" font-size="16" font-weight="700" fill="#1d4ed8">Process</text>
+  <text x="390" y="150" text-anchor="middle" font-size="12" fill="#475569">실행 중인 프로그램</text>
+  <text x="390" y="172" text-anchor="middle" font-size="12" fill="#475569">+ OS 자원 할당</text>
+  <text x="390" y="210" text-anchor="middle" font-size="30">⚙️</text>
+
+  <!-- Thread -->
+  <rect x="540" y="90" width="200" height="160" rx="12" fill="#f0fdf4" stroke="#22c55e" stroke-width="2"/>
+  <text x="640" y="118" text-anchor="middle" font-size="16" font-weight="700" fill="#15803d">Thread</text>
+  <text x="640" y="150" text-anchor="middle" font-size="12" fill="#475569">프로세스 내부에서</text>
+  <text x="640" y="172" text-anchor="middle" font-size="12" fill="#475569">코드를 실행하는 흐름</text>
+  <text x="640" y="210" text-anchor="middle" font-size="30">🧵</text>
+
+  <!-- arrows -->
+  <path d="M242 170 L288 170" stroke="#64748b" stroke-width="2.5" fill="none" marker-end="url(#a)"/>
+  <text x="265" y="160" text-anchor="middle" font-size="11" fill="#64748b">실행</text>
+  <path d="M492 170 L538 170" stroke="#64748b" stroke-width="2.5" fill="none" marker-end="url(#a)"/>
+  <text x="515" y="160" text-anchor="middle" font-size="11" fill="#64748b">흐름 분리</text>
+
+  <text x="390" y="290" text-anchor="middle" font-size="13" fill="#64748b">정적 파일이 실행되면 프로세스가 되고, 그 안에서 실제 코드를 돌리는 단위가 스레드다</text>
+
+  <defs>
+    <marker id="a" markerWidth="9" markerHeight="9" refX="7" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 z" fill="#64748b"/></marker>
+  </defs>
+</svg>
