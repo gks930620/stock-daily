@@ -18,11 +18,15 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import yfinance as yf
 
-# 한글 폰트 (윈도우 기본). 없으면 무시.
-try:
-    matplotlib.rcParams["font.family"] = "Malgun Gothic"
-except Exception:
-    pass
+# 한글 폰트: 사용 가능한 후보 중 자동 선택 (윈도우/리눅스 겸용).
+#   윈도우=Malgun Gothic, 리눅스(GitHub Actions)=NanumGothic(fonts-nanum 설치 시).
+from matplotlib import font_manager as _fm
+_KR_FONT_CANDIDATES = ["Malgun Gothic", "NanumGothic", "NanumBarunGothic", "AppleGothic"]
+_available = {f.name for f in _fm.fontManager.ttflist}
+for _f in _KR_FONT_CANDIDATES:
+    if _f in _available:
+        matplotlib.rcParams["font.family"] = _f
+        break
 matplotlib.rcParams["axes.unicode_minus"] = False
 
 KST = timezone(timedelta(hours=9))
