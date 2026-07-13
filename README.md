@@ -41,7 +41,8 @@ GitHub Pages → 사이트 자동 반영
 
 ## 자동화 켜기
 
-[AUTOMATION.md](AUTOMATION.md) 참고. 처음엔 **윈도우 작업 스케줄러(방식 A)** 로 오전 8시 1회 실행을 권장합니다.
+- ⭐ **클라우드(추천)**: [CLOUD-AUTOMATION.md](CLOUD-AUTOMATION.md) — GitHub Actions로 **내 PC 없이** 매일 자동 실행. 과금은 **내 Max 플랜 사용량**(API 아님). 워크플로: [.github/workflows/daily.yml](.github/workflows/daily.yml)
+- **로컬(백업)**: [AUTOMATION.md](AUTOMATION.md) — 윈도우 작업 스케줄러로 내 PC에서 실행 (PC 켜져 있어야 함).
 
 ## 단계
 
