@@ -14,7 +14,10 @@ index.md                        # 홈 (리포트 목록 자동 표시)
 _posts/YYYY-MM-DD-market-report.md   # 매일 생성되는 리포트
 prompts/daily-report.md         # 매일 실행되는 지시문(Claude에게)
 config/watchlist.yaml           # 수집 종목 목록 (여기만 편집하면 반영)
-scripts/collect_data.py         # 시세 데이터 수집 (yfinance)
+scripts/collect_data.py         # 시세+경제지표(FRED) 수집 (yfinance)
+scripts/screener.py             # 비인기 종목 후보 발굴 (FinanceDataReader)
+scripts/make_charts.py          # 차트 이미지(PNG) 생성 (matplotlib)
+assets/charts/YYYY-MM-DD/*.png  # 리포트에 삽입되는 차트 이미지
 scripts/run-daily.ps1           # 예약 실행 스크립트 (수집→분석→push)
 requirements.txt                # 파이썬 패키지 목록
 AUTOMATION.md                   # 예약(루틴) 설정 방법
@@ -42,8 +45,9 @@ GitHub Pages → 사이트 자동 반영
 
 ## 단계
 
-- **1단계 (현재)**: Python 시세 수집(지수·환율·금리·지표) + 웹검색 뉴스 → 리포트
-- **2단계 (예정)**: 수집 데이터로 차트(PNG) 생성해 리포트에 삽입
-- **3단계 (선택)**: 한국 상세수급(pykrx)·경제지표(FRED)·특정 사이트 크롤러 확장
+- **1단계 (완료)**: 시세·경제지표 수집 + 비인기종목 스크리너 + 웹검색 뉴스 → 리포트
+- **2단계 (완료)**: 차트(PNG) 생성 → 리포트에 삽입 + Claude가 이미지 시각 분석
+- **3단계 (예정)**: 매일 자동 실행(예약) — [AUTOMATION.md](AUTOMATION.md)
+- **확장 (선택)**: 한국 상세수급, 특정 사이트 크롤러 등
 
 > ⚠️ 투자 조언이 아닙니다. 매매 판단과 책임은 본인에게 있습니다.
