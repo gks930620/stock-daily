@@ -1,54 +1,41 @@
-# 매일 주식시장 예상 (Claude Code 자동 리포트)
+# 매일 주식시장 예상 (stock-daily)
 
-매일 아침 Claude Code가 미국·한국 시장의 데이터·뉴스를 종합해 **확률적 시장 시나리오 리포트**를 만들고, GitHub Pages 공개 사이트에 자동 게시합니다.
+매일 아침 **GitHub 서버**가 데이터를 모으고 **Claude가 분석**해, 확률적 시장 시나리오 리포트를 공개 사이트에 자동 게시합니다.
 
-- **분석**: Claude Code (하루 1회, 구독 사용량 내)
-- **게시**: 마크다운(.md) → GitHub Pages(Jekyll) 정적 사이트 → 사용자 열람 비용 0
-- **목적**: "예측 적중"이 아니라 근거 있는 판단 + 자기검증 기록
+- 🌐 **공개 사이트**: https://gks930620.github.io/stock-daily/
+- ⏰ 매일 08:00 KST 자동 실행 (GitHub Actions) · 분석 = Claude(Max 구독) · 데이터 = 파이썬
+- ⚠️ 투자 조언이 아닙니다. "예측 적중"이 아니라 **근거 있는 확률 + 자기검증** 기록입니다.
 
-## 구조
+## 📚 문서 지도
 
-```
-_config.yml                     # Jekyll 사이트 설정
-index.md                        # 홈 (리포트 목록 자동 표시)
-_posts/YYYY-MM-DD-market-report.md   # 매일 생성되는 리포트
-prompts/daily-report.md         # 매일 실행되는 지시문(Claude에게)
-config/watchlist.yaml           # 수집 종목 목록 (여기만 편집하면 반영)
-scripts/collect_data.py         # 시세+경제지표(FRED) 수집 (yfinance)
-scripts/screener.py             # 비인기 종목 후보 발굴 (FinanceDataReader)
-scripts/make_charts.py          # 차트 이미지(PNG) 생성 (matplotlib)
-assets/charts/YYYY-MM-DD/*.png  # 리포트에 삽입되는 차트 이미지
-scripts/run-daily.ps1           # 예약 실행 스크립트 (수집→분석→push)
-requirements.txt                # 파이썬 패키지 목록
-AUTOMATION.md                   # 예약(루틴) 설정 방법
-TOOLING.md                      # 파이썬/venv 도구 설정
-DESIGN.md                       # 전체 설계 문서
-```
+| 문서 | 내용 |
+|---|---|
+| **[docs/OVERVIEW.md](docs/OVERVIEW.md)** | ⭐ **여기부터** — 프로젝트·자동화를 그림(흐름도)으로 한눈에 |
+| [docs/DESIGN.md](docs/DESIGN.md) | 전체 설계 (철학·데이터소스·리포트 구조·스크리너 로직·로드맵) |
+| [docs/CLOUD-AUTOMATION.md](docs/CLOUD-AUTOMATION.md) | ⭐ 클라우드 자동화 (GitHub Actions, Max 사용량, 토큰 발급) |
+| [docs/AUTOMATION.md](docs/AUTOMATION.md) | 로컬 자동화 (윈도우 작업 스케줄러 · 백업용) |
+| [docs/TOOLING.md](docs/TOOLING.md) | 파이썬/venv 환경 설정 |
 
-## 동작 흐름
+## 🗂 폴더 구조
 
 ```
-스케줄러(오전 8시)
-  → (1) 파이썬(scripts/collect_data.py)이 시세·지표 수집 → data/오늘/market.json
-  → (2) Claude Code가 그 데이터 + 웹검색(뉴스)으로 분석 → _posts/오늘.md 생성 → git push
-GitHub Pages → 사이트 자동 반영
+_config.yml / index.md          Jekyll 사이트 설정 / 홈
+_posts/YYYY-MM-DD-...md          매일 생성되는 리포트
+assets/charts/YYYY-MM-DD/*.png   리포트에 삽입되는 차트
+config/watchlist.yaml            수집 종목 목록 (여기만 편집하면 반영)
+prompts/daily-report.md          Claude에게 주는 매일 지시문
+scripts/collect_data.py          시세+경제지표(FRED) 수집
+scripts/make_charts.py           차트 이미지 생성
+scripts/screener.py              비인기 종목 후보 발굴
+scripts/run-daily.ps1            로컬 실행 스크립트
+.github/workflows/daily.yml      클라우드 자동 실행 (GitHub Actions)
+docs/                            설계·문서
 ```
 
-- **숫자 데이터**(약 45종목: 지수·섹터ETF·원자재·암호화폐·채권금리·환율·주요주 + MACD·볼린저·추세배열 등 지표)는 Python(yfinance)이 안정적으로 수집
-- 수집 종목은 [config/watchlist.yaml](config/watchlist.yaml)에서 자유롭게 추가/삭제
-- **뉴스·시황**은 Claude 웹검색으로 여러 소스 커버
-- 파이썬 환경 설정은 [TOOLING.md](TOOLING.md) 참고
+## ⚙️ 자동화 켜기
 
-## 자동화 켜기
+**클라우드(권장)** — 내 PC 없이 GitHub 서버에서 실행: [docs/CLOUD-AUTOMATION.md](docs/CLOUD-AUTOMATION.md)
+1. `claude setup-token` 으로 토큰 발급
+2. GitHub Secret `CLAUDE_CODE_OAUTH_TOKEN` 등록
 
-- ⭐ **클라우드(추천)**: [CLOUD-AUTOMATION.md](CLOUD-AUTOMATION.md) — GitHub Actions로 **내 PC 없이** 매일 자동 실행. 과금은 **내 Max 플랜 사용량**(API 아님). 워크플로: [.github/workflows/daily.yml](.github/workflows/daily.yml)
-- **로컬(백업)**: [AUTOMATION.md](AUTOMATION.md) — 윈도우 작업 스케줄러로 내 PC에서 실행 (PC 켜져 있어야 함).
-
-## 단계
-
-- **1단계 (완료)**: 시세·경제지표 수집 + 비인기종목 스크리너 + 웹검색 뉴스 → 리포트
-- **2단계 (완료)**: 차트(PNG) 생성 → 리포트에 삽입 + Claude가 이미지 시각 분석
-- **3단계 (예정)**: 매일 자동 실행(예약) — [AUTOMATION.md](AUTOMATION.md)
-- **확장 (선택)**: 한국 상세수급, 특정 사이트 크롤러 등
-
-> ⚠️ 투자 조언이 아닙니다. 매매 판단과 책임은 본인에게 있습니다.
+이후 매일 자동으로 [수집 → 차트 → 스크리너 → Claude 분석 → 게시]가 돌아갑니다.

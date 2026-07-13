@@ -1,7 +1,7 @@
 # 자동화 설정 방법 (예약 실행)
 
 이 문서는 **매일 정해진 시간에 Claude Code가 리포트를 자동 생성·게시**하도록 설정하는 방법입니다.
-실행되는 명령의 내용은 [prompts/daily-report.md](prompts/daily-report.md)에 있습니다.
+실행되는 명령의 내용은 [prompts/daily-report.md](../prompts/daily-report.md)에 있습니다.
 
 ---
 
@@ -66,7 +66,7 @@ PC를 안 켜도 됩니다. Claude Code 대화창에서:
 /schedule
 ```
 
-를 실행해 매일 cron 예약을 만들고, 실행 내용으로 [prompts/daily-report.md](prompts/daily-report.md)의 지시문을 넣습니다.
+를 실행해 매일 cron 예약을 만들고, 실행 내용으로 [prompts/daily-report.md](../prompts/daily-report.md)의 지시문을 넣습니다.
 
 ⚠️ **주의**: 클라우드에서 실행되므로 이 저장소에 **git push 할 수 있는 권한(깃허브 인증)** 이 그 환경에 필요합니다. 로컬 파일/차트 생성이 필요 없는 "웹검색 기반 리포트"에는 적합하지만, push 인증 설정이 방식 A보다 까다롭습니다. 처음엔 **방식 A를 권장**합니다.
 

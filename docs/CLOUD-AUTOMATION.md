@@ -7,7 +7,7 @@ Spring Boot 같은 서버를 직접 만들 필요 없이, 저장소의 워크플
 - **분석**: Claude Code — **내 Max 플랜 사용량으로 차감** (API 토큰당 과금 ❌)
 - **트리거**: 매일 08:00 KST (워크플로 cron `0 23 * * *` = UTC 23:00 전날)
 
-파일: [.github/workflows/daily.yml](.github/workflows/daily.yml)
+파일: [.github/workflows/daily.yml](../.github/workflows/daily.yml)
 
 ---
 
