@@ -31,7 +31,8 @@ layout: default
 
   {% if p.holdings_view and p.holdings_view.size > 0 %}
   <h2>보유 종목</h2>
-  <p class="muted small">종목명을 클릭하면 거래 내역(언제·얼마에·몇 주)이 펼쳐집니다.</p>
+  <p class="muted small">종목명을 클릭하면 거래 내역(언제·얼마에·몇 주)이 펼쳐집니다.
+  {% if p.priced_at != "" %}<br>💡 <b>현재가 기준: {{ p.priced_at | slice: 0, 16 | replace: "T", " " }}</b> (하루 3회 — 08·18·21시 수집 시점의 시세로 갱신. 실시간 아님. 한국주는 18시 이후 = 당일 종가){% endif %}</p>
   <div class="pf-tablewrap">
   <table class="pf-holdings">
     <thead><tr><th>종목</th><th>수량</th><th>평균단가</th><th>현재가</th><th>평가액</th><th>비중</th><th>손익</th></tr></thead>

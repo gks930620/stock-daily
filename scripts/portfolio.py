@@ -239,6 +239,7 @@ def main() -> int:
         "cash_weight_pct": round(cash / total * 100, 1) if total else 0,
         "day_chg_pct": day_chg_pct,
         "days": len(hist),
+        "priced_at": market.get("generated_at_kst", ""),   # 현재가 기준 시각 (수집 시각)
     })
     state["journal_view"] = list(reversed(journal))     # 최신이 위로 (사이트 표시용)
     state["history_view"] = list(reversed(hist))
