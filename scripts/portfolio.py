@@ -9,7 +9,9 @@
   · 암호화폐·원자재(24시간 거래): 주문 즉시 그 시점 시세로 체결
   · 한국주 정수 주수, 해외 소수점 + 체결 시점 환율 기록
 
-상태: _data/portfolio.json (holdings/lots/journal/pending_orders/history)
+성향별 3인: 실행 `python portfolio.py <label> <persona>` (persona=stable|aggressive|contrarian)
+상태: _data/portfolio-<persona>.json (holdings/lots/journal/pending_orders/history)
+주문: portfolio/orders/<날짜>-<세션>-<persona>.json · 자산곡선: assets/portfolio/equity-<persona>.png
 """
 
 from __future__ import annotations
@@ -37,6 +39,13 @@ KRW_CATEGORIES = {"kr_index", "kr_stock"}
 TRADABLE = {"us_stock", "kr_stock", "us_sector", "crypto", "commodity"}
 IMMEDIATE = {"crypto", "commodity"}          # 24시간 거래 → 즉시 체결
 SESSION_LABEL = {"kr": "🇰🇷 아침", "us": "🇺🇸 저녁", "fill": "⚡ 체결", "": ""}
+
+# 성향별 AI 투자자 3명 — 각자 독립 계좌(_data/portfolio-<id>.json)
+PERSONAS = {
+    "stable":     {"name": "안정형",   "emoji": "🛡️", "tag": "가치·방어 — 저평가 우량주·배당, 현금 넉넉, 손실 최소 우선"},
+    "aggressive": {"name": "공격형",   "emoji": "🚀", "tag": "성장·모멘텀 — 주도주 추종, 집중 투자, 현금 최소"},
+    "contrarian": {"name": "역발상형", "emoji": "🎯", "tag": "컨트래리안 — 과매도·낙폭과대를 남들이 팔 때 매수"},
+}
 
 
 def load_json(path: Path, default=None):
@@ -134,8 +143,15 @@ def exec_sell(holdings, cash, t, info, qty_req, price_krw, today, session, reaso
 
 
 def main() -> int:
-    # 선택 인자: 실행 라벨 (morning/krclose/uspre). krclose(18시)일 때만 일별 평가를 '확정'한다.
+    # 인자: <label> <persona>
+    #   label   = morning/krclose/uspre (krclose=18시 일별평가 확정)
+    #   persona = stable|aggressive|contrarian (성향별 독립 계좌)
     label = sys.argv[1] if len(sys.argv) > 1 else None
+    persona = sys.argv[2] if len(sys.argv) > 2 else "stable"
+    if persona not in PERSONAS:
+        print(f"알 수 없는 성향: {persona} — {list(PERSONAS)}", file=sys.stderr)
+        return 1
+    pmeta = PERSONAS[persona]
     today = datetime.now(KST).strftime("%Y-%m-%d")
     market = load_json(REPO / "data" / today / "market.json")
     if not market:
@@ -143,13 +159,13 @@ def main() -> int:
         return 0
     prices, usdkrw = price_map(market)
 
-    state_path = REPO / "_data" / "portfolio.json"
+    state_path = REPO / "_data" / f"portfolio-{persona}.json"
     state = load_json(state_path)
     if not state:
         state = {"start_date": today, "start_capital": START_CAPITAL, "currency": "KRW",
                  "cash": START_CAPITAL, "holdings": {}, "applied_orders": [],
                  "pending_orders": [], "journal": [], "history": []}
-        print(f"포트폴리오 신규 개설: {START_CAPITAL:,}원 ({today})")
+        print(f"[{persona}] 포트폴리오 신규 개설: {START_CAPITAL:,}원 ({today})")
 
     holdings = state.get("holdings", {})
     cash = float(state.get("cash", START_CAPITAL))
@@ -159,7 +175,7 @@ def main() -> int:
 
     # ── 1) 새 주문서 접수: 즉시체결(크립토·원자재) / 대기등록(주식·ETF) ──
     orders_dir = REPO / "portfolio" / "orders"
-    new_files = sorted(p for p in orders_dir.glob(f"{today}*.json") if p.stem not in applied) if orders_dir.exists() else []
+    new_files = sorted(p for p in orders_dir.glob(f"{today}-*-{persona}.json") if p.stem not in applied) if orders_dir.exists() else []
     for opath in new_files:
         doc = load_json(opath, {})
         session = doc.get("session") or (opath.stem.split("-")[-1] if opath.stem.count("-") > 2 else "")
@@ -295,6 +311,8 @@ def main() -> int:
         "day_chg_pct": day_chg_pct, "days": len(hist),
         "priced_at": market.get("generated_at_kst", ""),
         "eval_note": "일별 평가 확정 = 매일 18:00 KST (한국주 = 당일 종가 · 미국주 = 간밤 종가)",
+        "persona": persona, "persona_name": pmeta["name"],
+        "persona_emoji": pmeta["emoji"], "persona_tag": pmeta["tag"],
     })
     state["journal_view"] = list(reversed(journal))
     state["history_view"] = list(reversed(hist))
@@ -310,17 +328,17 @@ def main() -> int:
     ax.plot(dates, vals, color="#175cd3", linewidth=2, marker="o", markersize=4)
     ax.axhline(START_CAPITAL, color="#94a3b8", linestyle="--", linewidth=1, label="시작 (1억)")
     ax.fill_between(range(len(dates)), START_CAPITAL, vals, alpha=0.08, color="#175cd3")
-    ax.set_title(f"가상 포트폴리오 자산 추이 (매일 18시 평가)  ·  {total:,.0f}원 ({ret_pct:+.2f}%)", fontsize=13, fontweight="bold")
+    ax.set_title(f"[{pmeta['name']}] 가상 포트폴리오 자산 추이 (매일 18시 평가)  ·  {total:,.0f}원 ({ret_pct:+.2f}%)", fontsize=13, fontweight="bold")
     ax.yaxis.set_major_formatter(lambda x, _: f"{x/1e8:.2f}억")
     ax.legend(fontsize=9); ax.grid(alpha=0.25)
     if len(dates) > 12:
         ax.set_xticks(range(0, len(dates), max(1, len(dates) // 10)))
     fig.autofmt_xdate(rotation=0)
     fig.tight_layout()
-    fig.savefig(chart_dir / "equity.png", dpi=110)
+    fig.savefig(chart_dir / f"equity-{persona}.png", dpi=110)
     plt.close(fig)
 
-    print(f"포트폴리오: 총 {total:,.0f}원 ({ret_pct:+.2f}%) · 현금 {cash:,.0f} · 보유 {len(hold_view)} · 체결 {len(fills)}건 · 대기 {len(pending)}건")
+    print(f"[{persona}] 총 {total:,.0f}원 ({ret_pct:+.2f}%) · 현금 {cash:,.0f} · 보유 {len(hold_view)} · 체결 {len(fills)}건 · 대기 {len(pending)}건")
     return 0
 
 

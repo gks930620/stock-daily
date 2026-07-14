@@ -1,12 +1,15 @@
 ---
 layout: default
 ---
-{% assign p = site.data.portfolio %}
+{% assign p = site.data[page.pf_data] %}
 {% assign colors = "#3ba272,#e8a33d,#8b5fd6,#d3655f,#4aa3c0,#c0699d" | split: "," %}
 <div class="pf1">
 
+  {% include pf-switcher.html cur=p.persona %}
+
   <div class="hero">
-    <div class="lb">💼 가상 포트폴리오 · 1억 페이퍼 트레이딩 · {{ p.days }}일차</div>
+    <div class="lb">{{ p.persona_emoji }} <b>{{ p.persona_name }}</b> · 1억 페이퍼 트레이딩 · {{ p.days }}일차</div>
+    <div class="ptag">{{ p.persona_tag }}</div>
     <div class="amt">{{ p.total_value_str }}<small> 원</small></div>
     <div class="chips">
       <span class="chip {% if p.day_chg_pct >= 0 %}hot{% else %}cold{% endif %}">오늘 {% if p.day_chg_pct >= 0 %}▲ +{% else %}▼ {% endif %}{{ p.day_chg_pct }}%</span>
@@ -63,7 +66,7 @@ layout: default
 
   <section class="card">
     <h2>자산 추이 <span class="mut small">(매일 18시 평가)</span></h2>
-    <img src="{{ '/assets/portfolio/equity.png' | relative_url }}" alt="자산 추이 차트">
+    <img src="{{ '/assets/portfolio/equity-' | append: p.persona | append: '.png' | relative_url }}" alt="자산 추이 차트">
   </section>
 
   <section class="card">
@@ -105,7 +108,9 @@ layout: default
 .pf1{--u:#d63c2f;--dn:#2563d0;}
 .pf1 .u{color:var(--u);} .pf1 .d{color:var(--dn);} .pf1 .mut{color:var(--muted);} .pf1 .small{font-size:13px;}
 .pf1 .hero{background:linear-gradient(160deg,#1b4c9c,#2f6fb0 58%,#3d84c8);color:#fff;border-radius:18px;padding:26px 24px 20px;box-shadow:var(--shadow);}
-.pf1 .hero .lb{font-size:13.5px;opacity:.88;}
+.pf1 .hero .lb{font-size:13.5px;opacity:.9;}
+.pf1 .hero .lb b{font-weight:800;opacity:1;}
+.pf1 .hero .ptag{font-size:12.5px;opacity:.82;margin-top:3px;}
 .pf1 .hero .amt{font-size:clamp(32px,7vw,44px);font-weight:800;letter-spacing:-.02em;line-height:1.15;font-variant-numeric:tabular-nums;}
 .pf1 .hero .amt small{font-size:.42em;font-weight:600;opacity:.85;}
 .pf1 .chips{margin-top:10px;display:flex;gap:8px;flex-wrap:wrap;}

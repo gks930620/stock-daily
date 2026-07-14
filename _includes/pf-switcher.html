@@ -1,15 +1,12 @@
 <div class="pf-switch">
-  <span>🎨 디자인 시안</span>
-  <a href="{{ '/portfolio1/' | relative_url }}" {% if include.cur == 1 %}class="on"{% endif %}>① 증권앱</a>
-  <a href="{{ '/portfolio2/' | relative_url }}" {% if include.cur == 2 %}class="on"{% endif %}>② 대시보드</a>
-  <a href="{{ '/portfolio3/' | relative_url }}" {% if include.cur == 3 %}class="on"{% endif %}>③ 명세서</a>
-  <a href="{{ '/portfolio4/' | relative_url }}" {% if include.cur == 4 %}class="on"{% endif %}>④ 타임라인</a>
-  <a href="{{ '/portfolio5/' | relative_url }}" {% if include.cur == 5 %}class="on"{% endif %}>⑤ 터미널</a>
-  <a href="{{ '/portfolio/' | relative_url }}">현재판</a>
+  <a href="{{ '/portfolio/' | relative_url }}" {% if include.cur == null %}class="on"{% endif %}>🏆 3인 비교</a>
+  <a href="{{ '/portfolio/stable/' | relative_url }}" {% if include.cur == 'stable' %}class="on"{% endif %}>🛡️ 안정형</a>
+  <a href="{{ '/portfolio/aggressive/' | relative_url }}" {% if include.cur == 'aggressive' %}class="on"{% endif %}>🚀 공격형</a>
+  <a href="{{ '/portfolio/contrarian/' | relative_url }}" {% if include.cur == 'contrarian' %}class="on"{% endif %}>🎯 역발상형</a>
 </div>
 <style>
-.pf-switch{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:14px 0 18px;font-size:13px;color:var(--muted);}
-.pf-switch a{border:1px solid var(--line);border-radius:999px;padding:4px 11px;text-decoration:none;color:var(--muted);font-weight:600;}
+.pf-switch{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:0 0 16px;font-size:13.5px;}
+.pf-switch a{border:1px solid var(--line);border-radius:999px;padding:5px 13px;text-decoration:none;color:var(--muted);font-weight:700;background:var(--card);}
 .pf-switch a:hover{color:var(--link);border-color:var(--link);}
 .pf-switch a.on{background:var(--link);border-color:var(--link);color:#fff;}
 </style>

@@ -41,25 +41,31 @@ if ($Mode -ne "collect") {
     $prompt = Get-Content -Raw "$repo\prompts\$Mode-report.md"
     & $claude -p $prompt --model opus --effort xhigh --dangerously-skip-permissions
 
-    # ② 별도 세션 = 포트폴리오 매니저 AI: 리포트+데이터+보유현황 읽고 주문서만 생성
-    Write-Host "[5] Claude(②포트폴리오 매니저) 매매 결정 ($Mode)..."
+    # ② 성향별 포트폴리오 매니저 3인 (각자 독립 세션·독립 계좌) — effort high(비용관리)
     $today = Get-Date -Format "yyyy-MM-dd"
-    $pfPrompt = (Get-Content -Raw "$repo\prompts\portfolio.md") + @"
+    foreach ($P in @("stable","aggressive","contrarian")) {
+        Write-Host "[5] Claude(②포트폴리오 매니저·$P) 매매 결정 ($Mode)..."
+        $pfPrompt = (Get-Content -Raw "$repo\prompts\persona-$P.md") + "`n" + (Get-Content -Raw "$repo\prompts\portfolio.md") + @"
 
 [실행 안내]
 - 오늘 날짜(KST): $today
-- 이번 세션: $Mode → 주문서 파일명은 반드시 portfolio/orders/$today-$Mode.json
-- 방금 나온 리포트 _posts/$today-$Mode-market.md 를 읽고 반영하라.
+- 이번 세션: $Mode / 너의 성향 id: $P
+- 주문서 파일명은 반드시 portfolio/orders/$today-$Mode-$P.json
+- 네 계좌 파일: _data/portfolio-$P.json (없으면 현금 1억 시작)
+- 방금 나온 리포트 _posts/$today-$Mode-market.md 를 읽고 네 성향대로 반영하라.
 - git 금지. 주문서 JSON 생성까지만.
 "@
-    & $claude -p $pfPrompt --model opus --effort xhigh --dangerously-skip-permissions
+        & $claude -p $pfPrompt --model opus --effort high --dangerously-skip-permissions
+    }
 
 }
 
-# 포트폴리오 체결·평가는 모든 모드에서 실행 (collect(18시) = 시가 체결 + 일별 평가 확정)
-Write-Host "[포트폴리오] 체결·평가 ($label)..."
-& $venvPython "$repo\scripts\portfolio.py" $label
-if ($LASTEXITCODE -ne 0) { Write-Warning "포트폴리오 갱신 실패(계속 진행)" }
+# 포트폴리오 체결·평가는 모든 모드에서 성향 3인 각각 실행 (collect(18시) = 시가 체결 + 일별 평가 확정)
+foreach ($P in @("stable","aggressive","contrarian")) {
+    Write-Host "[포트폴리오·$P] 체결·평가 ($label)..."
+    & $venvPython "$repo\scripts\portfolio.py" $label $P
+    if ($LASTEXITCODE -ne 0) { Write-Warning "포트폴리오($P) 갱신 실패(계속 진행)" }
+}
 
 Write-Host "커밋·푸시..."
 git add -A
