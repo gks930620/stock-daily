@@ -102,7 +102,8 @@ jobs:
           - 오늘 날짜(KST): ${REPORT_DATE} / 어제: ${YESTERDAY}
           - git 명령은 직접 실행하지 마라. 파일 생성까지만 하면 커밋·push는 워크플로가 처리한다."
           claude --version
-          claude -p "$PROMPT" --model opus --permission-mode bypassPermissions --verbose
+          # --model opus: 항상 최신 Opus / --effort xhigh: 최고 심층추론(4.8는 thinking이 effort에 종속·적응형)
+          claude -p "$PROMPT" --model opus --effort xhigh --permission-mode bypassPermissions --verbose
 
       - name: 가상 포트폴리오 체결·평가 (18시=일별 평가 확정, 시가 체결 처리)
         run: python scripts/portfolio.py ${{ steps.mode.outputs.label }}

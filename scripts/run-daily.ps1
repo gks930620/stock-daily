@@ -37,9 +37,9 @@ if ($Mode -ne "collect") {
         if ($LASTEXITCODE -ne 0) { Write-Warning "스크리너 실패(계속 진행)" }
     }
 
-    Write-Host "[4] Claude 분석·예상글 생성 ($Mode, 최신 opus)..."
+    Write-Host "[4] Claude 분석·예상글 생성 ($Mode, 최신 opus · effort xhigh)..."
     $prompt = Get-Content -Raw "$repo\prompts\$Mode-report.md"
-    & $claude -p $prompt --model opus --dangerously-skip-permissions
+    & $claude -p $prompt --model opus --effort xhigh --dangerously-skip-permissions
 
 }
 
