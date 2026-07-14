@@ -73,6 +73,16 @@ code,.mono{ font-family:"JetBrains Mono",Consolas,monospace; }
 .pf-jday{ padding:12px 0 6px; border-bottom:1px solid var(--line); }
 .pf-jhead{ font-size:15px; }
 .pf-sess{ font-size:12px; font-weight:700; background:var(--accent-soft); color:var(--link); padding:2px 8px; border-radius:999px; margin-left:6px; }
+.pf-tablewrap{ overflow-x:auto; }
+.pf-holdings{ min-width:640px; font-variant-numeric:tabular-nums; }
+.pf-holdings td, .pf-holdings th{ white-space:nowrap; }
+.pf-lots summary{ cursor:pointer; font-weight:600; color:var(--link); list-style:none; }
+.pf-lots summary::after{ content:" ▾"; font-size:11px; color:var(--muted); }
+.pf-lots[open] summary::after{ content:" ▴"; }
+.pf-lots-body{ margin-top:8px; padding:8px 10px; background:var(--quote-bg); border:1px solid var(--line); border-radius:8px; white-space:normal; }
+.pf-lot{ font-size:13px; padding:3px 0; }
+.pf-rules{ font-size:14px; color:var(--muted); padding-left:1.2em; }
+.pf-rules li{ margin:6px 0; }
 
 main.container{ padding-top:26px; }
 

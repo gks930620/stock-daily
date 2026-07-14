@@ -49,7 +49,7 @@ def eok(n):
 
 
 def price_map(market: dict):
-    """ticker -> (price_krw, category, name). USD자산은 원화 환산."""
+    """ticker -> 시세 정보. USD자산은 원화 환산 + 원 통화 가격 보존."""
     inst = market.get("instruments", {})
     usdkrw = None
     if "KRW=X" in inst and inst["KRW=X"].get("last"):
@@ -60,9 +60,15 @@ def price_map(market: dict):
         if last is None:
             continue
         cat = d.get("category", "")
-        krw = float(last) if cat in KRW_CATEGORIES else (float(last) * usdkrw if usdkrw else None)
+        is_krw = cat in KRW_CATEGORIES
+        krw = float(last) if is_krw else (float(last) * usdkrw if usdkrw else None)
         if krw:
-            out[t] = {"price_krw": krw, "category": cat, "name": d.get("name", t)}
+            out[t] = {
+                "price_krw": krw, "price_native": float(last),
+                "currency": "KRW" if is_krw else "USD",
+                "category": cat, "name": d.get("name", t),
+                "data_date": d.get("data_date"),
+            }
     return out, usdkrw
 
 
@@ -109,17 +115,33 @@ def main() -> int:
             if t not in prices:
                 print(f"  건너뜀: {t} 시세 없음", file=sys.stderr)
                 continue
-            p = prices[t]["price_krw"]
-            name = o.get("name") or prices[t]["name"]
+            info = prices[t]
+            p = info["price_krw"]
+            name = o.get("name") or info["name"]
+            session_tag = orders_doc.get("session") or (opath.stem.split("-")[-1] if opath.stem.count("-") > 2 else "")
             if act == "buy":
-                if prices[t]["category"] not in TRADABLE:
+                if info["category"] not in TRADABLE:
                     print(f"  건너뜀: {name} 매수불가 분류", file=sys.stderr); continue
-                krw = min(float(o.get("krw", 0)), cash)
-                if krw <= 0:
+                budget = min(float(o.get("krw", 0)), cash)
+                if budget <= 0:
                     continue
-                qty = krw / p
-                h = holdings.setdefault(t, {"name": name, "qty": 0.0, "cost_krw": 0.0})
+                if info["currency"] == "KRW":          # 한국 주식: 정수 주수만 (잔액은 현금 유지)
+                    qty = int(budget // p)
+                    if qty < 1:
+                        print(f"  건너뜀: {name} 예산으로 1주 미만", file=sys.stderr); continue
+                    krw = qty * p
+                else:                                    # 해외 자산: 소수점 매수 허용
+                    qty = budget / p
+                    krw = budget
+                h = holdings.setdefault(t, {"name": name, "qty": 0.0, "cost_krw": 0.0, "lots": []})
                 h["qty"] += qty; h["cost_krw"] += krw; h["name"] = name
+                h.setdefault("lots", []).append({
+                    "date": today, "session": session_tag, "qty": round(qty, 4),
+                    "price_krw": round(p), "price_native": round(info["price_native"], 2),
+                    "currency": info["currency"], "krw": round(krw),
+                    "fx": round(usdkrw, 2) if info["currency"] == "USD" and usdkrw else None,
+                    "price_date": info.get("data_date"),
+                })
                 cash -= krw
                 executed.append({"action": "매수", "ticker": t, "name": name, "krw": round(krw), "qty": round(qty, 4), "price_krw": round(p), "reason": o.get("reason", "")})
             elif act == "sell":
@@ -131,6 +153,16 @@ def main() -> int:
                 proceeds = qty * p
                 ratio = qty / h["qty"] if h["qty"] else 0
                 h["cost_krw"] *= (1 - ratio); h["qty"] -= qty; cash += proceeds
+                remain = qty                              # 매수 내역(lots)에서 FIFO 차감
+                for lot in list(h.get("lots", [])):
+                    if remain <= 1e-9:
+                        break
+                    take = min(lot["qty"], remain)
+                    lot["qty"] = round(lot["qty"] - take, 4)
+                    lot["krw"] = round(lot["qty"] * lot["price_krw"])
+                    remain -= take
+                    if lot["qty"] <= 1e-9:
+                        h["lots"].remove(lot)
                 executed.append({"action": "매도", "ticker": t, "name": name, "krw": round(proceeds), "qty": round(qty, 4), "price_krw": round(p), "reason": o.get("reason", "")})
                 if h["qty"] <= 1e-9:
                     holdings.pop(t, None)
@@ -149,16 +181,29 @@ def main() -> int:
     hold_view = []
     holdings_value = 0.0
     for t, h in holdings.items():
-        pr = prices.get(t, {}).get("price_krw")
-        if pr is None:
+        info = prices.get(t)
+        if not info:
             continue
+        pr = info["price_krw"]
         val = h["qty"] * pr
         holdings_value += val
         avg = h["cost_krw"] / h["qty"] if h["qty"] else 0
+        is_usd = info["currency"] == "USD"
+        lots_view = []
+        for lot in h.get("lots", []):
+            lots_view.append({**lot,
+                "krw_str": won(lot["krw"]), "price_krw_str": won(lot["price_krw"]),
+                "native_str": (f"${lot['price_native']:,.2f}" if lot.get("currency") == "USD" else None)})
         hold_view.append({
             "ticker": t, "name": h["name"], "qty": round(h["qty"], 4),
-            "price_krw": round(pr), "value_krw": round(val),
+            "currency": info["currency"],
+            "avg_krw": round(avg), "avg_str": won(avg),
+            "price_krw": round(pr), "price_str": won(pr),
+            "price_native_str": (f"${info['price_native']:,.2f}" if is_usd else None),
+            "price_date": info.get("data_date"),
+            "value_krw": round(val),
             "pl_pct": round((pr / avg - 1) * 100, 2) if avg else 0.0,
+            "lots": lots_view,
         })
     hold_view.sort(key=lambda x: x["value_krw"], reverse=True)
     total = cash + holdings_value

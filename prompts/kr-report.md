@@ -71,7 +71,7 @@
              {"action":"sell","ticker":"XLE","name":"에너지ETF","reason":"..."},
              {"action":"hold","reason":"관망"}]}
   ```
-- market.json에 있는 미국주·한국주·섹터ETF·원자재·암호화폐만 거래 가능. buy는 krw 필수, sell은 qty 생략 시 전량. 몰빵 금지·분산·각 주문에 근거. 확신 없으면 hold.
+- market.json에 있는 미국주·한국주·섹터ETF·원자재·암호화폐만 거래 가능. buy는 krw(예산) 필수, sell은 qty 생략 시 전량. **한국 주식은 정수 주수로 체결**되어 예산보다 약간 적게 들어갈 수 있다(잔액은 현금 유지). 몰빵 금지·분산·각 주문에 근거. 확신 없으면 hold.
 - 글의 `## 💼 오늘의 매매` 섹션에 표로 요약하고 `[가상 포트폴리오]({{ '/portfolio/' | relative_url }})` 링크.
 
 ## 6. 마무리

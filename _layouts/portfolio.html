@@ -31,26 +31,44 @@ layout: default
 
   {% if p.holdings_view and p.holdings_view.size > 0 %}
   <h2>보유 종목</h2>
-  <table>
-    <thead><tr><th>종목</th><th>평가액</th><th>비중</th><th>손익</th></tr></thead>
+  <p class="muted small">종목명을 클릭하면 거래 내역(언제·얼마에·몇 주)이 펼쳐집니다.</p>
+  <div class="pf-tablewrap">
+  <table class="pf-holdings">
+    <thead><tr><th>종목</th><th>수량</th><th>평균단가</th><th>현재가</th><th>평가액</th><th>비중</th><th>손익</th></tr></thead>
     <tbody>
       {% for h in p.holdings_view %}
       <tr>
-        <td>{{ h.name }}</td>
+        <td>
+          <details class="pf-lots">
+            <summary>{{ h.name }}</summary>
+            <div class="pf-lots-body">
+              {% for l in h.lots %}
+              <div class="pf-lot">{{ l.date }} {% if l.session == "kr" %}🇰🇷 아침{% elsif l.session == "us" %}🇺🇸 저녁{% endif %} 매수 —
+                <b>{{ l.qty }}주</b> @ {{ l.price_krw_str }}원{% if l.native_str %} ({{ l.native_str }} × 환율 {{ l.fx }}){% endif %}
+                = {{ l.krw_str }}원 <span class="muted">(시세기준일 {{ l.price_date }})</span></div>
+              {% endfor %}
+            </div>
+          </details>
+        </td>
+        <td>{{ h.qty }}</td>
+        <td>{{ h.avg_str }}원</td>
+        <td>{{ h.price_str }}원{% if h.price_native_str %}<br><span class="muted small">{{ h.price_native_str }}</span>{% endif %}</td>
         <td>{{ h.value_str }}원</td>
         <td>{{ h.weight_pct }}%</td>
-        <td class="{% if h.pl_pct >= 0 %}pos{% else %}neg{% endif %}">{{ h.pl_pct }}%</td>
+        <td class="{% if h.pl_pct >= 0 %}pos{% else %}neg{% endif %}">{% if h.pl_pct >= 0 %}+{% endif %}{{ h.pl_pct }}%</td>
       </tr>
       {% endfor %}
       <tr>
         <td>💰 현금</td>
+        <td colspan="3" class="muted">—</td>
         <td>{{ p.cash_str }}원</td>
         <td>{{ p.cash_weight_pct }}%</td>
         <td class="muted">—</td>
       </tr>
     </tbody>
   </table>
-  <p class="muted small">비중은 현금 포함 총자산 대비 · 손익은 평균 매수가 대비 (해외 자산은 원화 환산이라 환율 변동 포함)</p>
+  </div>
+  <p class="muted small">비중 = 현금 포함 총자산 대비 · 손익 = 평균단가 대비 (해외 자산은 원화 환산이라 환율 변동 포함) · 해외 현재가는 원통화 병기</p>
   {% else %}
   <p class="muted">현재 보유 종목 없음 (전액 현금).</p>
   {% endif %}
@@ -98,6 +116,16 @@ layout: default
   </table>
   {% endif %}
 
+  <h2>🧾 체결 규칙 & 검증</h2>
+  <ul class="pf-rules">
+    <li><b>체결가</b>: 세션 실행 시점(08시·21시 KST)에 수집된 <b>yfinance 최신 시세</b>로 체결합니다. 장중 특정 시각 매매는 불가능하므로 대부분 직전 종가이며, 각 거래에 <b>시세 기준일</b>을 기록합니다.</li>
+    <li><b>한국 주식은 정수 주수만</b> 체결 (잔액은 현금 유지). 해외 자산은 소수점 매수 허용(해외주식 소수점 거래처럼), <b>체결 시점 환율(원/달러)</b>을 함께 기록합니다.</li>
+    <li><b>검증</b>: 모든 수치는 저장소에 공개된 원본과 대조할 수 있습니다 —
+      <a href="https://github.com/gks930620/stock-daily/tree/main/data">시세 스냅샷(data/)</a> ·
+      <a href="https://github.com/gks930620/stock-daily/tree/main/portfolio/orders">주문서(orders/)</a> ·
+      <a href="https://github.com/gks930620/stock-daily/blob/main/_data/portfolio.json">포트폴리오 상태(portfolio.json)</a></li>
+    <li>수수료·세금·호가 슬리피지는 반영하지 않는 <b>가상 시뮬레이션</b>입니다.</li>
+  </ul>
   <p class="muted small" style="margin-top:20px">매일 08시(🇰🇷)·21시(🇺🇸) 예상글의 매매 결정이 자동 반영 · <a href="{{ '/' | relative_url }}">← 리포트 목록</a></p>
 </div>
 {% else %}
