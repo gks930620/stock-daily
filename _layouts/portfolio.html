@@ -74,6 +74,18 @@ layout: default
   <p class="muted">현재 보유 종목 없음 (전액 현금).</p>
   {% endif %}
 
+  {% if p.pending_view and p.pending_view.size > 0 %}
+  <h2>⏳ 체결 대기 주문</h2>
+  <p class="muted small">주식·ETF는 주문 시점이 아니라 <b>그 시장의 다음 개장 시가</b>에 체결됩니다 (예측 시점엔 체결가를 알 수 없음).</p>
+  <ul class="pf-orders">
+    {% for o in p.pending_view %}
+    <li><span class="pf-act {% if o.action == 'buy' %}buy{% else %}sell{% endif %}">{{ o.action_label }}예약</span>
+      <b>{{ o.name }}</b>{% if o.krw_str %} {{ o.krw_str }}원{% endif %}
+      <span class="muted">— {{ o.placed_date }} {{ o.session_label }} 주문 · {{ o.min_fill_date }} 이후 개장 시가 체결 예정 · {{ o.reason }}</span></li>
+    {% endfor %}
+  </ul>
+  {% endif %}
+
   {% if p.journal_view and p.journal_view.size > 0 %}
   <h2>📒 매매 일지</h2>
   <div class="pf-journal">
@@ -81,19 +93,22 @@ layout: default
     <div class="pf-jday">
       <div class="pf-jhead">
         <b>{{ j.date }}</b>
-        {% if j.session == "kr" %}<span class="pf-sess">🇰🇷 아침</span>{% elsif j.session == "us" %}<span class="pf-sess">🇺🇸 저녁</span>{% endif %}
+        {% if j.session == "kr" %}<span class="pf-sess">🇰🇷 아침</span>{% elsif j.session == "us" %}<span class="pf-sess">🇺🇸 저녁</span>{% elsif j.session == "fill" %}<span class="pf-sess">⚡ 체결</span>{% endif %}
         {% if j.comment != "" %}<span class="muted">— {{ j.comment }}</span>{% endif %}
       </div>
-      {% if j.trades.size > 0 %}
       <ul class="pf-orders">
+        {% for o in j.placed %}
+        <li><span class="pf-act {% if o.action contains '매수' %}buy{% elsif o.action contains '매도' %}sell{% else %}hold{% endif %}">{{ o.action }}</span>
+          {% if o.name != "-" %}<b>{{ o.name }}</b>{% endif %} <span class="muted">{{ o.detail }}</span></li>
+        {% endfor %}
         {% for o in j.trades %}
         <li><span class="pf-act {% if o.action == '매수' %}buy{% else %}sell{% endif %}">{{ o.action }}</span>
-          <b>{{ o.name }}</b> {{ o.krw_str }}원 <span class="muted">@{{ o.price_krw }}원 — {{ o.reason }}</span></li>
+          <b>{{ o.name }}</b> {{ o.krw_str }}원 <span class="muted">@{{ o.price_krw }}원 ({{ o.basis | default: "시세" }}) — {{ o.reason }}</span></li>
         {% endfor %}
+        {% if j.placed == empty and j.trades == empty %}
+        <li><span class="pf-act hold">유지</span><span class="muted">매매 없음 (관망)</span></li>
+        {% endif %}
       </ul>
-      {% else %}
-      <ul class="pf-orders"><li><span class="pf-act hold">유지</span><span class="muted">매매 없음 (관망)</span></li></ul>
-      {% endif %}
     </div>
     {% endfor %}
   </div>
@@ -119,8 +134,9 @@ layout: default
 
   <h2>🧾 체결 규칙 & 검증</h2>
   <ul class="pf-rules">
-    <li><b>체결가</b>: 세션 실행 시점(08시·21시 KST)에 수집된 <b>yfinance 최신 시세</b>로 체결합니다. 장중 특정 시각 매매는 불가능하므로 대부분 직전 종가이며, 각 거래에 <b>시세 기준일</b>을 기록합니다.</li>
-    <li><b>한국 주식은 정수 주수만</b> 체결 (잔액은 현금 유지). 해외 자산은 소수점 매수 허용(해외주식 소수점 거래처럼), <b>체결 시점 환율(원/달러)</b>을 함께 기록합니다.</li>
+    <li><b>매매는 하루 단위</b>입니다 (실시간 트레이딩 아님). 주문은 예상글에서 결정하고, <b>주식·ETF는 그 종목 시장의 "다음 개장 시가"에 체결</b> — 🇰🇷 한국주는 08시 주문 → 당일 09:00 시가, 🇺🇸 미국주는 21시 주문 → 당일 밤 22:30(KST) 개장 시가. <b>예측 시점에는 체결가를 알 수 없으므로 결과를 보고 사는 것이 불가능</b>합니다.</li>
+    <li><b>암호화폐·원자재</b>(24시간 거래)는 주문 즉시 그 시점 시세로 체결합니다.</li>
+    <li><b>한국 주식은 정수 주수만</b> 체결 (잔액은 현금 유지). 해외 자산은 소수점 매수 허용, <b>체결 시점 환율(원/달러)</b>을 함께 기록합니다. 각 거래에 체결 근거(시가/즉시)와 시세 기준일이 남습니다.</li>
     <li><b>검증</b>: 모든 수치는 저장소에 공개된 원본과 대조할 수 있습니다 —
       <a href="https://github.com/gks930620/stock-daily/tree/main/data">시세 스냅샷(data/)</a> ·
       <a href="https://github.com/gks930620/stock-daily/tree/main/portfolio/orders">주문서(orders/)</a> ·

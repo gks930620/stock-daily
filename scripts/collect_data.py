@@ -123,11 +123,18 @@ def analyze(ticker: str, name: str, category: str) -> dict:
                 vol_avg20 = round(avg)
                 vol_ratio = r(vol / avg, 2) if avg else None
 
+    open_px = None
+    if "Open" in hist:
+        o = hist["Open"].dropna()
+        if len(o):
+            open_px = o.iloc[-1]
+
     return {
         "name": name,
         "category": category,
         "data_date": close.index[-1].strftime("%Y-%m-%d"),
         "last": r(last),
+        "open": r(open_px),
         "prev": r(prev),
         "chg_pct": chg_pct,
         "chg_5d_pct": pct_change_ago(close, 5),
