@@ -102,7 +102,7 @@ jobs:
           - 오늘 날짜(KST): ${REPORT_DATE} / 어제: ${YESTERDAY}
           - git 명령은 직접 실행하지 마라. 파일 생성까지만 하면 커밋·push는 워크플로가 처리한다."
           claude --version
-          claude -p "$PROMPT" --permission-mode bypassPermissions --verbose
+          claude -p "$PROMPT" --model claude-opus-4-8 --permission-mode bypassPermissions --verbose
 
       - name: 가상 포트폴리오 매매 반영 + 자산곡선
         if: steps.mode.outputs.mode != 'collect'
