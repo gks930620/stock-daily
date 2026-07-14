@@ -89,10 +89,16 @@ def main() -> int:
     cash = float(state.get("cash", START_CAPITAL))
     executed = []
 
-    # 오늘 주문 적용 (하루 1회만)
-    orders_doc = load_json(REPO / "portfolio" / "orders" / f"{today}.json", {})
-    orders = orders_doc.get("orders", [])
-    if today not in state.get("applied_orders", []):
+    # 오늘 주문 적용 — 세션별 파일(YYYY-MM-DD.json / -kr.json / -us.json) 모두, 각 1회만
+    orders_dir = REPO / "portfolio" / "orders"
+    applied = state.setdefault("applied_orders", [])
+    last_comment = ""
+    pending_files = sorted(p for p in orders_dir.glob(f"{today}*.json") if p.stem not in applied) if orders_dir.exists() else []
+    for opath in pending_files:
+        orders_doc = load_json(opath, {})
+        orders = orders_doc.get("orders", [])
+        if orders_doc.get("comment"):
+            last_comment = orders_doc["comment"]
         for o in orders:
             act = (o.get("action") or "").lower()
             t = o.get("ticker")
@@ -126,7 +132,7 @@ def main() -> int:
                 executed.append({"action": "매도", "ticker": t, "name": name, "krw": round(proceeds), "qty": round(qty, 4), "price_krw": round(p), "reason": o.get("reason", "")})
                 if h["qty"] <= 1e-9:
                     holdings.pop(t, None)
-        state.setdefault("applied_orders", []).append(today)
+        applied.append(opath.stem)
 
     # 재평가
     hold_view = []
@@ -162,14 +168,16 @@ def main() -> int:
         "cash": round(cash), "holdings": holdings, "updated": today,
         "total_value": round(total), "holdings_value": round(holdings_value),
         "return_pct": round(ret_pct, 2), "usdkrw": round(usdkrw, 2) if usdkrw else None,
-        "holdings_view": hold_view, "history": hist, "last_orders": executed,
-        "last_comment": orders_doc.get("comment", ""),
+        "holdings_view": hold_view, "history": hist,
         # 표시용 문자열
         "total_value_str": won(total), "cash_str": won(cash),
         "holdings_value_str": won(holdings_value), "start_capital_str": won(START_CAPITAL),
         "gain_str": ("+" if total >= START_CAPITAL else "") + won(total - START_CAPITAL),
         "days": len(hist),
     })
+    if pending_files:  # 새 주문이 있었을 때만 '최근 매매' 표시 갱신 (빈 실행이 지우지 않게)
+        state["last_orders"] = executed
+        state["last_comment"] = last_comment
     state_path.parent.mkdir(parents=True, exist_ok=True)
     state_path.write_text(json.dumps(state, ensure_ascii=False, indent=2), encoding="utf-8")
 

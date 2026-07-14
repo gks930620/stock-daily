@@ -22,6 +22,7 @@ layout: default
     <li class="post-item{% if forloop.first %} latest{% endif %}">
       <a href="{{ post.url | relative_url }}">
         <time class="p-date" datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%Y.%m.%d" }}</time>
+        {% if post.market == "kr" %}<span class="p-flag" title="한국장">🇰🇷</span>{% elsif post.market == "us" %}<span class="p-flag" title="미국장">🇺🇸</span>{% endif %}
         <span class="p-title">{{ post.title }}</span>
         {% if forloop.first %}<span class="p-badge">최신</span>{% endif %}
         <span class="p-arrow" aria-hidden="true">→</span>

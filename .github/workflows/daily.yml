@@ -1,23 +1,57 @@
-name: 매일 주식 리포트 (cloud)
+name: 시장 예상 (cloud)
 
-# GitHub 서버에서 매일 자동 실행 (내 PC 불필요).
+# GitHub 서버에서 하루 3회 자동 실행 (내 PC 불필요).
+#   08:00 KST — 수집 + 🇰🇷 한국장 예상글 + 매매
+#   18:00 KST — 수집만 (한국장 마감 결과 스냅샷)
+#   21:00 KST — 수집 + 🇺🇸 미국장 예상글 + 매매
 # 과금: Claude는 CLAUDE_CODE_OAUTH_TOKEN(내 Max 구독 토큰)으로만 인증 → Max 플랜 사용량에서 차감.
 #      ⚠️ ANTHROPIC_API_KEY 는 절대 설정하지 않는다 (설정하면 API 토큰당 과금됨).
 
 permissions:
-  contents: write        # git commit/push 하려면 필요
+  contents: write
 
 on:
   schedule:
-    - cron: "0 23 * * *"   # 08:00 KST (UTC+9) = 전날 23:00 UTC
-  workflow_dispatch: {}    # Actions 탭에서 수동 실행 버튼
+    - cron: "0 23 * * *"   # 08:00 KST → kr (한국장 예상)
+    - cron: "0 9 * * *"    # 18:00 KST → collect (한국장 마감 수집)
+    - cron: "0 12 * * *"   # 21:00 KST → us (미국장 예상)
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: "실행 모드"
+        type: choice
+        options: [kr, collect, us]
+        default: kr
 
 jobs:
-  daily-report:
+  run:
     runs-on: ubuntu-latest
     steps:
       - name: 저장소 체크아웃
         uses: actions/checkout@v4
+
+      - name: 모드 결정
+        id: mode
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            MODE="${{ inputs.mode }}"
+          else
+            H=$(date -u +%H)
+            case "$H" in
+              22|23|00) MODE=kr ;;      # 08:00 KST 부근
+              08|09|10) MODE=collect ;; # 18:00 KST 부근
+              11|12|13) MODE=us ;;      # 21:00 KST 부근
+              *) MODE=kr ;;
+            esac
+          fi
+          case "$MODE" in
+            kr) LABEL=morning ;;
+            collect) LABEL=krclose ;;
+            us) LABEL=uspre ;;
+          esac
+          echo "mode=$MODE" >> "$GITHUB_OUTPUT"
+          echo "label=$LABEL" >> "$GITHUB_OUTPUT"
+          echo "▶ 모드: $MODE (스냅샷 라벨: $LABEL)"
 
       - name: Python 설정
         uses: actions/setup-python@v5
@@ -28,65 +62,61 @@ jobs:
         run: pip install -r requirements.txt
 
       - name: 데이터 수집 (시세·경제지표)
-        run: python scripts/collect_data.py
+        run: python scripts/collect_data.py ${{ steps.mode.outputs.label }}
 
-      - name: 한글 폰트 설치 (차트 한글 표시용)
+      - name: 한글 폰트 설치 (차트용)
+        if: steps.mode.outputs.mode != 'collect'
         run: sudo apt-get update && sudo apt-get install -y fonts-nanum && fc-cache -f
 
       - name: 차트 생성
+        if: steps.mode.outputs.mode != 'collect'
         run: python scripts/make_charts.py
 
-      - name: 비인기종목 스크리너 (해외서버라 실패 가능 → 실패해도 계속)
+      - name: 비인기종목 스크리너 (한국장 예상글 전용)
+        if: steps.mode.outputs.mode == 'kr'
         run: python scripts/screener.py || echo "screener 실패(계속 진행)"
         continue-on-error: true
 
       - name: Node 설정
+        if: steps.mode.outputs.mode != 'collect'
         uses: actions/setup-node@v4
         with:
           node-version: "20"
 
       - name: Claude Code 설치
+        if: steps.mode.outputs.mode != 'collect'
         run: npm install -g @anthropic-ai/claude-code
 
-      - name: 토큰 진단 (값 노출 안 함 — 길이/형태만)
-        env:
-          CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
-        run: |
-          echo "토큰 길이: ${#CLAUDE_CODE_OAUTH_TOKEN}"
-          if [ -z "$CLAUDE_CODE_OAUTH_TOKEN" ]; then
-            echo "결과: ❌ 비어있음 → Secret 이름이 CLAUDE_CODE_OAUTH_TOKEN 인지 확인"
-          else
-            case "$CLAUDE_CODE_OAUTH_TOKEN" in
-              sk-ant-oat*) echo "결과: ✅ 형태 정상(sk-ant-oat 로 시작). 401이면 만료/오타/일부누락 가능" ;;
-              *) echo "결과: ⚠️ sk-ant-oat 로 시작 안 함 → 토큰이 아닌 다른 값(코드/URL)을 넣었을 가능성" ;;
-            esac
-          fi
-
-      - name: Claude 분석·리포트 생성
+      - name: Claude 분석·예상글 생성
+        if: steps.mode.outputs.mode != 'collect'
         env:
           # 구독(Max) 토큰만 사용. API 키는 넣지 않음 → Max 사용량으로 차감.
           CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
         run: |
+          MODE=${{ steps.mode.outputs.mode }}
           REPORT_DATE=$(TZ='Asia/Seoul' date +%Y-%m-%d)
-          PROMPT="$(cat prompts/daily-report.md)
+          YESTERDAY=$(TZ='Asia/Seoul' date -d 'yesterday' +%Y-%m-%d)
+          PROMPT="$(cat prompts/${MODE}-report.md)
 
           [CI 환경 안내]
-          - 오늘 날짜(KST)는 ${REPORT_DATE} 이다. data/${REPORT_DATE}/ 와 assets/charts/${REPORT_DATE}/ 를 사용하라.
-          - git 명령은 직접 실행하지 마라. _posts/${REPORT_DATE}-market-report.md 파일만 생성하면, 커밋·push는 워크플로가 처리한다."
+          - 오늘 날짜(KST): ${REPORT_DATE} / 어제: ${YESTERDAY}
+          - git 명령은 직접 실행하지 마라. 파일 생성까지만 하면 커밋·push는 워크플로가 처리한다."
           claude --version
           claude -p "$PROMPT" --permission-mode bypassPermissions --verbose
 
-      - name: 가상 포트폴리오 매매 반영 + 자산곡선 차트
+      - name: 가상 포트폴리오 매매 반영 + 자산곡선
+        if: steps.mode.outputs.mode != 'collect'
         run: python scripts/portfolio.py
 
       - name: 커밋 & 푸시
         run: |
           git config user.name "stock-daily-bot"
           git config user.email "actions@users.noreply.github.com"
+          git pull --rebase --autostash || true
           git add -A
           if git diff --cached --quiet; then
             echo "변경 없음 — 커밋 생략"
           else
-            git commit -m "report: $(TZ='Asia/Seoul' date +%Y-%m-%d) (GitHub Actions 자동 생성)"
+            git commit -m "auto(${{ steps.mode.outputs.mode }}): $(TZ='Asia/Seoul' date '+%Y-%m-%d %H:%M')"
             git push
           fi

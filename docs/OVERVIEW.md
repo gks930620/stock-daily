@@ -92,7 +92,7 @@ flowchart LR
 | 📐 지표 계산 | (수집 시 포함) | RSI · MACD · 볼린저 · 이동평균(4종) · 모멘텀 · 추세배열 |
 | 📈 차트 생성 | `scripts/make_charts.py` | 지수·주요주 차트 PNG (가격+이동평균+RSI) |
 | 🔍 비인기종목 발굴 | `scripts/screener.py` | 과매도반등·거래량급증·낙폭과대·저점권반등 신호 |
-| 🧠 Claude 분석 | `prompts/daily-report.md` | 확률 시나리오(상승/보합/하락 %) + 근거 + 자기검증 |
+| 🧠 Claude 분석 | `prompts/kr-report.md`·`prompts/us-report.md` | 확률 시나리오(상승/보합/하락 %) + 근거 + 자기검증 |
 | 🌐 자동 게시 | Jekyll → GitHub Pages | 마크다운 리포트를 공개 사이트로 |
 
 > **핵심 철학:** "예측 적중"이 아니라 **근거 있는 확률 + 자기검증**. 매일 예상을 기록하고 다음 날 실제와 대조해,

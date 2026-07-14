@@ -207,6 +207,8 @@ def collect_macro() -> dict:
 
 
 def main() -> int:
+    # 선택 인자: 수집 시점 라벨 (morning=08시 / krclose=18시 한국장마감 / uspre=21시 미장전)
+    label = sys.argv[1] if len(sys.argv) > 1 else None
     today = datetime.now(KST).strftime("%Y-%m-%d")
     out_dir = REPO / "data" / today
     out_dir.mkdir(parents=True, exist_ok=True)
@@ -254,8 +256,11 @@ def main() -> int:
         "errors": errors,
     }
 
-    out_path.write_text(json.dumps(result, ensure_ascii=False, indent=2), encoding="utf-8")
-    print(f"\n저장: {out_path}  (성공 {len(instruments)} / 실패 {len(errors)})")
+    payload = json.dumps(result, ensure_ascii=False, indent=2)
+    out_path.write_text(payload, encoding="utf-8")           # 최신본 (분석은 항상 이 파일 사용)
+    if label:                                                 # 시점 스냅샷 (기록·검증용)
+        (out_dir / f"market-{label}.json").write_text(payload, encoding="utf-8")
+    print(f"\n저장: {out_path}" + (f" (+ market-{label}.json)" if label else "") + f"  (성공 {len(instruments)} / 실패 {len(errors)})")
     if movers["top_gainers"]:
         print("  상승 TOP:", ", ".join(f"{m['name']}({m['chg_pct']:+}%)" for m in movers["top_gainers"][:3]))
         print("  하락 TOP:", ", ".join(f"{m['name']}({m['chg_pct']:+}%)" for m in movers["top_losers"][:3]))

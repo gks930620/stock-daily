@@ -5,7 +5,7 @@ Spring Boot 같은 서버를 직접 만들 필요 없이, 저장소의 워크플
 
 - **서버**: GitHub Actions (공개 저장소 → 무료)
 - **분석**: Claude Code — **내 Max 플랜 사용량으로 차감** (API 토큰당 과금 ❌)
-- **트리거**: 매일 08:00 KST (워크플로 cron `0 23 * * *` = UTC 23:00 전날)
+- **트리거**: 하루 3회 KST — **08:00 🇰🇷 한국장 예상글** · 18:00 수집(한국장 마감 스냅샷) · **21:00 🇺🇸 미국장 예상글** (cron은 UTC: 23:00/09:00/12:00)
 
 파일: [.github/workflows/daily.yml](../.github/workflows/daily.yml)
 
@@ -56,14 +56,14 @@ Spring Boot 같은 서버를 직접 만들 필요 없이, 저장소의 워크플
 4. **Secret**: ①에서 복사한 토큰 붙여넣기
 5. **Add secret**
 
-이게 끝입니다. 이제 매일 08:00 KST에 GitHub 서버가 알아서 리포트를 만들어 push합니다.
+이게 끝입니다. 이제 하루 3회(08·18·21시 KST) GitHub 서버가 알아서 실행합니다. 수동 실행 시 모드(kr/collect/us)를 고를 수 있습니다.
 
 ---
 
 ## 잘 되는지 테스트 (지금 바로)
 
 1. **https://github.com/gks930620/stock-daily/actions**
-2. 좌측 **"매일 주식 리포트 (cloud)"** 워크플로 클릭
+2. 좌측 **"시장 예상 (cloud)"** 워크플로 클릭
 3. 우측 **Run workflow** 버튼 → 실행
 4. 몇 분 뒤 초록 체크 ✅ 뜨면 성공. 사이트(https://gks930620.github.io/stock-daily/)에 새 리포트 반영.
 

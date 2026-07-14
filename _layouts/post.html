@@ -4,7 +4,7 @@ layout: default
 <article class="post">
   <a class="back" href="{{ '/' | relative_url }}">← 목록으로</a>
   <header class="hero-panel">
-    <p class="eyebrow">{{ page.date | date: "%Y.%m.%d" }} 리포트</p>
+    <p class="eyebrow">{{ page.date | date: "%Y.%m.%d" }}{% if page.market == "kr" %} · 🇰🇷 한국장 예상{% elsif page.market == "us" %} · 🇺🇸 미국장 예상{% else %} 리포트{% endif %}</p>
     <h1 class="hero-title">{{ page.title }}</h1>
   </header>
   <div class="content-card">
