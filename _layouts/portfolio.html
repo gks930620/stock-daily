@@ -2,153 +2,152 @@
 layout: default
 ---
 {% assign p = site.data.portfolio %}
-{% include pf-switcher.html cur=0 %}
-<section class="hero-panel">
-  <p class="eyebrow">💼 가상 포트폴리오</p>
-  <h1 class="hero-title">1억으로 시작한 페이퍼 트레이딩</h1>
-  <p class="hero-lede">매일 분석 결과에 따라 가상 자금으로 매수·매도하고, 실제 시세로 성과를 추적합니다.</p>
-  <div class="hero-note">⚠️ 가상 매매 기록입니다. 실제 투자·수익을 보장하지 않으며, 분석의 자기검증 목적입니다.</div>
-</section>
+{% assign colors = "#3ba272,#e8a33d,#8b5fd6,#d3655f,#4aa3c0,#c0699d" | split: "," %}
+<div class="pf1">
 
-{% if p and p.total_value %}
-<div class="content-card">
-  <div class="pf-headline">
-    <div>
-      <div class="pf-value">{{ p.total_value_str }}<span class="won">원</span></div>
-      <div class="pf-return {% if p.return_pct >= 0 %}pos{% else %}neg{% endif %}">
-        {% if p.return_pct >= 0 %}▲{% else %}▼{% endif %} {{ p.gain_str }}원 ({{ p.return_pct }}%)
-        <span class="pf-day {% if p.day_chg_pct >= 0 %}pos{% else %}neg{% endif %}">오늘 {% if p.day_chg_pct >= 0 %}+{% endif %}{{ p.day_chg_pct }}%</span>
-      </div>
+  <div class="hero">
+    <div class="lb">💼 가상 포트폴리오 · 1억 페이퍼 트레이딩 · {{ p.days }}일차</div>
+    <div class="amt">{{ p.total_value_str }}<small> 원</small></div>
+    <div class="chips">
+      <span class="chip {% if p.day_chg_pct >= 0 %}hot{% else %}cold{% endif %}">오늘 {% if p.day_chg_pct >= 0 %}▲ +{% else %}▼ {% endif %}{{ p.day_chg_pct }}%</span>
+      <span class="chip">누적 {{ p.gain_str }}원 ({{ p.return_pct }}%)</span>
+      <span class="chip dim">시작 {{ p.start_date }} · {{ p.start_capital_str }}원</span>
+      <span class="chip dim">현재가 기준 {{ p.priced_at | slice: 5, 11 | replace: "T", " " }}</span>
     </div>
-    <ul class="pf-meta">
-      <li><span>시작</span>{{ p.start_date }}</li>
-      <li><span>시작자본</span>{{ p.start_capital_str }}원</li>
-      <li><span>현금</span>{{ p.cash_str }}원</li>
-      <li><span>경과</span>{{ p.days }}일차</li>
-    </ul>
   </div>
 
-  <img src="{{ '/assets/portfolio/equity.png' | relative_url }}" alt="자산 추이 차트">
-
-  {% if p.holdings_view and p.holdings_view.size > 0 %}
-  <h2>보유 종목</h2>
-  <p class="muted small">종목명을 클릭하면 거래 내역(언제·얼마에·몇 주)이 펼쳐집니다.
-  {% if p.priced_at != "" %}<br>💡 <b>현재가 기준: {{ p.priced_at | slice: 0, 16 | replace: "T", " " }}</b> (하루 3회 — 08·18·21시 수집 시점의 시세로 갱신. 실시간 아님. 한국주는 18시 이후 = 당일 종가){% endif %}</p>
-  <div class="pf-tablewrap">
-  <table class="pf-holdings">
-    <thead><tr><th>종목</th><th>수량</th><th>평균단가</th><th>현재가</th><th>평가액</th><th>비중</th><th>손익</th></tr></thead>
-    <tbody>
-      {% for h in p.holdings_view %}
-      <tr>
-        <td>
-          <details class="pf-lots">
-            <summary>{{ h.name }}</summary>
-            <div class="pf-lots-body">
-              {% for l in h.lots %}
-              <div class="pf-lot">{{ l.date }} {% if l.session == "kr" %}🇰🇷 아침{% elsif l.session == "us" %}🇺🇸 저녁{% endif %} 매수 —
-                <b>{{ l.qty }}주</b> @ {{ l.price_krw_str }}원{% if l.native_str %} ({{ l.native_str }} × 환율 {{ l.fx }}){% endif %}
-                = {{ l.krw_str }}원 <span class="muted">(시세기준일 {{ l.price_date }})</span></div>
-              {% endfor %}
-            </div>
-          </details>
-        </td>
-        <td>{{ h.qty }}</td>
-        <td>{{ h.avg_str }}원</td>
-        <td>{{ h.price_str }}원{% if h.price_native_str %}<br><span class="muted small">{{ h.price_native_str }}</span>{% endif %}</td>
-        <td>{{ h.value_str }}원</td>
-        <td>{{ h.weight_pct }}%</td>
-        <td class="{% if h.pl_pct >= 0 %}pos{% else %}neg{% endif %}">{% if h.pl_pct >= 0 %}+{% endif %}{{ h.pl_pct }}%</td>
-      </tr>
-      {% endfor %}
-      <tr>
-        <td>💰 현금</td>
-        <td colspan="3" class="muted">—</td>
-        <td>{{ p.cash_str }}원</td>
-        <td>{{ p.cash_weight_pct }}%</td>
-        <td class="muted">—</td>
-      </tr>
-    </tbody>
-  </table>
+  <div class="alloc-wrap">
+    <div class="alloc">
+      {% for h in p.holdings_view %}<i style="width:{{ h.weight_pct }}%;background:{{ colors[forloop.index0] }}"></i>{% endfor %}<i style="width:{{ p.cash_weight_pct }}%;background:#9fb4cc"></i>
+    </div>
+    <div class="alloc-lb">
+      {% for h in p.holdings_view %}<span><i class="dot" style="background:{{ colors[forloop.index0] }}"></i>{{ h.name }} <b>{{ h.weight_pct }}%</b></span>{% endfor %}
+      <span><i class="dot" style="background:#9fb4cc"></i>현금 <b>{{ p.cash_weight_pct }}%</b></span>
+    </div>
   </div>
-  <p class="muted small">비중 = 현금 포함 총자산 대비 · 손익 = 평균단가 대비 (해외 자산은 원화 환산이라 환율 변동 포함) · 해외 현재가는 원통화 병기</p>
-  {% else %}
-  <p class="muted">현재 보유 종목 없음 (전액 현금).</p>
-  {% endif %}
+
+  <section class="card">
+    <h2>보유 종목</h2>
+    {% for h in p.holdings_view %}
+    <details class="row">
+      <summary>
+        <span class="ava" style="background:{{ colors[forloop.index0] }}">{{ h.name | slice: 0, 1 }}</span>
+        <span class="nm"><b>{{ h.name }}</b><span>{{ h.qty }}주 · 평단 {{ h.avg_str }}원{% if h.price_native_str %} · {{ h.price_native_str }}{% endif %}</span></span>
+        <span class="val"><b>{{ h.value_str }}원</b><span class="{% if h.pl_pct >= 0 %}u{% else %}d{% endif %}">{% if h.pl_pct >= 0 %}▲ +{% else %}▼ {% endif %}{{ h.pl_pct }}%</span></span>
+      </summary>
+      <div class="lots">
+        <div class="lot-h">현재가 {{ h.price_str }}원 <span class="mut">(시세기준일 {{ h.price_date }})</span></div>
+        {% for l in h.lots %}
+        <div class="lot">{{ l.date }} {% if l.session == "kr" %}🇰🇷{% elsif l.session == "us" %}🇺🇸{% endif %} 매수 <b>{{ l.qty }}주</b> @ {{ l.price_krw_str }}원{% if l.native_str %} ({{ l.native_str }} × 환율 {{ l.fx }}){% endif %} = {{ l.krw_str }}원 <span class="mut">· {{ l.basis }}</span></div>
+        {% endfor %}
+      </div>
+    </details>
+    {% endfor %}
+    <div class="row cash">
+      <span class="ava" style="background:#9fb4cc">₩</span>
+      <span class="nm"><b>현금 (예수금)</b><span>다음 매수 대기</span></span>
+      <span class="val"><b>{{ p.cash_str }}원</b><span class="mut">{{ p.cash_weight_pct }}%</span></span>
+    </div>
+    <p class="mut small">비중 = 총자산 대비 · 손익 = 평균단가 대비(해외는 환율 포함) · 종목을 누르면 거래 내역이 열립니다</p>
+  </section>
 
   {% if p.pending_view and p.pending_view.size > 0 %}
-  <h2>⏳ 체결 대기 주문</h2>
-  <p class="muted small">주식·ETF는 주문 시점이 아니라 <b>그 시장의 다음 개장 시가</b>에 체결됩니다 (예측 시점엔 체결가를 알 수 없음).</p>
-  <ul class="pf-orders">
+  <section class="card">
+    <h2>⏳ 체결 대기</h2>
     {% for o in p.pending_view %}
-    <li><span class="pf-act {% if o.action == 'buy' %}buy{% else %}sell{% endif %}">{{ o.action_label }}예약</span>
-      <b>{{ o.name }}</b>{% if o.krw_str %} {{ o.krw_str }}원{% endif %}
-      <span class="muted">— {{ o.placed_date }} {{ o.session_label }} 주문 · {{ o.min_fill_date }} 이후 개장 시가 체결 예정 · {{ o.reason }}</span></li>
+    <div class="pend"><span class="tag {% if o.action == 'buy' %}u-bg{% else %}d-bg{% endif %}">{{ o.action_label }}예약</span>
+      <b>{{ o.name }}</b>{% if o.krw_str %} {{ o.krw_str }}원{% endif %} <span class="mut">— {{ o.min_fill_date }} 이후 개장 시가 체결 · {{ o.reason }}</span></div>
     {% endfor %}
-  </ul>
+  </section>
   {% endif %}
 
-  {% if p.journal_view and p.journal_view.size > 0 %}
-  <h2>📒 매매 일지</h2>
-  <div class="pf-journal">
+  <section class="card">
+    <h2>자산 추이 <span class="mut small">(매일 18시 평가)</span></h2>
+    <img src="{{ '/assets/portfolio/equity.png' | relative_url }}" alt="자산 추이 차트">
+  </section>
+
+  <section class="card">
+    <h2>📒 매매 일지</h2>
     {% for j in p.journal_view %}
-    <div class="pf-jday">
-      <div class="pf-jhead">
-        <b>{{ j.date }}</b>
-        {% if j.session == "kr" %}<span class="pf-sess">🇰🇷 아침</span>{% elsif j.session == "us" %}<span class="pf-sess">🇺🇸 저녁</span>{% elsif j.session == "fill" %}<span class="pf-sess">⚡ 체결</span>{% endif %}
-        {% if j.comment != "" %}<span class="muted">— {{ j.comment }}</span>{% endif %}
+    <div class="jday">
+      <div class="jhead"><b>{{ j.date }}</b>
+        {% if j.session == "kr" %}<span class="sess">🇰🇷 아침</span>{% elsif j.session == "us" %}<span class="sess">🇺🇸 저녁</span>{% elsif j.session == "fill" %}<span class="sess">⚡ 체결</span>{% endif %}
       </div>
-      <ul class="pf-orders">
-        {% for o in j.placed %}
-        <li><span class="pf-act {% if o.action contains '매수' %}buy{% elsif o.action contains '매도' %}sell{% else %}hold{% endif %}">{{ o.action }}</span>
-          {% if o.name != "-" %}<b>{{ o.name }}</b>{% endif %} <span class="muted">{{ o.detail }}</span></li>
-        {% endfor %}
-        {% for o in j.trades %}
-        <li><span class="pf-act {% if o.action == '매수' %}buy{% else %}sell{% endif %}">{{ o.action }}</span>
-          <b>{{ o.name }}</b> {{ o.krw_str }}원 <span class="muted">@{{ o.price_krw }}원 ({{ o.basis | default: "시세" }}) — {{ o.reason }}</span></li>
-        {% endfor %}
-        {% if j.placed == empty and j.trades == empty %}
-        <li><span class="pf-act hold">유지</span><span class="muted">매매 없음 (관망)</span></li>
-        {% endif %}
-      </ul>
+      {% if j.comment != "" %}<p class="jc">{{ j.comment }}</p>{% endif %}
+      {% for o in j.placed %}<div class="jr"><span class="tag {% if o.action contains '매수' %}u-bg{% elsif o.action contains '매도' %}d-bg{% else %}h-bg{% endif %}">{{ o.action }}</span>{% if o.name != "-" %}<b>{{ o.name }}</b>{% endif %} <span class="mut">{{ o.detail }}</span></div>{% endfor %}
+      {% for o in j.trades %}<div class="jr"><span class="tag {% if o.action == '매수' %}u-bg{% else %}d-bg{% endif %}">{{ o.action }}</span><b>{{ o.name }}</b> {{ o.krw_str }}원 <span class="mut">@{{ o.price_krw }} ({{ o.basis }}) — {{ o.reason }}</span></div>{% endfor %}
     </div>
     {% endfor %}
-  </div>
-  {% endif %}
+  </section>
 
-  {% if p.history_view and p.history_view.size > 0 %}
-  <h2>📅 일별 현황</h2>
-  <p class="muted small">📌 <b>{{ p.eval_note | default: "일별 평가 확정 = 매일 18:00 KST (한국주 = 당일 종가 · 미국주 = 간밤 종가)" }}</b> — 이 표와 자산곡선의 각 점이 그 시각 기준입니다.</p>
-  <table>
-    <thead><tr><th>날짜</th><th>총자산</th><th>일간</th><th>누적</th><th>보유</th></tr></thead>
-    <tbody>
-      {% for d in p.history_view %}
-      <tr>
-        <td>{{ d.date }}</td>
-        <td>{{ d.total_value_str | default: d.total_value }}원</td>
-        <td class="{% if d.day_chg_pct >= 0 %}pos{% else %}neg{% endif %}">{% if d.day_chg_pct >= 0 %}+{% endif %}{{ d.day_chg_pct }}%</td>
-        <td class="{% if d.return_pct >= 0 %}pos{% else %}neg{% endif %}">{% if d.return_pct >= 0 %}+{% endif %}{{ d.return_pct }}%</td>
-        <td class="muted">{% for hh in d.holdings %}{{ hh.name }} {{ hh.weight_pct }}%{% unless forloop.last %} · {% endunless %}{% endfor %}</td>
-      </tr>
-      {% endfor %}
-    </tbody>
-  </table>
-  {% endif %}
+  <section class="card">
+    <h2>📅 일별 현황</h2>
+    <p class="mut small">📌 {{ p.eval_note }}</p>
+    <div class="scroll"><table>
+      <thead><tr><th>날짜</th><th>총자산</th><th>일간</th><th>누적</th><th>보유</th></tr></thead>
+      <tbody>{% for d in p.history_view %}
+        <tr><td>{{ d.date }}</td><td>{{ d.total_value_str }}원</td>
+        <td class="{% if d.day_chg_pct >= 0 %}u{% else %}d{% endif %}">{% if d.day_chg_pct >= 0 %}+{% endif %}{{ d.day_chg_pct }}%</td>
+        <td class="{% if d.return_pct >= 0 %}u{% else %}d{% endif %}">{% if d.return_pct >= 0 %}+{% endif %}{{ d.return_pct }}%</td>
+        <td class="mut">{% for hh in d.holdings %}{{ hh.name }} {{ hh.weight_pct }}%{% unless forloop.last %} · {% endunless %}{% endfor %}</td></tr>
+      {% endfor %}</tbody>
+    </table></div>
+  </section>
 
-  <h2>🧾 체결 규칙 & 검증</h2>
-  <ul class="pf-rules">
-    <li><b>매매는 하루 단위</b>입니다 (실시간 트레이딩 아님). 주문은 예상글에서 결정하고, <b>주식·ETF는 그 종목 시장의 "다음 개장 시가"에 체결</b> — 🇰🇷 한국주는 08시 주문 → 당일 09:00 시가, 🇺🇸 미국주는 21시 주문 → 당일 밤 22:30(KST) 개장 시가. <b>예측 시점에는 체결가를 알 수 없으므로 결과를 보고 사는 것이 불가능</b>합니다.</li>
-    <li><b>암호화폐·원자재</b>(24시간 거래)는 주문 즉시 그 시점 시세로 체결합니다.</li>
-    <li><b>한국 주식은 정수 주수만</b> 체결 (잔액은 현금 유지). 해외 자산은 소수점 매수 허용, <b>체결 시점 환율(원/달러)</b>을 함께 기록합니다. 각 거래에 체결 근거(시가/즉시)와 시세 기준일이 남습니다.</li>
-    <li><b>검증</b>: 모든 수치는 저장소에 공개된 원본과 대조할 수 있습니다 —
-      <a href="https://github.com/gks930620/stock-daily/tree/main/data">시세 스냅샷(data/)</a> ·
-      <a href="https://github.com/gks930620/stock-daily/tree/main/portfolio/orders">주문서(orders/)</a> ·
-      <a href="https://github.com/gks930620/stock-daily/blob/main/_data/portfolio.json">포트폴리오 상태(portfolio.json)</a></li>
-    <li>수수료·세금·호가 슬리피지는 반영하지 않는 <b>가상 시뮬레이션</b>입니다.</li>
-  </ul>
-  <p class="muted small" style="margin-top:20px">매일 08시(🇰🇷)·21시(🇺🇸) 예상글의 매매 결정이 자동 반영 · <a href="{{ '/' | relative_url }}">← 리포트 목록</a></p>
+  <section class="card">
+    <h2>🧾 체결 규칙 & 검증</h2>
+    {% include pf-rules.html %}
+  </section>
+  <p class="mut small" style="margin:6px 4px 0">⚠️ 가상 매매 기록 · 투자 보장 아님 · 매일 08시(🇰🇷)·21시(🇺🇸) 예상글의 결정이 자동 반영 · <a href="{{ '/' | relative_url }}">← 리포트</a></p>
 </div>
-{% else %}
-<div class="content-card">
-  <p class="muted">아직 매매 기록이 없습니다. 첫 리포트가 생성되면 여기에 표시됩니다.</p>
-</div>
-{% endif %}
+
+<style>
+.pf1{--u:#d63c2f;--dn:#2563d0;}
+.pf1 .u{color:var(--u);} .pf1 .d{color:var(--dn);} .pf1 .mut{color:var(--muted);} .pf1 .small{font-size:13px;}
+.pf1 .hero{background:linear-gradient(160deg,#1b4c9c,#2f6fb0 58%,#3d84c8);color:#fff;border-radius:18px;padding:26px 24px 20px;box-shadow:var(--shadow);}
+.pf1 .hero .lb{font-size:13.5px;opacity:.88;}
+.pf1 .hero .amt{font-size:clamp(32px,7vw,44px);font-weight:800;letter-spacing:-.02em;line-height:1.15;font-variant-numeric:tabular-nums;}
+.pf1 .hero .amt small{font-size:.42em;font-weight:600;opacity:.85;}
+.pf1 .chips{margin-top:10px;display:flex;gap:8px;flex-wrap:wrap;}
+.pf1 .chip{font-size:12.5px;font-weight:700;background:rgba(255,255,255,.17);padding:4px 12px;border-radius:999px;}
+.pf1 .chip.hot{background:#ffe3de;color:#c0392b;} .pf1 .chip.cold{background:#dcE9ff;color:#1d4fa8;} .pf1 .chip.dim{opacity:.8;font-weight:500;}
+.pf1 .alloc-wrap{margin:16px 4px 4px;}
+.pf1 .alloc{display:flex;height:12px;border-radius:99px;overflow:hidden;}
+.pf1 .alloc i{display:block;height:100%;}
+.pf1 .alloc-lb{display:flex;gap:14px;flex-wrap:wrap;margin-top:8px;font-size:12.5px;color:var(--muted);}
+.pf1 .alloc-lb b{color:var(--text);}
+.pf1 .dot{display:inline-block;width:9px;height:9px;border-radius:3px;margin-right:5px;}
+.pf1 .card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px 22px;margin-top:16px;box-shadow:var(--shadow);}
+.pf1 .card h2{margin:0 0 12px;font-size:16.5px;}
+.pf1 .card img{display:block;max-width:100%;border-radius:10px;border:1px solid var(--line);}
+.pf1 .row{display:block;border-top:1px solid var(--line);}
+.pf1 .row:first-of-type{border-top:none;}
+.pf1 summary{display:flex;align-items:center;gap:13px;padding:13px 2px;cursor:pointer;list-style:none;}
+.pf1 summary::-webkit-details-marker{display:none;}
+.pf1 .row.cash{display:flex;align-items:center;gap:13px;padding:13px 2px;border-top:1px solid var(--line);}
+.pf1 .ava{flex:0 0 auto;width:42px;height:42px;border-radius:13px;display:grid;place-items:center;font-weight:800;color:#fff;font-size:16px;}
+.pf1 .nm{flex:1;min-width:0;}
+.pf1 .nm b{display:block;font-size:15.5px;color:var(--text);}
+.pf1 .nm span{font-size:12.5px;color:var(--muted);}
+.pf1 .val{text-align:right;font-variant-numeric:tabular-nums;}
+.pf1 .val b{display:block;font-size:15.5px;color:var(--text);}
+.pf1 .val span{font-size:13px;font-weight:700;}
+.pf1 .lots{margin:0 2px 13px 55px;padding:11px 14px;background:color-mix(in srgb,var(--bg) 60%,var(--card));border:1px solid var(--line);border-radius:11px;font-size:13px;}
+.pf1 .lot-h{font-weight:600;margin-bottom:5px;}
+.pf1 .lot{padding:3px 0;color:var(--text);}
+.pf1 .tag{display:inline-block;min-width:40px;text-align:center;font-size:11.5px;font-weight:800;padding:2px 9px;border-radius:6px;margin-right:8px;}
+.pf1 .u-bg{background:#fde8e5;color:#c0392b;} .pf1 .d-bg{background:#e3edfb;color:#1d4fa8;} .pf1 .h-bg{background:#edf1f6;color:#5b6b80;}
+.pf1 .pend{padding:8px 0;border-bottom:1px dashed var(--line);font-size:14px;}
+.pf1 .jday{padding:12px 0;border-top:1px solid var(--line);}
+.pf1 .jday:first-of-type{border-top:none;}
+.pf1 .jhead{font-size:15px;}
+.pf1 .sess{font-size:12px;font-weight:700;background:var(--accent-soft,#e4eeff);color:var(--link);padding:2px 9px;border-radius:999px;margin-left:7px;}
+.pf1 .jc{margin:5px 0 7px;font-size:13.5px;color:var(--muted);}
+.pf1 .jr{padding:4px 0;font-size:14px;}
+.pf1 .scroll{overflow-x:auto;}
+.pf1 table{width:100%;border-collapse:collapse;font-size:13.5px;font-variant-numeric:tabular-nums;min-width:560px;}
+.pf1 th{font-size:12px;color:var(--muted);text-align:left;padding:7px 10px;border-bottom:2px solid var(--line);}
+.pf1 td{padding:8px 10px;border-bottom:1px solid var(--line);}
+.pf1 .pfr{font-size:14px;color:var(--muted);padding-left:1.2em;margin:0;}
+.pf1 .pfr li{margin:6px 0;}
+</style>

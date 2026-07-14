@@ -1,0 +1,56 @@
+---
+layout: default
+title: 리포트 시안 ⑤ 다크 리딩모드
+permalink: /report5/
+sitemap: false
+---
+{% assign rp = site.posts | where_exp: "item", "item.url contains 'kr-market'" | first %}
+<div class="r5">
+  {% include report-switcher.html cur=5 %}
+  <div class="sheet">
+    <header class="hd">
+      <div class="kick">◈ DAILY MARKET CALL — 🇰🇷 한국장</div>
+      <h1>{{ rp.title }}</h1>
+      <div class="meta">{{ rp.date | date: "%Y.%m.%d %H:%M" }} KST · Claude 자동 분석</div>
+    </header>
+    <article class="content">{{ rp.content }}</article>
+  </div>
+</div>
+
+<style>
+.r5 .sheet{max-width:740px;margin:0 auto;background:#111722;color:#cfd8e6;border:1px solid #232f44;border-radius:14px;padding:30px 36px 34px;box-shadow:0 10px 34px rgba(0,0,0,.35);}
+.r5 .hd{border-bottom:1px solid #232f44;padding-bottom:18px;margin-bottom:24px;}
+.r5 .kick{font-size:11.5px;font-weight:800;letter-spacing:.2em;color:#e8b34b;}
+.r5 .hd h1{font-size:clamp(22px,4.4vw,30px);color:#f2f6fb;margin:.45em 0 .25em;letter-spacing:-.015em;line-height:1.32;}
+.r5 .meta{font-size:12.5px;color:#7d8ba1;}
+.r5 .content{font-size:15.5px;line-height:1.85;}
+.r5 .content h2{font-size:1.2em;color:#f2f6fb;margin:2em 0 .6em;padding-bottom:.3em;border-bottom:1px solid #232f44;letter-spacing:-.01em;}
+.r5 .content h3{font-size:1em;color:#e8b34b;margin:1.5em 0 .45em;}
+.r5 .content p{margin:.8em 0;}
+.r5 .content a{color:#7db4f0;}
+.r5 .content strong{color:#f2f6fb;}
+.r5 .content blockquote{margin:1.1em 0;padding:9px 14px;background:#0c1119;border:1px solid #232f44;border-left:3px solid #e8b34b;border-radius:8px;color:#94a3ba;font-size:.86em;}
+.r5 .content blockquote p{margin:.3em 0;}
+.r5 .content img{display:block;max-width:100%;margin:1.3em auto;border:1px solid #232f44;border-radius:10px;}
+.r5 .content table{display:block;width:100%;overflow-x:auto;border-collapse:collapse;margin:1.1em 0;font-size:.82em;font-variant-numeric:tabular-nums;}
+.r5 .content th{background:#0c1119;border-bottom:1.5px solid #33456a;padding:7px 10px;text-align:left;color:#9fb0c8;font-size:.92em;white-space:nowrap;}
+.r5 .content td{border-bottom:1px solid #232f44;padding:8px 10px;vertical-align:top;}
+.r5 .content ul{padding-left:1.25em;}
+.r5 .content li{margin:.45em 0;}
+.r5 .content .up{color:#ff6b6e;}
+.r5 .content .down{color:#5fa8ff;}
+.r5 .verdict{background:linear-gradient(135deg,#182238,#131a2a);border:1px solid #2c3d5e;border-radius:12px;padding:16px 19px;margin:0 0 10px;}
+.r5 .verdict .q{font-size:1.12em;font-weight:800;margin:0 0 7px;color:#e8b34b;}
+.r5 .verdict .a{margin:0;color:#dbe4f0;}
+.r5 .tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(106px,1fr));gap:9px;margin:12px 0 4px;}
+.r5 .tile{background:#0c1119;border:1px solid #232f44;border-radius:10px;padding:10px 13px;}
+.r5 .tile .k{font-size:11px;color:#7d8ba1;}
+.r5 .tile .v{font-size:18px;font-weight:750;color:#f2f6fb;font-variant-numeric:tabular-nums;}
+.r5 .tile .d{font-size:12.5px;font-weight:700;}
+.r5 .bars{margin:13px 0;}
+.r5 .bar{display:flex;align-items:center;gap:11px;margin:7px 0;font-size:13.5px;}
+.r5 .bar .lab{width:94px;flex:0 0 auto;font-weight:600;color:#aebdd2;}
+.r5 .bar .track{flex:1;height:17px;background:#0c1119;border:1px solid #232f44;border-radius:8px;overflow:hidden;}
+.r5 .bar .fill{height:100%;display:flex;align-items:center;padding-left:8px;color:#fff;font-size:11px;font-weight:800;border-radius:8px;}
+@media(max-width:560px){.r5 .sheet{padding:20px 18px 24px;}}
+</style>
