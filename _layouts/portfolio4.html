@@ -1,0 +1,126 @@
+---
+layout: default
+---
+{% assign p = site.data.portfolio %}
+{% assign colors = "#3ba272,#e8a33d,#8b5fd6,#d3655f,#4aa3c0,#c0699d" | split: "," %}
+<div class="pf4">
+  {% include pf-switcher.html cur=4 %}
+
+  <div class="split">
+    <aside class="side">
+      <div class="k">💼 가상 포트폴리오 · {{ p.days }}일차</div>
+      <div class="amt">{{ p.total_value_str }}원</div>
+      <div class="s {% if p.day_chg_pct >= 0 %}u{% else %}d{% endif %}">오늘 {% if p.day_chg_pct >= 0 %}▲ +{% else %}▼ {% endif %}{{ p.day_chg_pct }}% · 누적 {{ p.return_pct }}%</div>
+      <div class="meta">시작 {{ p.start_date }} · {{ p.start_capital_str }}원<br>현재가 기준 {{ p.priced_at | slice: 5, 11 | replace: "T", " " }}</div>
+
+      <div class="bars">
+        {% for h in p.holdings_view %}
+        <details class="brow">
+          <summary><b>{{ h.name }}</b> {{ h.weight_pct }}% <span class="{% if h.pl_pct >= 0 %}u{% else %}d{% endif %}">{% if h.pl_pct >= 0 %}+{% endif %}{{ h.pl_pct }}%</span>
+            <div class="tr"><i style="width:{{ h.weight_pct | times: 1.66 }}%;background:{{ colors[forloop.index0] }}"></i></div></summary>
+          <div class="bd">{{ h.qty }}주 · 평단 {{ h.avg_str }} → 현재 {{ h.price_str }}{% if h.price_native_str %} ({{ h.price_native_str }}){% endif %} · 평가 {{ h.value_str }}원
+            {% for l in h.lots %}<div class="lot">{{ l.date }} 매수 {{ l.qty }}주 @{{ l.price_krw_str }} — {{ l.basis }}</div>{% endfor %}</div>
+        </details>
+        {% endfor %}
+        <div class="brow"><b>현금</b> {{ p.cash_weight_pct }}% <span class="mut">{{ p.cash_str }}원</span>
+          <div class="tr"><i style="width:{{ p.cash_weight_pct | times: 1.66 }}%;background:#9fb4cc"></i></div></div>
+      </div>
+
+      <img class="eq" src="{{ '/assets/portfolio/equity.png' | relative_url }}" alt="자산 추이">
+      <div class="mut small">자산 추이 · 매일 18시 평가</div>
+    </aside>
+
+    <main class="tl">
+      <h2>📒 무슨 일이 있었나 — 타임라인</h2>
+
+      {% if p.pending_view and p.pending_view.size > 0 %}
+      {% for o in p.pending_view %}
+      <div class="ev wait">
+        <div class="t">{{ o.min_fill_date }} 개장 예정</div>
+        <div class="h"><span class="chip w">⏳ 체결 대기</span>{{ o.name }} {{ o.action_label }}{% if o.krw_str %} {{ o.krw_str }}원{% endif %}</div>
+        <p>{{ o.placed_date }} {{ o.session_label }} 주문 — 개장 시가에 자동 체결 · {{ o.reason }}</p>
+      </div>
+      {% endfor %}
+      {% endif %}
+
+      {% for d in p.history_view limit: 1 %}
+      <div class="ev eval">
+        <div class="t">{{ d.date }} 18:00</div>
+        <div class="h"><span class="chip e">📊 평가</span>총자산 {{ d.total_value_str }}원 (일간 {% if d.day_chg_pct >= 0 %}+{% endif %}{{ d.day_chg_pct }}%)</div>
+        <p>{% for hh in d.holdings %}{{ hh.name }} {{ hh.weight_pct }}% ({% if hh.pl_pct >= 0 %}+{% endif %}{{ hh.pl_pct }}%){% unless forloop.last %} · {% endunless %}{% endfor %}</p>
+      </div>
+      {% endfor %}
+
+      {% for j in p.journal_view %}
+      <div class="ev">
+        <div class="t">{{ j.date }} {% if j.session == "kr" %}08:00{% elsif j.session == "us" %}21:00{% endif %}</div>
+        <div class="h">
+          {% if j.session == "kr" %}<span class="chip s">🇰🇷 아침 세션</span>{% elsif j.session == "us" %}<span class="chip s">🇺🇸 저녁 세션</span>{% elsif j.session == "fill" %}<span class="chip f">⚡ 체결</span>{% endif %}
+          {{ j.comment | truncate: 46 }}
+        </div>
+        {% if j.comment.size > 46 %}<p class="cmt">{{ j.comment }}</p>{% endif %}
+        {% for o in j.placed %}<p><span class="chip {% if o.action contains '매수' %}b{% elsif o.action contains '매도' %}sl{% else %}h{% endif %}">{{ o.action }}</span>{% if o.name != "-" %}<b>{{ o.name }}</b> {% endif %}{{ o.detail }}</p>{% endfor %}
+        {% for o in j.trades %}<p><span class="chip {% if o.action == '매수' %}b{% else %}sl{% endif %}">{{ o.action }}</span><b>{{ o.name }}</b> {{ o.krw_str }}원 @{{ o.price_krw }} <span class="mut">({{ o.basis }})</span> — {{ o.reason }}</p>{% endfor %}
+      </div>
+      {% endfor %}
+
+      <div class="ev start">
+        <div class="t">{{ p.start_date }}</div>
+        <div class="h">🏁 계좌 개설 — 가상 자본 {{ p.start_capital_str }}원</div>
+      </div>
+
+      <h2 style="margin-top:34px">📅 일별 성적표</h2>
+      <div class="scroll"><table>
+        <thead><tr><th>날짜</th><th>총자산</th><th>일간</th><th>누적</th><th>보유</th></tr></thead>
+        <tbody>{% for d in p.history_view %}
+          <tr><td>{{ d.date }}</td><td>{{ d.total_value_str }}</td>
+          <td class="{% if d.day_chg_pct >= 0 %}u{% else %}d{% endif %}">{% if d.day_chg_pct >= 0 %}+{% endif %}{{ d.day_chg_pct }}%</td>
+          <td class="{% if d.return_pct >= 0 %}u{% else %}d{% endif %}">{% if d.return_pct >= 0 %}+{% endif %}{{ d.return_pct }}%</td>
+          <td class="mut">{% for hh in d.holdings %}{{ hh.name }} {{ hh.weight_pct }}%{% unless forloop.last %} · {% endunless %}{% endfor %}</td></tr>
+        {% endfor %}</tbody>
+      </table></div>
+      <p class="mut small">📌 {{ p.eval_note }}</p>
+
+      <h2 style="margin-top:30px">🧾 체결 규칙 & 검증</h2>
+      {% include pf-rules.html %}
+      <p class="mut small">⚠️ 가상 매매 기록 · 투자 보장 아님 · <a href="{{ '/' | relative_url }}">← 리포트</a></p>
+    </main>
+  </div>
+</div>
+
+<style>
+.pf4 .u{color:#d63c2f;} .pf4 .d{color:#2563d0;} .pf4 .mut{color:var(--muted);} .pf4 .small{font-size:12.5px;}
+.pf4 .split{display:grid;grid-template-columns:290px 1fr;gap:0;background:var(--card);border:1px solid var(--line);border-radius:16px;overflow:hidden;box-shadow:var(--shadow);}
+.pf4 .side{border-right:1px solid var(--line);padding:22px 19px;background:color-mix(in srgb,var(--bg) 50%,var(--card));position:sticky;top:70px;align-self:start;max-height:calc(100vh - 90px);overflow:auto;}
+.pf4 .side .k{font-size:12.5px;color:var(--muted);}
+.pf4 .side .amt{font-size:25px;font-weight:800;letter-spacing:-.01em;font-variant-numeric:tabular-nums;}
+.pf4 .side .s{font-size:13.5px;font-weight:700;}
+.pf4 .side .meta{margin-top:8px;font-size:12px;color:var(--muted);line-height:1.6;}
+.pf4 .bars{margin-top:16px;display:grid;gap:10px;font-size:12.5px;color:var(--muted);}
+.pf4 .brow b{color:var(--text);font-size:13px;}
+.pf4 .brow summary{cursor:pointer;list-style:none;}
+.pf4 .tr{height:8px;background:color-mix(in srgb,var(--line) 55%,transparent);border-radius:99px;overflow:hidden;margin-top:4px;}
+.pf4 .tr i{display:block;height:100%;border-radius:99px;max-width:100%;}
+.pf4 .bd{margin-top:6px;padding:8px 10px;background:var(--card);border:1px solid var(--line);border-radius:9px;font-size:12px;}
+.pf4 .lot{margin-top:3px;color:var(--muted);}
+.pf4 .eq{display:block;width:100%;margin-top:18px;border:1px solid var(--line);border-radius:9px;}
+.pf4 .tl{padding:22px 26px;min-width:0;}
+.pf4 .tl h2{margin:0 0 16px;font-size:17px;}
+.pf4 .ev{position:relative;padding:0 0 22px 28px;border-left:2px solid var(--line);margin-left:9px;}
+.pf4 .ev::before{content:"";position:absolute;left:-8px;top:3px;width:12px;height:12px;border-radius:50%;background:var(--card);border:3px solid var(--link);}
+.pf4 .ev.eval::before{border-color:#b58a2e;} .pf4 .ev.wait::before{border-color:#8a97a8;border-style:dashed;} .pf4 .ev.start::before{border-color:#3ba272;}
+.pf4 .ev .t{font-size:11.5px;color:var(--muted);font-family:"JetBrains Mono",Consolas,monospace;}
+.pf4 .ev .h{font-weight:700;font-size:14.5px;margin:3px 0 4px;}
+.pf4 .ev p{margin:3px 0;font-size:13.5px;color:var(--text);}
+.pf4 .ev .cmt{color:var(--muted);font-size:13px;}
+.pf4 .chip{display:inline-block;font-size:11px;font-weight:800;padding:2px 9px;border-radius:6px;margin-right:7px;vertical-align:1px;}
+.pf4 .chip.b{background:#fde8e5;color:#c0392b;} .pf4 .chip.sl{background:#e3edfb;color:#1d4fa8;} .pf4 .chip.h{background:#edf1f6;color:#5b6b80;}
+.pf4 .chip.s{background:var(--accent-soft,#e4eeff);color:var(--link);} .pf4 .chip.e{background:#f6ecd8;color:#8a6114;} .pf4 .chip.f{background:#e6f5ec;color:#1c7c46;} .pf4 .chip.w{background:#eef1f5;color:#5b6b80;}
+.pf4 .scroll{overflow-x:auto;}
+.pf4 table{width:100%;border-collapse:collapse;font-size:13px;font-variant-numeric:tabular-nums;min-width:520px;}
+.pf4 th{font-size:11.5px;color:var(--muted);text-align:left;padding:6px 9px;border-bottom:2px solid var(--line);}
+.pf4 td{padding:8px 9px;border-bottom:1px solid var(--line);}
+.pf4 .pfr{font-size:13.5px;color:var(--muted);padding-left:1.2em;margin:0 0 10px;}
+.pf4 .pfr li{margin:5px 0;}
+@media(max-width:680px){.pf4 .split{grid-template-columns:1fr;}.pf4 .side{position:static;max-height:none;border-right:none;border-bottom:1px solid var(--line);}}
+</style>

@@ -1,0 +1,99 @@
+---
+layout: default
+---
+{% assign p = site.data.portfolio %}
+<div class="pf5">
+  {% include pf-switcher.html cur=5 %}
+
+  <div class="term">
+    <div class="tbar"><span>■ STOCK-DAILY · PAPER ACCOUNT #01 · DAY {{ p.days }}</span><span>PRICED {{ p.priced_at | slice: 0, 16 | replace: "T", " " }} KST · MARK D18:00</span></div>
+
+    <div class="big">
+      <div><div class="k">NAV (총자산)</div><div class="v">₩{{ p.total_value_str }}</div></div>
+      <div><div class="k">DAY (오늘)</div><div class="v {% if p.day_chg_pct >= 0 %}pos{% else %}neg{% endif %}">{% if p.day_chg_pct >= 0 %}+{% endif %}{{ p.day_chg_pct }}%</div></div>
+      <div><div class="k">TOTAL P/L (누적)</div><div class="v {% if p.return_pct >= 0 %}pos{% else %}neg{% endif %}">{{ p.gain_str }} ({{ p.return_pct }}%)</div></div>
+      <div><div class="k">CASH (현금)</div><div class="v">₩{{ p.cash_str }} · {{ p.cash_weight_pct }}%</div></div>
+    </div>
+
+    <div class="cap">▌ HOLDINGS 보유 종목 <span class="dim">— 종목 클릭 = 체결 내역</span></div>
+    <div class="scroll"><table>
+      <thead><tr><th>TICKER</th><th>QTY</th><th>AVG</th><th>LAST</th><th>VALUE</th><th>WT%</th><th>P/L%</th></tr></thead>
+      <tbody>
+        {% for h in p.holdings_view %}
+        <tr><td class="tk"><details><summary>{{ h.ticker }} {{ h.name }}</summary>
+          <div class="lots">{% for l in h.lots %}<div>&gt; {{ l.date }} BUY {{ l.qty }} @ {{ l.price_krw_str }}{% if l.native_str %} ({{ l.native_str }} FX {{ l.fx }}){% endif %} = ₩{{ l.krw_str }} [{{ l.basis }}]</div>{% endfor %}
+          <div class="dim">&gt; LAST {{ h.price_str }}{% if h.price_native_str %} / {{ h.price_native_str }}{% endif %} · ASOF {{ h.price_date }}</div></div>
+        </details></td>
+        <td>{{ h.qty }}</td><td>{{ h.avg_str }}</td><td>{{ h.price_str }}{% if h.price_native_str %}<br><span class="dim">{{ h.price_native_str }}</span>{% endif %}</td>
+        <td>{{ h.value_str }}</td><td>{{ h.weight_pct }}</td>
+        <td class="{% if h.pl_pct >= 0 %}pos{% else %}neg{% endif %}"><b>{% if h.pl_pct >= 0 %}+{% endif %}{{ h.pl_pct }}</b></td></tr>
+        {% endfor %}
+        <tr><td class="tk">KRW 현금</td><td>—</td><td>—</td><td>—</td><td>{{ p.cash_str }}</td><td>{{ p.cash_weight_pct }}</td><td>—</td></tr>
+      </tbody>
+    </table></div>
+
+    {% if p.pending_view and p.pending_view.size > 0 %}
+    <div class="cap">▌ PENDING 체결 대기 (NEXT-OPEN FILL)</div>
+    {% for o in p.pending_view %}
+    <div class="line"><span class="{% if o.action == 'buy' %}pos{% else %}neg{% endif %}">{{ o.action | upcase }}</span> {{ o.name }}{% if o.krw_str %} ₩{{ o.krw_str }}{% endif %} · FILL≥{{ o.min_fill_date }} OPEN · <span class="dim">{{ o.reason }}</span></div>
+    {% endfor %}
+    {% endif %}
+
+    <div class="cap">▌ EQUITY CURVE 자산 곡선 (D18:00 MARK)</div>
+    <img src="{{ '/assets/portfolio/equity.png' | relative_url }}" alt="자산 추이">
+
+    <div class="cap">▌ BLOTTER 매매 일지</div>
+    {% for j in p.journal_view %}
+    <div class="jblock">
+      <div class="jh">{{ j.date }} {% if j.session == "kr" %}[KR 08:00]{% elsif j.session == "us" %}[US 21:00]{% elsif j.session == "fill" %}[FILL]{% endif %} <span class="dim">{{ j.comment }}</span></div>
+      {% for o in j.placed %}<div class="line">&gt; <span class="dim">{{ o.action }}</span> {% if o.name != "-" %}{{ o.name }} {% endif %}<span class="dim">{{ o.detail }}</span></div>{% endfor %}
+      {% for o in j.trades %}<div class="line">&gt; <span class="{% if o.action == '매수' %}pos{% else %}neg{% endif %}">{{ o.action }}</span> {{ o.name }} ₩{{ o.krw_str }} @{{ o.price_krw }} <span class="dim">[{{ o.basis }}] {{ o.reason }}</span></div>{% endfor %}
+    </div>
+    {% endfor %}
+
+    <div class="cap">▌ DAILY MARKS 일별 평가 <span class="dim">— 확정 매일 18:00 KST (KR종가·US간밤종가)</span></div>
+    <div class="scroll"><table>
+      <thead><tr><th>DATE</th><th>NAV</th><th>DAY%</th><th>TOT%</th><th>MIX</th></tr></thead>
+      <tbody>{% for d in p.history_view %}
+        <tr><td>{{ d.date }}</td><td>{{ d.total_value_str }}</td>
+        <td class="{% if d.day_chg_pct >= 0 %}pos{% else %}neg{% endif %}">{% if d.day_chg_pct >= 0 %}+{% endif %}{{ d.day_chg_pct }}</td>
+        <td class="{% if d.return_pct >= 0 %}pos{% else %}neg{% endif %}">{% if d.return_pct >= 0 %}+{% endif %}{{ d.return_pct }}</td>
+        <td class="dim">{% for hh in d.holdings %}{{ hh.name }} {{ hh.weight_pct }}%{% unless forloop.last %} / {% endunless %}{% endfor %}</td></tr>
+      {% endfor %}</tbody>
+    </table></div>
+
+    <div class="cap">▌ RULES 체결 규칙 & 검증</div>
+    <div class="rules">{% include pf-rules.html %}</div>
+    <div class="tfoot">⚠ PAPER TRADING · NO FEES/TAX/SLIPPAGE · KR INT-SHARES · FX RECORDED · <a href="{{ '/' | relative_url }}">← REPORTS</a></div>
+  </div>
+</div>
+
+<style>
+.pf5 .term{background:#0b1420;color:#d7e3f0;font-family:"JetBrains Mono",Consolas,monospace;border-radius:14px;padding:18px 20px 20px;font-size:13px;border:1px solid #223148;box-shadow:var(--shadow);}
+.pf5 .tbar{display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px;border-bottom:1px solid #223148;padding-bottom:10px;font-size:11.5px;color:#7d92ad;letter-spacing:.04em;}
+.pf5 .big{display:grid;grid-template-columns:repeat(4,auto);gap:12px 30px;padding:16px 2px 14px;}
+.pf5 .big .k{font-size:10.5px;color:#7d92ad;letter-spacing:.12em;}
+.pf5 .big .v{font-size:clamp(15px,2.4vw,20px);font-weight:700;letter-spacing:-.01em;font-variant-numeric:tabular-nums;}
+.pf5 .pos{color:#ff6b5b;} .pf5 .neg{color:#4da3ff;} .pf5 .dim{color:#7d92ad;}
+.pf5 .cap{margin:18px 0 8px;font-size:11.5px;color:#9fb6d4;letter-spacing:.12em;font-weight:700;}
+.pf5 .scroll{overflow-x:auto;}
+.pf5 table{width:100%;border-collapse:collapse;font-size:12.5px;font-variant-numeric:tabular-nums;min-width:560px;}
+.pf5 th{color:#7d92ad;font-size:10.5px;letter-spacing:.12em;text-align:right;padding:6px 8px;border-top:1px solid #223148;border-bottom:1px solid #223148;}
+.pf5 th:first-child,.pf5 td:first-child{text-align:left;}
+.pf5 td{padding:7px 8px;text-align:right;border-bottom:1px dashed #1b2940;color:#d7e3f0;}
+.pf5 .tk{color:#8fd0ff;font-weight:700;}
+.pf5 details summary{cursor:pointer;list-style:none;}
+.pf5 details summary::after{content:" ▾";color:#5c718c;font-size:10px;}
+.pf5 details[open] summary::after{content:" ▴";}
+.pf5 .lots{margin-top:6px;font-size:11.5px;text-align:left;white-space:normal;color:#b9cbe0;}
+.pf5 .line{padding:3px 0;border-bottom:1px dotted #16233a;font-size:12.5px;}
+.pf5 .jblock{margin:6px 0 12px;}
+.pf5 .jh{color:#e8f0fa;font-weight:700;font-size:12.5px;margin-bottom:2px;}
+.pf5 img{display:block;max-width:100%;border-radius:8px;border:1px solid #223148;}
+.pf5 .rules .pfr{font-size:12px;color:#9fb2c9;padding-left:1.2em;margin:0;}
+.pf5 .rules .pfr li{margin:5px 0;}
+.pf5 .rules a{color:#8fd0ff;}
+.pf5 .tfoot{margin-top:14px;font-size:11px;color:#5c718c;border-top:1px solid #223148;padding-top:10px;}
+.pf5 .tfoot a{color:#8fd0ff;}
+@media(max-width:640px){.pf5 .big{grid-template-columns:repeat(2,auto);}}
+</style>

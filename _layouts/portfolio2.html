@@ -1,0 +1,127 @@
+---
+layout: default
+---
+{% assign p = site.data.portfolio %}
+{% assign colors = "#3ba272,#e8a33d,#8b5fd6,#d3655f,#4aa3c0,#c0699d" | split: "," %}
+<div class="pf2">
+  {% include pf-switcher.html cur=2 %}
+  <p class="top mut">💼 가상 포트폴리오 — 1억 페이퍼 트레이딩 · {{ p.days }}일차 · 현재가 기준 {{ p.priced_at | slice: 5, 11 | replace: "T", " " }} <span class="warn">⚠️ 가상 매매 기록 · 투자 보장 아님</span></p>
+
+  <div class="grid">
+    <div class="w kpi main">
+      <div class="k">총자산</div>
+      <div class="v">{{ p.total_value_str }}<small>원</small></div>
+      <div class="s {% if p.return_pct >= 0 %}u{% else %}d{% endif %}">{{ p.gain_str }}원 ({{ p.return_pct }}%)</div>
+    </div>
+    <div class="w kpi"><div class="k">오늘</div><div class="v {% if p.day_chg_pct >= 0 %}u{% else %}d{% endif %}">{% if p.day_chg_pct >= 0 %}+{% endif %}{{ p.day_chg_pct }}%</div><div class="s mut">일간 변동</div></div>
+    <div class="w kpi"><div class="k">현금</div><div class="v">{{ p.cash_weight_pct }}%</div><div class="s mut">{{ p.cash_str }}원</div></div>
+    <div class="w kpi"><div class="k">보유 / 대기</div><div class="v">{{ p.holdings_view | size }} / {{ p.pending_view | size | default: 0 }}</div><div class="s mut">시작 {{ p.start_date }}</div></div>
+
+    <div class="w span2">
+      <h4>자산 배분</h4>
+      {% assign acc = 0.0 %}{% capture segs %}{% for h in p.holdings_view %}{% assign i = forloop.index0 | modulo: 6 %}{% assign acc2 = acc | plus: h.weight_pct %}{{ colors[i] }} {{ acc }}% {{ acc2 }}%, {% assign acc = acc2 %}{% endfor %}{% endcapture %}
+      <div class="donut-row">
+        <div class="donut" style="background:conic-gradient({{ segs }} #9fb4cc {{ acc }}% 100%)"><i>주식<br><b>{{ 100.0 | minus: p.cash_weight_pct | round: 1 }}%</b></i></div>
+        <div class="lg">
+          {% for h in p.holdings_view %}<span><em style="background:{{ colors[forloop.index0] }}"></em>{{ h.name }} <b>{{ h.weight_pct }}%</b> <span class="{% if h.pl_pct >= 0 %}u{% else %}d{% endif %}">{% if h.pl_pct >= 0 %}+{% endif %}{{ h.pl_pct }}%</span></span>{% endfor %}
+          <span><em style="background:#9fb4cc"></em>현금 <b>{{ p.cash_weight_pct }}%</b></span>
+        </div>
+      </div>
+    </div>
+    <div class="w span2">
+      <h4>자산 추이 (매일 18시 평가)</h4>
+      <img src="{{ '/assets/portfolio/equity.png' | relative_url }}" alt="자산 추이 차트">
+    </div>
+
+    <div class="w span4">
+      <h4>보유 종목 — 클릭하면 거래 내역</h4>
+      <div class="scroll"><table>
+        <thead><tr><th>종목</th><th>수량</th><th>평균단가</th><th>현재가</th><th>평가액</th><th>비중</th><th>손익</th></tr></thead>
+        <tbody>
+        {% for h in p.holdings_view %}
+        <tr><td>
+          <details><summary>{{ h.name }}</summary>
+            <div class="lots">{% for l in h.lots %}<div>{{ l.date }} 매수 {{ l.qty }}주 @{{ l.price_krw_str }}원{% if l.native_str %} ({{ l.native_str }}·환율 {{ l.fx }}){% endif %} = {{ l.krw_str }}원 · {{ l.basis }}</div>{% endfor %}</div>
+          </details></td>
+          <td>{{ h.qty }}</td><td>{{ h.avg_str }}</td>
+          <td>{{ h.price_str }}{% if h.price_native_str %}<br><span class="mut sm">{{ h.price_native_str }}</span>{% endif %}</td>
+          <td>{{ h.value_str }}</td><td>{{ h.weight_pct }}%</td>
+          <td class="{% if h.pl_pct >= 0 %}u{% else %}d{% endif %}"><b>{% if h.pl_pct >= 0 %}+{% endif %}{{ h.pl_pct }}%</b></td></tr>
+        {% endfor %}
+        <tr class="cashrow"><td>💰 현금</td><td colspan="3" class="mut">—</td><td>{{ p.cash_str }}</td><td>{{ p.cash_weight_pct }}%</td><td class="mut">—</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+
+    {% if p.pending_view and p.pending_view.size > 0 %}
+    <div class="w span4"><h4>⏳ 체결 대기</h4>
+      {% for o in p.pending_view %}<div class="pend"><b>{{ o.action_label }}예약</b> {{ o.name }}{% if o.krw_str %} {{ o.krw_str }}원{% endif %} <span class="mut">— {{ o.min_fill_date }} 이후 개장 시가 · {{ o.reason }}</span></div>{% endfor %}
+    </div>
+    {% endif %}
+
+    <div class="w span2">
+      <h4>📒 매매 일지</h4>
+      {% for j in p.journal_view %}
+      <div class="jday"><b>{{ j.date }}</b> {% if j.session == "kr" %}🇰🇷 아침{% elsif j.session == "us" %}🇺🇸 저녁{% elsif j.session == "fill" %}⚡ 체결{% endif %}
+        {% if j.comment != "" %}<div class="mut sm">{{ j.comment }}</div>{% endif %}
+        {% for o in j.placed %}<div class="jr"><span class="tag h-bg">{{ o.action }}</span>{% if o.name != "-" %}<b>{{ o.name }}</b>{% endif %} <span class="mut sm">{{ o.detail }}</span></div>{% endfor %}
+        {% for o in j.trades %}<div class="jr"><span class="tag {% if o.action == '매수' %}u-bg{% else %}d-bg{% endif %}">{{ o.action }}</span><b>{{ o.name }}</b> {{ o.krw_str }}원 <span class="mut sm">@{{ o.price_krw }} · {{ o.basis }} — {{ o.reason }}</span></div>{% endfor %}
+      </div>
+      {% endfor %}
+    </div>
+    <div class="w span2">
+      <h4>📅 일별 현황 <span class="mut sm">— 매일 18시 확정</span></h4>
+      <div class="scroll"><table>
+        <thead><tr><th>날짜</th><th>총자산</th><th>일간</th><th>누적</th></tr></thead>
+        <tbody>{% for d in p.history_view %}
+          <tr><td>{{ d.date }}</td><td>{{ d.total_value_str }}</td>
+          <td class="{% if d.day_chg_pct >= 0 %}u{% else %}d{% endif %}">{% if d.day_chg_pct >= 0 %}+{% endif %}{{ d.day_chg_pct }}%</td>
+          <td class="{% if d.return_pct >= 0 %}u{% else %}d{% endif %}">{% if d.return_pct >= 0 %}+{% endif %}{{ d.return_pct }}%</td></tr>
+        {% endfor %}</tbody>
+      </table></div>
+    </div>
+
+    <div class="w span4"><h4>🧾 체결 규칙 & 검증</h4>{% include pf-rules.html %}</div>
+  </div>
+</div>
+
+<style>
+.pf2 .u{color:#d63c2f;} .pf2 .d{color:#2563d0;} .pf2 .mut{color:var(--muted);} .pf2 .sm{font-size:12.5px;}
+.pf2 .top{font-size:13.5px;margin:0 2px 12px;}
+.pf2 .warn{margin-left:8px;font-size:12px;}
+.pf2 .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:13px;}
+.pf2 .w{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:15px 17px;box-shadow:var(--shadow);min-width:0;}
+.pf2 .span2{grid-column:span 2;} .pf2 .span4{grid-column:span 4;}
+.pf2 h4{margin:0 0 10px;font-size:13px;color:var(--muted);font-weight:700;letter-spacing:.03em;}
+.pf2 .kpi .k{font-size:12px;color:var(--muted);}
+.pf2 .kpi .v{font-size:clamp(19px,2.6vw,24px);font-weight:800;letter-spacing:-.01em;font-variant-numeric:tabular-nums;}
+.pf2 .kpi .v small{font-size:.55em;font-weight:600;color:var(--muted);}
+.pf2 .kpi.main .v{font-size:clamp(22px,3vw,27px);}
+.pf2 .kpi .s{font-size:12.5px;font-weight:700;}
+.pf2 .donut-row{display:flex;align-items:center;gap:18px;flex-wrap:wrap;}
+.pf2 .donut{width:120px;height:120px;border-radius:50%;display:grid;place-items:center;flex:0 0 auto;}
+.pf2 .donut i{width:78px;height:78px;border-radius:50%;background:var(--card);display:grid;place-items:center;text-align:center;font-style:normal;font-size:12px;color:var(--muted);line-height:1.3;}
+.pf2 .donut i b{font-size:15px;color:var(--text);}
+.pf2 .lg{display:grid;gap:6px;font-size:13px;color:var(--muted);}
+.pf2 .lg b{color:var(--text);}
+.pf2 .lg em{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:6px;}
+.pf2 img{display:block;max-width:100%;border-radius:9px;border:1px solid var(--line);}
+.pf2 .scroll{overflow-x:auto;}
+.pf2 table{width:100%;border-collapse:collapse;font-size:13px;font-variant-numeric:tabular-nums;}
+.pf2 th{font-size:11px;color:var(--muted);text-transform:uppercase;text-align:left;padding:6px 9px;border-bottom:2px solid var(--line);white-space:nowrap;}
+.pf2 td{padding:8px 9px;border-bottom:1px solid var(--line);white-space:nowrap;}
+.pf2 tr:last-child td{border-bottom:none;}
+.pf2 details summary{cursor:pointer;font-weight:700;color:var(--link);list-style:none;}
+.pf2 details summary::after{content:" ▾";font-size:10px;color:var(--muted);}
+.pf2 details[open] summary::after{content:" ▴";}
+.pf2 .lots{margin-top:6px;padding:8px 10px;background:color-mix(in srgb,var(--bg) 60%,var(--card));border:1px solid var(--line);border-radius:8px;font-size:12px;white-space:normal;}
+.pf2 .tag{display:inline-block;font-size:11px;font-weight:800;padding:2px 8px;border-radius:6px;margin-right:7px;}
+.pf2 .u-bg{background:#fde8e5;color:#c0392b;} .pf2 .d-bg{background:#e3edfb;color:#1d4fa8;} .pf2 .h-bg{background:#edf1f6;color:#5b6b80;}
+.pf2 .jday{padding:9px 0;border-bottom:1px solid var(--line);font-size:14px;}
+.pf2 .jday:last-child{border-bottom:none;}
+.pf2 .jr{padding:3px 0;}
+.pf2 .pend{padding:6px 0;font-size:14px;border-bottom:1px dashed var(--line);}
+.pf2 .pfr{font-size:13.5px;color:var(--muted);padding-left:1.2em;margin:0;}
+.pf2 .pfr li{margin:5px 0;}
+@media(max-width:640px){.pf2 .grid{grid-template-columns:repeat(2,1fr);}.pf2 .span2,.pf2 .span4{grid-column:span 2;}}
+</style>

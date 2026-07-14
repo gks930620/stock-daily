@@ -242,9 +242,12 @@ def main() -> int:
         lots_view = [{**lot, "krw_str": won(lot["krw"]), "price_krw_str": won(lot["price_krw"]),
                       "native_str": (f"${lot['price_native']:,.2f}" if lot.get("currency") == "USD" else None)}
                      for lot in h.get("lots", [])]
+        pl_krw = val - h["cost_krw"]
         hold_view.append({
             "ticker": t, "name": h["name"], "qty": round(h["qty"], 4),
             "currency": info["currency"],
+            "cost_str": won(h["cost_krw"]),
+            "pl_krw_str": ("+" if pl_krw >= 0 else "") + won(pl_krw),
             "avg_krw": round(avg), "avg_str": won(avg),
             "price_krw": round(pr), "price_str": won(pr),
             "price_native_str": (f"${info['price_native']:,.2f}" if info["currency"] == "USD" else None),
