@@ -94,11 +94,13 @@ def main() -> int:
     applied = state.setdefault("applied_orders", [])
     last_comment = ""
     pending_files = sorted(p for p in orders_dir.glob(f"{today}*.json") if p.stem not in applied) if orders_dir.exists() else []
+    journal = state.setdefault("journal", [])  # 매매 일지: 세션별 결정(매수/매도/유지) 전체 기록
     for opath in pending_files:
         orders_doc = load_json(opath, {})
         orders = orders_doc.get("orders", [])
         if orders_doc.get("comment"):
             last_comment = orders_doc["comment"]
+        session_executed_start = len(executed)
         for o in orders:
             act = (o.get("action") or "").lower()
             t = o.get("ticker")
@@ -133,6 +135,15 @@ def main() -> int:
                 if h["qty"] <= 1e-9:
                     holdings.pop(t, None)
         applied.append(opath.stem)
+        session_trades = executed[session_executed_start:]
+        for tr in session_trades:
+            tr["krw_str"] = won(tr["krw"])
+        journal.append({
+            "date": today,
+            "session": orders_doc.get("session") or (opath.stem.split("-")[-1] if "-kr" in opath.stem or "-us" in opath.stem else ""),
+            "comment": orders_doc.get("comment", ""),
+            "trades": session_trades,
+        })
 
     # 재평가
     hold_view = []
@@ -159,9 +170,16 @@ def main() -> int:
     for ex in executed:
         ex["krw_str"] = won(ex["krw"])
 
-    # 히스토리 upsert
+    # 히스토리 upsert (일별 스냅샷: 총자산·일간변동·현금·보유요약)
     hist = [h for h in state.get("history", []) if h["date"] != today]
-    hist.append({"date": today, "total_value": round(total), "return_pct": round(ret_pct, 2)})
+    prev_total = hist[-1]["total_value"] if hist else START_CAPITAL
+    day_chg_pct = round((total / prev_total - 1) * 100, 2) if prev_total else 0.0
+    hist.append({
+        "date": today, "total_value": round(total), "total_value_str": won(total),
+        "return_pct": round(ret_pct, 2), "day_chg_pct": day_chg_pct,
+        "cash": round(cash),
+        "holdings": [{"name": hv["name"], "value_str": hv["value_str"], "weight_pct": hv["weight_pct"], "pl_pct": hv["pl_pct"]} for hv in hold_view],
+    })
     hist.sort(key=lambda x: x["date"])
 
     state.update({
@@ -173,8 +191,12 @@ def main() -> int:
         "total_value_str": won(total), "cash_str": won(cash),
         "holdings_value_str": won(holdings_value), "start_capital_str": won(START_CAPITAL),
         "gain_str": ("+" if total >= START_CAPITAL else "") + won(total - START_CAPITAL),
+        "cash_weight_pct": round(cash / total * 100, 1) if total else 0,
+        "day_chg_pct": day_chg_pct,
         "days": len(hist),
     })
+    state["journal_view"] = list(reversed(journal))     # 최신이 위로 (사이트 표시용)
+    state["history_view"] = list(reversed(hist))
     if pending_files:  # 새 주문이 있었을 때만 '최근 매매' 표시 갱신 (빈 실행이 지우지 않게)
         state["last_orders"] = executed
         state["last_comment"] = last_comment

@@ -16,6 +16,7 @@ layout: default
       <div class="pf-value">{{ p.total_value_str }}<span class="won">원</span></div>
       <div class="pf-return {% if p.return_pct >= 0 %}pos{% else %}neg{% endif %}">
         {% if p.return_pct >= 0 %}▲{% else %}▼{% endif %} {{ p.gain_str }}원 ({{ p.return_pct }}%)
+        <span class="pf-day {% if p.day_chg_pct >= 0 %}pos{% else %}neg{% endif %}">오늘 {% if p.day_chg_pct >= 0 %}+{% endif %}{{ p.day_chg_pct }}%</span>
       </div>
     </div>
     <ul class="pf-meta">
@@ -41,24 +42,63 @@ layout: default
         <td class="{% if h.pl_pct >= 0 %}pos{% else %}neg{% endif %}">{{ h.pl_pct }}%</td>
       </tr>
       {% endfor %}
+      <tr>
+        <td>💰 현금</td>
+        <td>{{ p.cash_str }}원</td>
+        <td>{{ p.cash_weight_pct }}%</td>
+        <td class="muted">—</td>
+      </tr>
     </tbody>
   </table>
+  <p class="muted small">비중은 현금 포함 총자산 대비 · 손익은 평균 매수가 대비 (해외 자산은 원화 환산이라 환율 변동 포함)</p>
   {% else %}
   <p class="muted">현재 보유 종목 없음 (전액 현금).</p>
   {% endif %}
 
-  {% if p.last_orders and p.last_orders.size > 0 %}
-  <h2>최근 매매 ({{ p.updated }})</h2>
-  {% if p.last_comment != "" %}<blockquote>{{ p.last_comment }}</blockquote>{% endif %}
-  <ul class="pf-orders">
-    {% for o in p.last_orders %}
-    <li><span class="pf-act {% if o.action == '매수' %}buy{% else %}sell{% endif %}">{{ o.action }}</span>
-      <b>{{ o.name }}</b> {{ o.krw_str }}원 <span class="muted">— {{ o.reason }}</span></li>
+  {% if p.journal_view and p.journal_view.size > 0 %}
+  <h2>📒 매매 일지</h2>
+  <div class="pf-journal">
+    {% for j in p.journal_view %}
+    <div class="pf-jday">
+      <div class="pf-jhead">
+        <b>{{ j.date }}</b>
+        {% if j.session == "kr" %}<span class="pf-sess">🇰🇷 아침</span>{% elsif j.session == "us" %}<span class="pf-sess">🇺🇸 저녁</span>{% endif %}
+        {% if j.comment != "" %}<span class="muted">— {{ j.comment }}</span>{% endif %}
+      </div>
+      {% if j.trades.size > 0 %}
+      <ul class="pf-orders">
+        {% for o in j.trades %}
+        <li><span class="pf-act {% if o.action == '매수' %}buy{% else %}sell{% endif %}">{{ o.action }}</span>
+          <b>{{ o.name }}</b> {{ o.krw_str }}원 <span class="muted">@{{ o.price_krw }}원 — {{ o.reason }}</span></li>
+        {% endfor %}
+      </ul>
+      {% else %}
+      <ul class="pf-orders"><li><span class="pf-act hold">유지</span><span class="muted">매매 없음 (관망)</span></li></ul>
+      {% endif %}
+    </div>
     {% endfor %}
-  </ul>
+  </div>
   {% endif %}
 
-  <p class="muted small" style="margin-top:20px">매일 08:00 KST 자동 갱신 · <a href="{{ '/' | relative_url }}">← 리포트 목록</a></p>
+  {% if p.history_view and p.history_view.size > 0 %}
+  <h2>📅 일별 현황</h2>
+  <table>
+    <thead><tr><th>날짜</th><th>총자산</th><th>일간</th><th>누적</th><th>보유</th></tr></thead>
+    <tbody>
+      {% for d in p.history_view %}
+      <tr>
+        <td>{{ d.date }}</td>
+        <td>{{ d.total_value_str | default: d.total_value }}원</td>
+        <td class="{% if d.day_chg_pct >= 0 %}pos{% else %}neg{% endif %}">{% if d.day_chg_pct >= 0 %}+{% endif %}{{ d.day_chg_pct }}%</td>
+        <td class="{% if d.return_pct >= 0 %}pos{% else %}neg{% endif %}">{% if d.return_pct >= 0 %}+{% endif %}{{ d.return_pct }}%</td>
+        <td class="muted">{% for hh in d.holdings %}{{ hh.name }} {{ hh.weight_pct }}%{% unless forloop.last %} · {% endunless %}{% endfor %}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% endif %}
+
+  <p class="muted small" style="margin-top:20px">매일 08시(🇰🇷)·21시(🇺🇸) 예상글의 매매 결정이 자동 반영 · <a href="{{ '/' | relative_url }}">← 리포트 목록</a></p>
 </div>
 {% else %}
 <div class="content-card">
