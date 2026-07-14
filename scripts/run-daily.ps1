@@ -37,9 +37,9 @@ if ($Mode -ne "collect") {
         if ($LASTEXITCODE -ne 0) { Write-Warning "스크리너 실패(계속 진행)" }
     }
 
-    Write-Host "[4] Claude 분석·예상글 생성 ($Mode, opus-4.8)..."
+    Write-Host "[4] Claude 분석·예상글 생성 ($Mode, 최신 opus)..."
     $prompt = Get-Content -Raw "$repo\prompts\$Mode-report.md"
-    & $claude -p $prompt --model claude-opus-4-8 --dangerously-skip-permissions
+    & $claude -p $prompt --model opus --dangerously-skip-permissions
 
     Write-Host "[5] 포트폴리오 매매 반영..."
     & $venvPython "$repo\scripts\portfolio.py"
