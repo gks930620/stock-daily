@@ -104,9 +104,8 @@ jobs:
           claude --version
           claude -p "$PROMPT" --model opus --permission-mode bypassPermissions --verbose
 
-      - name: 가상 포트폴리오 매매 반영 + 자산곡선
-        if: steps.mode.outputs.mode != 'collect'
-        run: python scripts/portfolio.py
+      - name: 가상 포트폴리오 체결·평가 (18시=일별 평가 확정, 시가 체결 처리)
+        run: python scripts/portfolio.py ${{ steps.mode.outputs.label }}
 
       - name: 커밋 & 푸시
         run: |

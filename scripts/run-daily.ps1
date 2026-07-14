@@ -41,10 +41,12 @@ if ($Mode -ne "collect") {
     $prompt = Get-Content -Raw "$repo\prompts\$Mode-report.md"
     & $claude -p $prompt --model opus --dangerously-skip-permissions
 
-    Write-Host "[5] 포트폴리오 매매 반영..."
-    & $venvPython "$repo\scripts\portfolio.py"
-    if ($LASTEXITCODE -ne 0) { Write-Warning "포트폴리오 갱신 실패(계속 진행)" }
 }
+
+# 포트폴리오 체결·평가는 모든 모드에서 실행 (collect(18시) = 시가 체결 + 일별 평가 확정)
+Write-Host "[포트폴리오] 체결·평가 ($label)..."
+& $venvPython "$repo\scripts\portfolio.py" $label
+if ($LASTEXITCODE -ne 0) { Write-Warning "포트폴리오 갱신 실패(계속 진행)" }
 
 Write-Host "커밋·푸시..."
 git add -A

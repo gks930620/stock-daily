@@ -116,6 +116,7 @@ layout: default
 
   {% if p.history_view and p.history_view.size > 0 %}
   <h2>📅 일별 현황</h2>
+  <p class="muted small">📌 <b>{{ p.eval_note | default: "일별 평가 확정 = 매일 18:00 KST (한국주 = 당일 종가 · 미국주 = 간밤 종가)" }}</b> — 이 표와 자산곡선의 각 점이 그 시각 기준입니다.</p>
   <table>
     <thead><tr><th>날짜</th><th>총자산</th><th>일간</th><th>누적</th><th>보유</th></tr></thead>
     <tbody>

@@ -134,6 +134,8 @@ def exec_sell(holdings, cash, t, info, qty_req, price_krw, today, session, reaso
 
 
 def main() -> int:
+    # 선택 인자: 실행 라벨 (morning/krclose/uspre). krclose(18시)일 때만 일별 평가를 '확정'한다.
+    label = sys.argv[1] if len(sys.argv) > 1 else None
     today = datetime.now(KST).strftime("%Y-%m-%d")
     market = load_json(REPO / "data" / today / "market.json")
     if not market:
@@ -262,16 +264,20 @@ def main() -> int:
                      "session_label": SESSION_LABEL.get(od["session"], od["session"]),
                      "action_label": "매수" if od["action"] == "buy" else "매도"} for od in pending]
 
-    # ── 4) 히스토리 (일별 스냅샷) ──
-    hist = [h for h in state.get("history", []) if h["date"] != today]
-    prev_total = hist[-1]["total_value"] if hist else START_CAPITAL
+    # ── 4) 히스토리 (일별 스냅샷) — 매일 18시(krclose) 평가만 '확정' 기록 ──
+    hist = state.get("history", [])
+    finalize = (label == "krclose") or not hist          # 18시 확정 / 최초 1회 시드
+    prev_marks = [h for h in hist if h["date"] != today]
+    prev_total = prev_marks[-1]["total_value"] if prev_marks else START_CAPITAL
     day_chg_pct = round((total / prev_total - 1) * 100, 2) if prev_total else 0.0
-    hist.append({
-        "date": today, "total_value": round(total), "total_value_str": won(total),
-        "return_pct": round(ret_pct, 2), "day_chg_pct": day_chg_pct, "cash": round(cash),
-        "holdings": [{"name": hv["name"], "value_str": hv["value_str"], "weight_pct": hv["weight_pct"], "pl_pct": hv["pl_pct"]} for hv in hold_view],
-    })
-    hist.sort(key=lambda x: x["date"])
+    if finalize:
+        hist = prev_marks + [{
+            "date": today, "total_value": round(total), "total_value_str": won(total),
+            "return_pct": round(ret_pct, 2), "day_chg_pct": day_chg_pct, "cash": round(cash),
+            "asof": "18:00 평가" if label == "krclose" else "개설일 시드",
+            "holdings": [{"name": hv["name"], "value_str": hv["value_str"], "weight_pct": hv["weight_pct"], "pl_pct": hv["pl_pct"]} for hv in hold_view],
+        }]
+        hist.sort(key=lambda x: x["date"])
 
     state.update({
         "cash": round(cash), "holdings": holdings, "updated": today,
@@ -285,6 +291,7 @@ def main() -> int:
         "cash_weight_pct": round(cash / total * 100, 1) if total else 0,
         "day_chg_pct": day_chg_pct, "days": len(hist),
         "priced_at": market.get("generated_at_kst", ""),
+        "eval_note": "일별 평가 확정 = 매일 18:00 KST (한국주 = 당일 종가 · 미국주 = 간밤 종가)",
     })
     state["journal_view"] = list(reversed(journal))
     state["history_view"] = list(reversed(hist))
@@ -300,7 +307,7 @@ def main() -> int:
     ax.plot(dates, vals, color="#175cd3", linewidth=2, marker="o", markersize=4)
     ax.axhline(START_CAPITAL, color="#94a3b8", linestyle="--", linewidth=1, label="시작 (1억)")
     ax.fill_between(range(len(dates)), START_CAPITAL, vals, alpha=0.08, color="#175cd3")
-    ax.set_title(f"가상 포트폴리오 자산 추이  ·  {total:,.0f}원 ({ret_pct:+.2f}%)", fontsize=13, fontweight="bold")
+    ax.set_title(f"가상 포트폴리오 자산 추이 (매일 18시 평가)  ·  {total:,.0f}원 ({ret_pct:+.2f}%)", fontsize=13, fontweight="bold")
     ax.yaxis.set_major_formatter(lambda x, _: f"{x/1e8:.2f}억")
     ax.legend(fontsize=9); ax.grid(alpha=0.25)
     if len(dates) > 12:
