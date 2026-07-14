@@ -76,6 +76,9 @@ jobs:
           claude --version
           claude -p "$PROMPT" --permission-mode bypassPermissions --verbose
 
+      - name: 가상 포트폴리오 매매 반영 + 자산곡선 차트
+        run: python scripts/portfolio.py
+
       - name: 커밋 & 푸시
         run: |
           git config user.name "stock-daily-bot"

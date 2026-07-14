@@ -18,7 +18,11 @@
         <span class="brand-mark" aria-hidden="true">📈</span>
         <span>{{ site.title }}</span>
       </a>
-      <a class="rss" href="{{ '/feed.xml' | relative_url }}" title="RSS 구독">RSS</a>
+      <nav class="nav">
+        <a href="{{ '/' | relative_url }}">리포트</a>
+        <a href="{{ '/portfolio/' | relative_url }}">포트폴리오</a>
+        <a class="rss" href="{{ '/feed.xml' | relative_url }}" title="RSS 구독">RSS</a>
+      </nav>
     </div>
   </header>
 
