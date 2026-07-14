@@ -2,11 +2,108 @@
   "start_date": "2026-07-14",
   "start_capital": 100000000,
   "currency": "KRW",
-  "cash": 100000000,
-  "holdings": {},
-  "applied_orders": [],
-  "pending_orders": [],
-  "journal": [],
+  "cash": 88000000,
+  "holdings": {
+    "GC=F": {
+      "name": "금",
+      "qty": 1.9907879076675754,
+      "cost_krw": 12000000.0,
+      "lots": [
+        {
+          "date": "2026-07-14",
+          "session": "us",
+          "qty": 1.9908,
+          "price_krw": 6027764,
+          "price_native": 4034.0,
+          "currency": "USD",
+          "krw": 12000000,
+          "fx": 1494.24,
+          "price_date": "2026-07-14",
+          "basis": "즉시(24h)"
+        }
+      ]
+    }
+  },
+  "applied_orders": [
+    "2026-07-14-us-stable"
+  ],
+  "pending_orders": [
+    {
+      "placed_date": "2026-07-14",
+      "session": "us",
+      "action": "buy",
+      "ticker": "XLV",
+      "name": "헬스케어ETF",
+      "krw": 12000000,
+      "qty": null,
+      "reason": "이익이 꾸준하고 경기·금리 민감도가 낮은 대표 방어 섹터. 반도체 쇼크가 국경 없이 번지는 장세에서 기술 대신 필수 수요주로 변동성을 낮춘다. ETF라 단일종목 리스크도 분산. 12%.",
+      "min_fill_date": "2026-07-14"
+    },
+    {
+      "placed_date": "2026-07-14",
+      "session": "us",
+      "action": "buy",
+      "ticker": "XLF",
+      "name": "금융ETF",
+      "krw": 10000000,
+      "qty": null,
+      "reason": "JPM(EPS $6.14, 컨센 $5.85 대폭 상회)·WFC 실적 서프라이즈로 이익 모멘텀이 확인된 가치 섹터. 금리 급등이 NIM에 우호적이라 CPI가 뜨거워도 방어된다. 개별주 대신 ETF로 안전하게. 10%.",
+      "min_fill_date": "2026-07-14"
+    },
+    {
+      "placed_date": "2026-07-14",
+      "session": "us",
+      "action": "buy",
+      "ticker": "AAPL",
+      "name": "애플",
+      "krw": 10000000,
+      "qty": null,
+      "reason": "재무가 탄탄하고 현금흐름이 꾸준한 초우량 대형주. 반도체·고베타 성장주가 밀린 날에도 +0.63%로 상대적 방어력을 보였다. 추격이 아닌 우량주 편입 차원의 소액 진입. 10%.",
+      "min_fill_date": "2026-07-14"
+    }
+  ],
+  "journal": [
+    {
+      "date": "2026-07-14",
+      "session": "us",
+      "comment": "CPI 대기 밤 — 풀매수 금지. 방어자산(금·헬스케어)과 실적 확인된 가치(금융)·우량 대형주만 소액 분산, 현금 56% 방패 유지.",
+      "placed": [
+        {
+          "action": "매수예약",
+          "name": "헬스케어ETF",
+          "detail": "12,000,000원 · 다음 개장 시가 체결 대기 — 이익이 꾸준하고 경기·금리 민감도가 낮은 대표 방어 섹터. 반도체 쇼크가 국경 없이 번지는 장세에서 기술 대신 필수 수요주로 변동성을 낮춘다. ETF라 단일종목 리스크도 분산. 12%."
+        },
+        {
+          "action": "매수예약",
+          "name": "금융ETF",
+          "detail": "10,000,000원 · 다음 개장 시가 체결 대기 — JPM(EPS $6.14, 컨센 $5.85 대폭 상회)·WFC 실적 서프라이즈로 이익 모멘텀이 확인된 가치 섹터. 금리 급등이 NIM에 우호적이라 CPI가 뜨거워도 방어된다. 개별주 대신 ETF로 안전하게. 10%."
+        },
+        {
+          "action": "매수예약",
+          "name": "애플",
+          "detail": "10,000,000원 · 다음 개장 시가 체결 대기 — 재무가 탄탄하고 현금흐름이 꾸준한 초우량 대형주. 반도체·고베타 성장주가 밀린 날에도 +0.63%로 상대적 방어력을 보였다. 추격이 아닌 우량주 편입 차원의 소액 진입. 10%."
+        },
+        {
+          "action": "유지",
+          "name": "-",
+          "detail": "엔비디아·AMD·SMH 등 급락 반도체와 XLE(에너지 +3% 급등)는 모멘텀·고변동 구간이라 안정형 원칙상 신규 진입 회피. 나머지 56%는 21:30 CPI 코어 확인 후 방향이 서면 집행할 현금으로 남긴다."
+        }
+      ],
+      "trades": [
+        {
+          "action": "매수",
+          "ticker": "GC=F",
+          "name": "금",
+          "krw": 12000000,
+          "krw_str": "12,000,000",
+          "qty": 1.9908,
+          "price_krw": 6027764,
+          "basis": "즉시(24h)",
+          "reason": "유가·구리·금 동반 상승의 리플레이션·지정학 프리미엄 국면. VIX 17.5로 언제든 튈 수 있는 이벤트(21:30 CPI) 앞에서 금은 순수 방패다. 즉시 체결되는 자산으로 포트 하단을 먼저 깐다. 총자산 12%."
+        }
+      ]
+    }
+  ],
   "history": [
     {
       "date": "2026-07-14",
@@ -21,26 +118,146 @@
   ],
   "updated": "2026-07-14",
   "total_value": 100000000,
-  "holdings_value": 0,
+  "holdings_value": 12000000,
   "return_pct": 0.0,
-  "usdkrw": 1494.79,
-  "holdings_view": [],
-  "pending_view": [],
+  "usdkrw": 1494.24,
+  "holdings_view": [
+    {
+      "ticker": "GC=F",
+      "name": "금",
+      "qty": 1.9908,
+      "currency": "USD",
+      "cost_str": "12,000,000",
+      "pl_krw_str": "+0",
+      "avg_krw": 6027764,
+      "avg_str": "6,027,764",
+      "price_krw": 6027764,
+      "price_str": "6,027,764",
+      "price_native_str": "$4,034.00",
+      "price_date": "2026-07-14",
+      "value_krw": 12000000,
+      "pl_pct": 0.0,
+      "lots": [
+        {
+          "date": "2026-07-14",
+          "session": "us",
+          "qty": 1.9908,
+          "price_krw": 6027764,
+          "price_native": 4034.0,
+          "currency": "USD",
+          "krw": 12000000,
+          "fx": 1494.24,
+          "price_date": "2026-07-14",
+          "basis": "즉시(24h)",
+          "krw_str": "12,000,000",
+          "price_krw_str": "6,027,764",
+          "native_str": "$4,034.00"
+        }
+      ],
+      "weight_pct": 12.0,
+      "value_str": "12,000,000"
+    }
+  ],
+  "pending_view": [
+    {
+      "placed_date": "2026-07-14",
+      "session": "us",
+      "action": "buy",
+      "ticker": "XLV",
+      "name": "헬스케어ETF",
+      "krw": 12000000,
+      "qty": null,
+      "reason": "이익이 꾸준하고 경기·금리 민감도가 낮은 대표 방어 섹터. 반도체 쇼크가 국경 없이 번지는 장세에서 기술 대신 필수 수요주로 변동성을 낮춘다. ETF라 단일종목 리스크도 분산. 12%.",
+      "min_fill_date": "2026-07-14",
+      "krw_str": "12,000,000",
+      "session_label": "🇺🇸 저녁",
+      "action_label": "매수"
+    },
+    {
+      "placed_date": "2026-07-14",
+      "session": "us",
+      "action": "buy",
+      "ticker": "XLF",
+      "name": "금융ETF",
+      "krw": 10000000,
+      "qty": null,
+      "reason": "JPM(EPS $6.14, 컨센 $5.85 대폭 상회)·WFC 실적 서프라이즈로 이익 모멘텀이 확인된 가치 섹터. 금리 급등이 NIM에 우호적이라 CPI가 뜨거워도 방어된다. 개별주 대신 ETF로 안전하게. 10%.",
+      "min_fill_date": "2026-07-14",
+      "krw_str": "10,000,000",
+      "session_label": "🇺🇸 저녁",
+      "action_label": "매수"
+    },
+    {
+      "placed_date": "2026-07-14",
+      "session": "us",
+      "action": "buy",
+      "ticker": "AAPL",
+      "name": "애플",
+      "krw": 10000000,
+      "qty": null,
+      "reason": "재무가 탄탄하고 현금흐름이 꾸준한 초우량 대형주. 반도체·고베타 성장주가 밀린 날에도 +0.63%로 상대적 방어력을 보였다. 추격이 아닌 우량주 편입 차원의 소액 진입. 10%.",
+      "min_fill_date": "2026-07-14",
+      "krw_str": "10,000,000",
+      "session_label": "🇺🇸 저녁",
+      "action_label": "매수"
+    }
+  ],
   "total_value_str": "100,000,000",
-  "cash_str": "100,000,000",
-  "holdings_value_str": "0",
+  "cash_str": "88,000,000",
+  "holdings_value_str": "12,000,000",
   "start_capital_str": "100,000,000",
   "gain_str": "+0",
-  "cash_weight_pct": 100.0,
+  "cash_weight_pct": 88.0,
   "day_chg_pct": 0.0,
   "days": 1,
-  "priced_at": "2026-07-14T18:37:09+09:00",
+  "priced_at": "2026-07-14T21:29:34+09:00",
   "eval_note": "일별 평가 확정 = 매일 18:00 KST (한국주 = 당일 종가 · 미국주 = 간밤 종가)",
   "persona": "stable",
   "persona_name": "안정형",
   "persona_emoji": "🛡️",
   "persona_tag": "가치·방어 — 저평가 우량주·배당, 현금 넉넉, 손실 최소 우선",
-  "journal_view": [],
+  "journal_view": [
+    {
+      "date": "2026-07-14",
+      "session": "us",
+      "comment": "CPI 대기 밤 — 풀매수 금지. 방어자산(금·헬스케어)과 실적 확인된 가치(금융)·우량 대형주만 소액 분산, 현금 56% 방패 유지.",
+      "placed": [
+        {
+          "action": "매수예약",
+          "name": "헬스케어ETF",
+          "detail": "12,000,000원 · 다음 개장 시가 체결 대기 — 이익이 꾸준하고 경기·금리 민감도가 낮은 대표 방어 섹터. 반도체 쇼크가 국경 없이 번지는 장세에서 기술 대신 필수 수요주로 변동성을 낮춘다. ETF라 단일종목 리스크도 분산. 12%."
+        },
+        {
+          "action": "매수예약",
+          "name": "금융ETF",
+          "detail": "10,000,000원 · 다음 개장 시가 체결 대기 — JPM(EPS $6.14, 컨센 $5.85 대폭 상회)·WFC 실적 서프라이즈로 이익 모멘텀이 확인된 가치 섹터. 금리 급등이 NIM에 우호적이라 CPI가 뜨거워도 방어된다. 개별주 대신 ETF로 안전하게. 10%."
+        },
+        {
+          "action": "매수예약",
+          "name": "애플",
+          "detail": "10,000,000원 · 다음 개장 시가 체결 대기 — 재무가 탄탄하고 현금흐름이 꾸준한 초우량 대형주. 반도체·고베타 성장주가 밀린 날에도 +0.63%로 상대적 방어력을 보였다. 추격이 아닌 우량주 편입 차원의 소액 진입. 10%."
+        },
+        {
+          "action": "유지",
+          "name": "-",
+          "detail": "엔비디아·AMD·SMH 등 급락 반도체와 XLE(에너지 +3% 급등)는 모멘텀·고변동 구간이라 안정형 원칙상 신규 진입 회피. 나머지 56%는 21:30 CPI 코어 확인 후 방향이 서면 집행할 현금으로 남긴다."
+        }
+      ],
+      "trades": [
+        {
+          "action": "매수",
+          "ticker": "GC=F",
+          "name": "금",
+          "krw": 12000000,
+          "krw_str": "12,000,000",
+          "qty": 1.9908,
+          "price_krw": 6027764,
+          "basis": "즉시(24h)",
+          "reason": "유가·구리·금 동반 상승의 리플레이션·지정학 프리미엄 국면. VIX 17.5로 언제든 튈 수 있는 이벤트(21:30 CPI) 앞에서 금은 순수 방패다. 즉시 체결되는 자산으로 포트 하단을 먼저 깐다. 총자산 12%."
+        }
+      ]
+    }
+  ],
   "history_view": [
     {
       "date": "2026-07-14",
