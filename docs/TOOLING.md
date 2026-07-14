@@ -35,8 +35,8 @@ cd "C:\Users\gks93\workspace\주식시장예상클로드코드"
 
 ## 스크립트는 어떻게 파이썬을 쓰나
 
-- 데이터 수집: `scripts/collect_data.py`
-- 매일 실행 스크립트 `scripts/run-daily.ps1` 이 **`.venv\Scripts\python.exe`** 로 수집 스크립트를 먼저 돌린 뒤, Claude가 분석합니다.
+- 파이썬 스크립트: `collect_data.py`(시세+FRED) · `make_charts.py`(차트) · `screener.py`(비인기 스크리너) · `portfolio.py`(가상 1억 체결·평가)
+- 로컬 실행 `scripts/run-daily.ps1 [kr|collect|us]` 이 **`.venv\Scripts\python.exe`** 로 위 스크립트들을 돌린 뒤, Claude가 예상글을 씁니다.
 - 수동 실행:
   ```powershell
   & ".\.venv\Scripts\python.exe" scripts\collect_data.py

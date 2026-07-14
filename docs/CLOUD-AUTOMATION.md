@@ -75,7 +75,7 @@ Spring Boot 같은 서버를 직접 만들 필요 없이, 저장소의 워크플
 
 클라우드로 옮겼으면 **로컬 예약은 꺼도 됩니다** (PowerShell):
 ```powershell
-Disable-ScheduledTask -TaskName StockDailyReport      # 잠깐 끄기
+Disable-ScheduledTask -TaskName StockDailyReport      # 잠깐 끄기 (구 단일 작업명. 3분할 등록했다면 StockDaily-*)
 # 또는
 Unregister-ScheduledTask -TaskName StockDailyReport -Confirm:$false   # 완전 삭제
 ```

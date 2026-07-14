@@ -1,20 +1,24 @@
-# 자동화 설정 방법 (예약 실행)
+# 로컬 자동화 (윈도우 작업 스케줄러 · 백업용)
 
-이 문서는 **매일 정해진 시간에 Claude Code가 리포트를 자동 생성·게시**하도록 설정하는 방법입니다.
-실행되는 명령의 내용은 [prompts/kr-report.md](../prompts/kr-report.md)·[prompts/us-report.md](../prompts/us-report.md)에 있습니다.
+> ⭐ **기본 자동화는 클라우드([CLOUD-AUTOMATION.md](CLOUD-AUTOMATION.md))입니다.** 이 문서는 내 PC에서 돌리는 **백업 방식**입니다.
+> 둘 다 켜면 중복 실행되니 하나만 사용하세요.
+
+매일 정해진 시간에 내 PC에서 Claude Code가 예상글을 자동 생성·게시하도록 설정하는 방법입니다.
+실행 지시문: [prompts/kr-report.md](../prompts/kr-report.md)·[prompts/us-report.md](../prompts/us-report.md)
 
 ---
 
 ## 전체 그림
 
 ```
-[정해진 시각]  스케줄러가 Claude Code 실행
-   └─ 모드별 지시문(prompts/kr-report.md 등)대로:
-        데이터수집(웹검색) → 분석 → _posts/오늘날짜.md 생성 → git push
+[정해진 시각]  스케줄러가 run-daily.ps1 [모드] 실행
+   kr(08시)   = 수집+차트+스크리너 → 🇰🇷 한국장 예상글 → 가상 매매 → push
+   collect(18시) = 수집만 (한국장 마감 스냅샷)
+   us(21시)   = 수집+차트 → 🇺🇸 미국장 예상글 → 가상 매매 → push
 [GitHub Pages]  사이트에 자동 반영 → 사용자 열람 (비용 0)
 ```
 
-- **AI 실행은 하루 1번** → Claude 구독 사용량 안에서 처리 (요청당 과금 아님)
+- **AI 실행은 하루 2번(kr·us)** → Claude 구독(Max) 사용량 안에서 처리 (요청당 과금 아님, 모델: 최신 opus)
 - **사용자 열람은 정적 사이트** → 몇 명이 보든 추가 비용 0
 
 ---
@@ -38,23 +42,26 @@ PowerShell을 열고 아래를 붙여넣기:
 
 ```powershell
 $repo = "C:\Users\gks93\workspace\주식시장예상클로드코드"
-$action  = New-ScheduledTaskAction -Execute "powershell.exe" -Argument "-ExecutionPolicy Bypass -NoProfile -File `"$repo\scripts\run-daily.ps1`""
-$trigger = New-ScheduledTaskTrigger -Daily -At 8:00am
 $settings = New-ScheduledTaskSettingsSet -StartWhenAvailable -ExecutionTimeLimit (New-TimeSpan -Hours 1)
-Register-ScheduledTask -TaskName "StockDailyReport" -Action $action -Trigger $trigger -Settings $settings -Description "매일 주식시장 리포트 (stock-daily)" -Force
+
+# 3개 작업 등록: 08시 kr / 18시 collect / 21시 us
+@(
+  @{Name="StockDaily-KR";      Time="8:00am";  Mode="kr"},
+  @{Name="StockDaily-Collect"; Time="6:00pm";  Mode="collect"},
+  @{Name="StockDaily-US";      Time="9:00pm";  Mode="us"}
+) | ForEach-Object {
+  $action  = New-ScheduledTaskAction -Execute "powershell.exe" -Argument "-ExecutionPolicy Bypass -NoProfile -File `"$repo\scripts\run-daily.ps1`" $($_.Mode)"
+  $trigger = New-ScheduledTaskTrigger -Daily -At $_.Time
+  Register-ScheduledTask -TaskName $_.Name -Action $action -Trigger $trigger -Settings $settings -Description "stock-daily $($_.Mode)" -Force
+}
 ```
 
-- 확인: `Get-ScheduledTask -TaskName StockDailyReport`
-- 지금 한 번 테스트 실행: `Start-ScheduledTask -TaskName StockDailyReport`
-- 해제: `Unregister-ScheduledTask -TaskName StockDailyReport -Confirm:$false`
+- 확인: `Get-ScheduledTask -TaskName StockDaily-*`
+- 지금 한 번 테스트: `Start-ScheduledTask -TaskName StockDaily-KR`
+- 해제: `Get-ScheduledTask -TaskName StockDaily-* | Unregister-ScheduledTask -Confirm:$false`
+- (과거 단일 작업 `StockDailyReport`가 남아있으면 함께 삭제)
 
-**방법 ②: 작업 스케줄러 GUI**
-1. 시작 메뉴 → **작업 스케줄러** → **기본 작업 만들기**
-2. 이름 `StockDailyReport` / 트리거 **매일** / 시간 `08:00`
-3. 동작 **프로그램 시작** →
-   - 프로그램: `powershell.exe`
-   - 인수: `-ExecutionPolicy Bypass -NoProfile -File "C:\Users\gks93\workspace\주식시장예상클로드코드\scripts\run-daily.ps1"`
-4. 완료
+**방법 ②: 작업 스케줄러 GUI** — 위 3개 작업을 각각 [기본 작업 만들기]로 등록 (인수 끝에 모드 `kr`/`collect`/`us`를 붙이는 것만 주의)
 
 ---
 
@@ -72,18 +79,17 @@ PC를 안 켜도 됩니다. Claude Code 대화창에서:
 
 ---
 
-## 실행 시각 추천
+## 실행 시각 (확정)
 
-| 목적 | 추천 시각(KST) | 이유 |
+| 시각(KST) | 모드 | 내용 |
 |---|---|---|
-| 미국장 마감 반영 + 한국장 개장 전 브리핑 | **오전 8:00** | 밤사이 미국 결과 + 오늘 한국장 준비 |
-| (선택) 한국장 마감 정리 | 오후 4:00 | 국내 마감 시황 |
-
-우선 **오전 8:00 하루 1회**로 시작하는 것을 권장합니다.
+| 08:00 | `kr` | 🇰🇷 한국장 예상글 (9시 개장 예측) |
+| 18:00 | `collect` | 한국장 마감 스냅샷 수집 |
+| 21:00 | `us` | 🇺🇸 미국장 예상글 (밤 개장 예측) |
 
 ---
 
-## 2단계 확장 (나중에)
+## 참고
 
-- **Python 설치 후** `scripts/`에 `yfinance` 데이터 수집 + 차트(PNG) 생성 스크립트를 추가하면, 리포트에 실제 차트가 들어갑니다.
-- 그때 지시문의 데이터 수집 단계에 "파이썬 스크립트 실행 → 차트 생성"이 추가됩니다.
+- 상세 규칙(포맷·체결·데이터 함정): [RULES.md](RULES.md)
+- 클라우드 방식(권장): [CLOUD-AUTOMATION.md](CLOUD-AUTOMATION.md)
