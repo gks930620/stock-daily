@@ -37,9 +37,22 @@ if ($Mode -ne "collect") {
         if ($LASTEXITCODE -ne 0) { Write-Warning "스크리너 실패(계속 진행)" }
     }
 
-    Write-Host "[4] Claude 분석·예상글 생성 ($Mode, 최신 opus · effort xhigh)..."
+    Write-Host "[4] Claude(①애널리스트) 분석·예상글 생성 ($Mode, 최신 opus · effort xhigh)..."
     $prompt = Get-Content -Raw "$repo\prompts\$Mode-report.md"
     & $claude -p $prompt --model opus --effort xhigh --dangerously-skip-permissions
+
+    # ② 별도 세션 = 포트폴리오 매니저 AI: 리포트+데이터+보유현황 읽고 주문서만 생성
+    Write-Host "[5] Claude(②포트폴리오 매니저) 매매 결정 ($Mode)..."
+    $today = Get-Date -Format "yyyy-MM-dd"
+    $pfPrompt = (Get-Content -Raw "$repo\prompts\portfolio.md") + @"
+
+[실행 안내]
+- 오늘 날짜(KST): $today
+- 이번 세션: $Mode → 주문서 파일명은 반드시 portfolio/orders/$today-$Mode.json
+- 방금 나온 리포트 _posts/$today-$Mode-market.md 를 읽고 반영하라.
+- git 금지. 주문서 JSON 생성까지만.
+"@
+    & $claude -p $pfPrompt --model opus --effort xhigh --dangerously-skip-permissions
 
 }
 

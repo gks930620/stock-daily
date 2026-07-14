@@ -95,8 +95,9 @@ flowchart LR
 | 📐 지표 계산 | (수집 시 포함) | RSI · MACD · 볼린저 · 이동평균(4종) · 모멘텀 · 추세배열 |
 | 📈 차트 생성 | `scripts/make_charts.py` | 지수·주요주 차트 PNG (가격+이동평균+RSI) |
 | 🔍 비인기종목 발굴 | `scripts/screener.py` | 과매도반등·거래량급증·낙폭과대·저점권반등 신호 |
-| 🧠 Claude 분석 | `prompts/kr-report.md`·`prompts/us-report.md` | 그날 장 예측: 확률 시나리오 + 근거 + 자기검증 + 매매 결정 |
-| 💼 가상 매매 | `scripts/portfolio.py` | 1억 페이퍼 트레이딩 — 주문 체결(한국주 정수주수·환율 기록)·매매일지·자산곡선 |
+| 🧠 Claude ①애널리스트 | `prompts/kr-report.md`·`prompts/us-report.md` | 그날 장 예측: 확률 시나리오 + 근거 + 자기검증 (예상글만) |
+| 🧑‍💼 Claude ②포트폴리오 매니저 | `prompts/portfolio.md` | ①리포트+데이터+보유현황 읽고 매수/매도/유지 **주문서 결정** (별도 세션) |
+| 💼 가상 매매 체결 | `scripts/portfolio.py` | 1억 페이퍼 트레이딩 — ②의 주문서를 시가 체결(한국주 정수주수·환율 기록)·매매일지·자산곡선 |
 | 🌐 자동 게시 | Jekyll → GitHub Pages | 예상글 + [/portfolio/](https://gks930620.github.io/stock-daily/portfolio/) 페이지 |
 
 > **핵심 철학:** "예측 적중"이 아니라 **근거 있는 확률 + 자기검증**. 매일 예상을 기록하고 다음 날 실제와 대조해,
@@ -104,6 +105,8 @@ flowchart LR
 
 ---
 
-- 하루 3회 자동 실행: 08시 🇰🇷 예상 · 18시 수집 · 21시 🇺🇸 예상 (GitHub Actions) · 분석 = Claude(Max 구독, 최신 Opus) · 데이터 = 파이썬
+- 하루 3회 자동 실행: 08시 🇰🇷 예상 · 18시 수집 · 21시 🇺🇸 예상 (GitHub Actions) · 분석 = Claude 2명(①애널리스트 예상글 + ②포트폴리오 매니저 매매, Max 구독·최신 Opus·effort xhigh) · 데이터 = 파이썬
 - 공개 사이트: https://gks930620.github.io/stock-daily/ · [가상 포트폴리오](https://gks930620.github.io/stock-daily/portfolio/)
 - 관련 문서: [RULES.md](RULES.md)(운영 규칙) · [DESIGN.md](DESIGN.md) · [CLOUD-AUTOMATION.md](CLOUD-AUTOMATION.md) · [AUTOMATION.md](AUTOMATION.md) · [TOOLING.md](TOOLING.md)
+
+

@@ -105,6 +105,24 @@ jobs:
           # --model opus: 항상 최신 Opus / --effort xhigh: 최고 심층추론(4.8는 thinking이 effort에 종속·적응형)
           claude -p "$PROMPT" --model opus --effort xhigh --permission-mode bypassPermissions --verbose
 
+      # 🧑‍💼 2번째 AI = 포트폴리오 매니저 (리포트 AI와 분리된 별도 세션).
+      #    방금 나온 리포트 + 같은 market.json + 현재 보유현황을 읽고 '주문서 JSON'만 만든다.
+      - name: Claude 포트폴리오 매매 결정 (별도 세션)
+        if: steps.mode.outputs.mode != 'collect'
+        env:
+          CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+        run: |
+          MODE=${{ steps.mode.outputs.mode }}
+          REPORT_DATE=$(TZ='Asia/Seoul' date +%Y-%m-%d)
+          PROMPT="$(cat prompts/portfolio.md)
+
+          [CI 환경 안내]
+          - 오늘 날짜(KST): ${REPORT_DATE}
+          - 이번 세션: ${MODE} → 주문서 파일명은 반드시 portfolio/orders/${REPORT_DATE}-${MODE}.json
+          - 방금 애널리스트가 쓴 오늘 리포트: _posts/${REPORT_DATE}-${MODE}-market.md 를 읽고 반영하라.
+          - git 명령 금지. 주문서 JSON 파일 생성까지만 (커밋·push는 워크플로가 처리)."
+          claude -p "$PROMPT" --model opus --effort xhigh --permission-mode bypassPermissions --verbose
+
       - name: 가상 포트폴리오 체결·평가 (18시=일별 평가 확정, 시가 체결 처리)
         run: python scripts/portfolio.py ${{ steps.mode.outputs.label }}
 
