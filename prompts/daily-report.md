@@ -58,10 +58,38 @@
   categories: report
   ---
   ```
-- 본문 목차: 0.한줄결론 → 1.글로벌매크로(지수+경제지표) → 2.이번주이벤트 → 3.시나리오(확률표) → 4.한국코멘트 → 5.🔍비인기 종목 후보 → 6.리스크/무효화 → 7.어제예상vs실제
-- 5번(비인기 종목 후보)은 표로: 종목 / 발굴신호 / 오늘등락·RSI·거래량배율 / 재료(뉴스확인) / 리스크. 재료 확인 안 되면 제외.
-- 맨 위에 "투자 조언 아님" 경고 문구를 넣는다.
-- 확률 시나리오는 표로 만든다.
+- 맨 위에 "투자 조언 아님" 경고 문구(blockquote)를 넣는다.
+- **본문 구성(확정 포맷): ④결론먼저 → ①대시보드 → ②브리핑 → ③칼럼 순.** 사이트 CSS(main.css)에 아래 HTML 클래스들이 준비돼 있으니 그대로 사용:
+
+  **④ 결론 먼저** — 최상단. 질문→한줄답 박스 + 근거 3가지:
+  ```html
+  <div class="verdict">
+    <p class="q">Q. 오늘, 사도 될까?</p>
+    <p class="a"><b>A. (한 줄 결론)</b> (한두 문장 보충)</p>
+  </div>
+  ```
+  이어서 `**근거 셋.**` + 번호 목록 3개.
+
+  **① 대시보드** — `## 📊 한눈에 보는 오늘`. 핵심 지표 4~6개 타일 + 시나리오 확률 막대 + 시나리오 표(근거/트리거/무효화):
+  ```html
+  <div class="tiles">
+    <div class="tile"><div class="k">지표명</div><div class="v">값</div><div class="d down">▼ 1.2%</div></div>
+    ...
+  </div>
+  <div class="bars">
+    <div class="bar"><span class="lab">🔵 조정</span><div class="track"><div class="fill fill-down" style="width:45%">45%</div></div></div>
+    <div class="bar"><span class="lab">🔴 반등</span><div class="track"><div class="fill fill-up" style="width:30%">30%</div></div></div>
+    <div class="bar"><span class="lab">🟡 혼조</span><div class="track"><div class="fill fill-flat" style="width:25%">25%</div></div></div>
+  </div>
+  ```
+  (상승/강세=class `up`·`fill-up`(빨강), 하락/약세=`down`·`fill-down`(파랑), 중립=`fill-flat`. 한국식 색 관행.)
+
+  **② 브리핑** — `## ⚡ 오늘 관전 포인트`. 오늘 일정·확인 포인트를 불릿 4~6개로 간결하게.
+
+  **③ 칼럼** — `## 📖 맥락 — (그날의 헤드라인)`. 산문 3~5문단으로 이야기처럼 + `### 차트` (핵심 차트 2~3개 삽입, 각 차트 위에 한 줄 해석).
+
+  이후: `## 🔍 비인기 종목 후보`(재료 검증된 것만, 표) → `## 💼 오늘의 매매`(가상 1억, 표) → `## ✅ 어제 예상 vs 실제`(O/△/X + 교훈).
+- 좋은 예시는 `_posts/2026-07-14-market-report.md` 참고 — 이 구조·톤을 유지할 것.
 
 ## 5. 가상 포트폴리오 매매 결정 (1억 페이퍼 트레이딩)
 오늘 분석 결과에 따라 **가상 자금으로 매수/매도/유지**를 결정하고 주문서를 파일로 남긴다. (실제 체결·평가·차트는 이후 `scripts/portfolio.py`가 처리)
