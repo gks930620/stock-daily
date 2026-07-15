@@ -2,11 +2,119 @@
   "start_date": "2026-07-15",
   "start_capital": 100000000,
   "currency": "KRW",
-  "cash": 100000000,
-  "holdings": {},
-  "applied_orders": [],
+  "cash": 74460448,
+  "holdings": {
+    "005930.KS": {
+      "name": "삼성전자",
+      "qty": 35.0,
+      "cost_krw": 9782500.0,
+      "lots": [
+        {
+          "date": "2026-07-15",
+          "session": "kr",
+          "qty": 35,
+          "price_krw": 279500,
+          "price_native": 279500.0,
+          "currency": "KRW",
+          "krw": 9782500,
+          "fx": null,
+          "price_date": "2026-07-15",
+          "basis": "2026-07-15 종가"
+        }
+      ]
+    },
+    "005380.KS": {
+      "name": "현대차",
+      "qty": 18.0,
+      "cost_krw": 7812000.0,
+      "lots": [
+        {
+          "date": "2026-07-15",
+          "session": "kr",
+          "qty": 18,
+          "price_krw": 434000,
+          "price_native": 434000.0,
+          "currency": "KRW",
+          "krw": 7812000,
+          "fx": null,
+          "price_date": "2026-07-15",
+          "basis": "2026-07-15 종가"
+        }
+      ]
+    },
+    "XLV": {
+      "name": "헬스케어ETF",
+      "qty": 33.0,
+      "cost_krw": 7945052.148,
+      "lots": [
+        {
+          "date": "2026-07-15",
+          "session": "kr",
+          "qty": 33,
+          "price_krw": 240759,
+          "price_native": 161.41,
+          "currency": "USD",
+          "krw": 7945052,
+          "fx": 1491.6,
+          "price_date": "2026-07-13",
+          "basis": "2026-07-13 종가"
+        }
+      ]
+    }
+  },
+  "applied_orders": [
+    "2026-07-15-kr-stable"
+  ],
   "pending_orders": [],
-  "journal": [],
+  "journal": [
+    {
+      "date": "2026-07-15",
+      "session": "kr",
+      "comment": "코스피 +7% 폭등은 20% 급락 뒤의 안도 반등일 뿐 — 하루 급등을 쫓지 않는다. 우량주 위주로 소액만 담고 현금 74%를 방패로 유지한다. 끈적한 CPI(3.73%)·상승하는 장기금리(10년 4.61%)가 방어적 자세를 정당화한다.",
+      "placed": [
+        {
+          "action": "유지",
+          "name": "-",
+          "detail": "SK하이닉스(+8.83%)·LG엔솔 등은 고변동 급등주라 급등일 종가 추격을 피한다. 스크리너의 소형 테마·급등주(HLB 등)는 성향상 전면 배제. 금(GC=F)은 하락배열이라 반등 확인 전까지 관망. 나머지 74%는 현금으로 다음 조정을 기다린다."
+        }
+      ],
+      "trades": [
+        {
+          "action": "매수",
+          "ticker": "005930.KS",
+          "name": "삼성전자",
+          "krw": 9782500,
+          "krw_str": "9,782,500",
+          "qty": 35,
+          "price_krw": 279500,
+          "basis": "2026-07-15 종가",
+          "reason": "순현금·배당·글로벌 최상위 프랜차이즈. 고점 대비 -23%, 20일선 -10%로 최근 급락분을 반영한 눌림목이다. 오늘 +6% 반등에도 아직 다 오르지 않았다. 코어 우량주로 한도(15%) 이하 소액만, 급등 추격이 아닌 분할 매수의 시작."
+        },
+        {
+          "action": "매수",
+          "ticker": "005380.KS",
+          "name": "현대차",
+          "krw": 7812000,
+          "krw_str": "7,812,000",
+          "qty": 18,
+          "price_krw": 434000,
+          "basis": "2026-07-15 종가",
+          "reason": "RSI 31.7 과매도, 고점 대비 -42%, PBR·PER 바닥권에 배당수익률 높은 전형적 가치주. 관세 우려로 과도하게 눌렸다고 판단 — 가치 함정 리스크를 감안해 8%로만 진입, 확신이 커지면 추가."
+        },
+        {
+          "action": "매수",
+          "ticker": "XLV",
+          "name": "헬스케어ETF",
+          "krw": 7945052,
+          "krw_str": "7,945,052",
+          "qty": 33,
+          "price_krw": 240759,
+          "basis": "2026-07-13 종가",
+          "reason": "경기와 무관한 방어 섹터 분산. 상승배열·52주 고점 근처(-1.8%)로 흐름이 견조하고, 한국 반도체·자동차 편중을 상쇄하는 안전판. 이익이 꾸준한 대형 헬스케어 바스켓."
+        }
+      ]
+    }
+  ],
   "history": [
     {
       "date": "2026-07-15",
@@ -14,33 +122,212 @@
       "total_value_str": "100,000,000",
       "return_pct": 0.0,
       "day_chg_pct": 0.0,
-      "cash": 100000000,
+      "cash": 74460448,
       "asof": "🇰🇷 마감 종가",
-      "holdings": []
+      "holdings": [
+        {
+          "name": "삼성전자",
+          "value_str": "9,782,500",
+          "weight_pct": 9.8,
+          "pl_pct": 0.0
+        },
+        {
+          "name": "헬스케어ETF",
+          "value_str": "7,945,052",
+          "weight_pct": 7.9,
+          "pl_pct": 0.0
+        },
+        {
+          "name": "현대차",
+          "value_str": "7,812,000",
+          "weight_pct": 7.8,
+          "pl_pct": 0.0
+        }
+      ]
     }
   ],
   "updated": "2026-07-15",
   "total_value": 100000000,
-  "holdings_value": 0,
+  "holdings_value": 25539552,
   "return_pct": 0.0,
-  "usdkrw": 1487.32,
-  "holdings_view": [],
+  "usdkrw": 1491.6,
+  "holdings_view": [
+    {
+      "ticker": "005930.KS",
+      "name": "삼성전자",
+      "qty": 35,
+      "unit": "주",
+      "currency": "KRW",
+      "cost_str": "9,782,500",
+      "pl_krw_str": "+0",
+      "avg_krw": 279500,
+      "avg_str": "279,500",
+      "avg_native_str": null,
+      "price_krw": 279500,
+      "price_str": "279,500",
+      "price_native_str": null,
+      "price_date": "2026-07-15",
+      "value_krw": 9782500,
+      "pl_pct": 0.0,
+      "lots": [
+        {
+          "date": "2026-07-15",
+          "session": "kr",
+          "qty": 35,
+          "price_krw": 279500,
+          "price_native": 279500.0,
+          "currency": "KRW",
+          "krw": 9782500,
+          "fx": null,
+          "price_date": "2026-07-15",
+          "basis": "2026-07-15 종가",
+          "krw_str": "9,782,500",
+          "price_krw_str": "279,500",
+          "native_str": null
+        }
+      ],
+      "weight_pct": 9.8,
+      "value_str": "9,782,500"
+    },
+    {
+      "ticker": "XLV",
+      "name": "헬스케어ETF",
+      "qty": 33,
+      "unit": "주",
+      "currency": "USD",
+      "cost_str": "7,945,052",
+      "pl_krw_str": "+0",
+      "avg_krw": 240759,
+      "avg_str": "240,759",
+      "avg_native_str": "$161.41",
+      "price_krw": 240759,
+      "price_str": "240,759",
+      "price_native_str": "$161.41",
+      "price_date": "2026-07-13",
+      "value_krw": 7945052,
+      "pl_pct": 0.0,
+      "lots": [
+        {
+          "date": "2026-07-15",
+          "session": "kr",
+          "qty": 33,
+          "price_krw": 240759,
+          "price_native": 161.41,
+          "currency": "USD",
+          "krw": 7945052,
+          "fx": 1491.6,
+          "price_date": "2026-07-13",
+          "basis": "2026-07-13 종가",
+          "krw_str": "7,945,052",
+          "price_krw_str": "240,759",
+          "native_str": "$161.41"
+        }
+      ],
+      "weight_pct": 7.9,
+      "value_str": "7,945,052"
+    },
+    {
+      "ticker": "005380.KS",
+      "name": "현대차",
+      "qty": 18,
+      "unit": "주",
+      "currency": "KRW",
+      "cost_str": "7,812,000",
+      "pl_krw_str": "+0",
+      "avg_krw": 434000,
+      "avg_str": "434,000",
+      "avg_native_str": null,
+      "price_krw": 434000,
+      "price_str": "434,000",
+      "price_native_str": null,
+      "price_date": "2026-07-15",
+      "value_krw": 7812000,
+      "pl_pct": 0.0,
+      "lots": [
+        {
+          "date": "2026-07-15",
+          "session": "kr",
+          "qty": 18,
+          "price_krw": 434000,
+          "price_native": 434000.0,
+          "currency": "KRW",
+          "krw": 7812000,
+          "fx": null,
+          "price_date": "2026-07-15",
+          "basis": "2026-07-15 종가",
+          "krw_str": "7,812,000",
+          "price_krw_str": "434,000",
+          "native_str": null
+        }
+      ],
+      "weight_pct": 7.8,
+      "value_str": "7,812,000"
+    }
+  ],
   "pending_view": [],
   "total_value_str": "100,000,000",
-  "cash_str": "100,000,000",
-  "holdings_value_str": "0",
+  "cash_str": "74,460,448",
+  "holdings_value_str": "25,539,552",
   "start_capital_str": "100,000,000",
   "gain_str": "+0",
-  "cash_weight_pct": 100.0,
+  "cash_weight_pct": 74.5,
   "day_chg_pct": 0.0,
   "days": 1,
-  "priced_at": "2026-07-15T08:17:15+09:00",
+  "priced_at": "2026-07-15T16:43:34+09:00",
   "eval_note": "AI가 장 마감 후 분석 → 당일 종가로 매수/매도 체결·평가 (🇰🇷 15:30 마감 후 · 🇺🇸 마감 후). 손익은 이후 종가로 결정",
   "persona": "stable",
   "persona_name": "안정형",
   "persona_emoji": "🛡️",
   "persona_tag": "가치·방어 — 저평가 우량주·배당, 현금 넉넉, 손실 최소 우선",
-  "journal_view": [],
+  "journal_view": [
+    {
+      "date": "2026-07-15",
+      "session": "kr",
+      "comment": "코스피 +7% 폭등은 20% 급락 뒤의 안도 반등일 뿐 — 하루 급등을 쫓지 않는다. 우량주 위주로 소액만 담고 현금 74%를 방패로 유지한다. 끈적한 CPI(3.73%)·상승하는 장기금리(10년 4.61%)가 방어적 자세를 정당화한다.",
+      "placed": [
+        {
+          "action": "유지",
+          "name": "-",
+          "detail": "SK하이닉스(+8.83%)·LG엔솔 등은 고변동 급등주라 급등일 종가 추격을 피한다. 스크리너의 소형 테마·급등주(HLB 등)는 성향상 전면 배제. 금(GC=F)은 하락배열이라 반등 확인 전까지 관망. 나머지 74%는 현금으로 다음 조정을 기다린다."
+        }
+      ],
+      "trades": [
+        {
+          "action": "매수",
+          "ticker": "005930.KS",
+          "name": "삼성전자",
+          "krw": 9782500,
+          "krw_str": "9,782,500",
+          "qty": 35,
+          "price_krw": 279500,
+          "basis": "2026-07-15 종가",
+          "reason": "순현금·배당·글로벌 최상위 프랜차이즈. 고점 대비 -23%, 20일선 -10%로 최근 급락분을 반영한 눌림목이다. 오늘 +6% 반등에도 아직 다 오르지 않았다. 코어 우량주로 한도(15%) 이하 소액만, 급등 추격이 아닌 분할 매수의 시작."
+        },
+        {
+          "action": "매수",
+          "ticker": "005380.KS",
+          "name": "현대차",
+          "krw": 7812000,
+          "krw_str": "7,812,000",
+          "qty": 18,
+          "price_krw": 434000,
+          "basis": "2026-07-15 종가",
+          "reason": "RSI 31.7 과매도, 고점 대비 -42%, PBR·PER 바닥권에 배당수익률 높은 전형적 가치주. 관세 우려로 과도하게 눌렸다고 판단 — 가치 함정 리스크를 감안해 8%로만 진입, 확신이 커지면 추가."
+        },
+        {
+          "action": "매수",
+          "ticker": "XLV",
+          "name": "헬스케어ETF",
+          "krw": 7945052,
+          "krw_str": "7,945,052",
+          "qty": 33,
+          "price_krw": 240759,
+          "basis": "2026-07-13 종가",
+          "reason": "경기와 무관한 방어 섹터 분산. 상승배열·52주 고점 근처(-1.8%)로 흐름이 견조하고, 한국 반도체·자동차 편중을 상쇄하는 안전판. 이익이 꾸준한 대형 헬스케어 바스켓."
+        }
+      ]
+    }
+  ],
   "history_view": [
     {
       "date": "2026-07-15",
@@ -48,9 +335,28 @@
       "total_value_str": "100,000,000",
       "return_pct": 0.0,
       "day_chg_pct": 0.0,
-      "cash": 100000000,
+      "cash": 74460448,
       "asof": "🇰🇷 마감 종가",
-      "holdings": []
+      "holdings": [
+        {
+          "name": "삼성전자",
+          "value_str": "9,782,500",
+          "weight_pct": 9.8,
+          "pl_pct": 0.0
+        },
+        {
+          "name": "헬스케어ETF",
+          "value_str": "7,945,052",
+          "weight_pct": 7.9,
+          "pl_pct": 0.0
+        },
+        {
+          "name": "현대차",
+          "value_str": "7,812,000",
+          "weight_pct": 7.8,
+          "pl_pct": 0.0
+        }
+      ]
     }
   ]
 }
