@@ -35,13 +35,13 @@ layout: default
     <details class="row">
       <summary>
         <span class="ava" style="background:{{ colors[forloop.index0] }}">{{ h.name | slice: 0, 1 }}</span>
-        <span class="nm"><b>{{ h.name }}</b><span>{{ h.qty }}주 · 평단 {{ h.avg_str }}원{% if h.price_native_str %} · {{ h.price_native_str }}{% endif %}</span></span>
+        <span class="nm"><b>{{ h.name }}</b><span>{{ h.qty }}{{ h.unit }} · 평단 {% if h.avg_native_str %}{{ h.avg_native_str }}{% else %}{{ h.avg_str }}원{% endif %} · 현재 {% if h.price_native_str %}{{ h.price_native_str }}{% else %}{{ h.price_str }}원{% endif %}</span></span>
         <span class="val"><b>{{ h.value_str }}원</b><span class="{% if h.pl_pct >= 0 %}u{% else %}d{% endif %}">{% if h.pl_pct >= 0 %}▲ +{% else %}▼ {% endif %}{{ h.pl_pct }}%</span></span>
       </summary>
       <div class="lots">
-        <div class="lot-h">현재가 {{ h.price_str }}원 <span class="mut">(시세기준일 {{ h.price_date }})</span></div>
+        <div class="lot-h">현재가 {% if h.price_native_str %}{{ h.price_native_str }} <span class="mut">({{ h.price_str }}원)</span>{% else %}{{ h.price_str }}원{% endif %} <span class="mut">· {{ h.currency }} 평가 · 시세기준일 {{ h.price_date }}</span></div>
         {% for l in h.lots %}
-        <div class="lot">{{ l.date }} {% if l.session == "kr" %}🇰🇷{% elsif l.session == "us" %}🇺🇸{% endif %} 매수 <b>{{ l.qty }}주</b> @ {{ l.price_krw_str }}원{% if l.native_str %} ({{ l.native_str }} × 환율 {{ l.fx }}){% endif %} = {{ l.krw_str }}원 <span class="mut">· {{ l.basis }}</span></div>
+        <div class="lot">{{ l.date }} {% if l.session == "kr" %}🇰🇷{% elsif l.session == "us" %}🇺🇸{% endif %} 매수 <b>{{ l.qty }}{{ h.unit }}</b> @ {% if l.native_str %}{{ l.native_str }} <span class="mut">({{ l.price_krw_str }}원 · 환율 {{ l.fx }})</span>{% else %}{{ l.price_krw_str }}원{% endif %} = {{ l.krw_str }}원 <span class="mut">· {{ l.basis }}</span></div>
         {% endfor %}
       </div>
     </details>

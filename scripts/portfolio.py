@@ -47,6 +47,26 @@ PERSONAS = {
     "contrarian": {"name": "역발상형", "emoji": "🎯", "tag": "컨트래리안 — 과매도·낙폭과대를 남들이 팔 때 매수"},
 }
 
+# 24시간 자산(암호화폐·원자재) 표시 단위 — 나머지 주식·ETF는 "주"
+UNIT_OVERRIDE = {"GC=F": "oz", "MGC=F": "oz", "SI=F": "oz", "CL=F": "bbl", "BZ=F": "bbl",
+                 "BTC-USD": "BTC", "ETH-USD": "ETH"}
+
+
+def unit_of(ticker: str, category: str) -> str:
+    if ticker in UNIT_OVERRIDE:
+        return UNIT_OVERRIDE[ticker]
+    if category == "crypto":
+        return "개"
+    if category == "commodity":
+        return "단위"
+    return "주"          # 주식·ETF
+
+
+def qn(q):
+    """정수면 int(64), 아니면 소수 4자리(1.9908) — '64.0주' 방지."""
+    q = float(q)
+    return int(q) if q.is_integer() else round(q, 4)
+
 
 def load_json(path: Path, default=None):
     if path.exists():
@@ -95,25 +115,27 @@ def exec_buy(holdings, cash, t, info, budget, price_krw, price_native, usdkrw, t
     budget = min(float(budget), cash)
     if budget <= 0:
         return cash, None
-    if info["currency"] == "KRW":
+    if info["category"] in IMMEDIATE:
+        # 24시간 자산(암호화폐·원자재): 소수 단위 매수가 현실적
+        qty = budget / price_krw
+        krw = budget
+    else:
+        # 주식·ETF(한국·미국 공통): 정수 주수만, 잔액은 현금 유지
         qty = int(budget // price_krw)
         if qty < 1:
             return cash, None
         krw = qty * price_krw
-    else:
-        qty = budget / price_krw
-        krw = budget
     h = holdings.setdefault(t, {"name": info["name"], "qty": 0.0, "cost_krw": 0.0, "lots": []})
     h["qty"] += qty; h["cost_krw"] += krw; h["name"] = info["name"]
     h.setdefault("lots", []).append({
-        "date": today, "session": session, "qty": round(qty, 4),
+        "date": today, "session": session, "qty": qn(qty),
         "price_krw": round(price_krw), "price_native": round(price_native, 2),
         "currency": info["currency"], "krw": round(krw),
         "fx": round(usdkrw, 2) if info["currency"] == "USD" and usdkrw else None,
         "price_date": info.get("data_date"), "basis": basis,
     })
     trade = {"action": "매수", "ticker": t, "name": info["name"], "krw": round(krw), "krw_str": won(krw),
-             "qty": round(qty, 4), "price_krw": round(price_krw), "basis": basis, "reason": reason}
+             "qty": qn(qty), "price_krw": round(price_krw), "basis": basis, "reason": reason}
     return cash - krw, trade
 
 
@@ -138,7 +160,7 @@ def exec_sell(holdings, cash, t, info, qty_req, price_krw, today, session, reaso
     if h["qty"] <= 1e-9:
         holdings.pop(t, None)
     trade = {"action": "매도", "ticker": t, "name": info["name"], "krw": round(proceeds), "krw_str": won(proceeds),
-             "qty": round(qty, 4), "price_krw": round(price_krw), "basis": basis, "reason": reason}
+             "qty": qn(qty), "price_krw": round(price_krw), "basis": basis, "reason": reason}
     return cash + proceeds, trade
 
 
@@ -255,18 +277,22 @@ def main() -> int:
         val = h["qty"] * pr
         holdings_value += val
         avg = h["cost_krw"] / h["qty"] if h["qty"] else 0
-        lots_view = [{**lot, "krw_str": won(lot["krw"]), "price_krw_str": won(lot["price_krw"]),
+        is_usd = info["currency"] == "USD"
+        cost_native = sum(l["qty"] * l["price_native"] for l in h.get("lots", [])) if is_usd else 0
+        avg_native = cost_native / h["qty"] if (is_usd and h["qty"]) else 0
+        lots_view = [{**lot, "qty": qn(lot["qty"]), "krw_str": won(lot["krw"]), "price_krw_str": won(lot["price_krw"]),
                       "native_str": (f"${lot['price_native']:,.2f}" if lot.get("currency") == "USD" else None)}
                      for lot in h.get("lots", [])]
         pl_krw = val - h["cost_krw"]
         hold_view.append({
-            "ticker": t, "name": h["name"], "qty": round(h["qty"], 4),
-            "currency": info["currency"],
+            "ticker": t, "name": h["name"], "qty": qn(h["qty"]),
+            "unit": unit_of(t, info["category"]), "currency": info["currency"],
             "cost_str": won(h["cost_krw"]),
             "pl_krw_str": ("+" if pl_krw >= 0 else "") + won(pl_krw),
             "avg_krw": round(avg), "avg_str": won(avg),
+            "avg_native_str": (f"${avg_native:,.2f}" if is_usd and avg_native else None),
             "price_krw": round(pr), "price_str": won(pr),
-            "price_native_str": (f"${info['price_native']:,.2f}" if info["currency"] == "USD" else None),
+            "price_native_str": (f"${info['price_native']:,.2f}" if is_usd else None),
             "price_date": info.get("data_date"), "value_krw": round(val),
             "pl_pct": round((pr / avg - 1) * 100, 2) if avg else 0.0,
             "lots": lots_view,
