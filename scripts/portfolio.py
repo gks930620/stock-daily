@@ -17,6 +17,7 @@
 from __future__ import annotations
 
 import json
+import os
 import sys
 from datetime import datetime, timezone, timedelta
 from pathlib import Path
@@ -174,10 +175,12 @@ def main() -> int:
         print(f"알 수 없는 성향: {persona} — {list(PERSONAS)}", file=sys.stderr)
         return 1
     pmeta = PERSONAS[persona]
-    today = datetime.now(KST).strftime("%Y-%m-%d")
-    market = load_json(REPO / "data" / today / "market.json")
+    # 재생(replay)용 오버라이드: PF_TODAY(체결 기준일)·PF_MARKET(시세 스냅샷 경로)
+    today = os.environ.get("PF_TODAY") or datetime.now(KST).strftime("%Y-%m-%d")
+    mfile = os.environ.get("PF_MARKET")
+    market = load_json(Path(mfile)) if mfile else load_json(REPO / "data" / today / "market.json")
     if not market:
-        print(f"market.json 없음(data/{today}) — 포트폴리오 갱신 생략", file=sys.stderr)
+        print(f"market.json 없음({mfile or 'data/'+today+'/market.json'}) — 포트폴리오 갱신 생략", file=sys.stderr)
         return 0
     prices, usdkrw = price_map(market)
 
