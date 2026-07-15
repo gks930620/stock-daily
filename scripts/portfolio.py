@@ -37,7 +37,10 @@ REPO = Path(__file__).resolve().parent.parent
 START_CAPITAL = 100_000_000
 KRW_CATEGORIES = {"kr_index", "kr_stock"}
 TRADABLE = {"us_stock", "kr_stock", "us_sector", "crypto", "commodity"}
-IMMEDIATE = {"crypto", "commodity"}          # 24시간 거래 → 즉시 체결
+IMMEDIATE = {"crypto", "commodity"}          # 24시간 거래 → 언제든 그 시점 시세로 체결
+# 세션별 거래 가능 시장 — 자기 시장이 방금 마감한 종목만 거래한다.
+# (예: 한국장 마감 16시에 미국 ETF를 사면 며칠 전 미국 종가에 체결되는데, 그 시각엔 그 가격에 살 수 없다)
+SESSION_CATS = {"kr": {"kr_stock"}, "us": {"us_stock", "us_sector"}}
 SESSION_LABEL = {"kr": "🇰🇷 아침", "us": "🇺🇸 저녁", "fill": "⚡ 체결", "": ""}
 
 # 성향별 AI 투자자 3명 — 각자 독립 계좌(_data/portfolio-<id>.json)
@@ -220,7 +223,12 @@ def main() -> int:
                 print(f"  건너뜀: {t} 시세 없음", file=sys.stderr); continue
             if act == "buy" and info["category"] not in TRADABLE:
                 print(f"  건너뜀: {info['name']} 매수불가 분류", file=sys.stderr); continue
-            basis = f"{info.get('data_date')} 종가" if info["category"] not in IMMEDIATE else "즉시(24h)"
+            # 세션 ≠ 그 종목의 시장이면 거래 불가 (24시간 자산은 어느 세션이든 허용)
+            cat = info["category"]
+            if cat not in IMMEDIATE and session in SESSION_CATS and cat not in SESSION_CATS[session]:
+                print(f"  건너뜀: {info['name']} — '{session}' 세션에선 거래 불가(그 시장은 마감 종가가 오래됨)", file=sys.stderr)
+                continue
+            basis = f"{info.get('data_date')} 종가" if cat not in IMMEDIATE else "즉시(24h)"
             if act == "buy":
                 cash, tr = exec_buy(holdings, cash, t, info, o.get("krw", 0),
                                     info["price_krw"], info["price_native"], usdkrw,
