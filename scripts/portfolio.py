@@ -1,13 +1,12 @@
 """
 가상 포트폴리오 (페이퍼 트레이딩) — 1억 원, 하루 단위 매매.
 
-체결 규칙 (룩어헤드 방지 — docs/RULES.md §3):
-  · 주식/ETF: 예상글에서 주문 → "그 종목 시장의 다음 개장 시가"에 체결 (주문 시점엔 체결가를 모름)
-      - 🇰🇷 한국주: 08시(kr세션) 주문 → 당일 09:00 시가 / 21시(us세션) 주문 → 다음 거래일 시가
-      - 🇺🇸 미국주·ETF: 어느 세션이든 → 당일 밤(22:30 KST) 개장 시가
-      - 체결 기록은 시가가 확정되는 다음 수집 실행 때 이뤄진다 (pending → fill)
-  · 암호화폐·원자재(24시간 거래): 주문 즉시 그 시점 시세로 체결
-  · 한국주 정수 주수, 해외 소수점 + 체결 시점 환율 기록
+체결 규칙 (docs/RULES.md §3):
+  · AI가 "장 마감 후" 분석하므로, 모든 주문은 그 시점 = **당일 종가로 즉시 체결**한다.
+      - 🇰🇷 한국장: 15:30 마감 후(~16:00) 실행 → 당일 종가 체결 (15:40~16:00 장후 시간외 종가로 실제 거래 가능)
+      - 🇺🇸 미국장: 마감 후(한국시간 새벽~아침) 실행 → 당일 종가 체결
+  · 룩어헤드 없음: 종가(진입가)는 이미 확정된 과거지만, 손익은 아직 안 나온 **다음 날 이후 종가**로 결정된다.
+  · 주식·ETF 정수 주수 / 암호화폐·원자재 소수 + 체결 시점 환율 기록.
 
 성향별 3인: 실행 `python portfolio.py <label> <persona>` (persona=stable|aggressive|contrarian)
 상태: _data/portfolio-<persona>.json (holdings/lots/journal/pending_orders/history)
@@ -198,13 +197,17 @@ def main() -> int:
     pending = state.setdefault("pending_orders", [])
     journal = state.setdefault("journal", [])
 
-    # ── 1) 새 주문서 접수: 즉시체결(크립토·원자재) / 대기등록(주식·ETF) ──
+    # ── 1) 새 주문서 접수 → 당일 종가로 즉시 체결 ──
+    # (AI가 장 마감 후 분석하므로 그날 종가 = 그 시간에 실제 거래 가능한 가격. 룩어헤드 없음: 손익은
+    #  아직 안 나온 '다음 날 이후 종가'로 결정된다.)
+    for od_unused in list(pending):
+        pending.remove(od_unused)          # 구방식 잔여 대기주문 정리(있으면)
     orders_dir = REPO / "portfolio" / "orders"
     new_files = sorted(p for p in orders_dir.glob(f"{today}-*-{persona}.json") if p.stem not in applied) if orders_dir.exists() else []
     for opath in new_files:
         doc = load_json(opath, {})
         session = doc.get("session") or (opath.stem.split("-")[-1] if opath.stem.count("-") > 2 else "")
-        placed_view, immediate_trades = [], []
+        placed_view, trades = [], []
         for o in doc.get("orders", []):
             act = (o.get("action") or "").lower()
             t = o.get("ticker")
@@ -217,58 +220,19 @@ def main() -> int:
                 print(f"  건너뜀: {t} 시세 없음", file=sys.stderr); continue
             if act == "buy" and info["category"] not in TRADABLE:
                 print(f"  건너뜀: {info['name']} 매수불가 분류", file=sys.stderr); continue
-
-            if info["category"] in IMMEDIATE:
-                # 24시간 자산 → 즉시 체결 (주문 시점 시세)
-                if act == "buy":
-                    cash, tr = exec_buy(holdings, cash, t, info, o.get("krw", 0),
-                                        info["price_krw"], info["price_native"], usdkrw,
-                                        today, session, o.get("reason", ""), "즉시(24h)")
-                else:
-                    cash, tr = exec_sell(holdings, cash, t, info, o.get("qty"),
-                                         info["price_krw"], today, session, o.get("reason", ""), "즉시(24h)")
-                if tr:
-                    immediate_trades.append(tr)
+            basis = f"{info.get('data_date')} 종가" if info["category"] not in IMMEDIATE else "즉시(24h)"
+            if act == "buy":
+                cash, tr = exec_buy(holdings, cash, t, info, o.get("krw", 0),
+                                    info["price_krw"], info["price_native"], usdkrw,
+                                    today, session, o.get("reason", ""), basis)
             else:
-                # 주식/ETF → 다음 개장 시가 체결 대기
-                if info["currency"] == "KRW":
-                    min_fill = today if session == "kr" else next_day(today)   # 21시 주문이면 다음 거래일 시가
-                else:
-                    min_fill = today                                            # 미국장은 오늘 밤 개장
-                pending.append({"placed_date": today, "session": session, "action": act,
-                                "ticker": t, "name": info["name"],
-                                "krw": o.get("krw"), "qty": o.get("qty"),
-                                "reason": o.get("reason", ""), "min_fill_date": min_fill})
-                placed_view.append({"action": "매수예약" if act == "buy" else "매도예약",
-                                    "name": info["name"],
-                                    "detail": (won(o.get("krw", 0)) + "원 · " if act == "buy" else "") + "다음 개장 시가 체결 대기 — " + o.get("reason", "")})
+                cash, tr = exec_sell(holdings, cash, t, info, o.get("qty"),
+                                     info["price_krw"], today, session, o.get("reason", ""), basis)
+            if tr:
+                trades.append(tr)
         applied.append(opath.stem)
         journal.append({"date": today, "session": session, "comment": doc.get("comment", ""),
-                        "placed": placed_view, "trades": immediate_trades})
-
-    # ── 2) 체결 패스: 개장 시가가 확정된 대기 주문 체결 ──
-    fills = []
-    for od in list(pending):
-        info = prices.get(od["ticker"])
-        if not info or not info.get("open_krw"):
-            continue
-        if (info.get("data_date") or "") < od["min_fill_date"]:
-            continue  # 아직 그 시장이 안 열림 (시가 미확정)
-        basis = f"{info['data_date']} 개장 시가"
-        if od["action"] == "buy":
-            cash, tr = exec_buy(holdings, cash, od["ticker"], info, od.get("krw", 0),
-                                info["open_krw"], info["open_native"], usdkrw,
-                                today, od["session"], od.get("reason", ""), basis)
-        else:
-            cash, tr = exec_sell(holdings, cash, od["ticker"], info, od.get("qty"),
-                                 info["open_krw"], today, od["session"], od.get("reason", ""), basis)
-        pending.remove(od)
-        if tr:
-            tr["placed_date"] = od["placed_date"]
-            fills.append(tr)
-    if fills:
-        journal.append({"date": today, "session": "fill",
-                        "comment": "예약 주문 개장 시가 체결", "placed": [], "trades": fills})
+                        "placed": placed_view, "trades": trades})
 
     # ── 3) 재평가 ──
     hold_view, holdings_value = [], 0.0
@@ -307,14 +271,12 @@ def main() -> int:
         hv["weight_pct"] = round(hv["value_krw"] / total * 100, 1) if total else 0
         hv["value_str"] = won(hv["value_krw"])
 
-    # 대기 주문 표시용
-    pending_view = [{**od, "krw_str": won(od["krw"]) if od.get("krw") else None,
-                     "session_label": SESSION_LABEL.get(od["session"], od["session"]),
-                     "action_label": "매수" if od["action"] == "buy" else "매도"} for od in pending]
+    # 대기 주문 없음(종가 즉시체결) — 페이지 호환 위해 빈 목록 유지
+    pending_view = []
 
-    # ── 4) 히스토리 (일별 스냅샷) — 매일 18시(krclose) 평가만 '확정' 기록 ──
+    # ── 4) 히스토리 (일별 스냅샷) — 매 실행(장 마감 후 종가)마다 확정 기록 ──
     hist = state.get("history", [])
-    finalize = (label == "krclose") or not hist          # 18시 확정 / 최초 1회 시드
+    finalize = True                                       # 실행 시점이 이미 종가 → 항상 확정
     prev_marks = [h for h in hist if h["date"] != today]
     prev_total = prev_marks[-1]["total_value"] if prev_marks else START_CAPITAL
     day_chg_pct = round((total / prev_total - 1) * 100, 2) if prev_total else 0.0
@@ -322,7 +284,7 @@ def main() -> int:
         hist = prev_marks + [{
             "date": today, "total_value": round(total), "total_value_str": won(total),
             "return_pct": round(ret_pct, 2), "day_chg_pct": day_chg_pct, "cash": round(cash),
-            "asof": "18:00 평가" if label == "krclose" else "개설일 시드",
+            "asof": {"krclose": "🇰🇷 마감 종가", "usclose": "🇺🇸 마감 종가"}.get(label, "종가"),
             "holdings": [{"name": hv["name"], "value_str": hv["value_str"], "weight_pct": hv["weight_pct"], "pl_pct": hv["pl_pct"]} for hv in hold_view],
         }]
         hist.sort(key=lambda x: x["date"])
@@ -339,7 +301,7 @@ def main() -> int:
         "cash_weight_pct": round(cash / total * 100, 1) if total else 0,
         "day_chg_pct": day_chg_pct, "days": len(hist),
         "priced_at": market.get("generated_at_kst", ""),
-        "eval_note": "일별 평가 확정 = 매일 18:00 KST (한국주 = 당일 종가 · 미국주 = 간밤 종가)",
+        "eval_note": "AI가 장 마감 후 분석 → 당일 종가로 매수/매도 체결·평가 (🇰🇷 15:30 마감 후 · 🇺🇸 마감 후). 손익은 이후 종가로 결정",
         "persona": persona, "persona_name": pmeta["name"],
         "persona_emoji": pmeta["emoji"], "persona_tag": pmeta["tag"],
     })
@@ -357,7 +319,7 @@ def main() -> int:
     ax.plot(dates, vals, color="#175cd3", linewidth=2, marker="o", markersize=4)
     ax.axhline(START_CAPITAL, color="#94a3b8", linestyle="--", linewidth=1, label="시작 (1억)")
     ax.fill_between(range(len(dates)), START_CAPITAL, vals, alpha=0.08, color="#175cd3")
-    ax.set_title(f"[{pmeta['name']}] 가상 포트폴리오 자산 추이 (매일 18시 평가)  ·  {total:,.0f}원 ({ret_pct:+.2f}%)", fontsize=13, fontweight="bold")
+    ax.set_title(f"[{pmeta['name']}] 가상 포트폴리오 자산 추이 (장 마감 종가 평가)  ·  {total:,.0f}원 ({ret_pct:+.2f}%)", fontsize=13, fontweight="bold")
     ax.yaxis.set_major_formatter(lambda x, _: f"{x/1e8:.2f}억")
     ax.legend(fontsize=9); ax.grid(alpha=0.25)
     if len(dates) > 12:
@@ -367,7 +329,7 @@ def main() -> int:
     fig.savefig(chart_dir / f"equity-{persona}.png", dpi=110)
     plt.close(fig)
 
-    print(f"[{persona}] 총 {total:,.0f}원 ({ret_pct:+.2f}%) · 현금 {cash:,.0f} · 보유 {len(hold_view)} · 체결 {len(fills)}건 · 대기 {len(pending)}건")
+    print(f"[{persona}] 총 {total:,.0f}원 ({ret_pct:+.2f}%) · 현금 {cash:,.0f} · 보유 {len(hold_view)}종목 (당일 종가 체결)")
     return 0
 
 

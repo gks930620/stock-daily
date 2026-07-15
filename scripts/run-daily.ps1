@@ -1,9 +1,8 @@
 # 로컬 실행 스크립트 (백업용 — 기본 자동화는 GitHub Actions .github/workflows/daily.yml)
-# 사용: .\run-daily.ps1 [kr|collect|us]
-#   kr(기본)  = 수집 + 🇰🇷 한국장 예상글 + 매매   (아침 08시용)
-#   collect   = 수집만 (한국장 마감 스냅샷, 18시용)
-#   us        = 수집 + 🇺🇸 미국장 예상글 + 매매   (저녁 21시용)
-param([ValidateSet("kr","collect","us")][string]$Mode = "kr")
+# 사용: .\run-daily.ps1 [kr|us]   ← 장 마감 후 실행
+#   kr(기본) = 🇰🇷 한국장 마감(15:30) 후 ~16시: 수집·분석·매매(종가 체결)·리포트
+#   us       = 🇺🇸 미국장 마감 후 새벽~아침: 수집·분석·매매(종가 체결)·리포트
+param([ValidateSet("kr","us")][string]$Mode = "kr")
 
 $repo = "C:\Users\gks93\workspace\주식시장예상클로드코드"
 $venvPython = "$repo\.venv\Scripts\python.exe"
@@ -14,7 +13,7 @@ $logDir = "$repo\logs"
 New-Item -ItemType Directory -Force $logDir | Out-Null
 try { Start-Transcript -Path "$logDir\last-run.log" -Force | Out-Null } catch {}
 
-$label = @{ kr = "morning"; collect = "krclose"; us = "uspre" }[$Mode]
+$label = @{ kr = "krclose"; us = "usclose" }[$Mode]
 Write-Host "===== 시작($Mode): $(Get-Date) ====="
 
 try {
@@ -26,7 +25,7 @@ Write-Host "[1] 시세·경제지표 수집 ($label)..."
 & $venvPython "$repo\scripts\collect_data.py" $label
 if ($LASTEXITCODE -ne 0) { Write-Warning "데이터 수집 일부 실패(계속 진행)" }
 
-if ($Mode -ne "collect") {
+if ($true) {
     Write-Host "[2] 차트 생성..."
     & $venvPython "$repo\scripts\make_charts.py"
     if ($LASTEXITCODE -ne 0) { Write-Warning "차트 생성 실패(계속 진행)" }
@@ -68,9 +67,9 @@ if ($Mode -ne "collect") {
 
 }
 
-# 포트폴리오 체결·평가는 모든 모드에서 성향 3인 각각 실행 (collect(18시) = 시가 체결 + 일별 평가 확정)
+# 포트폴리오 체결·평가 — 성향 3인 각각, 당일 종가로 즉시 체결
 foreach ($P in @("stable","aggressive","contrarian")) {
-    Write-Host "[포트폴리오·$P] 체결·평가 ($label)..."
+    Write-Host "[포트폴리오·$P] 종가 체결·평가 ($label)..."
     & $venvPython "$repo\scripts\portfolio.py" $label $P
     if ($LASTEXITCODE -ne 0) { Write-Warning "포트폴리오($P) 갱신 실패(계속 진행)" }
 }

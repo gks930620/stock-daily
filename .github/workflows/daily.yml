@@ -1,9 +1,9 @@
 name: 시장 예상 (cloud)
 
-# GitHub 서버에서 하루 3회 자동 실행 (내 PC 불필요).
-#   08:00 KST — 수집 + 🇰🇷 한국장 예상글 + 매매
-#   18:00 KST — 수집만 (한국장 마감 결과 스냅샷)
-#   21:00 KST — 수집 + 🇺🇸 미국장 예상글 + 매매
+# GitHub 서버에서 하루 2회, "장 마감 직후" 자동 실행 (내 PC 불필요).
+#   16:00 KST (07:00 UTC) — 🇰🇷 한국장 마감(15:30) 후 → 수집·분석·매매(종가 체결)·리포트
+#   06:30 KST (21:30 UTC) — 🇺🇸 미국장 마감(한국시간 새벽) 후 → 수집·분석·매매(종가 체결)·리포트
+# 매매는 "그 시간에 실제 살 수 있는 당일 종가"로 체결 → 밤사이 갭을 놓치지 않음(종가에 미리 진입).
 # 과금: Claude는 CLAUDE_CODE_OAUTH_TOKEN(내 Max 구독 토큰)으로만 인증 → Max 플랜 사용량에서 차감.
 #      ⚠️ ANTHROPIC_API_KEY 는 절대 설정하지 않는다 (설정하면 API 토큰당 과금됨).
 
@@ -12,15 +12,14 @@ permissions:
 
 on:
   schedule:
-    - cron: "0 23 * * *"   # 08:00 KST → kr (한국장 예상)
-    - cron: "0 9 * * *"    # 18:00 KST → collect (한국장 마감 수집)
-    - cron: "0 12 * * *"   # 21:00 KST → us (미국장 예상)
+    - cron: "0 7 * * 1-5"    # 16:00 KST 평일 → kr (한국장 마감 후)
+    - cron: "30 21 * * 1-5"  # 06:30 KST 평일 → us (미국장 마감 후)
   workflow_dispatch:
     inputs:
       mode:
-        description: "실행 모드"
+        description: "실행 모드 (장 마감 후)"
         type: choice
-        options: [kr, collect, us]
+        options: [kr, us]
         default: kr
 
 jobs:
@@ -38,20 +37,18 @@ jobs:
           else
             H=$(date -u +%H)
             case "$H" in
-              22|23|00) MODE=kr ;;      # 08:00 KST 부근
-              08|09|10) MODE=collect ;; # 18:00 KST 부근
-              11|12|13) MODE=us ;;      # 21:00 KST 부근
+              06|07|08) MODE=kr ;;   # 16:00 KST 부근 (한국장 마감 후)
+              21|22)    MODE=us ;;   # 06:30 KST 부근 (미국장 마감 후)
               *) MODE=kr ;;
             esac
           fi
           case "$MODE" in
-            kr) LABEL=morning ;;
-            collect) LABEL=krclose ;;
-            us) LABEL=uspre ;;
+            kr) LABEL=krclose ;;
+            us) LABEL=usclose ;;
           esac
           echo "mode=$MODE" >> "$GITHUB_OUTPUT"
           echo "label=$LABEL" >> "$GITHUB_OUTPUT"
-          echo "▶ 모드: $MODE (스냅샷 라벨: $LABEL)"
+          echo "▶ 모드: $MODE (라벨: $LABEL)"
 
       - name: Python 설정
         uses: actions/setup-python@v5
@@ -65,11 +62,9 @@ jobs:
         run: python scripts/collect_data.py ${{ steps.mode.outputs.label }}
 
       - name: 한글 폰트 설치 (차트용)
-        if: steps.mode.outputs.mode != 'collect'
         run: sudo apt-get update && sudo apt-get install -y fonts-nanum && fc-cache -f
 
       - name: 차트 생성
-        if: steps.mode.outputs.mode != 'collect'
         run: python scripts/make_charts.py
 
       - name: 비인기종목 스크리너 (한국장 예상글 전용)
@@ -78,20 +73,17 @@ jobs:
         continue-on-error: true
 
       - name: Node 설정
-        if: steps.mode.outputs.mode != 'collect'
         uses: actions/setup-node@v4
         with:
           node-version: "20"
 
       - name: Claude Code 설치
-        if: steps.mode.outputs.mode != 'collect'
         run: npm install -g @anthropic-ai/claude-code
 
       # 1단계 🧑‍💼 성향별 포트폴리오 매니저 3인 (각자 독립 세션·독립 계좌)이 먼저 종목을 정한다.
       #    데이터를 직접 보고 성향(안정/공격/역발상)대로 "이 종목 매수/매도"를 명확히 → 3개의 주문서.
       #    비용 관리를 위해 매니저는 effort=high (애널리스트는 xhigh). 필요시 조절 가능.
       - name: Claude 포트폴리오 매매 결정 × 3인 (먼저 실행 — 종목 확정)
-        if: steps.mode.outputs.mode != 'collect'
         env:
           CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
         run: |
@@ -114,7 +106,6 @@ jobs:
 
       # 2단계 🧠 애널리스트가 3인의 주문서를 종합해 "오늘의 매수/매도 종목"을 깔끔하게 정리한다.
       - name: Claude 종합 리포트 생성 (3인 주문 종합 — 종목 결론)
-        if: steps.mode.outputs.mode != 'collect'
         env:
           # 구독(Max) 토큰만 사용. API 키는 넣지 않음 → Max 사용량으로 차감.
           CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
@@ -131,7 +122,7 @@ jobs:
           # --model opus: 항상 최신 Opus / --effort xhigh: 최고 심층추론
           claude -p "$PROMPT" --model opus --effort xhigh --permission-mode bypassPermissions --verbose
 
-      - name: 가상 포트폴리오 체결·평가 × 3인 (18시=일별 평가 확정, 시가 체결 처리)
+      - name: 가상 포트폴리오 체결·평가 × 3인 (당일 종가로 즉시 체결)
         run: |
           for P in stable aggressive contrarian; do
             echo "───── 체결·평가: $P ─────"

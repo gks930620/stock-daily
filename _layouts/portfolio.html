@@ -65,7 +65,7 @@ layout: default
   {% endif %}
 
   <section class="card">
-    <h2>자산 추이 <span class="mut small">(매일 18시 평가)</span></h2>
+    <h2>자산 추이 <span class="mut small">(장 마감 종가 평가)</span></h2>
     <img src="{{ '/assets/portfolio/equity-' | append: p.persona | append: '.png' | relative_url }}" alt="자산 추이 차트">
   </section>
 
@@ -101,7 +101,7 @@ layout: default
     <h2>🧾 체결 규칙 & 검증</h2>
     {% include pf-rules.html %}
   </section>
-  <p class="mut small" style="margin:6px 4px 0">⚠️ 가상 매매 기록 · 투자 보장 아님 · 매일 08시(🇰🇷)·21시(🇺🇸) 예상글의 결정이 자동 반영 · <a href="{{ '/' | relative_url }}">← 리포트</a></p>
+  <p class="mut small" style="margin:6px 4px 0">⚠️ 가상 매매 기록 · 투자 보장 아님 · 🇰🇷 한국장·🇺🇸 미국장 마감 후 종가로 매매 자동 반영 · <a href="{{ '/' | relative_url }}">← 리포트</a></p>
 </div>
 
 <style>
