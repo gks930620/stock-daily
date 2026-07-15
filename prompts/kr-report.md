@@ -42,8 +42,7 @@
   <div class="ppt">
     <section class="slide cover">
       <span class="pg">01 / 05</span>
-      <div class="kick">DAILY CALL · 🇰🇷 한국장 · YYYY.MM.DD (요일)</div>
-      <h1>오늘, 뭘 사고<br>뭘 파나</h1>
+      <h1>오늘의<br>매수·매도 종목</h1>
       <div class="calls">
         <div class="call buy"><span class="lbl">🔴 매수</span><b>(종목·종목·종목)</b></div>
         <div class="call sell"><span class="lbl">🔵 회피</span><b>(종목·종목)</b></div>
