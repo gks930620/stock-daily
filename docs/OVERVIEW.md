@@ -95,9 +95,9 @@ flowchart LR
 | 📐 지표 계산 | (수집 시 포함) | RSI · MACD · 볼린저 · 이동평균(4종) · 모멘텀 · 추세배열 |
 | 📈 차트 생성 | `scripts/make_charts.py` | 지수·주요주 차트 PNG (가격+이동평균+RSI) |
 | 🔍 비인기종목 발굴 | `scripts/screener.py` | 과매도반등·거래량급증·낙폭과대·저점권반등 신호 |
-| 🧠 Claude ①애널리스트 | `prompts/kr-report.md`·`prompts/us-report.md` | 그날 장 예측: 확률 시나리오 + 근거 + 자기검증 (예상글만) |
-| 🧑‍💼 Claude ②③④ 매니저 3인 | `prompts/persona-*.md` + `portfolio.md` | 🛡️안정·🚀공격·🎯역발상 — 같은 리포트 보고 **성향대로 각자 매매** (독립 세션·독립 계좌) |
-| 💼 가상 매매 체결 | `scripts/portfolio.py <label> <persona>` | 성향별 1억 페이퍼 트레이딩 — 주문서 시가 체결(한국주 정수주수·환율)·매매일지·자산곡선 |
+| 🧑‍💼 Claude ①②③ 매니저 3인 (먼저) | `prompts/persona-*.md` + `portfolio.md` | 🛡️안정·🚀공격·🎯역발상 — 데이터 직접 보고 **성향대로 종목 매수/매도 확정** (독립 세션·계좌) |
+| 🧠 Claude ④애널리스트 (뒤에) | `prompts/kr-report.md`·`prompts/us-report.md` | **3인 주문서 종합** → "오늘 이 종목 사라/팔아라" 종목 결론 리포트 + 어제 채점 |
+| 💼 가상 매매 체결 | `scripts/portfolio.py <label> <persona>` | 성향별 1억 페이퍼 트레이딩 — 주문서 시가 체결(주식 정수주수·환율)·매매일지·자산곡선 |
 | 🌐 자동 게시 | Jekyll → GitHub Pages | 예상글 + [/portfolio/](https://gks930620.github.io/stock-daily/portfolio/) 페이지 |
 
 > **핵심 철학:** "예측 적중"이 아니라 **근거 있는 확률 + 자기검증**. 매일 예상을 기록하고 다음 날 실제와 대조해,
@@ -105,7 +105,7 @@ flowchart LR
 
 ---
 
-- 하루 3회 자동 실행: 08시 🇰🇷 예상 · 18시 수집 · 21시 🇺🇸 예상 (GitHub Actions) · 분석 = Claude 4명(①애널리스트 예상글 xhigh + ②③④ 성향별 매니저 매매 high, Max 구독·최신 Opus) · 데이터 = 파이썬
+- 하루 3회 자동 실행: 08시 🇰🇷 · 18시 수집 · 21시 🇺🇸 (GitHub Actions) · Claude 4명(①②③ 성향별 매니저가 종목 확정 high → ④ 애널리스트가 종합해 매수/매도 리포트 xhigh, Max 구독·최신 Opus) · 데이터 = 파이썬
 - 공개 사이트: https://gks930620.github.io/stock-daily/ · [가상 포트폴리오](https://gks930620.github.io/stock-daily/portfolio/)
 - 관련 문서: [RULES.md](RULES.md)(운영 규칙) · [DESIGN.md](DESIGN.md) · [CLOUD-AUTOMATION.md](CLOUD-AUTOMATION.md) · [AUTOMATION.md](AUTOMATION.md) · [TOOLING.md](TOOLING.md)
 

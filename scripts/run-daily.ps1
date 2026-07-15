@@ -37,14 +37,11 @@ if ($Mode -ne "collect") {
         if ($LASTEXITCODE -ne 0) { Write-Warning "스크리너 실패(계속 진행)" }
     }
 
-    Write-Host "[4] Claude(①애널리스트) 분석·예상글 생성 ($Mode, 최신 opus · effort xhigh)..."
-    $prompt = Get-Content -Raw "$repo\prompts\$Mode-report.md"
-    & $claude -p $prompt --model opus --effort xhigh --dangerously-skip-permissions
-
-    # ② 성향별 포트폴리오 매니저 3인 (각자 독립 세션·독립 계좌) — effort high(비용관리)
     $today = Get-Date -Format "yyyy-MM-dd"
+
+    # ① 성향별 포트폴리오 매니저 3인이 먼저 종목을 확정 (각자 독립 세션·독립 계좌) — effort high
     foreach ($P in @("stable","aggressive","contrarian")) {
-        Write-Host "[5] Claude(②포트폴리오 매니저·$P) 매매 결정 ($Mode)..."
+        Write-Host "[4] Claude(①포트폴리오 매니저·$P) 매매 결정 ($Mode)..."
         $pfPrompt = (Get-Content -Raw "$repo\prompts\persona-$P.md") + "`n" + (Get-Content -Raw "$repo\prompts\portfolio.md") + @"
 
 [실행 안내]
@@ -52,11 +49,22 @@ if ($Mode -ne "collect") {
 - 이번 세션: $Mode / 너의 성향 id: $P
 - 주문서 파일명은 반드시 portfolio/orders/$today-$Mode-$P.json
 - 네 계좌 파일: _data/portfolio-$P.json (없으면 현금 1억 시작)
-- 방금 나온 리포트 _posts/$today-$Mode-market.md 를 읽고 네 성향대로 반영하라.
+- 너는 1차 결정자다. 데이터를 직접 보고 종목을 정하라 (애널리스트 리포트는 아직 없다).
 - git 금지. 주문서 JSON 생성까지만.
 "@
         & $claude -p $pfPrompt --model opus --effort high --dangerously-skip-permissions
     }
+
+    # ② 애널리스트가 3인 주문서를 종합해 '오늘의 매수/매도 종목' 리포트 작성 — effort xhigh
+    Write-Host "[5] Claude(②애널리스트) 3인 종합 리포트 ($Mode)..."
+    $prompt = (Get-Content -Raw "$repo\prompts\$Mode-report.md") + @"
+
+[실행 안내]
+- 오늘 날짜(KST): $today
+- 방금 3인이 낸 주문서 portfolio/orders/$today-$Mode-{stable,aggressive,contrarian}.json 를 반드시 읽어 종합하라.
+- git 금지. 글 파일 생성까지만.
+"@
+    & $claude -p $prompt --model opus --effort xhigh --dangerously-skip-permissions
 
 }
 
