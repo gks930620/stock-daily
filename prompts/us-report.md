@@ -30,40 +30,81 @@
   date: YYYY-MM-DD 21:00:00 +0900
   categories: report
   market: us
+  slides: true
   ---
   ```
-- 맨 위 "투자 조언 아님" 경고(blockquote).
-- **본문 구성(확정): ① 결론(종목) → ② 한줄 시황 → ③ 3인의 선택 → ④ 종합 매수/매도 → ⑤ 어제 채점.** 색: 매수·강세=빨강(`up`), 매도·약세=파랑(`down`).
+  (`slides: true` 필수 — 슬라이드 레이아웃으로 렌더된다.)
+- **본문 = PPT 슬라이드 5장(`<div class="ppt">`) + 접이식 전체 글(`<details class="full-report">`).** 슬라이드는 결론만, 상세 근거는 접어둔다. 색: 매수·강세=빨강, 매도·약세=파랑. 아래 HTML을 그대로 채워라:
 
-  **① 결론 — 오늘 밤 뭘 사고 파나 (종목으로)**:
   ```html
-  <div class="verdict">
-    <p class="q">Q. 오늘 밤, 뭘 사고 뭘 팔까?</p>
-    <p class="a"><b class="up">🔴 매수: 엔비디아 · XLE</b> / <b class="down">🔵 매도·회피: (종목)</b> / 그 외 관망. <br>(한두 문장 핵심 근거)</p>
+  <div class="ppt">
+    <section class="slide cover">
+      <span class="pg">01 / 05</span>
+      <div class="kick">DAILY CALL · 🇺🇸 미국장 · YYYY.MM.DD (요일)</div>
+      <h1>오늘 밤, 뭘 사고<br>뭘 파나</h1>
+      <div class="calls">
+        <div class="call buy"><span class="lbl">🔴 매수</span><b>(종목·종목)</b></div>
+        <div class="call sell"><span class="lbl">🔵 회피</span><b>(종목)</b></div>
+      </div>
+      <p class="lead">(한두 문장 핵심)</p>
+    </section>
+
+    <section class="slide">
+      <span class="pg">02 / 05</span>
+      <h2>시장, 한눈에</h2>
+      <div class="grid">
+        <div class="stat up"><div class="k">지표</div><div class="v">값</div><div class="d">▲ N%</div></div>
+        <!-- 4~6개. 상승=stat up(▲빨강), 하락=stat down(▼파랑) -->
+      </div>
+      <p class="lead">(오늘 밤 관전 1~2문장. 지표·실적 발표 있으면 명시)</p>
+    </section>
+
+    <section class="slide">
+      <span class="pg">03 / 05</span>
+      <h2>3인은 이렇게 움직였다</h2>
+      <div class="three">
+        <div class="who"><div class="tag">🛡️ 안정형 <span>현금 NN%</span></div><div class="pick buy">매수 · (종목)</div><p>(한 줄)</p></div>
+        <div class="who hot"><div class="tag">🚀 공격형 <span>현금 NN%</span></div><div class="pick buy">매수 · (종목)</div><p>(한 줄)</p></div>
+        <div class="who"><div class="tag">🎯 역발상 <span>현금 NN%</span></div><div class="pick hold">신규매수 없음/매수 · (종목)</div><p>(한 줄)</p></div>
+      </div>
+    </section>
+
+    <section class="slide accent">
+      <span class="pg">04 / 05</span>
+      <h2>📊 오늘 밤 종합 결론</h2>
+      <div class="verdict-list">
+        <div class="vl buy"><div class="vh">🔴 매수</div><ul>
+          <li><b>(종목)</b> — (근거 한 줄) <span class="agree">(3인 중 누구)</span></li>
+        </ul></div>
+        <div class="vl sell"><div class="vh">🔵 회피</div><ul>
+          <li><b>(종목들)</b> — (근거) <span class="agree">…</span></li>
+        </ul></div>
+      </div>
+      <p class="lead"><b>(오늘 밤 한 줄 컨센서스)</b></p>
+    </section>
+
+    <section class="slide big">
+      <span class="pg">05 / 05</span>
+      <div class="huge">(핵심 대립 두 단어)</div>
+      <p class="lead">(한두 문장 — 오늘 밤 분수령, 예: CPI·실적)</p>
+      <a class="go" href="{{ '/portfolio/' | relative_url }}">3인의 실제 손익 보기 →</a>
+    </section>
   </div>
+
+  <details class="full-report">
+    <summary>📄 전체 글·상세 근거 보기</summary>
+
+    > ⚠️ 투자 조언 아님.
+    ### 종목별 상세 근거
+    - 매수/회피 각 종목 2~3문장(RSI·추세·수급·뉴스, 3인 중 누가 왜).
+    ### 🤖 3인 상세
+    - 안정/공격/역발상 각각의 판단 요약.
+    ### ✅ 어제 추천 채점
+    - 어제 매수/매도 추천이 지난밤 맞았는지 O/△/X + 교훈.
+    (비인기 스크리너는 한국장 전용 — 미장 글엔 없음.)
+  </details>
   ```
-
-  **② 한 줄 시황 + 타일** — 2~3문장까지만 + 핵심 숫자 타일 4~6개:
-  ```html
-  <div class="tiles"><div class="tile"><div class="k">지표</div><div class="v">값</div><div class="d up">▲ 0.8%</div></div></div>
-  ```
-
-  **③ 🤖 3인 트레이더의 오늘 선택** — `## 🤖 3인은 이렇게 움직였다`: 표 + 합의/분기 1~2문장.
-  | 성향 | 오늘 매수 | 오늘 매도 | 현금비중 |
-  |---|---|---|---|
-  | 🛡️ 안정형 | (종목) | (종목/없음) | NN% |
-  | 🚀 공격형 | (종목) | … | NN% |
-  | 🎯 역발상형 | (종목) | … | NN% |
-
-  **④ 📊 종합 매수/매도 (내 판단)** — `## 📊 오늘 밤 종합 결론`: 종목별 한 줄씩. 표 권장:
-  | 결정 | 종목 | 근거(한 줄) | 3인 중 |
-  |---|---|---|---|
-  | 🔴 매수 | 엔비디아 | 60일선 지지 + 3인 중 2인 매수 | 공격·역발상 |
-  | 🔵 매도/회피 | (종목) | (근거) | — |
-
-  **⑤ ✅ 어제 채점** — `## ✅ 어제 추천 채점`: O/△/X + 교훈. 맨 끝: `3인의 실제 매매·손익 → [가상 포트폴리오]({{ '/portfolio/' | relative_url }})`.
-  (비인기 스크리너는 한국장 전용 — 미장 글엔 없음.)
-- 톤: 시황 짧게, **결론은 종목으로**. 전체 A4 1장 이내.
+- 톤: 슬라이드는 **결론·종목만**. 상세는 details 안으로.
 
 ## 5. 경계
 - 너는 **주문서·계좌를 건드리지 않는다.** 실제 매매는 3인이 집행했다. 너의 "종합 매수/매도"는 독자를 위한 편집 결론이다.
