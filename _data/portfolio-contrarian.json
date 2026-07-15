@@ -2,11 +2,89 @@
   "start_date": "2026-07-15",
   "start_capital": 100000000,
   "currency": "KRW",
-  "cash": 100000000,
-  "holdings": {},
-  "applied_orders": [],
+  "cash": 78076169,
+  "holdings": {
+    "SMH": {
+      "name": "반도체ETF",
+      "qty": 17.0,
+      "cost_krw": 14923830.8782,
+      "lots": [
+        {
+          "date": "2026-07-16",
+          "session": "us",
+          "qty": 17,
+          "price_krw": 877872,
+          "price_native": 590.77,
+          "currency": "USD",
+          "krw": 14923831,
+          "fx": 1485.98,
+          "price_date": "2026-07-15",
+          "basis": "2026-07-15 종가"
+        }
+      ]
+    },
+    "SI=F": {
+      "name": "은",
+      "qty": 81.0791045039929,
+      "cost_krw": 7000000.0,
+      "lots": [
+        {
+          "date": "2026-07-16",
+          "session": "us",
+          "qty": 81.0791,
+          "price_krw": 86335,
+          "price_native": 58.1,
+          "currency": "USD",
+          "krw": 7000000,
+          "fx": 1485.98,
+          "price_date": "2026-07-15",
+          "basis": "즉시(24h)"
+        }
+      ]
+    }
+  },
+  "applied_orders": [
+    "2026-07-16-us-contrarian"
+  ],
   "pending_orders": [],
-  "journal": [],
+  "journal": [
+    {
+      "date": "2026-07-16",
+      "session": "us",
+      "comment": "지수는 신고가·VIX 붕괴로 시장 전체는 탐욕 국면 — 나는 군중을 쫓지 않는다. 과열된 금융(XLF RSI71)·애플·메타는 판다면 몰라도 사지 않는다. 공포는 국지적으로 '반도체'와 '은'에만 있다. 남들이 로테이션으로 던진 그 자리를 분할로 담고, 나머지는 더 큰 공포를 기다리며 현금(약 78%)으로 둔다.",
+      "placed": [
+        {
+          "action": "유지",
+          "name": "-",
+          "detail": "XLF(RSI71)·AAPL(68.8)·META(66.8)·ETH(66.6)는 모두가 열광하는 과열 자리 — 컨트래리안은 여기 안 들어간다. 지수가 신고가·VIX 붕괴로 시장 전체는 아직 공포가 아니라 진짜 낙폭과대 바겐은 부족하다. 현금 약 78%를 남겨 광범위한 공포가 왔을 때 적극 투입한다."
+        }
+      ],
+      "trades": [
+        {
+          "action": "매수",
+          "ticker": "SMH",
+          "name": "반도체ETF",
+          "krw": 14923831,
+          "krw_str": "14,923,831",
+          "qty": 17,
+          "price_krw": 877872,
+          "basis": "2026-07-15 종가",
+          "reason": "지수는 신고가인데 반도체만 20일 -8.7%, MA20 대비 -4.2%, RSI 47로 홀로 소외됐다. 이건 펀더멘털 훼손이 아니라 금융(XLF RSI71)으로 돈이 몰리며 벌어진 로테이션·차익실현 — 즉 시장의 과잉반응이다. AI 캐펙스 수요는 그대로고 NVDA는 이미 6월 저점에서 반등 중. 남들이 던진 소외 섹터를 1차 분할로 매수, 더 빠지면 계획대로 추가."
+        },
+        {
+          "action": "매수",
+          "ticker": "SI=F",
+          "name": "은",
+          "krw": 7000000,
+          "krw_str": "7,000,000",
+          "qty": 81.0791,
+          "price_krw": 86335,
+          "basis": "즉시(24h)",
+          "reason": "은이 20일 -17%, RSI 37.5로 투매성 급락. 금(-6%)보다 훨씬 심하게 두들겨맞아 공포가 과도하다. 다만 하락배열이라 '떨어지는 칼날' 위험도 인정 — 그래서 한 번에 담지 않고 소액 1차 진입만. 바닥은 못 맞추니 더 내려오면 분할로 받는다."
+        }
+      ]
+    }
+  ],
   "history": [
     {
       "date": "2026-07-15",
@@ -17,31 +95,189 @@
       "cash": 100000000,
       "asof": "🇰🇷 마감 종가",
       "holdings": []
+    },
+    {
+      "date": "2026-07-16",
+      "total_value": 100000000,
+      "total_value_str": "100,000,000",
+      "return_pct": 0.0,
+      "day_chg_pct": 0.0,
+      "cash": 78076169,
+      "asof": "🇺🇸 마감 종가",
+      "holdings": [
+        {
+          "name": "반도체ETF",
+          "value_str": "14,923,831",
+          "weight_pct": 14.9,
+          "pl_pct": 0.0
+        },
+        {
+          "name": "은",
+          "value_str": "7,000,000",
+          "weight_pct": 7.0,
+          "pl_pct": 0.0
+        }
+      ]
     }
   ],
-  "updated": "2026-07-15",
+  "updated": "2026-07-16",
   "total_value": 100000000,
-  "holdings_value": 0,
+  "holdings_value": 21923831,
   "return_pct": 0.0,
-  "usdkrw": 1491.6,
-  "holdings_view": [],
+  "usdkrw": 1485.98,
+  "holdings_view": [
+    {
+      "ticker": "SMH",
+      "name": "반도체ETF",
+      "qty": 17,
+      "unit": "주",
+      "currency": "USD",
+      "cost_str": "14,923,831",
+      "pl_krw_str": "+0",
+      "avg_krw": 877872,
+      "avg_str": "877,872",
+      "avg_native_str": "$590.77",
+      "price_krw": 877872,
+      "price_str": "877,872",
+      "price_native_str": "$590.77",
+      "price_date": "2026-07-15",
+      "value_krw": 14923831,
+      "pl_pct": 0.0,
+      "lots": [
+        {
+          "date": "2026-07-16",
+          "session": "us",
+          "qty": 17,
+          "price_krw": 877872,
+          "price_native": 590.77,
+          "currency": "USD",
+          "krw": 14923831,
+          "fx": 1485.98,
+          "price_date": "2026-07-15",
+          "basis": "2026-07-15 종가",
+          "krw_str": "14,923,831",
+          "price_krw_str": "877,872",
+          "native_str": "$590.77"
+        }
+      ],
+      "weight_pct": 14.9,
+      "value_str": "14,923,831"
+    },
+    {
+      "ticker": "SI=F",
+      "name": "은",
+      "qty": 81.0791,
+      "unit": "oz",
+      "currency": "USD",
+      "cost_str": "7,000,000",
+      "pl_krw_str": "+0",
+      "avg_krw": 86335,
+      "avg_str": "86,335",
+      "avg_native_str": "$58.10",
+      "price_krw": 86335,
+      "price_str": "86,335",
+      "price_native_str": "$58.10",
+      "price_date": "2026-07-15",
+      "value_krw": 7000000,
+      "pl_pct": 0.0,
+      "lots": [
+        {
+          "date": "2026-07-16",
+          "session": "us",
+          "qty": 81.0791,
+          "price_krw": 86335,
+          "price_native": 58.1,
+          "currency": "USD",
+          "krw": 7000000,
+          "fx": 1485.98,
+          "price_date": "2026-07-15",
+          "basis": "즉시(24h)",
+          "krw_str": "7,000,000",
+          "price_krw_str": "86,335",
+          "native_str": "$58.10"
+        }
+      ],
+      "weight_pct": 7.0,
+      "value_str": "7,000,000"
+    }
+  ],
   "pending_view": [],
   "total_value_str": "100,000,000",
-  "cash_str": "100,000,000",
-  "holdings_value_str": "0",
+  "cash_str": "78,076,169",
+  "holdings_value_str": "21,923,831",
   "start_capital_str": "100,000,000",
   "gain_str": "+0",
-  "cash_weight_pct": 100.0,
+  "cash_weight_pct": 78.1,
   "day_chg_pct": 0.0,
-  "days": 1,
-  "priced_at": "2026-07-15T16:43:34+09:00",
+  "days": 2,
+  "priced_at": "2026-07-16T06:51:29+09:00",
   "eval_note": "AI가 장 마감 후 분석 → 당일 종가로 매수/매도 체결·평가 (🇰🇷 15:30 마감 후 · 🇺🇸 마감 후). 손익은 이후 종가로 결정",
   "persona": "contrarian",
   "persona_name": "역발상형",
   "persona_emoji": "🎯",
   "persona_tag": "컨트래리안 — 과매도·낙폭과대를 남들이 팔 때 매수",
-  "journal_view": [],
+  "journal_view": [
+    {
+      "date": "2026-07-16",
+      "session": "us",
+      "comment": "지수는 신고가·VIX 붕괴로 시장 전체는 탐욕 국면 — 나는 군중을 쫓지 않는다. 과열된 금융(XLF RSI71)·애플·메타는 판다면 몰라도 사지 않는다. 공포는 국지적으로 '반도체'와 '은'에만 있다. 남들이 로테이션으로 던진 그 자리를 분할로 담고, 나머지는 더 큰 공포를 기다리며 현금(약 78%)으로 둔다.",
+      "placed": [
+        {
+          "action": "유지",
+          "name": "-",
+          "detail": "XLF(RSI71)·AAPL(68.8)·META(66.8)·ETH(66.6)는 모두가 열광하는 과열 자리 — 컨트래리안은 여기 안 들어간다. 지수가 신고가·VIX 붕괴로 시장 전체는 아직 공포가 아니라 진짜 낙폭과대 바겐은 부족하다. 현금 약 78%를 남겨 광범위한 공포가 왔을 때 적극 투입한다."
+        }
+      ],
+      "trades": [
+        {
+          "action": "매수",
+          "ticker": "SMH",
+          "name": "반도체ETF",
+          "krw": 14923831,
+          "krw_str": "14,923,831",
+          "qty": 17,
+          "price_krw": 877872,
+          "basis": "2026-07-15 종가",
+          "reason": "지수는 신고가인데 반도체만 20일 -8.7%, MA20 대비 -4.2%, RSI 47로 홀로 소외됐다. 이건 펀더멘털 훼손이 아니라 금융(XLF RSI71)으로 돈이 몰리며 벌어진 로테이션·차익실현 — 즉 시장의 과잉반응이다. AI 캐펙스 수요는 그대로고 NVDA는 이미 6월 저점에서 반등 중. 남들이 던진 소외 섹터를 1차 분할로 매수, 더 빠지면 계획대로 추가."
+        },
+        {
+          "action": "매수",
+          "ticker": "SI=F",
+          "name": "은",
+          "krw": 7000000,
+          "krw_str": "7,000,000",
+          "qty": 81.0791,
+          "price_krw": 86335,
+          "basis": "즉시(24h)",
+          "reason": "은이 20일 -17%, RSI 37.5로 투매성 급락. 금(-6%)보다 훨씬 심하게 두들겨맞아 공포가 과도하다. 다만 하락배열이라 '떨어지는 칼날' 위험도 인정 — 그래서 한 번에 담지 않고 소액 1차 진입만. 바닥은 못 맞추니 더 내려오면 분할로 받는다."
+        }
+      ]
+    }
+  ],
   "history_view": [
+    {
+      "date": "2026-07-16",
+      "total_value": 100000000,
+      "total_value_str": "100,000,000",
+      "return_pct": 0.0,
+      "day_chg_pct": 0.0,
+      "cash": 78076169,
+      "asof": "🇺🇸 마감 종가",
+      "holdings": [
+        {
+          "name": "반도체ETF",
+          "value_str": "14,923,831",
+          "weight_pct": 14.9,
+          "pl_pct": 0.0
+        },
+        {
+          "name": "은",
+          "value_str": "7,000,000",
+          "weight_pct": 7.0,
+          "pl_pct": 0.0
+        }
+      ]
+    },
     {
       "date": "2026-07-15",
       "total_value": 100000000,
