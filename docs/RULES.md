@@ -49,7 +49,8 @@
   5. **05 핵심 한 줄** — `.big .huge` 대립 두 단어 + 포트폴리오 링크
   - `<details class="full-report">` — 종목별 상세 근거 · 3인 상세 · 어제 채점(마크다운 서술)
 - 슬라이드 CSS 소스: `_includes/ppt-style.html` (예시 페이지 `/report-ppt/`도 동일 사용).
-- 색 규칙(한국식): **매수·강세=빨강**, **매도·약세=파랑**. front matter `market: kr|us` 필수. 파일명 `_posts/YYYY-MM-DD-<kr|us>-market.md`.
+- 색 규칙(한국식): **매수·강세=빨강**, **매도·약세=파랑**. 파일명 `_posts/YYYY-MM-DD-<kr|us>-market.md`.
+- front matter 필수: `market: kr|us` (목록이 🇰🇷 한국장 / 🇺🇸 미국장 **두 갈래로 분리**됨) · `slides: true` · `date: YYYY-MM-DD HH:MM:00 +0900` — **HH:MM은 실제 작성 시각**(워크플로가 `[실행 안내]`로 넘겨줌). 목록·글 상단에 "작성 시각"으로 분까지 표시된다.
 
 ## 3. 가상 포트폴리오 체결 규칙 (1억 페이퍼 트레이딩)
 

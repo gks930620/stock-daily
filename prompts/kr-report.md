@@ -29,13 +29,13 @@
   ---
   layout: post
   title: "한국장 매수·매도 — YYYY-MM-DD (요일)"
-  date: YYYY-MM-DD 16:00:00 +0900
+  date: YYYY-MM-DD HH:MM:00 +0900
   categories: report
   market: kr
   slides: true
   ---
   ```
-  (`slides: true` 필수 — 이 글은 슬라이드 레이아웃으로 렌더된다.)
+  (`slides: true` 필수 — 슬라이드 레이아웃으로 렌더된다. `date`의 **HH:MM은 [실행 안내]가 알려준 실제 작성 시각**을 그대로 쓸 것 — 목록·글 상단에 "작성 시각"으로 분까지 표시된다.)
 - **본문 = PPT 슬라이드 5장(`<div class="ppt">`) + 접이식 전체 글(`<details class="full-report">`).** 슬라이드는 결론만 한눈에, 상세 근거는 접어둔다. 색: 매수·강세=빨강, 매도·약세=파랑. HTML 그대로 채워라(마크다운 표 대신 아래 HTML 사용):
 
   ```html

@@ -56,10 +56,12 @@ if ($true) {
 
     # ② 애널리스트가 3인 주문서를 종합해 '오늘의 매수/매도 종목' 리포트 작성 — effort xhigh
     Write-Host "[5] Claude(②애널리스트) 3인 종합 리포트 ($Mode)..."
+    $nowHM = Get-Date -Format "HH:mm"
     $prompt = (Get-Content -Raw "$repo\prompts\$Mode-report.md") + @"
 
 [실행 안내]
 - 오늘 날짜(KST): $today
+- 지금 시각(KST): $nowHM → front matter의 date를 반드시 "$today ${nowHM}:00 +0900" 로 쓸 것 (실제 작성 시각).
 - 방금 3인이 낸 주문서 portfolio/orders/$today-$Mode-{stable,aggressive,contrarian}.json 를 반드시 읽어 종합하라.
 - git 금지. 글 파일 생성까지만.
 "@

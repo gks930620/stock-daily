@@ -5,7 +5,7 @@ layout: default
 {% include ppt-style.html %}
 <article class="post post-deck">
   <a class="back" href="{{ '/' | relative_url }}">← 목록으로</a>
-  <p class="eyebrow">{{ page.date | date: "%Y.%m.%d" }}{% if page.market == "kr" %} · 🇰🇷 한국장{% elsif page.market == "us" %} · 🇺🇸 미국장{% endif %}</p>
+  <p class="eyebrow">{% if page.market == "kr" %}🇰🇷 한국장 리포트{% elsif page.market == "us" %}🇺🇸 미국장 리포트{% else %}리포트{% endif %} · {{ page.date | date: "%Y.%m.%d %H:%M" }} 작성</p>
   {{ content }}
   <nav class="post-nav">
     {% if page.next %}<a class="pn newer" href="{{ page.next.url | relative_url }}">← 다음 (최신)</a>{% endif %}
@@ -16,7 +16,7 @@ layout: default
 <article class="post">
   <a class="back" href="{{ '/' | relative_url }}">← 목록으로</a>
   <header class="hero-panel">
-    <p class="eyebrow">{{ page.date | date: "%Y.%m.%d" }}{% if page.market == "kr" %} · 🇰🇷 한국장 예상{% elsif page.market == "us" %} · 🇺🇸 미국장 예상{% else %} 리포트{% endif %}</p>
+    <p class="eyebrow">{% if page.market == "kr" %}🇰🇷 한국장 리포트{% elsif page.market == "us" %}🇺🇸 미국장 리포트{% else %}리포트{% endif %} · {{ page.date | date: "%Y.%m.%d %H:%M" }} 작성</p>
     <h1 class="hero-title">{{ page.title }}</h1>
   </header>
   <div class="content-card">

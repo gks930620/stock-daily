@@ -12,17 +12,38 @@ layout: default
   {{ content }}
 </section>
 
-<section class="post-list" aria-label="리포트 목록">
+{% assign kr_posts = site.posts | where: "market", "kr" %}
+{% assign us_posts = site.posts | where: "market", "us" %}
+
+<section class="post-list" aria-label="한국장 리포트">
   <div class="list-head">
-    <h2>리포트</h2>
-    <span class="count">{{ site.posts | size }}편</span>
+    <h2>🇰🇷 한국장 리포트</h2>
+    <span class="count">{{ kr_posts | size }}편 · 평일 16:00 (마감 후)</span>
   </div>
   <ol class="posts">
-    {% for post in site.posts %}
+    {% for post in kr_posts %}
     <li class="post-item{% if forloop.first %} latest{% endif %}">
       <a href="{{ post.url | relative_url }}">
-        <time class="p-date" datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%Y.%m.%d" }}</time>
-        {% if post.market == "kr" %}<span class="p-flag" title="한국장">🇰🇷</span>{% elsif post.market == "us" %}<span class="p-flag" title="미국장">🇺🇸</span>{% endif %}
+        <time class="p-date" datetime="{{ post.date | date_to_xmlschema }}"><b>{{ post.date | date: "%Y.%m.%d" }}</b> {{ post.date | date: "%H:%M" }}</time>
+        <span class="p-title">{{ post.title }}</span>
+        {% if forloop.first %}<span class="p-badge">최신</span>{% endif %}
+        <span class="p-arrow" aria-hidden="true">→</span>
+      </a>
+    </li>
+    {% endfor %}
+  </ol>
+</section>
+
+<section class="post-list" aria-label="미국장 리포트">
+  <div class="list-head">
+    <h2>🇺🇸 미국장 리포트</h2>
+    <span class="count">{{ us_posts | size }}편 · 평일 06:30 (마감 후)</span>
+  </div>
+  <ol class="posts">
+    {% for post in us_posts %}
+    <li class="post-item{% if forloop.first %} latest{% endif %}">
+      <a href="{{ post.url | relative_url }}">
+        <time class="p-date" datetime="{{ post.date | date_to_xmlschema }}"><b>{{ post.date | date: "%Y.%m.%d" }}</b> {{ post.date | date: "%H:%M" }}</time>
         <span class="p-title">{{ post.title }}</span>
         {% if forloop.first %}<span class="p-badge">최신</span>{% endif %}
         <span class="p-arrow" aria-hidden="true">→</span>
