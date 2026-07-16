@@ -105,7 +105,7 @@ flowchart LR
 
 ---
 
-- 하루 2회 자동 실행 · **장중 발행**: 🇰🇷 ~15:00 · 🇺🇸 ~23:40 (GitHub Actions) · **제1원칙 = 리포트 본 사람이 30분 안에 실제 매수 가능할 것** → 매매는 **리포트 시점 시장가 체결**(AI 판단 후 시세 재수집 = AI가 못 본 가격) · Claude 4명(①②③ 성향별 매니저 종목 확정 high → ④ 애널리스트 종합 리포트 xhigh) · 데이터 = 파이썬
+- 하루 2회 자동 실행 · **장중 발행(고정)**: 🇰🇷 매일 14:45 · 🇺🇸 매일 23:45 (GitHub Actions) · **제1원칙 = 리포트 본 사람이 30분 안에 실제 매수 가능할 것** → 매매는 **리포트 시점 시장가 체결**(AI 판단 후 시세 재수집 = AI가 못 본 가격) · Claude 4명(①②③ 성향별 매니저 종목 확정 high → ④ 애널리스트 종합 리포트 xhigh) · 데이터 = 파이썬
 - 공개 사이트: https://gks930620.github.io/stock-daily/ · [가상 포트폴리오](https://gks930620.github.io/stock-daily/portfolio/)
 - 관련 문서: [RULES.md](RULES.md)(운영 규칙) · [DESIGN.md](DESIGN.md) · [CLOUD-AUTOMATION.md](CLOUD-AUTOMATION.md) · [AUTOMATION.md](AUTOMATION.md) · [TOOLING.md](TOOLING.md)
 
