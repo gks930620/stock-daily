@@ -19,7 +19,7 @@ flowchart LR
   end
   B --> KEY{{"🔑 CLAUDE_CODE_OAUTH_TOKEN<br/>구독(Max) 인증 · API키 아님"}}
 
-  subgraph DAILY["② 하루 3회 자동 · GitHub 서버 (cron)"]
+  subgraph DAILY["② 평일 2회 장중 자동 · GitHub 서버 (cron)"]
     direction LR
     C["⏰ 08시 🇰🇷 · 18시 수집 · 21시 🇺🇸"] --> D["체크아웃"] --> E["준비 스크립트<br/>데이터·차트 등"] --> F["🧠 Claude 분석·예상글"] --> G["커밋·push"] --> H["🌐 사이트 갱신"]
   end
@@ -58,7 +58,7 @@ flowchart LR
 
 ## ② 이 프로젝트의 데이터 흐름
 
-하루 3회(08시 🇰🇷 예상 · 18시 한국장 마감 수집 · 21시 🇺🇸 예상), 여러 소스에서 **숫자**를 모으고(파이썬), **뉴스**는 Claude 웹검색으로 붙여 종합 분석 → **그날 장을 예측하는 글** + **가상 1억 매매**를 게시합니다.
+평일 2회 **장중**(🇰🇷 14:45 · 🇺🇸 23:45 발행), 여러 소스에서 **숫자**를 모으고(파이썬), **뉴스**는 Claude 웹검색으로 붙여 종합 분석 → **"지금 이 종목 사라/팔아라"** 리포트 + **성향별 AI 3인의 가상 1억 매매**를 게시합니다. 리포트를 본 사람이 **30분 안에 같은 가격대로 실제 매수**할 수 있는 시각에 냅니다.
 
 ```mermaid
 flowchart LR
@@ -97,7 +97,7 @@ flowchart LR
 | 🔍 비인기종목 발굴 | `scripts/screener.py` | 과매도반등·거래량급증·낙폭과대·저점권반등 신호 |
 | 🧑‍💼 Claude ①②③ 매니저 3인 (먼저) | `prompts/persona-*.md` + `portfolio.md` | 🛡️안정·🚀공격·🎯역발상 — 데이터 직접 보고 **성향대로 종목 매수/매도 확정** (독립 세션·계좌) |
 | 🧠 Claude ④애널리스트 (뒤에) | `prompts/kr-report.md`·`prompts/us-report.md` | **3인 주문서 종합** → "오늘 이 종목 사라/팔아라" 종목 결론 리포트 + 어제 채점 |
-| 💼 가상 매매 체결 | `scripts/portfolio.py <label> <persona>` | 성향별 1억 페이퍼 트레이딩 — 주문서 시가 체결(주식 정수주수·환율)·매매일지·자산곡선 |
+| 💼 가상 매매 체결 | `scripts/portfolio.py <kr\|us> <persona>` | 성향별 1억 페이퍼 트레이딩 — **AI가 본 시세로 체결**(주식 정수주수·환율)·매매일지·자산곡선 |
 | 🌐 자동 게시 | Jekyll → GitHub Pages | 예상글 + [/portfolio/](https://gks930620.github.io/stock-daily/portfolio/) 페이지 |
 
 > **핵심 철학:** "예측 적중"이 아니라 **근거 있는 확률 + 자기검증**. 매일 예상을 기록하고 다음 날 실제와 대조해,
@@ -105,7 +105,7 @@ flowchart LR
 
 ---
 
-- 하루 2회 자동 실행 · **장중 발행(고정)**: 🇰🇷 매일 14:45 · 🇺🇸 매일 23:45 (GitHub Actions) · **제1원칙 = 리포트 본 사람이 30분 안에 실제 매수 가능할 것** → 매매는 **리포트 시점 시장가 체결**(AI 판단 후 시세 재수집 = AI가 못 본 가격) · Claude 4명(①②③ 성향별 매니저 종목 확정 high → ④ 애널리스트 종합 리포트 xhigh) · 데이터 = 파이썬
+- 하루 2회 자동 실행 · **장중 발행(고정)**: 🇰🇷 매일 14:45 · 🇺🇸 매일 23:45 (GitHub Actions) · **제1원칙 = 리포트 본 사람이 30분 안에 실제 매수 가능할 것** → 매매는 **AI가 분석한 그 시세로 체결**(리포트에 기준가 표시) · Claude 4명(①②③ 성향별 매니저 종목 확정 high → ④ 애널리스트 종합 리포트 xhigh) · 데이터 = 파이썬
 - 공개 사이트: https://gks930620.github.io/stock-daily/ · [가상 포트폴리오](https://gks930620.github.io/stock-daily/portfolio/)
 - 관련 문서: [RULES.md](RULES.md)(운영 규칙) · [DESIGN.md](DESIGN.md) · [CLOUD-AUTOMATION.md](CLOUD-AUTOMATION.md) · [AUTOMATION.md](AUTOMATION.md) · [TOOLING.md](TOOLING.md)
 

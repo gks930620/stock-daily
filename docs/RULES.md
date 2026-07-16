@@ -55,7 +55,7 @@
   4. **04 종합 매수/매도** — `.verdict-list`의 `.vl.buy`/`.vl.sell` (종목 + 근거 + `.agree` 3인중 누구) — **핵심**
   5. **05 핵심 한 줄** — `.big .huge` 대립 두 단어 + 포트폴리오 링크
   - `<details class="full-report">` — 종목별 상세 근거 · 3인 상세 · 어제 채점(마크다운 서술)
-- 슬라이드 CSS 소스: `_includes/ppt-style.html` (예시 페이지 `/report-ppt/`도 동일 사용).
+- 슬라이드 CSS 소스: `_includes/ppt-style.html` (`slides: true` 글에 자동 적용).
 - 색 규칙(한국식): **매수·강세=빨강**, **매도·약세=파랑**. 파일명 `_posts/YYYY-MM-DD-<kr|us>-market.md`.
 - front matter 필수: `market: kr|us` (목록이 🇰🇷 한국장 / 🇺🇸 미국장 **두 갈래로 분리**됨) · `slides: true` · `date: YYYY-MM-DD HH:MM:00 +0900` — **HH:MM은 실제 작성 시각**(워크플로가 `[실행 안내]`로 넘겨줌). 목록·글 상단에 "작성 시각"으로 분까지 표시된다.
 
@@ -88,7 +88,7 @@
 - **pykrx는 KRX 로그인 요구로 사용 불가** → 한국 유니버스는 FinanceDataReader.
 - 스크리너(FDR)는 해외 서버에서 간헐 실패 가능 → 워크플로에서 `continue-on-error`, 실패 시 해당 섹션 생략.
 - 클라우드(리눅스) 차트 한글: `fonts-nanum` 설치 필요 (폰트 자동 선택 로직 있음).
-- Actions는 실행마다 새 환경 → **data/는 커밋**해야 다음 세션이 참조 가능 (스냅샷 `market-<morning|krclose|uspre>.json`).
+- Actions는 실행마다 새 환경 → **data/는 커밋**해야 다음 세션이 참조 가능 (스냅샷 `market-<kr|us>.json`).
 
 ## 5. 실행·인증 (요약)
 
