@@ -1,7 +1,8 @@
 # 로컬 실행 스크립트 (백업용 — 기본 자동화는 GitHub Actions .github/workflows/daily.yml)
-# 사용: .\run-daily.ps1 [kr|us]   ← 장 마감 후 실행
-#   kr(기본) = 🇰🇷 한국장 마감(15:30) 후 ~16시: 수집·분석·매매(종가 체결)·리포트
-#   us       = 🇺🇸 미국장 마감 후 새벽~아침: 수집·분석·매매(종가 체결)·리포트
+# 사용: .\run-daily.ps1 [kr|us]   ← 장이 열려 있는 동안 실행
+#   kr(기본) = 🇰🇷 14시 시작 → ~15:00 리포트·체결 (독자는 15:00~15:30 마감 전 매수 가능)
+#   us       = 🇺🇸 22:40 시작 → ~23:40 리포트·체결 (장중이라 바로 매수 가능)
+# 체결가는 AI 판단이 끝난 뒤 "다시 수집한" 시장가 → AI가 못 본 가격 + 독자가 실제 살 수 있는 가격
 param([ValidateSet("kr","us")][string]$Mode = "kr")
 
 $repo = "C:\Users\gks93\workspace\주식시장예상클로드코드"
@@ -13,7 +14,7 @@ $logDir = "$repo\logs"
 New-Item -ItemType Directory -Force $logDir | Out-Null
 try { Start-Transcript -Path "$logDir\last-run.log" -Force | Out-Null } catch {}
 
-$label = @{ kr = "krclose"; us = "usclose" }[$Mode]
+$label = $Mode
 Write-Host "===== 시작($Mode): $(Get-Date) ====="
 
 try {
@@ -69,9 +70,14 @@ if ($true) {
 
 }
 
-# 포트폴리오 체결·평가 — 성향 3인 각각, 당일 종가로 즉시 체결
+# 🔑 AI 판단이 끝난 '지금' 시세를 다시 수집 → 이 시장가로 체결 (AI가 못 본 가격 = 룩어헤드 없음)
+Write-Host "[체결가 확정] 리포트 시점 시세 재수집..."
+& $venvPython "$repo\scripts\collect_data.py" "$label-fill"
+if ($LASTEXITCODE -ne 0) { Write-Warning "재수집 실패(직전 시세로 체결)" }
+
+# 포트폴리오 체결·평가 — 성향 3인 각각, 리포트 시점 시장가로 즉시 체결
 foreach ($P in @("stable","aggressive","contrarian")) {
-    Write-Host "[포트폴리오·$P] 종가 체결·평가 ($label)..."
+    Write-Host "[포트폴리오·$P] 시장가 체결·평가 ($label)..."
     & $venvPython "$repo\scripts\portfolio.py" $label $P
     if ($LASTEXITCODE -ne 0) { Write-Warning "포트폴리오($P) 갱신 실패(계속 진행)" }
 }

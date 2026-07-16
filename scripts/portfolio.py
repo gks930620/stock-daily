@@ -2,10 +2,12 @@
 가상 포트폴리오 (페이퍼 트레이딩) — 1억 원, 하루 단위 매매.
 
 체결 규칙 (docs/RULES.md §3):
-  · AI가 "장 마감 후" 분석하므로, 모든 주문은 그 시점 = **당일 종가로 즉시 체결**한다.
-      - 🇰🇷 한국장: 15:30 마감 후(~16:00) 실행 → 당일 종가 체결 (15:40~16:00 장후 시간외 종가로 실제 거래 가능)
-      - 🇺🇸 미국장: 마감 후(한국시간 새벽~아침) 실행 → 당일 종가 체결
-  · 룩어헤드 없음: 종가(진입가)는 이미 확정된 과거지만, 손익은 아직 안 나온 **다음 날 이후 종가**로 결정된다.
+  · **장이 열려 있는 동안** AI가 판단하고 리포트를 낸다 → 주문은 **리포트 발행 시점의 시장가로 즉시 체결**.
+      - 🇰🇷 한국장: ~15:00 리포트 → 독자는 15:00~15:30(마감 전)에 같은 가격대로 매수 가능
+      - 🇺🇸 미국장: ~23:40 리포트(장중) → 독자는 그 자리에서 매수 가능
+  · **핵심은 실행 가능성**: 리포트를 본 사람이 30분 안에 시장가로 살 수 있어야 한다.
+  · 룩어헤드 없음: 체결가는 AI가 판단을 끝낸 뒤 **다시 수집한** 시세(AI가 못 본 가격)이고,
+    손익은 그 이후 가격으로 결정된다.
   · 주식·ETF 정수 주수 / 암호화폐·원자재 소수 + 체결 시점 환율 기록.
 
 성향별 3인: 실행 `python portfolio.py <label> <persona>` (persona=stable|aggressive|contrarian)
@@ -200,9 +202,9 @@ def main() -> int:
     pending = state.setdefault("pending_orders", [])
     journal = state.setdefault("journal", [])
 
-    # ── 1) 새 주문서 접수 → 당일 종가로 즉시 체결 ──
-    # (AI가 장 마감 후 분석하므로 그날 종가 = 그 시간에 실제 거래 가능한 가격. 룩어헤드 없음: 손익은
-    #  아직 안 나온 '다음 날 이후 종가'로 결정된다.)
+    # ── 1) 새 주문서 접수 → 리포트 시점 시장가로 즉시 체결 ──
+    # (AI 판단이 끝난 뒤 시세를 다시 수집해서 그 가격으로 체결 → AI가 못 본 가격이라 룩어헤드 없음.
+    #  장중이라 리포트를 본 사람이 같은 가격대로 실제 매수 가능하다.)
     for od_unused in list(pending):
         pending.remove(od_unused)          # 구방식 잔여 대기주문 정리(있으면)
     orders_dir = REPO / "portfolio" / "orders"
@@ -228,7 +230,7 @@ def main() -> int:
             if cat not in IMMEDIATE and session in SESSION_CATS and cat not in SESSION_CATS[session]:
                 print(f"  건너뜀: {info['name']} — '{session}' 세션에선 거래 불가(그 시장은 마감 종가가 오래됨)", file=sys.stderr)
                 continue
-            basis = f"{info.get('data_date')} 종가" if cat not in IMMEDIATE else "즉시(24h)"
+            basis = f"{info.get('data_date')} 리포트 시점 시장가" if cat not in IMMEDIATE else "즉시(24h)"
             if act == "buy":
                 cash, tr = exec_buy(holdings, cash, t, info, o.get("krw", 0),
                                     info["price_krw"], info["price_native"], usdkrw,
@@ -292,7 +294,7 @@ def main() -> int:
         hist = prev_marks + [{
             "date": today, "total_value": round(total), "total_value_str": won(total),
             "return_pct": round(ret_pct, 2), "day_chg_pct": day_chg_pct, "cash": round(cash),
-            "asof": {"krclose": "🇰🇷 마감 종가", "usclose": "🇺🇸 마감 종가"}.get(label, "종가"),
+            "asof": {"kr": "🇰🇷 장중 리포트 시점", "us": "🇺🇸 장중 리포트 시점"}.get(label, "리포트 시점"),
             "holdings": [{"name": hv["name"], "value_str": hv["value_str"], "weight_pct": hv["weight_pct"], "pl_pct": hv["pl_pct"]} for hv in hold_view],
         }]
         hist.sort(key=lambda x: x["date"])
@@ -309,7 +311,7 @@ def main() -> int:
         "cash_weight_pct": round(cash / total * 100, 1) if total else 0,
         "day_chg_pct": day_chg_pct, "days": len(hist),
         "priced_at": market.get("generated_at_kst", ""),
-        "eval_note": "AI가 장 마감 후 분석 → 당일 종가로 매수/매도 체결·평가 (🇰🇷 15:30 마감 후 · 🇺🇸 마감 후). 손익은 이후 종가로 결정",
+        "eval_note": "AI가 장중에 판단·리포트 발행 → 그 시점 시장가로 체결 (🇰🇷 ~15:00 · 🇺🇸 ~23:40). 리포트를 본 사람이 30분 안에 같은 가격대로 실제 매수 가능한 시각. 손익은 이후 시세로 결정",
         "persona": persona, "persona_name": pmeta["name"],
         "persona_emoji": pmeta["emoji"], "persona_tag": pmeta["tag"],
     })
