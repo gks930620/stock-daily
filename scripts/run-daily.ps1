@@ -70,14 +70,9 @@ if ($true) {
 
 }
 
-# 🔑 AI 판단이 끝난 '지금' 시세를 다시 수집 → 이 시장가로 체결 (AI가 못 본 가격 = 룩어헤드 없음)
-Write-Host "[체결가 확정] 리포트 시점 시세 재수집..."
-& $venvPython "$repo\scripts\collect_data.py" "$label-fill"
-if ($LASTEXITCODE -ne 0) { Write-Warning "재수집 실패(직전 시세로 체결)" }
-
-# 포트폴리오 체결·평가 — 성향 3인 각각, 리포트 시점 시장가로 즉시 체결
+# 체결가 = AI가 분석한 그 시세. 가격을 보고 판단했으니 그 가격에 산다.
 foreach ($P in @("stable","aggressive","contrarian")) {
-    Write-Host "[포트폴리오·$P] 시장가 체결·평가 ($label)..."
+    Write-Host "[포트폴리오·$P] 체결·평가 ($label)..."
     & $venvPython "$repo\scripts\portfolio.py" $label $P
     if ($LASTEXITCODE -ne 0) { Write-Warning "포트폴리오($P) 갱신 실패(계속 진행)" }
 }

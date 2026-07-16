@@ -145,12 +145,9 @@ jobs:
           # --model opus: 항상 최신 Opus / --effort xhigh: 최고 심층추론
           claude -p "$PROMPT" --model opus --effort xhigh --permission-mode bypassPermissions --verbose
 
-      # 🔑 AI 판단이 끝난 "지금"의 시세를 다시 수집 → 이 가격으로 체결한다.
-      #    AI가 못 본 가격이라 룩어헤드가 없고, 동시에 리포트를 본 독자가 실제로 살 수 있는 가격이다.
-      - name: 리포트 시점 시세 재수집 (체결가 확정용)
-        run: python scripts/collect_data.py ${{ steps.mode.outputs.label }}-fill
-
-      - name: 가상 포트폴리오 체결·평가 × 3인 (리포트 시점 시장가로 체결)
+      # 체결가 = AI가 분석한 바로 그 시세(market.json). 가격을 보고 판단했으니 그 가격에 산다.
+      # 룩어헤드 아님: 수익은 이 시점 '이후' 가격에서 나오고, AI는 그걸 볼 수 없다.
+      - name: 가상 포트폴리오 체결·평가 × 3인 (AI가 본 시세로 체결)
         run: |
           for P in stable aggressive contrarian; do
             echo "───── 체결·평가: $P ─────"

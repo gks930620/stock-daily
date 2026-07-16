@@ -2,12 +2,13 @@
 가상 포트폴리오 (페이퍼 트레이딩) — 1억 원, 하루 단위 매매.
 
 체결 규칙 (docs/RULES.md §3):
-  · **장이 열려 있는 동안** AI가 판단하고 리포트를 낸다 → 주문은 **리포트 발행 시점의 시장가로 즉시 체결**.
+  · **장이 열려 있는 동안** AI가 판단하고 리포트를 낸다 → 주문은 **AI가 분석한 그 시세로 즉시 체결**.
       - 🇰🇷 한국장: 매일 14:45 리포트 → 독자는 15:30 마감 전에 같은 가격대로 매수 가능
       - 🇺🇸 미국장: 매일 23:45 리포트(장중) → 독자는 그 자리에서 매수 가능
-  · **핵심은 실행 가능성**: 리포트를 본 사람이 30분 안에 시장가로 살 수 있어야 한다.
-  · 룩어헤드 없음: 체결가는 AI가 판단을 끝낸 뒤 **다시 수집한** 시세(AI가 못 본 가격)이고,
-    손익은 그 이후 가격으로 결정된다.
+  · **체결가 = AI가 본 가격**(market.json의 현재가). 가격을 보고 "싸다/비싸다"를 판단했으니 그 가격에 산다.
+    (분석가는 27만원을 보고 샀는데 29만원에 체결되는 식이면 판단 자체가 무의미해진다)
+  · **룩어헤드 없음**: 지금 가격을 보고 지금 사는 건 정상 거래다. 반칙은 '미래 가격'을 보는 것인데,
+    손익은 이 시점 **이후** 가격으로 결정되고 AI는 그걸 볼 수 없다.
   · 주식·ETF 정수 주수 / 암호화폐·원자재 소수 + 체결 시점 환율 기록.
 
 성향별 3인: 실행 `python portfolio.py <label> <persona>` (persona=stable|aggressive|contrarian)
@@ -40,10 +41,10 @@ START_CAPITAL = 100_000_000
 KRW_CATEGORIES = {"kr_index", "kr_stock"}
 TRADABLE = {"us_stock", "kr_stock", "us_sector", "crypto", "commodity"}
 IMMEDIATE = {"crypto", "commodity"}          # 24시간 거래 → 언제든 그 시점 시세로 체결
-# 세션별 거래 가능 시장 — 자기 시장이 방금 마감한 종목만 거래한다.
-# (예: 한국장 마감 16시에 미국 ETF를 사면 며칠 전 미국 종가에 체결되는데, 그 시각엔 그 가격에 살 수 없다)
+# 세션별 거래 가능 시장 — 지금 열려 있는 시장의 종목만 거래한다.
+# (예: 한국장 시간에 미국 ETF를 사면 며칠 전 미국 종가에 체결되는데, 그 시각엔 그 가격에 살 수 없다)
 SESSION_CATS = {"kr": {"kr_stock"}, "us": {"us_stock", "us_sector"}}
-SESSION_LABEL = {"kr": "🇰🇷 아침", "us": "🇺🇸 저녁", "fill": "⚡ 체결", "": ""}
+SESSION_LABEL = {"kr": "🇰🇷 한국장", "us": "🇺🇸 미국장", "": ""}
 
 # 성향별 AI 투자자 3명 — 각자 독립 계좌(_data/portfolio-<id>.json)
 PERSONAS = {
@@ -171,7 +172,7 @@ def exec_sell(holdings, cash, t, info, qty_req, price_krw, today, session, reaso
 
 def main() -> int:
     # 인자: <label> <persona>
-    #   label   = morning/krclose/uspre (krclose=18시 일별평가 확정)
+    #   label   = kr|us (장중 세션)
     #   persona = stable|aggressive|contrarian (성향별 독립 계좌)
     label = sys.argv[1] if len(sys.argv) > 1 else None
     persona = sys.argv[2] if len(sys.argv) > 2 else "stable"
@@ -202,9 +203,9 @@ def main() -> int:
     pending = state.setdefault("pending_orders", [])
     journal = state.setdefault("journal", [])
 
-    # ── 1) 새 주문서 접수 → 리포트 시점 시장가로 즉시 체결 ──
-    # (AI 판단이 끝난 뒤 시세를 다시 수집해서 그 가격으로 체결 → AI가 못 본 가격이라 룩어헤드 없음.
-    #  장중이라 리포트를 본 사람이 같은 가격대로 실제 매수 가능하다.)
+    # ── 1) 새 주문서 접수 → AI가 분석한 그 시세로 즉시 체결 ──
+    # (가격을 보고 판단했으니 그 가격에 산다. 장중이라 독자도 같은 가격대로 실제 매수 가능.
+    #  룩어헤드 아님: 손익은 이 시점 '이후' 가격으로 결정되고 AI는 그걸 못 본다.)
     for od_unused in list(pending):
         pending.remove(od_unused)          # 구방식 잔여 대기주문 정리(있으면)
     orders_dir = REPO / "portfolio" / "orders"
@@ -230,7 +231,7 @@ def main() -> int:
             if cat not in IMMEDIATE and session in SESSION_CATS and cat not in SESSION_CATS[session]:
                 print(f"  건너뜀: {info['name']} — '{session}' 세션에선 거래 불가(그 시장은 마감 종가가 오래됨)", file=sys.stderr)
                 continue
-            basis = f"{info.get('data_date')} 리포트 시점 시장가" if cat not in IMMEDIATE else "즉시(24h)"
+            basis = f"{info.get('data_date')} 리포트 시세" if cat not in IMMEDIATE else "즉시(24h)"
             if act == "buy":
                 cash, tr = exec_buy(holdings, cash, t, info, o.get("krw", 0),
                                     info["price_krw"], info["price_native"], usdkrw,
@@ -311,7 +312,7 @@ def main() -> int:
         "cash_weight_pct": round(cash / total * 100, 1) if total else 0,
         "day_chg_pct": day_chg_pct, "days": len(hist),
         "priced_at": market.get("generated_at_kst", ""),
-        "eval_note": "AI가 장중에 판단·리포트 발행 → 그 시점 시장가로 체결 (🇰🇷 매일 14:45 · 🇺🇸 매일 23:45). 리포트를 본 사람이 30분 안에 같은 가격대로 실제 매수 가능한 시각. 손익은 이후 시세로 결정",
+        "eval_note": "AI가 장중에 시세를 보고 판단 → 바로 그 가격으로 체결 (🇰🇷 매일 14:45 · 🇺🇸 매일 23:45 발행). 리포트를 본 사람이 30분 안에 같은 가격대로 매수 가능. 손익은 이후 시세로 결정",
         "persona": persona, "persona_name": pmeta["name"],
         "persona_emoji": pmeta["emoji"], "persona_tag": pmeta["tag"],
     })
