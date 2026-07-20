@@ -11,9 +11,9 @@
 
 | 순서 | 담당 | 프롬프트 | effort | 하는 일 | 산출물 |
 |---|---|---|---|---|---|
-| ① | 🛡️ **안정형** 매니저 | `persona-stable.md` + `portfolio.md` | high | 데이터 직접 분석 → 종목 매수/매도 확정 | `portfolio/orders/<날짜>-<세션>-stable.json` |
-| ② | 🚀 **공격형** 매니저 | `persona-aggressive.md` + `portfolio.md` | high | 성장·모멘텀 관점 매매 | `…-aggressive.json` |
-| ③ | 🎯 **역발상형** 매니저 | `persona-contrarian.md` + `portfolio.md` | high | 컨트래리안 관점 매매 | `…-contrarian.json` |
+| ① | 🛡️ **안정형** 매니저 | `persona-stable.md` + `portfolio.md` | xhigh | 데이터 직접 분석 → 종목 매수/매도 확정 | `portfolio/orders/<날짜>-<세션>-stable.json` |
+| ② | 🚀 **공격형** 매니저 | `persona-aggressive.md` + `portfolio.md` | xhigh | 성장·모멘텀 관점 매매 | `…-aggressive.json` |
+| ③ | 🎯 **역발상형** 매니저 | `persona-contrarian.md` + `portfolio.md` | xhigh | 컨트래리안 관점 매매 | `…-contrarian.json` |
 | ④ | 🧠 **애널리스트** | `<kr\|us>-report.md` | xhigh | **3인 주문서 3개를 종합** → 종목별 매수/매도 결론 리포트 | `_posts/<날짜>-<kr\|us>-market.md` |
 
 - 3명은 **같은 `market.json`을 보되 성향대로 다르게** 매매(리포트는 아직 없음 — 각자 1차 결정) → 각자 독립 계좌 `_data/portfolio-<id>.json`. 목적: **어느 성향이 실제로 버는지** 정직하게 비교.
@@ -21,7 +21,7 @@
 - 데이터 수집·차트·스크리너·체결계산은 **파이썬**(`scripts/portfolio.py <label> <persona>`, 성향별 3회)이 한다.
 - **손익 비교 가격의 출처는 파이썬이 수집한 `data/<날짜>/market.json` 하나** — 세 계좌의 체결·평가가 모두 이 동일 파일 기준. 그래서 세 성향이 같은 잣대로 채점된다.
 - 경계: 애널리스트는 주문/계좌를 안 건드린다. 매니저는 글(`_posts`)·남의 계좌를 안 건드리고 자기 주문서 하나만 만든다. 모두 git 금지(커밋은 워크플로).
-- 비용: 회차당 세션 **4개**(high 3 + xhigh 1) → 토큰 소모 큼. Max 리밋이 부담되면 매니저 effort를 `medium`으로 낮추거나 성향 수를 줄이는 선택지(`daily.yml`).
+- 비용: 회차당 세션 **4개 전원 xhigh** → 토큰 소모 큼. Max 리밋이 부담되면 매니저 effort를 `high`로 낮추거나 성향 수를 줄이는 선택지(`daily.yml`).
 - 페이지: `/portfolio/`=3인 비교 허브, `/portfolio/<id>/`=성향별 상세(증권앱형).
 
 ## 1. 스케줄 (하루 2회 · **장이 열려 있는 동안** · 평일 KST)

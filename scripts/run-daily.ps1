@@ -39,7 +39,7 @@ if ($true) {
 
     $today = Get-Date -Format "yyyy-MM-dd"
 
-    # ① 성향별 포트폴리오 매니저 3인이 먼저 종목을 확정 (각자 독립 세션·독립 계좌) — effort high
+    # ① 성향별 포트폴리오 매니저 3인이 먼저 종목을 확정 (각자 독립 세션·독립 계좌) — effort xhigh
     foreach ($P in @("stable","aggressive","contrarian")) {
         Write-Host "[4] Claude(①포트폴리오 매니저·$P) 매매 결정 ($Mode)..."
         $pfPrompt = (Get-Content -Raw "$repo\prompts\persona-$P.md") + "`n" + (Get-Content -Raw "$repo\prompts\portfolio.md") + @"
@@ -52,7 +52,7 @@ if ($true) {
 - 너는 1차 결정자다. 데이터를 직접 보고 종목을 정하라 (애널리스트 리포트는 아직 없다).
 - git 금지. 주문서 JSON 생성까지만.
 "@
-        & $claude -p $pfPrompt --model opus --effort high --dangerously-skip-permissions
+        & $claude -p $pfPrompt --model opus --effort xhigh --dangerously-skip-permissions
     }
 
     # ② 애널리스트가 3인 주문서를 종합해 '오늘의 매수/매도 종목' 리포트 작성 — effort xhigh

@@ -110,7 +110,7 @@ jobs:
 
       # 1단계 🧑‍💼 성향별 포트폴리오 매니저 3인 (각자 독립 세션·독립 계좌)이 먼저 종목을 정한다.
       #    데이터를 직접 보고 성향(안정/공격/역발상)대로 "이 종목 매수/매도"를 명확히 → 3개의 주문서.
-      #    비용 관리를 위해 매니저는 effort=high (애널리스트는 xhigh). 필요시 조절 가능.
+      #    전원 effort=xhigh (최고 심층추론). Max 사용량 부담 시 매니저만 high로 낮추는 선택지.
       - name: Claude 포트폴리오 매매 결정 × 3인 (먼저 실행 — 종목 확정)
         env:
           CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
@@ -129,7 +129,7 @@ jobs:
           - 네 계좌 파일: _data/portfolio-${P}.json (없으면 현금 1억 시작)
           - 너는 1차 결정자다. 데이터를 직접 보고 종목을 정하라 (애널리스트 리포트는 아직 없다).
           - git 금지. 주문서 JSON 파일 생성까지만."
-            claude -p "$PROMPT" --model opus --effort high --permission-mode bypassPermissions --verbose
+            claude -p "$PROMPT" --model opus --effort xhigh --permission-mode bypassPermissions --verbose
           done
 
       # 2단계 🧠 애널리스트가 3인의 주문서를 종합해 "오늘의 매수/매도 종목"을 깔끔하게 정리한다.

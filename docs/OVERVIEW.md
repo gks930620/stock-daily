@@ -62,7 +62,7 @@ flowchart LR
 
 ```mermaid
 flowchart LR
-  Y["yfinance<br/>지수·주가·환율·원자재·코인 (45)"] --> P
+  Y["yfinance<br/>지수·주가·환율·원자재·코인 (71)"] --> P
   FR["FRED<br/>미 경제지표 (금리·CPI·실업)"] --> P
   FD["FinanceDataReader<br/>한국 전체 (~2766) 종목"] --> P
   WS["🔎 웹검색<br/>뉴스·시황·심리"] --> CL
@@ -82,8 +82,8 @@ flowchart LR
 
 | 소스 | 수집 내용 | 비고 |
 |---|---|---|
-| `yfinance` | 미·한 지수, 섹터 ETF, 주요주, 환율, 채권금리, VIX, 원자재, 암호화폐 — 약 45종목 | 글로벌·안정적 |
-| `FRED` | 미 연방기금금리, 장·단기 금리 스프레드, 실업률, CPI(전년비) | 키 없이 CSV |
+| `yfinance` | 미·한 지수, 섹터 ETF 9종, 한·미 주요주 36종, 환율, 채권금리, VIX, TLT·HYG, 원자재, 암호화폐 — **71종목** | 글로벌·안정적 |
+| `FRED` | 기준금리, 장·단기 스프레드 2종, 실업률, CPI(전년비), **2년물 금리·기대인플레·하이일드 스프레드** | 키 없이 CSV |
 | `FinanceDataReader` | 한국 전체(~2766) 종목 스냅샷 → 비인기 후보 발굴 | 네이버/KRX |
 | Claude 웹검색 | 뉴스·시황·이벤트·시장심리 | 여러 소스 교차 |
 
@@ -91,9 +91,9 @@ flowchart LR
 
 | 단계 | 스크립트 | 내용 |
 |---|---|---|
-| 📥 데이터 수집 | `scripts/collect_data.py` | 45종목 시세 + 경제지표(FRED)를 JSON으로 |
+| 📥 데이터 수집 | `scripts/collect_data.py` | 71종목 시세 + 경제지표(FRED 8종)를 JSON으로 |
 | 📐 지표 계산 | (수집 시 포함) | RSI · MACD · 볼린저 · 이동평균(4종) · 모멘텀 · 추세배열 |
-| 📈 차트 생성 | `scripts/make_charts.py` | 지수·주요주 차트 PNG (가격+이동평균+RSI) |
+| 📈 차트 생성 | `scripts/make_charts.py` | 지수·주요주 **12종** 차트 PNG (가격+이동평균+RSI) |
 | 🔍 비인기종목 발굴 | `scripts/screener.py` | 과매도반등·거래량급증·낙폭과대·저점권반등 신호 |
 | 🧑‍💼 Claude ①②③ 매니저 3인 (먼저) | `prompts/persona-*.md` + `portfolio.md` | 🛡️안정·🚀공격·🎯역발상 — 데이터 직접 보고 **성향대로 종목 매수/매도 확정** (독립 세션·계좌) |
 | 🧠 Claude ④애널리스트 (뒤에) | `prompts/kr-report.md`·`prompts/us-report.md` | **3인 주문서 종합** → "오늘 이 종목 사라/팔아라" 종목 결론 리포트 + 어제 채점 |
@@ -105,7 +105,7 @@ flowchart LR
 
 ---
 
-- 하루 2회 자동 실행 · **장중 발행(고정)**: 🇰🇷 매일 14:45 · 🇺🇸 매일 23:45 (GitHub Actions) · **제1원칙 = 리포트 본 사람이 30분 안에 실제 매수 가능할 것** → 매매는 **AI가 분석한 그 시세로 체결**(리포트에 기준가 표시) · Claude 4명(①②③ 성향별 매니저 종목 확정 high → ④ 애널리스트 종합 리포트 xhigh) · 데이터 = 파이썬
+- 하루 2회 자동 실행 · **장중 발행(고정)**: 🇰🇷 매일 14:45 · 🇺🇸 매일 23:45 (GitHub Actions) · **제1원칙 = 리포트 본 사람이 30분 안에 실제 매수 가능할 것** → 매매는 **AI가 분석한 그 시세로 체결**(리포트에 기준가 표시) · Claude 4명 전원 xhigh(①②③ 성향별 매니저 종목 확정 → ④ 애널리스트 종합 리포트) · 데이터 = 파이썬
 - 공개 사이트: https://gks930620.github.io/stock-daily/ · [가상 포트폴리오](https://gks930620.github.io/stock-daily/portfolio/)
 - 관련 문서: [RULES.md](RULES.md)(운영 규칙) · [DESIGN.md](DESIGN.md) · [CLOUD-AUTOMATION.md](CLOUD-AUTOMATION.md) · [AUTOMATION.md](AUTOMATION.md) · [TOOLING.md](TOOLING.md)
 
