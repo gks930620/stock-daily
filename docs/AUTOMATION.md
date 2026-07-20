@@ -12,13 +12,12 @@
 
 ```
 [정해진 시각]  스케줄러가 run-daily.ps1 [모드] 실행
-   kr(08시)   = 수집+차트+스크리너 → 🇰🇷 한국장 예상글 → 가상 매매 → push
-   collect(18시) = 수집만 (한국장 마감 스냅샷)
-   us(21시)   = 수집+차트 → 🇺🇸 미국장 예상글 → 가상 매매 → push
+   kr(14:30) = 수집+차트+스크리너 → 매니저 3인 매매 → 종합 리포트(~14:45) → 체결 → push
+   us(23:30) = 수집+차트 → 매니저 3인 매매 → 종합 리포트(~23:45) → 체결 → push
 [GitHub Pages]  사이트에 자동 반영 → 사용자 열람 (비용 0)
 ```
 
-- **AI 실행은 하루 2번(kr·us)** → Claude 구독(Max) 사용량 안에서 처리 (요청당 과금 아님, 모델: 최신 opus)
+- **AI 실행은 하루 2회(kr·us) × 회차당 4세션** (매니저 3 + 애널리스트 1, 전원 xhigh) → Max 구독 사용량으로 처리 (요청당 과금 아님, 모델: 최신 opus)
 - **사용자 열람은 정적 사이트** → 몇 명이 보든 추가 비용 0
 
 ---
@@ -44,11 +43,10 @@ PowerShell을 열고 아래를 붙여넣기:
 $repo = "C:\Users\gks93\workspace\주식시장예상클로드코드"
 $settings = New-ScheduledTaskSettingsSet -StartWhenAvailable -ExecutionTimeLimit (New-TimeSpan -Hours 1)
 
-# 3개 작업 등록: 08시 kr / 18시 collect / 21시 us
+# 2개 작업 등록: 14:30 kr / 23:30 us (장중)
 @(
-  @{Name="StockDaily-KR";      Time="8:00am";  Mode="kr"},
-  @{Name="StockDaily-Collect"; Time="6:00pm";  Mode="collect"},
-  @{Name="StockDaily-US";      Time="9:00pm";  Mode="us"}
+  @{Name="StockDaily-KR"; Time="2:30pm";  Mode="kr"},
+  @{Name="StockDaily-US"; Time="11:30pm"; Mode="us"}
 ) | ForEach-Object {
   $action  = New-ScheduledTaskAction -Execute "powershell.exe" -Argument "-ExecutionPolicy Bypass -NoProfile -File `"$repo\scripts\run-daily.ps1`" $($_.Mode)"
   $trigger = New-ScheduledTaskTrigger -Daily -At $_.Time
@@ -59,9 +57,9 @@ $settings = New-ScheduledTaskSettingsSet -StartWhenAvailable -ExecutionTimeLimit
 - 확인: `Get-ScheduledTask -TaskName StockDaily-*`
 - 지금 한 번 테스트: `Start-ScheduledTask -TaskName StockDaily-KR`
 - 해제: `Get-ScheduledTask -TaskName StockDaily-* | Unregister-ScheduledTask -Confirm:$false`
-- (과거 단일 작업 `StockDailyReport`가 남아있으면 함께 삭제)
+- (과거 작업 `StockDailyReport`·`StockDaily-Collect`가 남아있으면 함께 삭제)
 
-**방법 ②: 작업 스케줄러 GUI** — 위 3개 작업을 각각 [기본 작업 만들기]로 등록 (인수 끝에 모드 `kr`/`collect`/`us`를 붙이는 것만 주의)
+**방법 ②: 작업 스케줄러 GUI** — 위 2개 작업을 각각 [기본 작업 만들기]로 등록 (인수 끝에 모드 `kr`/`us`를 붙이는 것만 주의)
 
 ---
 

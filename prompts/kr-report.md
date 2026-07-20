@@ -11,7 +11,7 @@
 ## 1. 데이터 (읽을 것)
 - **오늘 3인의 주문서** (가장 중요) — `portfolio/orders/<오늘날짜>-kr-stable.json` · `-kr-aggressive.json` · `-kr-contrarian.json`. 각 파일의 `orders`(action·ticker·krw·reason)와 `comment`가 3인이 지금 사고/판 종목과 이유다.
 - `data/<오늘날짜>/market.json` — **장중 최신 시세**·지표·경제지표(FRED).
-- `data/<어제날짜>/market-krclose.json` — 어제 마감 스냅샷(어제 채점용). 없으면 웹검색.
+- `data/<어제날짜>/market-kr.json` — 어제 리포트 시점 스냅샷(어제 채점의 기준가). 없으면 웹검색.
 - `data/<오늘날짜>/screener.json` — 한국 비인기 후보. 재료를 웹검색으로 확인해 검증된 것만.
 - `assets/charts/<오늘날짜>/` — 차트 PNG. **직접 열어보고(Read)** 추세·지지저항 반영.
 - 웹검색 — 간밤 미국장, 오늘 한국장 뉴스·일정·수급. 교차 확인.
