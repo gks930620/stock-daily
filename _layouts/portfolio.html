@@ -54,18 +54,8 @@ layout: default
     <p class="mut small">비중 = 총자산 대비 · 손익 = 평균단가 대비(해외는 환율 포함) · 종목을 누르면 거래 내역이 열립니다</p>
   </section>
 
-  {% if p.pending_view and p.pending_view.size > 0 %}
   <section class="card">
-    <h2>⏳ 체결 대기</h2>
-    {% for o in p.pending_view %}
-    <div class="pend"><span class="tag {% if o.action == 'buy' %}u-bg{% else %}d-bg{% endif %}">{{ o.action_label }}예약</span>
-      <b>{{ o.name }}</b>{% if o.krw_str %} {{ o.krw_str }}원{% endif %} <span class="mut">— {{ o.min_fill_date }} 이후 개장 시가 체결 · {{ o.reason }}</span></div>
-    {% endfor %}
-  </section>
-  {% endif %}
-
-  <section class="card">
-    <h2>자산 추이 <span class="mut small">(장 마감 종가 평가)</span></h2>
+    <h2>자산 추이 <span class="mut small">(리포트 시점 평가)</span></h2>
     <img src="{{ '/assets/portfolio/equity-' | append: p.persona | append: '.png' | relative_url }}" alt="자산 추이 차트">
   </section>
 
@@ -74,7 +64,7 @@ layout: default
     {% for j in p.journal_view %}
     <div class="jday">
       <div class="jhead"><b>{{ j.date }}</b>
-        {% if j.session == "kr" %}<span class="sess">🇰🇷 아침</span>{% elsif j.session == "us" %}<span class="sess">🇺🇸 저녁</span>{% elsif j.session == "fill" %}<span class="sess">⚡ 체결</span>{% endif %}
+        {% if j.session == "kr" %}<span class="sess">🇰🇷 한국장 14:45</span>{% elsif j.session == "us" %}<span class="sess">🇺🇸 미국장 23:45</span>{% endif %}
       </div>
       {% if j.comment != "" %}<p class="jc">{{ j.comment }}</p>{% endif %}
       {% for o in j.placed %}<div class="jr"><span class="tag {% if o.action contains '매수' %}u-bg{% elsif o.action contains '매도' %}d-bg{% else %}h-bg{% endif %}">{{ o.action }}</span>{% if o.name != "-" %}<b>{{ o.name }}</b>{% endif %} <span class="mut">{{ o.detail }}</span></div>{% endfor %}
@@ -101,7 +91,7 @@ layout: default
     <h2>🧾 체결 규칙 & 검증</h2>
     {% include pf-rules.html %}
   </section>
-  <p class="mut small" style="margin:6px 4px 0">⚠️ 가상 매매 기록 · 투자 보장 아님 · 🇰🇷 한국장·🇺🇸 미국장 마감 후 종가로 매매 자동 반영 · <a href="{{ '/' | relative_url }}">← 리포트</a></p>
+  <p class="mut small" style="margin:6px 4px 0">⚠️ 가상 매매 기록 · 투자 보장 아님 · 장중 리포트(🇰🇷 14:45 · 🇺🇸 23:45) 시점 시세로 매매 자동 반영 · <a href="{{ '/' | relative_url }}">← 리포트</a></p>
 </div>
 
 <style>

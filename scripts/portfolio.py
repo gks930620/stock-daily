@@ -285,7 +285,7 @@ def main() -> int:
     # 대기 주문 없음(종가 즉시체결) — 페이지 호환 위해 빈 목록 유지
     pending_view = []
 
-    # ── 4) 히스토리 (일별 스냅샷) — 매 실행(장 마감 후 종가)마다 확정 기록 ──
+    # ── 4) 히스토리 (일별 스냅샷) — 매 실행(장중 리포트 시점)마다 확정 기록 ──
     hist = state.get("history", [])
     finalize = True                                       # 실행 시점이 이미 종가 → 항상 확정
     prev_marks = [h for h in hist if h["date"] != today]
@@ -340,7 +340,7 @@ def main() -> int:
     fig.savefig(chart_dir / f"equity-{persona}.png", dpi=110)
     plt.close(fig)
 
-    print(f"[{persona}] 총 {total:,.0f}원 ({ret_pct:+.2f}%) · 현금 {cash:,.0f} · 보유 {len(hold_view)}종목 (당일 종가 체결)")
+    print(f"[{persona}] 총 {total:,.0f}원 ({ret_pct:+.2f}%) · 현금 {cash:,.0f} · 보유 {len(hold_view)}종목 (리포트 시세 체결)")
     return 0
 
 
