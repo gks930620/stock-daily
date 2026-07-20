@@ -24,8 +24,11 @@ permissions:
 
 on:
   schedule:
-    - cron: "45 4 * * 1-5"   # 13:45 KST 크론 → 지연 흡수 후 14:30 시작 → kr 리포트 ~14:45
-    - cron: "0 14 * * 1-5"   # 23:00 KST 크론 → 지연 흡수 후 23:30 시작 → us 리포트 ~23:45
+    # ⚠️ GitHub 예약실행은 최대 2~3시간까지 지연될 수 있다(실측: 크론+2h20m).
+    #    그래서 목표(14:30/23:30)보다 ~3.5h 일찍 걸어, 지연이 있어도 목표 '전'에 시작되게 한다.
+    #    실제 시작은 아래 "목표 시각까지 대기" 스텝이 정확히 맞춘다.
+    - cron: "0 2 * * 1-5"    # 11:00 KST 크론 → (지연 흡수) → 14:30 시작 → 🇰🇷 리포트 ~14:45
+    - cron: "0 11 * * 1-5"   # 20:00 KST 크론 → (지연 흡수) → 23:30 시작 → 🇺🇸 리포트 ~23:45
   workflow_dispatch:
     inputs:
       mode:
@@ -47,12 +50,9 @@ jobs:
           if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
             MODE="${{ inputs.mode }}"
           else
-            H=$(date -u +%H)
-            case "$H" in
-              04|05|06) MODE=kr ;;   # 13:45 KST 크론 부근 (한국장 장중)
-              13|14|15) MODE=us ;;   # 23:00 KST 크론 부근 (미국장 장중)
-              *) MODE=kr ;;
-            esac
+            # 크론: kr=02 UTC, us=11 UTC. 지연(최대 ~4h)까지 감안해도 두 구간은 안 겹친다.
+            H=$(( 10#$(date -u +%H) ))
+            if [ "$H" -lt 9 ]; then MODE=kr; else MODE=us; fi   # 02~08 UTC=kr / 11~16 UTC=us
           fi
           case "$MODE" in
             kr) TARGET=14:30 ;;      # → 리포트 ~14:45 (마감 15:30 전)
@@ -63,12 +63,19 @@ jobs:
           echo "target=$TARGET" >> "$GITHUB_OUTPUT"
           echo "▶ 모드: $MODE · 목표 시작 $TARGET KST (현재 $(TZ='Asia/Seoul' date +%H:%M))"
 
-      # GitHub 크론 지연(20~45분)을 흡수해 **매일 같은 시각에 발행**되도록 목표 시각까지 대기.
-      # (이미 목표를 지났으면 즉시 진행 — 늦더라도 장중이면 발행하는 게 낫다)
+      # GitHub 크론 지연을 흡수해 **매일 같은 시각(목표)에 발행**되도록 목표 시각까지 대기.
+      # epoch(초)로 계산 → 자정을 넘겨도 안전. 목표를 이미 지났거나 6h 넘게 남았으면 대기 없이 진행.
       - name: 목표 시각까지 대기 (발행 시각 고정)
         run: |
-          TARGET="${{ steps.mode.outputs.target }}"
-          while [ "$(TZ='Asia/Seoul' date +%H:%M)" \< "$TARGET" ]; do sleep 20; done
+          TARGET="${{ steps.mode.outputs.target }}"                 # 예: 14:30 (KST)
+          TE=$(TZ='Asia/Seoul' date -d "$TARGET" +%s)               # 오늘 그 시각의 epoch
+          W=$(( TE - $(date +%s) ))
+          if [ "$W" -gt 0 ] && [ "$W" -le 21600 ]; then
+            echo "▶ 목표 $TARGET KST 까지 $((W/60))분 대기 (현재 $(TZ='Asia/Seoul' date +%H:%M))"
+            sleep "$W"
+          else
+            echo "▶ 대기 없음 (현재 $(TZ='Asia/Seoul' date +%H:%M) KST · 남은 ${W}s — 목표 지났거나 범위 밖)"
+          fi
           echo "▶ $(TZ='Asia/Seoul' date +%H:%M) KST — 분석 시작"
 
       - name: Python 설정
