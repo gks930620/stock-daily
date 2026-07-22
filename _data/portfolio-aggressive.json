@@ -2,7 +2,7 @@
   "start_date": "2026-07-20",
   "start_capital": 100000000,
   "currency": "KRW",
-  "cash": 15460900,
+  "cash": 8643900,
   "holdings": {
     "000660.KS": {
       "name": "SK하이닉스",
@@ -63,8 +63,8 @@
     },
     "035420.KS": {
       "name": "NAVER",
-      "qty": 71.0,
-      "cost_krw": 13816600.0,
+      "qty": 105.0,
+      "cost_krw": 20633600.0,
       "lots": [
         {
           "date": "2026-07-21",
@@ -77,12 +77,25 @@
           "fx": null,
           "price_date": "2026-07-21",
           "basis": "2026-07-21 리포트 시세"
+        },
+        {
+          "date": "2026-07-22",
+          "session": "kr",
+          "qty": 34,
+          "price_krw": 200500,
+          "price_native": 200500.0,
+          "currency": "KRW",
+          "krw": 6817000,
+          "fx": null,
+          "price_date": "2026-07-22",
+          "basis": "2026-07-22 리포트 시세"
         }
       ]
     }
   },
   "applied_orders": [
-    "2026-07-21-kr-aggressive"
+    "2026-07-21-kr-aggressive",
+    "2026-07-22-kr-aggressive"
   ],
   "pending_orders": [],
   "journal": [
@@ -137,6 +150,31 @@
           "reason": "오늘 +4.68%로 20일선(19.4만)을 종가 회복 — 반등이 아니라 추세선 탈환이라는 모멘텀 신호. AI·플랫폼 성장주로 반도체 편중을 낮추는 두 번째 비(非)반도체 레그. MACD 히스토그램 플러스 전환에 거래도 붙기 시작, 14% 편입해 성장 테마를 넓힌다."
         }
       ]
+    },
+    {
+      "date": "2026-07-22",
+      "session": "kr",
+      "comment": "마이크론이 3분기 매출 +346%·GM 85%·Q4 500억달러 가이던스로 메모리 슈퍼사이클을 '증명'했고, SOX +5.2%·하이닉스 ADR +14%에 코스피가 숏스퀴즈로 급반등 — 어제 올라탄 반도체 코어(삼전·하이닉스 56%)를 그대로 끌고 간다. 강한 놈이 더 강해지는 국면, 급등에도 팔지 않는다. 다만 7/29 하이닉스 실적이라는 빅이벤트에 이미 크게 노출돼 반도체 추가매수는 자제하고, 실탄은 20일선을 탈환하며 홀로 강한 NAVER에 실어 성장 레그를 키운다. 현금은 8%대까지 낮춰 공격 유지.",
+      "placed": [
+        {
+          "action": "유지",
+          "name": "-",
+          "detail": "삼전·하이닉스는 오늘 신규매수 보류. 마이크론 블로우아웃(매출 +346%, Q4 가이던스 500억달러)으로 슈퍼사이클이 '확인'됐고 공급은 2030년까지 수요 대비 -20% — 확신의 코어라 급등에도 팔지 않고 7/29 하이닉스 실적까지 그대로 끌고 간다. 다만 두 종목이 이미 56%라 여기서 반도체를 더 담는 건 이벤트 리스크상 과하다(몰빵 금지). 크래프톤도 8/26 게임스컴 파이프라인까지 홀드. 남긴 현금 8%대는 7/29 실적 확인 후 추격매수용 실탄으로 아껴둔다."
+        }
+      ],
+      "trades": [
+        {
+          "action": "매수",
+          "ticker": "035420.KS",
+          "name": "NAVER",
+          "krw": 6817000,
+          "krw_str": "6,817,000",
+          "qty": 34,
+          "price_krw": 200500,
+          "basis": "2026-07-22 리포트 시세",
+          "reason": "오늘 +3.9%로 20일선(19.4만)을 다시 탈환, 5일간 +9.4%로 코스피 반등장에서 상대강도 상위 — 낙폭과대 반등이 아니라 추세 재점화 신호다. MACD 히스토그램 플러스 전환에 RSI는 49로 과열도 아니어서 갈 자리가 넓다(52주 고점 28.4만 대비 -29%). 반도체 편중(56%)을 헤지하는 AI·플랫폼 성장 레그로, 어제 산 71주에 34주를 더해 비중 약 21%로 키운다. 메모리 빅이벤트(7/29)와 무관하게 독자적으로 오를 수 있는 두 번째 성장 엔진에 과감히 실탄을 태운다."
+        }
+      ]
     }
   ],
   "history": [
@@ -184,13 +222,48 @@
           "pl_pct": 0.0
         }
       ]
+    },
+    {
+      "date": "2026-07-22",
+      "total_value": 101492900,
+      "total_value_str": "101,492,900",
+      "return_pct": 1.49,
+      "day_chg_pct": 1.49,
+      "cash": 8643900,
+      "asof": "🇰🇷 장중 리포트 시점",
+      "holdings": [
+        {
+          "name": "SK하이닉스",
+          "value_str": "30,336,000",
+          "weight_pct": 29.9,
+          "pl_pct": 1.94
+        },
+        {
+          "name": "삼성전자",
+          "value_str": "26,750,000",
+          "weight_pct": 26.4,
+          "pl_pct": 2.88
+        },
+        {
+          "name": "NAVER",
+          "value_str": "21,052,500",
+          "weight_pct": 20.7,
+          "pl_pct": 2.03
+        },
+        {
+          "name": "크래프톤",
+          "value_str": "14,710,500",
+          "weight_pct": 14.5,
+          "pl_pct": -1.68
+        }
+      ]
     }
   ],
-  "updated": "2026-07-21",
-  "total_value": 100000000,
-  "holdings_value": 84539100,
-  "return_pct": 0.0,
-  "usdkrw": 1472.88,
+  "updated": "2026-07-22",
+  "total_value": 101492900,
+  "holdings_value": 92849000,
+  "return_pct": 1.49,
+  "usdkrw": 1480.6,
   "holdings_view": [
     {
       "ticker": "000660.KS",
@@ -199,16 +272,16 @@
       "unit": "주",
       "currency": "KRW",
       "cost_str": "29,760,000",
-      "pl_krw_str": "+0",
+      "pl_krw_str": "+576,000",
       "avg_krw": 1860000,
       "avg_str": "1,860,000",
       "avg_native_str": null,
-      "price_krw": 1860000,
-      "price_str": "1,860,000",
+      "price_krw": 1896000,
+      "price_str": "1,896,000",
       "price_native_str": null,
-      "price_date": "2026-07-21",
-      "value_krw": 29760000,
-      "pl_pct": 0.0,
+      "price_date": "2026-07-22",
+      "value_krw": 30336000,
+      "pl_pct": 1.94,
       "lots": [
         {
           "date": "2026-07-21",
@@ -226,8 +299,8 @@
           "native_str": null
         }
       ],
-      "weight_pct": 29.8,
-      "value_str": "29,760,000"
+      "weight_pct": 29.9,
+      "value_str": "30,336,000"
     },
     {
       "ticker": "005930.KS",
@@ -236,16 +309,16 @@
       "unit": "주",
       "currency": "KRW",
       "cost_str": "26,000,000",
-      "pl_krw_str": "+0",
+      "pl_krw_str": "+750,000",
       "avg_krw": 260000,
       "avg_str": "260,000",
       "avg_native_str": null,
-      "price_krw": 260000,
-      "price_str": "260,000",
+      "price_krw": 267500,
+      "price_str": "267,500",
       "price_native_str": null,
-      "price_date": "2026-07-21",
-      "value_krw": 26000000,
-      "pl_pct": 0.0,
+      "price_date": "2026-07-22",
+      "value_krw": 26750000,
+      "pl_pct": 2.88,
       "lots": [
         {
           "date": "2026-07-21",
@@ -263,8 +336,60 @@
           "native_str": null
         }
       ],
-      "weight_pct": 26.0,
-      "value_str": "26,000,000"
+      "weight_pct": 26.4,
+      "value_str": "26,750,000"
+    },
+    {
+      "ticker": "035420.KS",
+      "name": "NAVER",
+      "qty": 105,
+      "unit": "주",
+      "currency": "KRW",
+      "cost_str": "20,633,600",
+      "pl_krw_str": "+418,900",
+      "avg_krw": 196510,
+      "avg_str": "196,510",
+      "avg_native_str": null,
+      "price_krw": 200500,
+      "price_str": "200,500",
+      "price_native_str": null,
+      "price_date": "2026-07-22",
+      "value_krw": 21052500,
+      "pl_pct": 2.03,
+      "lots": [
+        {
+          "date": "2026-07-21",
+          "session": "kr",
+          "qty": 71,
+          "price_krw": 194600,
+          "price_native": 194600.0,
+          "currency": "KRW",
+          "krw": 13816600,
+          "fx": null,
+          "price_date": "2026-07-21",
+          "basis": "2026-07-21 리포트 시세",
+          "krw_str": "13,816,600",
+          "price_krw_str": "194,600",
+          "native_str": null
+        },
+        {
+          "date": "2026-07-22",
+          "session": "kr",
+          "qty": 34,
+          "price_krw": 200500,
+          "price_native": 200500.0,
+          "currency": "KRW",
+          "krw": 6817000,
+          "fx": null,
+          "price_date": "2026-07-22",
+          "basis": "2026-07-22 리포트 시세",
+          "krw_str": "6,817,000",
+          "price_krw_str": "200,500",
+          "native_str": null
+        }
+      ],
+      "weight_pct": 20.7,
+      "value_str": "21,052,500"
     },
     {
       "ticker": "259960.KS",
@@ -273,16 +398,16 @@
       "unit": "주",
       "currency": "KRW",
       "cost_str": "14,962,500",
-      "pl_krw_str": "+0",
+      "pl_krw_str": "-252,000",
       "avg_krw": 237500,
       "avg_str": "237,500",
       "avg_native_str": null,
-      "price_krw": 237500,
-      "price_str": "237,500",
+      "price_krw": 233500,
+      "price_str": "233,500",
       "price_native_str": null,
-      "price_date": "2026-07-21",
-      "value_krw": 14962500,
-      "pl_pct": 0.0,
+      "price_date": "2026-07-22",
+      "value_krw": 14710500,
+      "pl_pct": -1.68,
       "lots": [
         {
           "date": "2026-07-21",
@@ -300,63 +425,51 @@
           "native_str": null
         }
       ],
-      "weight_pct": 15.0,
-      "value_str": "14,962,500"
-    },
-    {
-      "ticker": "035420.KS",
-      "name": "NAVER",
-      "qty": 71,
-      "unit": "주",
-      "currency": "KRW",
-      "cost_str": "13,816,600",
-      "pl_krw_str": "+0",
-      "avg_krw": 194600,
-      "avg_str": "194,600",
-      "avg_native_str": null,
-      "price_krw": 194600,
-      "price_str": "194,600",
-      "price_native_str": null,
-      "price_date": "2026-07-21",
-      "value_krw": 13816600,
-      "pl_pct": 0.0,
-      "lots": [
-        {
-          "date": "2026-07-21",
-          "session": "kr",
-          "qty": 71,
-          "price_krw": 194600,
-          "price_native": 194600.0,
-          "currency": "KRW",
-          "krw": 13816600,
-          "fx": null,
-          "price_date": "2026-07-21",
-          "basis": "2026-07-21 리포트 시세",
-          "krw_str": "13,816,600",
-          "price_krw_str": "194,600",
-          "native_str": null
-        }
-      ],
-      "weight_pct": 13.8,
-      "value_str": "13,816,600"
+      "weight_pct": 14.5,
+      "value_str": "14,710,500"
     }
   ],
   "pending_view": [],
-  "total_value_str": "100,000,000",
-  "cash_str": "15,460,900",
-  "holdings_value_str": "84,539,100",
+  "total_value_str": "101,492,900",
+  "cash_str": "8,643,900",
+  "holdings_value_str": "92,849,000",
   "start_capital_str": "100,000,000",
-  "gain_str": "+0",
-  "cash_weight_pct": 15.5,
-  "day_chg_pct": 0.0,
-  "days": 2,
-  "priced_at": "2026-07-21T14:30:44+09:00",
+  "gain_str": "+1,492,900",
+  "cash_weight_pct": 8.5,
+  "day_chg_pct": 1.49,
+  "days": 3,
+  "priced_at": "2026-07-22T14:30:33+09:00",
   "eval_note": "AI가 장중에 시세를 보고 판단 → 바로 그 가격으로 체결 (🇰🇷 매일 14:45 · 🇺🇸 매일 23:45 발행). 리포트를 본 사람이 30분 안에 같은 가격대로 매수 가능. 손익은 이후 시세로 결정",
   "persona": "aggressive",
   "persona_name": "공격형",
   "persona_emoji": "🚀",
   "persona_tag": "성장·모멘텀 — 주도주 추종, 집중 투자, 현금 최소",
   "journal_view": [
+    {
+      "date": "2026-07-22",
+      "session": "kr",
+      "comment": "마이크론이 3분기 매출 +346%·GM 85%·Q4 500억달러 가이던스로 메모리 슈퍼사이클을 '증명'했고, SOX +5.2%·하이닉스 ADR +14%에 코스피가 숏스퀴즈로 급반등 — 어제 올라탄 반도체 코어(삼전·하이닉스 56%)를 그대로 끌고 간다. 강한 놈이 더 강해지는 국면, 급등에도 팔지 않는다. 다만 7/29 하이닉스 실적이라는 빅이벤트에 이미 크게 노출돼 반도체 추가매수는 자제하고, 실탄은 20일선을 탈환하며 홀로 강한 NAVER에 실어 성장 레그를 키운다. 현금은 8%대까지 낮춰 공격 유지.",
+      "placed": [
+        {
+          "action": "유지",
+          "name": "-",
+          "detail": "삼전·하이닉스는 오늘 신규매수 보류. 마이크론 블로우아웃(매출 +346%, Q4 가이던스 500억달러)으로 슈퍼사이클이 '확인'됐고 공급은 2030년까지 수요 대비 -20% — 확신의 코어라 급등에도 팔지 않고 7/29 하이닉스 실적까지 그대로 끌고 간다. 다만 두 종목이 이미 56%라 여기서 반도체를 더 담는 건 이벤트 리스크상 과하다(몰빵 금지). 크래프톤도 8/26 게임스컴 파이프라인까지 홀드. 남긴 현금 8%대는 7/29 실적 확인 후 추격매수용 실탄으로 아껴둔다."
+        }
+      ],
+      "trades": [
+        {
+          "action": "매수",
+          "ticker": "035420.KS",
+          "name": "NAVER",
+          "krw": 6817000,
+          "krw_str": "6,817,000",
+          "qty": 34,
+          "price_krw": 200500,
+          "basis": "2026-07-22 리포트 시세",
+          "reason": "오늘 +3.9%로 20일선(19.4만)을 다시 탈환, 5일간 +9.4%로 코스피 반등장에서 상대강도 상위 — 낙폭과대 반등이 아니라 추세 재점화 신호다. MACD 히스토그램 플러스 전환에 RSI는 49로 과열도 아니어서 갈 자리가 넓다(52주 고점 28.4만 대비 -29%). 반도체 편중(56%)을 헤지하는 AI·플랫폼 성장 레그로, 어제 산 71주에 34주를 더해 비중 약 21%로 키운다. 메모리 빅이벤트(7/29)와 무관하게 독자적으로 오를 수 있는 두 번째 성장 엔진에 과감히 실탄을 태운다."
+        }
+      ]
+    },
     {
       "date": "2026-07-21",
       "session": "kr",
@@ -411,6 +524,41 @@
     }
   ],
   "history_view": [
+    {
+      "date": "2026-07-22",
+      "total_value": 101492900,
+      "total_value_str": "101,492,900",
+      "return_pct": 1.49,
+      "day_chg_pct": 1.49,
+      "cash": 8643900,
+      "asof": "🇰🇷 장중 리포트 시점",
+      "holdings": [
+        {
+          "name": "SK하이닉스",
+          "value_str": "30,336,000",
+          "weight_pct": 29.9,
+          "pl_pct": 1.94
+        },
+        {
+          "name": "삼성전자",
+          "value_str": "26,750,000",
+          "weight_pct": 26.4,
+          "pl_pct": 2.88
+        },
+        {
+          "name": "NAVER",
+          "value_str": "21,052,500",
+          "weight_pct": 20.7,
+          "pl_pct": 2.03
+        },
+        {
+          "name": "크래프톤",
+          "value_str": "14,710,500",
+          "weight_pct": 14.5,
+          "pl_pct": -1.68
+        }
+      ]
+    },
     {
       "date": "2026-07-21",
       "total_value": 100000000,
