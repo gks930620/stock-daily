@@ -2,7 +2,7 @@
   "start_date": "2026-07-20",
   "start_capital": 100000000,
   "currency": "KRW",
-  "cash": 3211900,
+  "cash": 110557,
   "holdings": {
     "000660.KS": {
       "name": "SK하이닉스",
@@ -110,12 +110,51 @@
           "basis": "2026-07-23 리포트 시세"
         }
       ]
+    },
+    "AMD": {
+      "name": "AMD",
+      "qty": 2.0,
+      "cost_krw": 1627867.3912,
+      "lots": [
+        {
+          "date": "2026-07-23",
+          "session": "us",
+          "qty": 2,
+          "price_krw": 813934,
+          "price_native": 552.28,
+          "currency": "USD",
+          "krw": 1627867,
+          "fx": 1473.77,
+          "price_date": "2026-07-23",
+          "basis": "2026-07-23 리포트 시세"
+        }
+      ]
+    },
+    "MU": {
+      "name": "마이크론",
+      "qty": 1.0,
+      "cost_krw": 1473475.2459999998,
+      "lots": [
+        {
+          "date": "2026-07-23",
+          "session": "us",
+          "qty": 1,
+          "price_krw": 1473475,
+          "price_native": 999.8,
+          "currency": "USD",
+          "krw": 1473475,
+          "fx": 1473.77,
+          "price_date": "2026-07-23",
+          "basis": "2026-07-23 리포트 시세"
+        }
+      ]
     }
   },
   "applied_orders": [
     "2026-07-21-kr-aggressive",
     "2026-07-22-kr-aggressive",
-    "2026-07-23-kr-aggressive"
+    "2026-07-23-kr-aggressive",
+    "2026-07-23-us-aggressive"
   ],
   "pending_orders": [],
   "journal": [
@@ -230,6 +269,36 @@
           "reason": "오늘 신규 매수 1픽. 2차전지 섹터가 일제히 급반등(삼성SDI +7.0%, LG화학 +5.0%, POSCO +5.5%)한 가운데 대장주 LG엔솔이 +5.76%로 20일선(33.8만)을 종가 탈환 — 낙폭과대 반등이 아니라 추세 재점화의 첫 신호다. MACD 히스토그램이 플러스로 돌아섰고 RSI 46.8로 과열 전이라 위로 갈 자리가 넓다(52주 고점 51.4만 대비 -34%). 반도체(56%)·인터넷(NAVER)에 이어 상관관계 낮은 세 번째 성장 테마로 편입해 모멘텀 레그를 넓힌다. 외인 순매수·원화 강세의 리스크온 바람을 탄 고베타 성장주에 실탄을 태운다."
         }
       ]
+    },
+    {
+      "date": "2026-07-23",
+      "session": "us",
+      "comment": "빅테크 실적(TSLA -13%·GOOGL -7%)과 유가·금리 급등으로 지수는 리스크오프지만, 이 하락장에서 AI 반도체 주도주는 나홀로 버틴다 — AMD는 나스닥 -1.9%에도 보합, 마이크론은 +4.2% 급등(green on red). 강한 놈이 더 강해진다. 남은 현금 3%를 전량 이 두 상대강도 리더에 태워 한국 반도체 코어(하이닉스·삼전)를 미국 AI칩으로 확장한다. 흔들리는 건 메가캡의 자체 악재일 뿐, AI칩 수요 서사는 오늘 오히려 강해졌다.",
+      "placed": [],
+      "trades": [
+        {
+          "action": "매수",
+          "ticker": "AMD",
+          "name": "AMD",
+          "krw": 1627867,
+          "krw_str": "1,627,867",
+          "qty": 2,
+          "price_krw": 813934,
+          "basis": "2026-07-23 리포트 시세",
+          "reason": "오늘의 1픽. 나스닥 -1.9% 폭락장에서 -0.01% 나홀로 버틴 순수 상대강도 리더 — 5일 +10.25%, MA60 대비 +13.6%로 52주 신고가(581) 코앞이다(현재 552, -4.9%). 바로 오늘(7/22~23) 'Advancing AI 2026' 개막과 2nm Zen6 EPYC 출시라는 살아있는 촉매가 있고, 로젠블랫 665·키뱅크 725·UBS 700 등 목표가가 줄줄이 상향, 데이터센터 매출 +57%에 對중국 AI칩 수출 허용까지 겹쳤다. RSI 56으로 아직 과열도 아니다. 낙폭과대 저가매수가 아니라 '가장 강한 놈'이 신고가를 뚫으려는 자리 — 추세 순응으로 올라탄다."
+        },
+        {
+          "action": "매수",
+          "ticker": "MU",
+          "name": "마이크론",
+          "krw": 1473475,
+          "krw_str": "1,473,475",
+          "qty": 1,
+          "price_krw": 1473475,
+          "basis": "2026-07-23 리포트 시세",
+          "reason": "시장이 무너진 오늘 +4.2% 나홀로 급등한 종목 — 5일 +17.2%로 눌림목을 딛고 재가속 중이다. Q4 가이던스가 매출 500억달러·GM 86%·EPS 31달러의 블로우아웃이고 HBM은 2027~2028년까지 완판 — AI메모리 슈퍼사이클을 '실적'으로 증명했다. 내가 한국에서 크게 들고 있는 SK하이닉스·삼성전자와 똑같은 테마의 미국 대장주로, MU의 HBM 완판은 내 한국 코어에도 호재다. 평균 목표가 1,486달러(+50%), RSI 53으로 과열 전. 메가캡 조정과 무관하게 자체 수요로 오르는 두 번째 AI칩 레그에 실탄을 태운다."
+        }
+      ]
     }
   ],
   "history": [
@@ -315,51 +384,63 @@
     },
     {
       "date": "2026-07-23",
-      "total_value": 103754400,
-      "total_value_str": "103,754,400",
-      "return_pct": 3.75,
-      "day_chg_pct": 2.23,
-      "cash": 3211900,
-      "asof": "🇰🇷 장중 리포트 시점",
+      "total_value": 104546400,
+      "total_value_str": "104,546,400",
+      "return_pct": 4.55,
+      "day_chg_pct": 3.01,
+      "cash": 110557,
+      "asof": "🇺🇸 장중 리포트 시점",
       "holdings": [
         {
           "name": "SK하이닉스",
-          "value_str": "30,576,000",
-          "weight_pct": 29.5,
-          "pl_pct": 2.74
+          "value_str": "30,704,000",
+          "weight_pct": 29.4,
+          "pl_pct": 3.17
         },
         {
           "name": "삼성전자",
-          "value_str": "26,850,000",
-          "weight_pct": 25.9,
-          "pl_pct": 3.27
+          "value_str": "27,000,000",
+          "weight_pct": 25.8,
+          "pl_pct": 3.85
         },
         {
           "name": "NAVER",
-          "value_str": "22,785,000",
-          "weight_pct": 22.0,
-          "pl_pct": 10.43
+          "value_str": "23,100,000",
+          "weight_pct": 22.1,
+          "pl_pct": 11.95
         },
         {
           "name": "크래프톤",
-          "value_str": "14,899,500",
-          "weight_pct": 14.4,
-          "pl_pct": -0.42
+          "value_str": "14,962,500",
+          "weight_pct": 14.3,
+          "pl_pct": 0.0
         },
         {
           "name": "LG에너지솔루션",
-          "value_str": "5,432,000",
-          "weight_pct": 5.2,
+          "value_str": "5,568,000",
+          "weight_pct": 5.3,
+          "pl_pct": 2.5
+        },
+        {
+          "name": "AMD",
+          "value_str": "1,627,867",
+          "weight_pct": 1.6,
+          "pl_pct": 0.0
+        },
+        {
+          "name": "마이크론",
+          "value_str": "1,473,475",
+          "weight_pct": 1.4,
           "pl_pct": 0.0
         }
       ]
     }
   ],
   "updated": "2026-07-23",
-  "total_value": 103754400,
-  "holdings_value": 100542500,
-  "return_pct": 3.75,
-  "usdkrw": 1466.49,
+  "total_value": 104546400,
+  "holdings_value": 104435843,
+  "return_pct": 4.55,
+  "usdkrw": 1473.77,
   "holdings_view": [
     {
       "ticker": "000660.KS",
@@ -368,16 +449,16 @@
       "unit": "주",
       "currency": "KRW",
       "cost_str": "29,760,000",
-      "pl_krw_str": "+816,000",
+      "pl_krw_str": "+944,000",
       "avg_krw": 1860000,
       "avg_str": "1,860,000",
       "avg_native_str": null,
-      "price_krw": 1911000,
-      "price_str": "1,911,000",
+      "price_krw": 1919000,
+      "price_str": "1,919,000",
       "price_native_str": null,
       "price_date": "2026-07-23",
-      "value_krw": 30576000,
-      "pl_pct": 2.74,
+      "value_krw": 30704000,
+      "pl_pct": 3.17,
       "lots": [
         {
           "date": "2026-07-21",
@@ -395,8 +476,8 @@
           "native_str": null
         }
       ],
-      "weight_pct": 29.5,
-      "value_str": "30,576,000"
+      "weight_pct": 29.4,
+      "value_str": "30,704,000"
     },
     {
       "ticker": "005930.KS",
@@ -405,16 +486,16 @@
       "unit": "주",
       "currency": "KRW",
       "cost_str": "26,000,000",
-      "pl_krw_str": "+850,000",
+      "pl_krw_str": "+1,000,000",
       "avg_krw": 260000,
       "avg_str": "260,000",
       "avg_native_str": null,
-      "price_krw": 268500,
-      "price_str": "268,500",
+      "price_krw": 270000,
+      "price_str": "270,000",
       "price_native_str": null,
       "price_date": "2026-07-23",
-      "value_krw": 26850000,
-      "pl_pct": 3.27,
+      "value_krw": 27000000,
+      "pl_pct": 3.85,
       "lots": [
         {
           "date": "2026-07-21",
@@ -432,8 +513,8 @@
           "native_str": null
         }
       ],
-      "weight_pct": 25.9,
-      "value_str": "26,850,000"
+      "weight_pct": 25.8,
+      "value_str": "27,000,000"
     },
     {
       "ticker": "035420.KS",
@@ -442,16 +523,16 @@
       "unit": "주",
       "currency": "KRW",
       "cost_str": "20,633,600",
-      "pl_krw_str": "+2,151,400",
+      "pl_krw_str": "+2,466,400",
       "avg_krw": 196510,
       "avg_str": "196,510",
       "avg_native_str": null,
-      "price_krw": 217000,
-      "price_str": "217,000",
+      "price_krw": 220000,
+      "price_str": "220,000",
       "price_native_str": null,
       "price_date": "2026-07-23",
-      "value_krw": 22785000,
-      "pl_pct": 10.43,
+      "value_krw": 23100000,
+      "pl_pct": 11.95,
       "lots": [
         {
           "date": "2026-07-21",
@@ -484,8 +565,8 @@
           "native_str": null
         }
       ],
-      "weight_pct": 22.0,
-      "value_str": "22,785,000"
+      "weight_pct": 22.1,
+      "value_str": "23,100,000"
     },
     {
       "ticker": "259960.KS",
@@ -494,16 +575,16 @@
       "unit": "주",
       "currency": "KRW",
       "cost_str": "14,962,500",
-      "pl_krw_str": "-63,000",
+      "pl_krw_str": "+0",
       "avg_krw": 237500,
       "avg_str": "237,500",
       "avg_native_str": null,
-      "price_krw": 236500,
-      "price_str": "236,500",
+      "price_krw": 237500,
+      "price_str": "237,500",
       "price_native_str": null,
       "price_date": "2026-07-23",
-      "value_krw": 14899500,
-      "pl_pct": -0.42,
+      "value_krw": 14962500,
+      "pl_pct": 0.0,
       "lots": [
         {
           "date": "2026-07-21",
@@ -521,8 +602,8 @@
           "native_str": null
         }
       ],
-      "weight_pct": 14.4,
-      "value_str": "14,899,500"
+      "weight_pct": 14.3,
+      "value_str": "14,962,500"
     },
     {
       "ticker": "373220.KS",
@@ -531,16 +612,16 @@
       "unit": "주",
       "currency": "KRW",
       "cost_str": "5,432,000",
-      "pl_krw_str": "+0",
+      "pl_krw_str": "+136,000",
       "avg_krw": 339500,
       "avg_str": "339,500",
       "avg_native_str": null,
-      "price_krw": 339500,
-      "price_str": "339,500",
+      "price_krw": 348000,
+      "price_str": "348,000",
       "price_native_str": null,
       "price_date": "2026-07-23",
-      "value_krw": 5432000,
-      "pl_pct": 0.0,
+      "value_krw": 5568000,
+      "pl_pct": 2.5,
       "lots": [
         {
           "date": "2026-07-23",
@@ -558,26 +639,130 @@
           "native_str": null
         }
       ],
-      "weight_pct": 5.2,
-      "value_str": "5,432,000"
+      "weight_pct": 5.3,
+      "value_str": "5,568,000"
+    },
+    {
+      "ticker": "AMD",
+      "name": "AMD",
+      "qty": 2,
+      "unit": "주",
+      "currency": "USD",
+      "cost_str": "1,627,867",
+      "pl_krw_str": "+0",
+      "avg_krw": 813934,
+      "avg_str": "813,934",
+      "avg_native_str": "$552.28",
+      "price_krw": 813934,
+      "price_str": "813,934",
+      "price_native_str": "$552.28",
+      "price_date": "2026-07-23",
+      "value_krw": 1627867,
+      "pl_pct": 0.0,
+      "lots": [
+        {
+          "date": "2026-07-23",
+          "session": "us",
+          "qty": 2,
+          "price_krw": 813934,
+          "price_native": 552.28,
+          "currency": "USD",
+          "krw": 1627867,
+          "fx": 1473.77,
+          "price_date": "2026-07-23",
+          "basis": "2026-07-23 리포트 시세",
+          "krw_str": "1,627,867",
+          "price_krw_str": "813,934",
+          "native_str": "$552.28"
+        }
+      ],
+      "weight_pct": 1.6,
+      "value_str": "1,627,867"
+    },
+    {
+      "ticker": "MU",
+      "name": "마이크론",
+      "qty": 1,
+      "unit": "주",
+      "currency": "USD",
+      "cost_str": "1,473,475",
+      "pl_krw_str": "+0",
+      "avg_krw": 1473475,
+      "avg_str": "1,473,475",
+      "avg_native_str": "$999.80",
+      "price_krw": 1473475,
+      "price_str": "1,473,475",
+      "price_native_str": "$999.80",
+      "price_date": "2026-07-23",
+      "value_krw": 1473475,
+      "pl_pct": 0.0,
+      "lots": [
+        {
+          "date": "2026-07-23",
+          "session": "us",
+          "qty": 1,
+          "price_krw": 1473475,
+          "price_native": 999.8,
+          "currency": "USD",
+          "krw": 1473475,
+          "fx": 1473.77,
+          "price_date": "2026-07-23",
+          "basis": "2026-07-23 리포트 시세",
+          "krw_str": "1,473,475",
+          "price_krw_str": "1,473,475",
+          "native_str": "$999.80"
+        }
+      ],
+      "weight_pct": 1.4,
+      "value_str": "1,473,475"
     }
   ],
   "pending_view": [],
-  "total_value_str": "103,754,400",
-  "cash_str": "3,211,900",
-  "holdings_value_str": "100,542,500",
+  "total_value_str": "104,546,400",
+  "cash_str": "110,557",
+  "holdings_value_str": "104,435,843",
   "start_capital_str": "100,000,000",
-  "gain_str": "+3,754,400",
-  "cash_weight_pct": 3.1,
-  "day_chg_pct": 2.23,
+  "gain_str": "+4,546,400",
+  "cash_weight_pct": 0.1,
+  "day_chg_pct": 3.01,
   "days": 4,
-  "priced_at": "2026-07-23T14:31:01+09:00",
+  "priced_at": "2026-07-23T23:30:51+09:00",
   "eval_note": "AI가 장중에 시세를 보고 판단 → 바로 그 가격으로 체결 (🇰🇷 매일 14:45 · 🇺🇸 매일 23:45 발행). 리포트를 본 사람이 30분 안에 같은 가격대로 매수 가능. 손익은 이후 시세로 결정",
   "persona": "aggressive",
   "persona_name": "공격형",
   "persona_emoji": "🚀",
   "persona_tag": "성장·모멘텀 — 주도주 추종, 집중 투자, 현금 최소",
   "journal_view": [
+    {
+      "date": "2026-07-23",
+      "session": "us",
+      "comment": "빅테크 실적(TSLA -13%·GOOGL -7%)과 유가·금리 급등으로 지수는 리스크오프지만, 이 하락장에서 AI 반도체 주도주는 나홀로 버틴다 — AMD는 나스닥 -1.9%에도 보합, 마이크론은 +4.2% 급등(green on red). 강한 놈이 더 강해진다. 남은 현금 3%를 전량 이 두 상대강도 리더에 태워 한국 반도체 코어(하이닉스·삼전)를 미국 AI칩으로 확장한다. 흔들리는 건 메가캡의 자체 악재일 뿐, AI칩 수요 서사는 오늘 오히려 강해졌다.",
+      "placed": [],
+      "trades": [
+        {
+          "action": "매수",
+          "ticker": "AMD",
+          "name": "AMD",
+          "krw": 1627867,
+          "krw_str": "1,627,867",
+          "qty": 2,
+          "price_krw": 813934,
+          "basis": "2026-07-23 리포트 시세",
+          "reason": "오늘의 1픽. 나스닥 -1.9% 폭락장에서 -0.01% 나홀로 버틴 순수 상대강도 리더 — 5일 +10.25%, MA60 대비 +13.6%로 52주 신고가(581) 코앞이다(현재 552, -4.9%). 바로 오늘(7/22~23) 'Advancing AI 2026' 개막과 2nm Zen6 EPYC 출시라는 살아있는 촉매가 있고, 로젠블랫 665·키뱅크 725·UBS 700 등 목표가가 줄줄이 상향, 데이터센터 매출 +57%에 對중국 AI칩 수출 허용까지 겹쳤다. RSI 56으로 아직 과열도 아니다. 낙폭과대 저가매수가 아니라 '가장 강한 놈'이 신고가를 뚫으려는 자리 — 추세 순응으로 올라탄다."
+        },
+        {
+          "action": "매수",
+          "ticker": "MU",
+          "name": "마이크론",
+          "krw": 1473475,
+          "krw_str": "1,473,475",
+          "qty": 1,
+          "price_krw": 1473475,
+          "basis": "2026-07-23 리포트 시세",
+          "reason": "시장이 무너진 오늘 +4.2% 나홀로 급등한 종목 — 5일 +17.2%로 눌림목을 딛고 재가속 중이다. Q4 가이던스가 매출 500억달러·GM 86%·EPS 31달러의 블로우아웃이고 HBM은 2027~2028년까지 완판 — AI메모리 슈퍼사이클을 '실적'으로 증명했다. 내가 한국에서 크게 들고 있는 SK하이닉스·삼성전자와 똑같은 테마의 미국 대장주로, MU의 HBM 완판은 내 한국 코어에도 호재다. 평균 목표가 1,486달러(+50%), RSI 53으로 과열 전. 메가캡 조정과 무관하게 자체 수요로 오르는 두 번째 AI칩 레그에 실탄을 태운다."
+        }
+      ]
+    },
     {
       "date": "2026-07-23",
       "session": "kr",
@@ -694,41 +879,53 @@
   "history_view": [
     {
       "date": "2026-07-23",
-      "total_value": 103754400,
-      "total_value_str": "103,754,400",
-      "return_pct": 3.75,
-      "day_chg_pct": 2.23,
-      "cash": 3211900,
-      "asof": "🇰🇷 장중 리포트 시점",
+      "total_value": 104546400,
+      "total_value_str": "104,546,400",
+      "return_pct": 4.55,
+      "day_chg_pct": 3.01,
+      "cash": 110557,
+      "asof": "🇺🇸 장중 리포트 시점",
       "holdings": [
         {
           "name": "SK하이닉스",
-          "value_str": "30,576,000",
-          "weight_pct": 29.5,
-          "pl_pct": 2.74
+          "value_str": "30,704,000",
+          "weight_pct": 29.4,
+          "pl_pct": 3.17
         },
         {
           "name": "삼성전자",
-          "value_str": "26,850,000",
-          "weight_pct": 25.9,
-          "pl_pct": 3.27
+          "value_str": "27,000,000",
+          "weight_pct": 25.8,
+          "pl_pct": 3.85
         },
         {
           "name": "NAVER",
-          "value_str": "22,785,000",
-          "weight_pct": 22.0,
-          "pl_pct": 10.43
+          "value_str": "23,100,000",
+          "weight_pct": 22.1,
+          "pl_pct": 11.95
         },
         {
           "name": "크래프톤",
-          "value_str": "14,899,500",
-          "weight_pct": 14.4,
-          "pl_pct": -0.42
+          "value_str": "14,962,500",
+          "weight_pct": 14.3,
+          "pl_pct": 0.0
         },
         {
           "name": "LG에너지솔루션",
-          "value_str": "5,432,000",
-          "weight_pct": 5.2,
+          "value_str": "5,568,000",
+          "weight_pct": 5.3,
+          "pl_pct": 2.5
+        },
+        {
+          "name": "AMD",
+          "value_str": "1,627,867",
+          "weight_pct": 1.6,
+          "pl_pct": 0.0
+        },
+        {
+          "name": "마이크론",
+          "value_str": "1,473,475",
+          "weight_pct": 1.4,
           "pl_pct": 0.0
         }
       ]
