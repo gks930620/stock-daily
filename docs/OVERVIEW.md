@@ -58,7 +58,7 @@ flowchart LR
 
 ## ② 이 프로젝트의 데이터 흐름
 
-평일 2회 **장중**(🇰🇷 14:45 · 🇺🇸 23:45 발행), 여러 소스에서 **숫자**를 모으고(파이썬), **뉴스**는 Claude 웹검색으로 붙여 종합 분석 → **"지금 이 종목 사라/팔아라"** 리포트 + **성향별 AI 3인의 가상 1억 매매**를 게시합니다. 리포트를 본 사람이 **30분 안에 같은 가격대로 실제 매수**할 수 있는 시각에 냅니다.
+평일 2회 **장중**(🇰🇷 14:45 · 🇺🇸 23:45 발행), 여러 소스에서 **숫자**를 모으고(파이썬), **뉴스**는 Claude 웹검색으로 붙여 종합 분석 → **"지금 이 종목 사라/팔아라"** 리포트 + **AI 5인의 가상 1억 매매**를 게시합니다. 리포트를 본 사람이 **30분 안에 같은 가격대로 실제 매수**할 수 있는 시각에 냅니다.
 
 ```mermaid
 flowchart LR
@@ -68,7 +68,7 @@ flowchart LR
   WS["🔎 웹검색<br/>뉴스·시황·심리"] --> CL
 
   P["처리 (Python)<br/>지표계산·차트·스크리너"] --> CL
-  CL["🧠 Claude 4명 (전원 xhigh)<br/>매니저 3인 매매 결정<br/>→ 애널리스트 종합"] --> R["📄 리포트(.md)<br/>🇰🇷 14:45 · 🇺🇸 23:45 장중"] --> PG["🌐 GitHub Pages"]
+  CL["🧠 Claude 6명 (전원 xhigh)<br/>매니저 5인 매매 결정<br/>→ 애널리스트 종합"] --> R["📄 리포트(.md)<br/>🇰🇷 14:45 · 🇺🇸 23:45 장중"] --> PG["🌐 GitHub Pages"]
   CL --> PF["💼 가상 1억 체결<br/>portfolio.py<br/>보유·일지·자산곡선"] --> PG
 
   classDef data fill:#dbf1ee,stroke:#0e8f83,color:#04372f;
@@ -95,8 +95,8 @@ flowchart LR
 | 📐 지표 계산 | (수집 시 포함) | RSI · MACD · 볼린저 · 이동평균(4종) · 모멘텀 · 추세배열 |
 | 📈 차트 생성 | `scripts/make_charts.py` | 지수·주요주 **12종** 차트 PNG (가격+이동평균+RSI) |
 | 🔍 비인기종목 발굴 | `scripts/screener.py` | 과매도반등·거래량급증·낙폭과대·저점권반등 신호 |
-| 🧑‍💼 Claude ①②③ 매니저 3인 (먼저) | `prompts/persona-*.md` + `portfolio.md` | 🛡️안정·🚀공격·🎯역발상 — 데이터 직접 보고 **성향대로 종목 매수/매도 확정** (독립 세션·계좌) |
-| 🧠 Claude ④애널리스트 (뒤에) | `prompts/kr-report.md`·`prompts/us-report.md` | **3인 주문서 종합** → "오늘 이 종목 사라/팔아라" 종목 결론 리포트 + 어제 채점 |
+| 🧑‍💼 Claude ①~⑤ 매니저 5인 (먼저) | `prompts/persona-*.md` + `portfolio.md` | 🛡️안정·🚀공격(성향 부여한 극단 양 끝) + 🙂평범형 1·2·3(**완전히 동일한 지시문**의 대조군 — 같은 조건에서 판단이 얼마나 갈리는지 측정). 데이터 직접 보고 **종목 매수/매도 확정** (독립 세션·계좌) |
+| 🧠 Claude ⑥애널리스트 (뒤에) | `prompts/kr-report.md`·`prompts/us-report.md` | **5인 주문서 종합** → "오늘 이 종목 사라/팔아라" 종목 결론 리포트 + 어제 채점 |
 | 💼 가상 매매 체결 | `scripts/portfolio.py <kr\|us> <persona>` | 성향별 1억 페이퍼 트레이딩 — **AI가 본 시세로 체결**(주식 정수주수·환율)·매매일지·자산곡선 |
 | 🌐 자동 게시 | Jekyll → GitHub Pages | 예상글 + [/portfolio/](https://gks930620.github.io/stock-daily/portfolio/) 페이지 |
 
@@ -105,7 +105,7 @@ flowchart LR
 
 ---
 
-- 하루 2회 자동 실행 · **장중 발행(고정)**: 🇰🇷 매일 14:45 · 🇺🇸 매일 23:45 (GitHub Actions) · **제1원칙 = 리포트 본 사람이 30분 안에 실제 매수 가능할 것** → 매매는 **AI가 분석한 그 시세로 체결**(리포트에 기준가 표시) · Claude 4명 전원 xhigh(①②③ 성향별 매니저 종목 확정 → ④ 애널리스트 종합 리포트) · 데이터 = 파이썬
+- 하루 2회 자동 실행 · **장중 발행(고정)**: 🇰🇷 매일 14:45 · 🇺🇸 매일 23:45 (GitHub Actions) · **제1원칙 = 리포트 본 사람이 30분 안에 실제 매수 가능할 것** → 매매는 **AI가 분석한 그 시세로 체결**(리포트에 기준가 표시) · Claude 6명 전원 xhigh(①~⑤ 매니저 종목 확정 → ⑥ 애널리스트 종합 리포트) · 데이터 = 파이썬
 - 공개 사이트: https://gks930620.github.io/stock-daily/ · [가상 포트폴리오](https://gks930620.github.io/stock-daily/portfolio/)
 - 관련 문서: [RULES.md](RULES.md)(운영 규칙) · [DESIGN.md](DESIGN.md) · [CLOUD-AUTOMATION.md](CLOUD-AUTOMATION.md) · [AUTOMATION.md](AUTOMATION.md) · [TOOLING.md](TOOLING.md)
 

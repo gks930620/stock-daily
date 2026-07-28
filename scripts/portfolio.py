@@ -11,7 +11,7 @@
     손익은 이 시점 **이후** 가격으로 결정되고 AI는 그걸 볼 수 없다.
   · 주식·ETF 정수 주수 / 암호화폐·원자재 소수 + 체결 시점 환율 기록.
 
-성향별 3인: 실행 `python portfolio.py <label> <persona>` (persona=stable|aggressive|contrarian)
+AI 5인: 실행 `python portfolio.py <label> <persona>` (persona=stable|aggressive|normal1|normal2|normal3)
 상태: _data/portfolio-<persona>.json (holdings/lots/journal/pending_orders/history)
 주문: portfolio/orders/<날짜>-<세션>-<persona>.json · 자산곡선: assets/portfolio/equity-<persona>.png
 """
@@ -46,11 +46,16 @@ IMMEDIATE = {"crypto", "commodity"}          # 24시간 거래 → 언제든 그
 SESSION_CATS = {"kr": {"kr_stock"}, "us": {"us_stock", "us_sector"}}
 SESSION_LABEL = {"kr": "🇰🇷 한국장", "us": "🇺🇸 미국장", "": ""}
 
-# 성향별 AI 투자자 3명 — 각자 독립 계좌(_data/portfolio-<id>.json)
+# AI 투자자 5명 — 각자 독립 계좌(_data/portfolio-<id>.json)
+#   · 성향파 2명(안정·공격): 뚜렷한 색깔을 부여한 극단 양 끝
+#   · 평범형 3명(1·2·3): **완전히 동일한 지시문**을 받는 대조군.
+#     같은 데이터·같은 프롬프트로 AI 판단이 얼마나 갈리는지(편차) 보기 위한 것이므로 셋의 tag도 동일하다.
 PERSONAS = {
     "stable":     {"name": "안정형",   "emoji": "🛡️", "tag": "가치·방어 — 저평가 우량주·배당, 현금 넉넉, 손실 최소 우선"},
     "aggressive": {"name": "공격형",   "emoji": "🚀", "tag": "성장·모멘텀 — 주도주 추종, 집중 투자, 현금 최소"},
-    "contrarian": {"name": "역발상형", "emoji": "🎯", "tag": "컨트래리안 — 과매도·낙폭과대를 남들이 팔 때 매수"},
+    "normal1":    {"name": "평범형 1", "emoji": "🙂", "tag": "성향 없음 — 데이터가 가리키는 대로. 동일 지시문 3인 중 1번"},
+    "normal2":    {"name": "평범형 2", "emoji": "🙂", "tag": "성향 없음 — 데이터가 가리키는 대로. 동일 지시문 3인 중 2번"},
+    "normal3":    {"name": "평범형 3", "emoji": "🙂", "tag": "성향 없음 — 데이터가 가리키는 대로. 동일 지시문 3인 중 3번"},
 }
 
 # 24시간 자산(암호화폐·원자재) 표시 단위 — 나머지 주식·ETF는 "주"
@@ -173,7 +178,7 @@ def exec_sell(holdings, cash, t, info, qty_req, price_krw, today, session, reaso
 def main() -> int:
     # 인자: <label> <persona>
     #   label   = kr|us (장중 세션)
-    #   persona = stable|aggressive|contrarian (성향별 독립 계좌)
+    #   persona = stable|aggressive|normal1|normal2|normal3 (각자 독립 계좌)
     label = sys.argv[1] if len(sys.argv) > 1 else None
     persona = sys.argv[2] if len(sys.argv) > 2 else "stable"
     if persona not in PERSONAS:
@@ -330,7 +335,7 @@ def main() -> int:
     ax.plot(dates, vals, color="#175cd3", linewidth=2, marker="o", markersize=4)
     ax.axhline(START_CAPITAL, color="#94a3b8", linestyle="--", linewidth=1, label="시작 (1억)")
     ax.fill_between(range(len(dates)), START_CAPITAL, vals, alpha=0.08, color="#175cd3")
-    ax.set_title(f"[{pmeta['name']}] 가상 포트폴리오 자산 추이 (장 마감 종가 평가)  ·  {total:,.0f}원 ({ret_pct:+.2f}%)", fontsize=13, fontweight="bold")
+    ax.set_title(f"[{pmeta['name']}] 가상 포트폴리오 자산 추이 (장중 리포트 시점 평가)  ·  {total:,.0f}원 ({ret_pct:+.2f}%)", fontsize=13, fontweight="bold")
     ax.yaxis.set_major_formatter(lambda x, _: f"{x/1e8:.2f}억")
     ax.legend(fontsize=9); ax.grid(alpha=0.25)
     if len(dates) > 12:

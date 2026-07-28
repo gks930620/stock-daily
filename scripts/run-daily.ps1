@@ -39,8 +39,9 @@ if ($true) {
 
     $today = Get-Date -Format "yyyy-MM-dd"
 
-    # ① 성향별 포트폴리오 매니저 3인이 먼저 종목을 확정 (각자 독립 세션·독립 계좌) — effort xhigh
-    foreach ($P in @("stable","aggressive","contrarian")) {
+    # ① 포트폴리오 매니저 5인이 먼저 종목을 확정 (각자 독립 세션·독립 계좌) — effort xhigh
+    #    성향파 2명(안정·공격) + 평범형 3명(동일 지시문 대조군)
+    foreach ($P in @("stable","aggressive","normal1","normal2","normal3")) {
         Write-Host "[4] Claude(①포트폴리오 매니저·$P) 매매 결정 ($Mode)..."
         $pfPrompt = (Get-Content -Raw "$repo\prompts\persona-$P.md") + "`n" + (Get-Content -Raw "$repo\prompts\portfolio.md") + @"
 
@@ -55,15 +56,15 @@ if ($true) {
         & $claude -p $pfPrompt --model opus --effort xhigh --dangerously-skip-permissions
     }
 
-    # ② 애널리스트가 3인 주문서를 종합해 '오늘의 매수/매도 종목' 리포트 작성 — effort xhigh
-    Write-Host "[5] Claude(②애널리스트) 3인 종합 리포트 ($Mode)..."
+    # ② 애널리스트가 5인 주문서를 종합해 '오늘의 매수/매도 종목' 리포트 작성 — effort xhigh
+    Write-Host "[5] Claude(②애널리스트) 5인 종합 리포트 ($Mode)..."
     $nowHM = Get-Date -Format "HH:mm"
     $prompt = (Get-Content -Raw "$repo\prompts\$Mode-report.md") + @"
 
 [실행 안내]
 - 오늘 날짜(KST): $today
 - 지금 시각(KST): $nowHM → front matter의 date를 반드시 "$today ${nowHM}:00 +0900" 로 쓸 것 (실제 작성 시각).
-- 방금 3인이 낸 주문서 portfolio/orders/$today-$Mode-{stable,aggressive,contrarian}.json 를 반드시 읽어 종합하라.
+- 방금 5인이 낸 주문서 portfolio/orders/$today-$Mode-{stable,aggressive,normal1,normal2,normal3}.json 를 반드시 읽어 종합하라.
 - git 금지. 글 파일 생성까지만.
 "@
     & $claude -p $prompt --model opus --effort xhigh --dangerously-skip-permissions
@@ -71,7 +72,7 @@ if ($true) {
 }
 
 # 체결가 = AI가 분석한 그 시세. 가격을 보고 판단했으니 그 가격에 산다.
-foreach ($P in @("stable","aggressive","contrarian")) {
+foreach ($P in @("stable","aggressive","normal1","normal2","normal3")) {
     Write-Host "[포트폴리오·$P] 체결·평가 ($label)..."
     & $venvPython "$repo\scripts\portfolio.py" $label $P
     if ($LASTEXITCODE -ne 0) { Write-Warning "포트폴리오($P) 갱신 실패(계속 진행)" }

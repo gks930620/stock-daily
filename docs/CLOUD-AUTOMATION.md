@@ -89,11 +89,11 @@ Unregister-ScheduledTask -TaskName StockDailyReport -Confirm:$false   # 완전 �
 
 | 역할 | 세션 수 | effort | 이유 |
 |---|---|---|---|
-| 🛡️🚀🎯 **매니저 3인** (매매 결정) | 3 | `xhigh` | 매매 판단의 질이 수익률을 좌우 |
-| 🧠 **애널리스트** (3인 종합 리포트) | 1 | `xhigh` | 종합·판정 |
+| 🛡️🚀🙂🙂🙂 **매니저 5인** (매매 결정) | 5 | `xhigh` | 매매 판단의 질이 수익률을 좌우 |
+| 🧠 **애널리스트** (5인 종합 리포트) | 1 | `xhigh` | 종합·판정 |
 
 ```bash
-claude -p "$PROMPT" --model opus --effort xhigh ...   # 4명 전원 (매니저 3인 + 애널리스트)
+claude -p "$PROMPT" --model opus --effort xhigh ...   # 6명 전원 (매니저 5인 + 애널리스트)
 ```
 
 **모델 (`--model`)**
@@ -103,7 +103,7 @@ claude -p "$PROMPT" --model opus --effort xhigh ...   # 4명 전원 (매니저 3
 
 **추론 강도 (`--effort`)**
 - Opus 4.8 지원 값: `low` · `medium` · `high`(기본) · `xhigh` · `max`
-- 이 프로젝트: **4명 전원 `xhigh`** (`max`는 과추론 경향이라 제외). Max 사용량 부담 시 매니저만 `high`로 낮추는 선택지
+- 이 프로젝트: **6명 전원 `xhigh`** (`max`는 과추론 경향이라 제외). Max 사용량 부담 시 매니저만 `high`로 낮추거나 평범형 수를 줄이는 선택지
 - **헤드리스에선 반드시 실행 시 `--effort`로 줄 것.** `-p` 안에서 `/effort`로 바꾸면 그 세션에 저장되지 않고, Opus 4.8은 "모델 기본값 유지" 때문에 무시된다(문서 확인). settings.json의 `effortLevel`보다 CLI 플래그가 확실.
 
 **thinking(확장 사고)에 대해 — 오해 주의**
