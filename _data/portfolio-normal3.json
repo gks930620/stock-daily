@@ -2,7 +2,7 @@
   "start_date": "2026-07-28",
   "start_capital": 100000000,
   "currency": "KRW",
-  "cash": 45657600,
+  "cash": 22716230,
   "holdings": {
     "068270.KS": {
       "name": "셀트리온",
@@ -98,11 +98,69 @@
           "basis": "2026-07-29 리포트 시세"
         }
       ]
+    },
+    "XLV": {
+      "name": "헬스케어ETF",
+      "qty": 37.0,
+      "cost_krw": 8998603.588800002,
+      "lots": [
+        {
+          "date": "2026-07-29",
+          "session": "us",
+          "qty": 37,
+          "price_krw": 243206,
+          "price_native": 167.58,
+          "currency": "USD",
+          "krw": 8998604,
+          "fx": 1451.28,
+          "price_date": "2026-07-29",
+          "basis": "2026-07-29 리포트 시세"
+        }
+      ]
+    },
+    "XLF": {
+      "name": "금융ETF",
+      "qty": 84.0,
+      "cost_krw": 6958481.241599999,
+      "lots": [
+        {
+          "date": "2026-07-29",
+          "session": "us",
+          "qty": 84,
+          "price_krw": 82839,
+          "price_native": 57.08,
+          "currency": "USD",
+          "krw": 6958481,
+          "fx": 1451.28,
+          "price_date": "2026-07-29",
+          "basis": "2026-07-29 리포트 시세"
+        }
+      ]
+    },
+    "XLP": {
+      "name": "필수소비ETF",
+      "qty": 55.0,
+      "cost_krw": 6984285.0,
+      "lots": [
+        {
+          "date": "2026-07-29",
+          "session": "us",
+          "qty": 55,
+          "price_krw": 126987,
+          "price_native": 87.5,
+          "currency": "USD",
+          "krw": 6984285,
+          "fx": 1451.28,
+          "price_date": "2026-07-29",
+          "basis": "2026-07-29 리포트 시세"
+        }
+      ]
     }
   },
   "applied_orders": [
     "2026-07-28-kr-normal3",
-    "2026-07-29-kr-normal3"
+    "2026-07-29-kr-normal3",
+    "2026-07-29-us-normal3"
   ],
   "pending_orders": [],
   "journal": [
@@ -188,6 +246,53 @@
           "reason": "코스피가 -8% 무너지는 날 -0.61%로 사실상 방어. 5일 +4.98%·20일 +2.75%로 시장(20일 -35%) 대비 압도적 상대강도다. MACD가 시그널 위로 막 상향 돌파(hist +1,735), 20일선 위, RSI 52.6로 과열 아님. 거래량이 평소 수준(1.07배)이라 급등 후 되돌림이 아닌 '조용한 강세'라는 점이 중요하다. 게임·콘텐츠라 반도체·신용융자 폭락의 진앙에서 완전히 비켜서 있다. 242,500원은 상대강도 대비 매수 자리로 본다. 분산 차원의 소량 비중."
         }
       ]
+    },
+    {
+      "date": "2026-07-29",
+      "session": "us",
+      "comment": "미국장은 한국과 달리 붕괴가 아니라 '회전'이다 — 반도체·메가캡 기술(AMD·MU -12%, SMH -6.5%)에서 빠진 돈이 헬스케어·필수소비·금융 같은 구경제·방어 섹터로 몰린다(XLV·XLF 52주 신고가, 헬스케어 상대강도 15년래 최고, S&P는 -0.5%뿐). 데이터가 가리키는 건 명확히 방어 회전이라, 3시간 뒤 FOMC(동결 예상)를 앞두고 낙하하는 반도체는 건드리지 않고 회전의 승자인 방어 섹터 ETF 3종에 현금의 절반(~₩23M)만 분산 진입한다. 개별주 대신 ETF로 담아 종목·실적 리스크를 분산했다. 남긴 현금 ~₩22M은 FOMC 확인 후·한국장 재진입 실탄. 데이터가 가리키는 대로만.",
+      "placed": [
+        {
+          "action": "유지",
+          "name": "-",
+          "detail": "AAPL은 20일 +21%·52주 신고가로 기술주 붕괴장에서 홀로 상승하는 최강 상대강도지만, ①오늘밤 FOMC ②내일(7/30) 장마감 후 Q3 실적이 겹치고 RSI 69·볼린저 0.89 과열 상태라, 사상 최고가에서 이벤트 두 개를 안고 추격 매수하는 건 '데이터가 사라는 자리'가 아니라 도박이라 보류. 반도체(SMH -6.5%, AMD·MU -12%, TSLA 20일 -26%)는 20·60일선 다 깨진 낙하하는 칼이라 계속 회피. TSM·NVDA·MU 등 반등 시도도 추세 훼손이 확인돼 신규 진입 안 한다. 남긴 현금 ~₩22M(포트 ~23%)은 FOMC 결과 확인 후 방어주 눌림 매수·한국장 재진입에 쓸 실탄으로 둔다."
+        }
+      ],
+      "trades": [
+        {
+          "action": "매수",
+          "ticker": "XLV",
+          "name": "헬스케어ETF",
+          "krw": 8998604,
+          "krw_str": "8,998,604",
+          "qty": 37,
+          "price_krw": 243206,
+          "basis": "2026-07-29 리포트 시세",
+          "reason": "오늘 미국장 섹터 1등(+2.56%)이자 사상 최고가. 헬스케어 종목의 91%가 시장을 앞서는 15년래 최강 상대강도 — 한두 종목 쏠림이 아닌 '폭넓은' 방어 회전이라 지속력이 있다. 20·60일선 위 상승배열(vs60 +9.4%)이고, 반도체·기술이 무너지는 날 돈이 확실히 이쪽으로 온다. 볼린저 상단(1.17)으로 다소 과열이나 방어 섹터라 오늘밤 FOMC에도 상대적으로 견디는 자리로 본다. ETF라 개별 종목·실적 리스크가 분산된다는 점이 FOMC를 3시간 앞둔 지금 특히 유리하다. 최대 비중."
+        },
+        {
+          "action": "매수",
+          "ticker": "XLF",
+          "name": "금융ETF",
+          "krw": 6958481,
+          "krw_str": "6,958,481",
+          "qty": 84,
+          "price_krw": 82839,
+          "basis": "2026-07-29 리포트 시세",
+          "reason": "52주 신고가·20일 +6.25%·상승배열(vs60 +7.0%). CPI 3.73%·2년물 4.31%(기준금리 3.63% 상회)로 '고금리 장기화' 국면이 이어지는데, 이건 은행 순이자마진에 유리하다. 오늘 FOMC가 매파적 동결로 나와도 금융은 오히려 수혜 쪽이라 방어·가치 축으로 담는다. RSI 69로 뜨겁지만 추세가 명확히 살아있고 신용(HY 2.84·HYG 보합)도 멀쩡해 하방이 받쳐진다. 57.08달러는 신고가 돌파 흐름의 정상 자리로 본다."
+        },
+        {
+          "action": "매수",
+          "ticker": "XLP",
+          "name": "필수소비ETF",
+          "krw": 6984285,
+          "krw_str": "6,984,285",
+          "qty": 55,
+          "price_krw": 126987,
+          "basis": "2026-07-29 리포트 시세",
+          "reason": "필수소비ETF, +2.51%·상승배열·20일 +3.29%. 순수 방어 자산으로 시장이 안전을 찾을 때 가장 먼저 사는 섹터다(COST +2.16% 등 개별도 강세). 반도체발 위험회피(VIX +5.4%)와 오늘밤 FOMC 불확실성을 감안한 하방 방어용. 볼린저 1.22로 과열이지만 방어 회전의 핵심 축이라, XLV(헬스케어)와 함께 포트폴리오의 방어 앵커로 분산 편입."
+        }
+      ]
     }
   ],
   "history": [
@@ -222,51 +327,69 @@
     },
     {
       "date": "2026-07-29",
-      "total_value": 99122800,
-      "total_value_str": "99,122,800",
-      "return_pct": -0.88,
-      "day_chg_pct": -0.88,
-      "cash": 45657600,
-      "asof": "🇰🇷 장중 리포트 시점",
+      "total_value": 99327800,
+      "total_value_str": "99,327,800",
+      "return_pct": -0.67,
+      "day_chg_pct": -0.67,
+      "cash": 22716230,
+      "asof": "🇺🇸 장중 리포트 시점",
       "holdings": [
         {
           "name": "셀트리온",
-          "value_str": "14,032,200",
-          "weight_pct": 14.2,
-          "pl_pct": 0.56
+          "value_str": "14,040,000",
+          "weight_pct": 14.1,
+          "pl_pct": 0.61
         },
         {
           "name": "삼성바이오로직스",
-          "value_str": "11,816,000",
+          "value_str": "11,832,000",
           "weight_pct": 11.9,
-          "pl_pct": 0.0
+          "pl_pct": 0.14
         },
         {
           "name": "KB금융",
-          "value_str": "11,469,600",
+          "value_str": "11,527,200",
           "weight_pct": 11.6,
-          "pl_pct": -3.51
+          "pl_pct": -3.03
+        },
+        {
+          "name": "헬스케어ETF",
+          "value_str": "8,998,604",
+          "weight_pct": 9.1,
+          "pl_pct": -0.0
         },
         {
           "name": "NAVER",
-          "value_str": "8,387,400",
+          "value_str": "8,463,000",
           "weight_pct": 8.5,
-          "pl_pct": -6.02
+          "pl_pct": -5.18
         },
         {
           "name": "크래프톤",
-          "value_str": "7,760,000",
-          "weight_pct": 7.8,
+          "value_str": "7,808,000",
+          "weight_pct": 7.9,
+          "pl_pct": 0.62
+        },
+        {
+          "name": "필수소비ETF",
+          "value_str": "6,984,285",
+          "weight_pct": 7.0,
+          "pl_pct": 0.0
+        },
+        {
+          "name": "금융ETF",
+          "value_str": "6,958,481",
+          "weight_pct": 7.0,
           "pl_pct": 0.0
         }
       ]
     }
   ],
   "updated": "2026-07-29",
-  "total_value": 99122800,
-  "holdings_value": 53465200,
-  "return_pct": -0.88,
-  "usdkrw": 1447.08,
+  "total_value": 99327800,
+  "holdings_value": 76611570,
+  "return_pct": -0.67,
+  "usdkrw": 1451.28,
   "holdings_view": [
     {
       "ticker": "068270.KS",
@@ -275,16 +398,16 @@
       "unit": "주",
       "currency": "KRW",
       "cost_str": "13,954,200",
-      "pl_krw_str": "+78,000",
+      "pl_krw_str": "+85,800",
       "avg_krw": 178900,
       "avg_str": "178,900",
       "avg_native_str": null,
-      "price_krw": 179900,
-      "price_str": "179,900",
+      "price_krw": 180000,
+      "price_str": "180,000",
       "price_native_str": null,
       "price_date": "2026-07-29",
-      "value_krw": 14032200,
-      "pl_pct": 0.56,
+      "value_krw": 14040000,
+      "pl_pct": 0.61,
       "lots": [
         {
           "date": "2026-07-28",
@@ -302,8 +425,8 @@
           "native_str": null
         }
       ],
-      "weight_pct": 14.2,
-      "value_str": "14,032,200"
+      "weight_pct": 14.1,
+      "value_str": "14,040,000"
     },
     {
       "ticker": "207940.KS",
@@ -312,16 +435,16 @@
       "unit": "주",
       "currency": "KRW",
       "cost_str": "11,816,000",
-      "pl_krw_str": "+0",
+      "pl_krw_str": "+16,000",
       "avg_krw": 1477000,
       "avg_str": "1,477,000",
       "avg_native_str": null,
-      "price_krw": 1477000,
-      "price_str": "1,477,000",
+      "price_krw": 1479000,
+      "price_str": "1,479,000",
       "price_native_str": null,
       "price_date": "2026-07-29",
-      "value_krw": 11816000,
-      "pl_pct": 0.0,
+      "value_krw": 11832000,
+      "pl_pct": 0.14,
       "lots": [
         {
           "date": "2026-07-29",
@@ -340,7 +463,7 @@
         }
       ],
       "weight_pct": 11.9,
-      "value_str": "11,816,000"
+      "value_str": "11,832,000"
     },
     {
       "ticker": "105560.KS",
@@ -349,16 +472,16 @@
       "unit": "주",
       "currency": "KRW",
       "cost_str": "11,887,200",
-      "pl_krw_str": "-417,600",
+      "pl_krw_str": "-360,000",
       "avg_krw": 165100,
       "avg_str": "165,100",
       "avg_native_str": null,
-      "price_krw": 159300,
-      "price_str": "159,300",
+      "price_krw": 160100,
+      "price_str": "160,100",
       "price_native_str": null,
       "price_date": "2026-07-29",
-      "value_krw": 11469600,
-      "pl_pct": -3.51,
+      "value_krw": 11527200,
+      "pl_pct": -3.03,
       "lots": [
         {
           "date": "2026-07-28",
@@ -377,7 +500,44 @@
         }
       ],
       "weight_pct": 11.6,
-      "value_str": "11,469,600"
+      "value_str": "11,527,200"
+    },
+    {
+      "ticker": "XLV",
+      "name": "헬스케어ETF",
+      "qty": 37,
+      "unit": "주",
+      "currency": "USD",
+      "cost_str": "8,998,604",
+      "pl_krw_str": "+0",
+      "avg_krw": 243206,
+      "avg_str": "243,206",
+      "avg_native_str": "$167.58",
+      "price_krw": 243206,
+      "price_str": "243,206",
+      "price_native_str": "$167.58",
+      "price_date": "2026-07-29",
+      "value_krw": 8998604,
+      "pl_pct": -0.0,
+      "lots": [
+        {
+          "date": "2026-07-29",
+          "session": "us",
+          "qty": 37,
+          "price_krw": 243206,
+          "price_native": 167.58,
+          "currency": "USD",
+          "krw": 8998604,
+          "fx": 1451.28,
+          "price_date": "2026-07-29",
+          "basis": "2026-07-29 리포트 시세",
+          "krw_str": "8,998,604",
+          "price_krw_str": "243,206",
+          "native_str": "$167.58"
+        }
+      ],
+      "weight_pct": 9.1,
+      "value_str": "8,998,604"
     },
     {
       "ticker": "035420.KS",
@@ -386,16 +546,16 @@
       "unit": "주",
       "currency": "KRW",
       "cost_str": "8,925,000",
-      "pl_krw_str": "-537,600",
+      "pl_krw_str": "-462,000",
       "avg_krw": 212500,
       "avg_str": "212,500",
       "avg_native_str": null,
-      "price_krw": 199700,
-      "price_str": "199,700",
+      "price_krw": 201500,
+      "price_str": "201,500",
       "price_native_str": null,
       "price_date": "2026-07-29",
-      "value_krw": 8387400,
-      "pl_pct": -6.02,
+      "value_krw": 8463000,
+      "pl_pct": -5.18,
       "lots": [
         {
           "date": "2026-07-28",
@@ -414,7 +574,7 @@
         }
       ],
       "weight_pct": 8.5,
-      "value_str": "8,387,400"
+      "value_str": "8,463,000"
     },
     {
       "ticker": "259960.KS",
@@ -423,16 +583,16 @@
       "unit": "주",
       "currency": "KRW",
       "cost_str": "7,760,000",
-      "pl_krw_str": "+0",
+      "pl_krw_str": "+48,000",
       "avg_krw": 242500,
       "avg_str": "242,500",
       "avg_native_str": null,
-      "price_krw": 242500,
-      "price_str": "242,500",
+      "price_krw": 244000,
+      "price_str": "244,000",
       "price_native_str": null,
       "price_date": "2026-07-29",
-      "value_krw": 7760000,
-      "pl_pct": 0.0,
+      "value_krw": 7808000,
+      "pl_pct": 0.62,
       "lots": [
         {
           "date": "2026-07-29",
@@ -450,26 +610,147 @@
           "native_str": null
         }
       ],
-      "weight_pct": 7.8,
-      "value_str": "7,760,000"
+      "weight_pct": 7.9,
+      "value_str": "7,808,000"
+    },
+    {
+      "ticker": "XLP",
+      "name": "필수소비ETF",
+      "qty": 55,
+      "unit": "주",
+      "currency": "USD",
+      "cost_str": "6,984,285",
+      "pl_krw_str": "+0",
+      "avg_krw": 126987,
+      "avg_str": "126,987",
+      "avg_native_str": "$87.50",
+      "price_krw": 126987,
+      "price_str": "126,987",
+      "price_native_str": "$87.50",
+      "price_date": "2026-07-29",
+      "value_krw": 6984285,
+      "pl_pct": 0.0,
+      "lots": [
+        {
+          "date": "2026-07-29",
+          "session": "us",
+          "qty": 55,
+          "price_krw": 126987,
+          "price_native": 87.5,
+          "currency": "USD",
+          "krw": 6984285,
+          "fx": 1451.28,
+          "price_date": "2026-07-29",
+          "basis": "2026-07-29 리포트 시세",
+          "krw_str": "6,984,285",
+          "price_krw_str": "126,987",
+          "native_str": "$87.50"
+        }
+      ],
+      "weight_pct": 7.0,
+      "value_str": "6,984,285"
+    },
+    {
+      "ticker": "XLF",
+      "name": "금융ETF",
+      "qty": 84,
+      "unit": "주",
+      "currency": "USD",
+      "cost_str": "6,958,481",
+      "pl_krw_str": "+0",
+      "avg_krw": 82839,
+      "avg_str": "82,839",
+      "avg_native_str": "$57.08",
+      "price_krw": 82839,
+      "price_str": "82,839",
+      "price_native_str": "$57.08",
+      "price_date": "2026-07-29",
+      "value_krw": 6958481,
+      "pl_pct": 0.0,
+      "lots": [
+        {
+          "date": "2026-07-29",
+          "session": "us",
+          "qty": 84,
+          "price_krw": 82839,
+          "price_native": 57.08,
+          "currency": "USD",
+          "krw": 6958481,
+          "fx": 1451.28,
+          "price_date": "2026-07-29",
+          "basis": "2026-07-29 리포트 시세",
+          "krw_str": "6,958,481",
+          "price_krw_str": "82,839",
+          "native_str": "$57.08"
+        }
+      ],
+      "weight_pct": 7.0,
+      "value_str": "6,958,481"
     }
   ],
   "pending_view": [],
-  "total_value_str": "99,122,800",
-  "cash_str": "45,657,600",
-  "holdings_value_str": "53,465,200",
+  "total_value_str": "99,327,800",
+  "cash_str": "22,716,230",
+  "holdings_value_str": "76,611,570",
   "start_capital_str": "100,000,000",
-  "gain_str": "-877,200",
-  "cash_weight_pct": 46.1,
-  "day_chg_pct": -0.88,
+  "gain_str": "-672,200",
+  "cash_weight_pct": 22.9,
+  "day_chg_pct": -0.67,
   "days": 2,
-  "priced_at": "2026-07-29T14:30:43+09:00",
+  "priced_at": "2026-07-29T23:30:31+09:00",
   "eval_note": "AI가 장중에 시세를 보고 판단 → 바로 그 가격으로 체결 (🇰🇷 매일 14:45 · 🇺🇸 매일 23:45 발행). 리포트를 본 사람이 30분 안에 같은 가격대로 매수 가능. 손익은 이후 시세로 결정",
   "persona": "normal3",
   "persona_name": "평범형 3",
   "persona_emoji": "🙂",
   "persona_tag": "성향 없음 — 데이터가 가리키는 대로. 동일 지시문 3인 중 3번",
   "journal_view": [
+    {
+      "date": "2026-07-29",
+      "session": "us",
+      "comment": "미국장은 한국과 달리 붕괴가 아니라 '회전'이다 — 반도체·메가캡 기술(AMD·MU -12%, SMH -6.5%)에서 빠진 돈이 헬스케어·필수소비·금융 같은 구경제·방어 섹터로 몰린다(XLV·XLF 52주 신고가, 헬스케어 상대강도 15년래 최고, S&P는 -0.5%뿐). 데이터가 가리키는 건 명확히 방어 회전이라, 3시간 뒤 FOMC(동결 예상)를 앞두고 낙하하는 반도체는 건드리지 않고 회전의 승자인 방어 섹터 ETF 3종에 현금의 절반(~₩23M)만 분산 진입한다. 개별주 대신 ETF로 담아 종목·실적 리스크를 분산했다. 남긴 현금 ~₩22M은 FOMC 확인 후·한국장 재진입 실탄. 데이터가 가리키는 대로만.",
+      "placed": [
+        {
+          "action": "유지",
+          "name": "-",
+          "detail": "AAPL은 20일 +21%·52주 신고가로 기술주 붕괴장에서 홀로 상승하는 최강 상대강도지만, ①오늘밤 FOMC ②내일(7/30) 장마감 후 Q3 실적이 겹치고 RSI 69·볼린저 0.89 과열 상태라, 사상 최고가에서 이벤트 두 개를 안고 추격 매수하는 건 '데이터가 사라는 자리'가 아니라 도박이라 보류. 반도체(SMH -6.5%, AMD·MU -12%, TSLA 20일 -26%)는 20·60일선 다 깨진 낙하하는 칼이라 계속 회피. TSM·NVDA·MU 등 반등 시도도 추세 훼손이 확인돼 신규 진입 안 한다. 남긴 현금 ~₩22M(포트 ~23%)은 FOMC 결과 확인 후 방어주 눌림 매수·한국장 재진입에 쓸 실탄으로 둔다."
+        }
+      ],
+      "trades": [
+        {
+          "action": "매수",
+          "ticker": "XLV",
+          "name": "헬스케어ETF",
+          "krw": 8998604,
+          "krw_str": "8,998,604",
+          "qty": 37,
+          "price_krw": 243206,
+          "basis": "2026-07-29 리포트 시세",
+          "reason": "오늘 미국장 섹터 1등(+2.56%)이자 사상 최고가. 헬스케어 종목의 91%가 시장을 앞서는 15년래 최강 상대강도 — 한두 종목 쏠림이 아닌 '폭넓은' 방어 회전이라 지속력이 있다. 20·60일선 위 상승배열(vs60 +9.4%)이고, 반도체·기술이 무너지는 날 돈이 확실히 이쪽으로 온다. 볼린저 상단(1.17)으로 다소 과열이나 방어 섹터라 오늘밤 FOMC에도 상대적으로 견디는 자리로 본다. ETF라 개별 종목·실적 리스크가 분산된다는 점이 FOMC를 3시간 앞둔 지금 특히 유리하다. 최대 비중."
+        },
+        {
+          "action": "매수",
+          "ticker": "XLF",
+          "name": "금융ETF",
+          "krw": 6958481,
+          "krw_str": "6,958,481",
+          "qty": 84,
+          "price_krw": 82839,
+          "basis": "2026-07-29 리포트 시세",
+          "reason": "52주 신고가·20일 +6.25%·상승배열(vs60 +7.0%). CPI 3.73%·2년물 4.31%(기준금리 3.63% 상회)로 '고금리 장기화' 국면이 이어지는데, 이건 은행 순이자마진에 유리하다. 오늘 FOMC가 매파적 동결로 나와도 금융은 오히려 수혜 쪽이라 방어·가치 축으로 담는다. RSI 69로 뜨겁지만 추세가 명확히 살아있고 신용(HY 2.84·HYG 보합)도 멀쩡해 하방이 받쳐진다. 57.08달러는 신고가 돌파 흐름의 정상 자리로 본다."
+        },
+        {
+          "action": "매수",
+          "ticker": "XLP",
+          "name": "필수소비ETF",
+          "krw": 6984285,
+          "krw_str": "6,984,285",
+          "qty": 55,
+          "price_krw": 126987,
+          "basis": "2026-07-29 리포트 시세",
+          "reason": "필수소비ETF, +2.51%·상승배열·20일 +3.29%. 순수 방어 자산으로 시장이 안전을 찾을 때 가장 먼저 사는 섹터다(COST +2.16% 등 개별도 강세). 반도체발 위험회피(VIX +5.4%)와 오늘밤 FOMC 불확실성을 감안한 하방 방어용. 볼린저 1.22로 과열이지만 방어 회전의 핵심 축이라, XLV(헬스케어)와 함께 포트폴리오의 방어 앵커로 분산 편입."
+        }
+      ]
+    },
     {
       "date": "2026-07-29",
       "session": "kr",
@@ -557,41 +838,59 @@
   "history_view": [
     {
       "date": "2026-07-29",
-      "total_value": 99122800,
-      "total_value_str": "99,122,800",
-      "return_pct": -0.88,
-      "day_chg_pct": -0.88,
-      "cash": 45657600,
-      "asof": "🇰🇷 장중 리포트 시점",
+      "total_value": 99327800,
+      "total_value_str": "99,327,800",
+      "return_pct": -0.67,
+      "day_chg_pct": -0.67,
+      "cash": 22716230,
+      "asof": "🇺🇸 장중 리포트 시점",
       "holdings": [
         {
           "name": "셀트리온",
-          "value_str": "14,032,200",
-          "weight_pct": 14.2,
-          "pl_pct": 0.56
+          "value_str": "14,040,000",
+          "weight_pct": 14.1,
+          "pl_pct": 0.61
         },
         {
           "name": "삼성바이오로직스",
-          "value_str": "11,816,000",
+          "value_str": "11,832,000",
           "weight_pct": 11.9,
-          "pl_pct": 0.0
+          "pl_pct": 0.14
         },
         {
           "name": "KB금융",
-          "value_str": "11,469,600",
+          "value_str": "11,527,200",
           "weight_pct": 11.6,
-          "pl_pct": -3.51
+          "pl_pct": -3.03
+        },
+        {
+          "name": "헬스케어ETF",
+          "value_str": "8,998,604",
+          "weight_pct": 9.1,
+          "pl_pct": -0.0
         },
         {
           "name": "NAVER",
-          "value_str": "8,387,400",
+          "value_str": "8,463,000",
           "weight_pct": 8.5,
-          "pl_pct": -6.02
+          "pl_pct": -5.18
         },
         {
           "name": "크래프톤",
-          "value_str": "7,760,000",
-          "weight_pct": 7.8,
+          "value_str": "7,808,000",
+          "weight_pct": 7.9,
+          "pl_pct": 0.62
+        },
+        {
+          "name": "필수소비ETF",
+          "value_str": "6,984,285",
+          "weight_pct": 7.0,
+          "pl_pct": 0.0
+        },
+        {
+          "name": "금융ETF",
+          "value_str": "6,958,481",
+          "weight_pct": 7.0,
           "pl_pct": 0.0
         }
       ]
