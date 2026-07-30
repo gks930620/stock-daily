@@ -10,7 +10,16 @@ us_index:
   "^DJI": 다우
   "^RUT": 러셀2000
 
-# 미국 섹터 ETF (업종 흐름 파악)
+# 해외 지수 (글로벌 위험선호 교차 확인 — 참고용, 거래 불가)
+global_index:
+  "^N225": 닛케이225
+  "000001.SS": 상해종합
+  "^HSI": 항셍
+  "^TWII": 대만가권
+  "^STOXX50E": 유로스톡스50
+  "^FTSE": 영국FTSE
+
+# 미국 섹터 ETF (업종 흐름 파악 — SPDR 11개 섹터 전체)
 us_sector:
   "SMH": 반도체ETF
   "XLK": 기술ETF
@@ -21,6 +30,11 @@ us_sector:
   "XLY": 경기소비ETF
   "XLP": 필수소비ETF
   "XLU": 유틸리티ETF
+  "XLB": 소재ETF
+  "XLRE": 부동산ETF
+  "XLC": 커뮤니케이션ETF
+  "IWM": 러셀2000ETF
+  "EWY": 한국ETF(MSCI)
 
 # 리스크·금리 지표
 risk:
@@ -31,21 +45,26 @@ risk:
   "^TYX": 미 30년물 금리
   "DX-Y.NYB": 달러인덱스
   "TLT": 미 장기국채ETF
+  "IEF": 미 중기국채ETF
+  "LQD": 투자등급회사채ETF
   "HYG": 하이일드채권ETF
 
 # 원자재
 commodity:
   "CL=F": WTI 유가
+  "BZ=F": 브렌트유
   "GC=F": 금
   "SI=F": 은
   "HG=F": 구리
   "NG=F": 천연가스
+  "ZW=F": 밀
 
 # 암호화폐
 crypto:
   "BTC-USD": 비트코인
   "ETH-USD": 이더리움
   "SOL-USD": 솔라나
+  "XRP-USD": 리플
 
 # 환율
 fx:
@@ -80,6 +99,16 @@ kr_stock:
   "259960.KS": 크래프톤
   "066570.KS": LG전자
   "028260.KS": 삼성물산
+  "015760.KS": 한국전력
+  "033780.KS": KT&G
+  "000810.KS": 삼성화재
+  "011200.KS": HMM
+  "352820.KS": 하이브
+  "010130.KS": 고려아연
+  "009540.KS": HD한국조선해양
+  "196170.KQ": 알테오젠
+  "247540.KQ": 에코프로비엠
+  "086520.KQ": 에코프로
 
 # 미국 주요 종목 (메가캡 + 섹터 대표)
 us_stock:
@@ -99,3 +128,11 @@ us_stock:
   "LLY": 일라이릴리
   "COST": 코스트코
   "PLTR": 팔란티어
+  "BRK-B": 버크셔해서웨이
+  "V": 비자
+  "JNJ": 존슨앤드존슨
+  "XOM": 엑슨모빌
+  "WMT": 월마트
+  "ORCL": 오라클
+  "CRM": 세일즈포스
+  "UNH": 유나이티드헬스

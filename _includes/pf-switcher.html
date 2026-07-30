@@ -1,10 +1,9 @@
 <div class="pf-switch">
-  <a href="{{ '/portfolio/' | relative_url }}" {% if include.cur == null %}class="on"{% endif %}>🏆 5인 비교</a>
+  <a href="{{ '/portfolio/' | relative_url }}" {% if include.cur == null %}class="on"{% endif %}>🏆 4인 비교</a>
   <a href="{{ '/portfolio/stable/' | relative_url }}" {% if include.cur == 'stable' %}class="on"{% endif %}>🛡️ 안정형</a>
   <a href="{{ '/portfolio/aggressive/' | relative_url }}" {% if include.cur == 'aggressive' %}class="on"{% endif %}>🚀 공격형</a>
   <a href="{{ '/portfolio/normal1/' | relative_url }}" {% if include.cur == 'normal1' %}class="on"{% endif %}>🙂 평범형 1</a>
   <a href="{{ '/portfolio/normal2/' | relative_url }}" {% if include.cur == 'normal2' %}class="on"{% endif %}>🙂 평범형 2</a>
-  <a href="{{ '/portfolio/normal3/' | relative_url }}" {% if include.cur == 'normal3' %}class="on"{% endif %}>🙂 평범형 3</a>
 </div>
 <style>
 .pf-switch{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:0 0 16px;font-size:13.5px;}

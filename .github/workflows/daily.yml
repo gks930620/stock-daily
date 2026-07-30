@@ -10,8 +10,8 @@ name: 시장 예상 (cloud)
 #      그래서 크론을 목표보다 ~3.5h 일찍 걸고, "목표 시각까지 대기" 스텝이 정확한 시각에 시작시킨다.
 #      → 발행 시각이 매일 같아진다. (지연이 목표를 넘겼으면 즉시 실행)
 #      실제 파이프라인 소요: AI 4명 시절 ~20분(14:30 시작 → 14:50 커밋).
-#      ⚠️ 2026-07-28 매니저 3인→5인(총 6세션)으로 늘어 소요가 ~28분 예상 → 발행 ~15:00.
-#         한국장 마감 15:30까지 여유가 줄었다. 더 밀리면 목표 시작을 14:15로 당길 것.
+#      ⚠️ 2026-07-30 매니저 4인(총 5세션) · 평범형 2인은 fable(더 빠름) → 소요 ~22분 예상.
+#         크론 지연이 큰 날엔 여전히 15:30 마감에 걸릴 수 있다 — 그때 목표 시작을 14:15로 당길 것.
 #
 # 원칙: **리포트를 본 사람이 30분 안에 같은 가격대로 실제 매수할 수 있어야 한다.**
 #   장중에 발행하고, 체결가 = AI가 분석한 그 시세(market.json). 가격을 보고 판단했으니 그 가격에 산다.
@@ -110,21 +110,27 @@ jobs:
       - name: Claude Code 설치
         run: npm install -g @anthropic-ai/claude-code
 
-      # 1단계 🧑‍💼 포트폴리오 매니저 5인 (각자 독립 세션·독립 계좌)이 먼저 종목을 정한다.
-      #    · 성향파 2명: 🛡️안정 · 🚀공격 — 뚜렷한 색깔을 준 극단 양 끝
-      #    · 평범형 3명: normal1/2/3 — **완전히 동일한 지시문**의 대조군.
-      #      같은 데이터·같은 프롬프트로 AI 판단이 얼마나 갈리는지(편차) 측정용이므로 셋을 다르게 만들지 않는다.
-      #    → 5개의 주문서. 전원 effort=xhigh (최고 심층추론).
-      #      Max 사용량 부담 시 매니저만 high로 낮추거나 평범형 수를 줄이는 선택지.
-      - name: Claude 포트폴리오 매매 결정 × 5인 (먼저 실행 — 종목 확정)
+      # 1단계 🧑‍💼 포트폴리오 매니저 4인 (각자 독립 세션·독립 계좌)이 먼저 종목을 정한다.
+      #    · 성향파 2명 (모델 opus): 🛡️안정 · 🚀공격 — 뚜렷한 색깔을 준 극단 양 끝
+      #    · 평범형 2명 (모델 fable): normal1/2 — **완전히 동일한 지시문**의 대조군.
+      #      같은 모델·같은 데이터·같은 프롬프트로 판단이 얼마나 갈리는지(편차) 측정용이므로
+      #      둘을 의도적으로 다르게 만들지 않는다.
+      #    → 4개의 주문서. 전원 effort=xhigh (최고 심층추론).
+      #      ⚠️ fable + xhigh 조합은 2026-07-30 실측 확인함(정상 동작).
+      - name: Claude 포트폴리오 매매 결정 × 4인 (먼저 실행 — 종목 확정)
         env:
           CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
         run: |
           MODE=${{ steps.mode.outputs.mode }}
           REPORT_DATE=$(TZ='Asia/Seoul' date +%Y-%m-%d)
           claude --version
-          for P in stable aggressive normal1 normal2 normal3; do
-            echo "───── 포트폴리오 매니저: $P ─────"
+          for P in stable aggressive normal1 normal2; do
+            # 매니저별 모델: 성향파=opus(최신 Opus) / 평범형=fable(최신 Fable)
+            case "$P" in
+              normal1|normal2) MODEL=fable ;;
+              *)               MODEL=opus  ;;
+            esac
+            echo "───── 포트폴리오 매니저: $P · 모델 $MODEL ─────"
             PROMPT="$(cat prompts/persona-$P.md prompts/portfolio.md)
 
           [실행 안내]
@@ -134,11 +140,11 @@ jobs:
           - 네 계좌 파일: _data/portfolio-${P}.json (없으면 현금 1억 시작)
           - 너는 1차 결정자다. 데이터를 직접 보고 종목을 정하라 (애널리스트 리포트는 아직 없다).
           - git 금지. 주문서 JSON 파일 생성까지만."
-            claude -p "$PROMPT" --model opus --effort xhigh --permission-mode bypassPermissions --verbose
+            claude -p "$PROMPT" --model "$MODEL" --effort xhigh --permission-mode bypassPermissions --verbose
           done
 
-      # 2단계 🧠 애널리스트가 5인의 주문서를 종합해 "오늘의 매수/매도 종목"을 깔끔하게 정리한다.
-      - name: Claude 종합 리포트 생성 (5인 주문 종합 — 종목 결론)
+      # 2단계 🧠 애널리스트가 4인의 주문서를 종합해 "오늘의 매수/매도 종목"을 깔끔하게 정리한다.
+      - name: Claude 종합 리포트 생성 (4인 주문 종합 — 종목 결론)
         env:
           # 구독(Max) 토큰만 사용. API 키는 넣지 않음 → Max 사용량으로 차감.
           CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
@@ -152,16 +158,17 @@ jobs:
           [CI 환경 안내]
           - 오늘 날짜(KST): ${REPORT_DATE} / 어제: ${YESTERDAY}
           - **지금 시각(KST): ${REPORT_TIME}** → front matter의 date를 반드시 \`${REPORT_DATE} ${REPORT_TIME}:00 +0900\` 로 쓸 것 (실제 작성 시각).
-          - 방금 5인이 낸 주문서: portfolio/orders/${REPORT_DATE}-${MODE}-{stable,aggressive,normal1,normal2,normal3}.json 를 반드시 읽어 종합하라.
+          - 방금 4인이 낸 주문서: portfolio/orders/${REPORT_DATE}-${MODE}-{stable,aggressive,normal1,normal2}.json 를 반드시 읽어 종합하라.
+          - 모델 구성: 안정형·공격형=opus · 평범형1·2=fable (평범형 둘은 동일 모델·동일 지시문의 대조군).
           - git 명령은 직접 실행하지 마라. 파일 생성까지만 하면 커밋·push는 워크플로가 처리한다."
           # --model opus: 항상 최신 Opus / --effort xhigh: 최고 심층추론
           claude -p "$PROMPT" --model opus --effort xhigh --permission-mode bypassPermissions --verbose
 
       # 체결가 = AI가 분석한 바로 그 시세(market.json). 가격을 보고 판단했으니 그 가격에 산다.
       # 룩어헤드 아님: 수익은 이 시점 '이후' 가격에서 나오고, AI는 그걸 볼 수 없다.
-      - name: 가상 포트폴리오 체결·평가 × 5인 (AI가 본 시세로 체결)
+      - name: 가상 포트폴리오 체결·평가 × 4인 (AI가 본 시세로 체결)
         run: |
-          for P in stable aggressive normal1 normal2 normal3; do
+          for P in stable aggressive normal1 normal2; do
             echo "───── 체결·평가: $P ─────"
             python scripts/portfolio.py ${{ steps.mode.outputs.label }} $P
           done

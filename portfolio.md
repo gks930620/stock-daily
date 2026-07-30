@@ -1,12 +1,12 @@
 ---
 layout: default
-title: 가상 포트폴리오 · 5인 비교
+title: 가상 포트폴리오 · 4인 비교
 permalink: /portfolio/
 ---
 
-{% assign ids = "stable,aggressive,normal1,normal2,normal3" | split: "," %}
-{%- comment -%} 평범형 3인은 동일 지시문의 대조군이라 같은 색을 준다 — 한 그룹임을 색으로 표시 {%- endcomment -%}
-{% assign accents = "stable:#2f9e7f,aggressive:#d6452f,normal1:#5b7cb8,normal2:#5b7cb8,normal3:#5b7cb8" | split: "," %}
+{% assign ids = "stable,aggressive,normal1,normal2" | split: "," %}
+{%- comment -%} 평범형 2인은 동일 모델·동일 지시문의 대조군이라 같은 색 — 한 그룹임을 색으로 표시 {%- endcomment -%}
+{% assign accents = "stable:#2f9e7f,aggressive:#d6452f,normal1:#5b7cb8,normal2:#5b7cb8" | split: "," %}
 
 {%- assign best = -99999 -%}
 {%- for id in ids -%}{%- assign key = 'portfolio-' | append: id -%}{%- assign pf = site.data[key] -%}{%- if pf.return_pct > best -%}{%- assign best = pf.return_pct -%}{%- endif -%}{%- endfor -%}
@@ -15,8 +15,8 @@ permalink: /portfolio/
   {% include pf-switcher.html %}
 
   <header class="hh">
-    <h1>같은 시장, 다섯 개의 뇌</h1>
-    <p>AI 5명이 <b>각자 1억 원</b>으로 굴린다. 같은 시각 같은 데이터를 보지만 <b>🛡️ 안정형은 지키고 🚀 공격형은 밀어붙인다</b> — 성향을 준 극단 양 끝이다. 나머지 <b>🙂 평범형 1·2·3은 성향 없이 똑같은 지시문</b>을 받은 대조군: <b>같은 조건에서 AI의 판단이 얼마나 갈리는지</b>를 보기 위한 셋이다. 누가 진짜 고수인지는 손익이 말한다.</p>
+    <h1>같은 시장, 네 개의 뇌</h1>
+    <p>AI 4명이 <b>각자 1억 원</b>으로 굴린다. 같은 시각 같은 데이터를 보지만 <b>🛡️ 안정형은 지키고 🚀 공격형은 밀어붙인다</b> — 성향을 준 극단 양 끝(모델 <code>opus</code>)이다. 나머지 <b>🙂 평범형 1·2는 성향 없이 똑같은 지시문</b>을 받은 대조군(모델 <code>fable</code>): <b>같은 조건에서 판단이 얼마나 갈리는지</b>를 보기 위한 둘이다. 누가 진짜 고수인지는 손익이 말한다.</p>
     <p class="note">📌 평일 2회 <b>장중</b> 리포트 시점에 <b>AI가 본 그 시세로 체결·평가</b> (🇰🇷 오후 · 🇺🇸 밤) · 수수료·세금·슬리피지 미반영 · 가상 매매이며 투자 조언이 아님</p>
   </header>
 
@@ -56,7 +56,7 @@ permalink: /portfolio/
   </div>
 
   <p class="foot">각 카드를 누르면 그 계좌의 <b>보유종목·평단·매매일지·자산곡선</b>이 증권앱처럼 열립니다.<br>
-  ⚠️ <b>시작일이 다릅니다</b> — 🛡️안정·🚀공격은 2026-07-20 개시, 🙂평범형 1·2·3은 2026-07-28 개시. 누적 수익률을 나란히 볼 때 감안하세요(카드의 <b>N일차</b> 참고). · <a href="{{ '/' | relative_url }}">← 리포트</a></p>
+  ⚠️ <b>시작일이 다릅니다</b> — 🛡️안정·🚀공격은 2026-07-20 개시, 🙂평범형 1·2는 2026-07-28 개시. 누적 수익률을 나란히 볼 때 감안하세요(카드의 <b>N일차</b> 참고). · <a href="{{ '/' | relative_url }}">← 리포트</a></p>
 </div>
 
 <style>

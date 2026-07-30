@@ -1,6 +1,6 @@
 # 매일 주식시장 예상 (stock-daily)
 
-**GitHub 서버**가 평일 2회 **장중에** 데이터를 모으고 **Claude가 분석**해, **"지금 이 종목 사라/팔아라"** 리포트를 공개 사이트에 자동 게시합니다. 리포트를 본 사람이 **30분 안에 같은 가격대로 살 수 있는 시각**에 내며, **AI 5인이 각자 1억으로 실제 매매**해 누가 잘하는지 추적합니다 (🛡️안정·🚀공격 + 동일 지시문 대조군 🙂평범형 3인).
+**GitHub 서버**가 평일 2회 **장중에** 데이터를 모으고 **Claude가 분석**해, **"지금 이 종목 사라/팔아라"** 리포트를 공개 사이트에 자동 게시합니다. 리포트를 본 사람이 **30분 안에 같은 가격대로 살 수 있는 시각**에 내며, **AI 4인이 각자 1억으로 실제 매매**해 누가 잘하는지 추적합니다 (🛡️안정·🚀공격[opus] + 동일 지시문 대조군 🙂평범형 2인[fable]).
 
 - 🌐 **공개 사이트**: https://gks930620.github.io/stock-daily/
 - ⏰ 평일 2회 장중 자동 실행 (GitHub Actions): **🇰🇷 14:45 발행**(마감 15:30 전 매수 가능) · **🇺🇸 23:45 발행**(장중)
@@ -24,14 +24,14 @@
 _config.yml / index.md            Jekyll 사이트 설정 / 홈
 _posts/YYYY-MM-DD-kr-market.md    🇰🇷 한국장 리포트 (평일 14:45 발행)
 _posts/YYYY-MM-DD-us-market.md    🇺🇸 미국장 리포트 (평일 23:45 발행)
-portfolio.md / portfolio-<id>.md     5인 비교 허브 / 계좌별 상세 페이지
-_data/portfolio-<성향>.json        계좌 상태 (stable·aggressive·normal1·normal2·normal3)
+portfolio.md / portfolio-<id>.md     4인 비교 허브 / 계좌별 상세 페이지
+_data/portfolio-<성향>.json        계좌 상태 (stable·aggressive·normal1·normal2)
 portfolio/orders/<날짜>-<kr|us>-<성향>.json  세션·성향별 매매 주문서 (AI 결정)
 assets/charts/ · assets/portfolio/   차트 PNG · 성향별 자산곡선
 data/YYYY-MM-DD/market*.json      시세 스냅샷 (kr/us — 검증용 커밋)
 config/watchlist.yaml             수집 종목 목록 (여기만 편집하면 반영)
 prompts/kr-report.md · us-report.md  세션별 종합 리포트 지시문 (애널리스트)
-prompts/portfolio.md · persona-*.md  매매 공용 규칙 · 매니저 5인 지시문
+prompts/portfolio.md · persona-*.md  매매 공용 규칙 · 매니저 4인 지시문
 scripts/collect_data.py           시세+경제지표(FRED) 수집
 scripts/make_charts.py            차트 이미지 생성
 scripts/screener.py               비인기 종목 후보 발굴 (한국)
@@ -47,4 +47,4 @@ docs/                             설계·규칙·문서
 1. `claude setup-token` 으로 토큰 발급
 2. GitHub Secret `CLAUDE_CODE_OAUTH_TOKEN` 등록
 
-이후 평일 2회 자동으로 [수집 → 차트 → (스크리너) → **AI 5인 매매 결정** → **애널리스트 종합 리포트** → 체결 → 게시]가 돌아갑니다.
+이후 평일 2회 자동으로 [수집 → 차트 → (스크리너) → **AI 4인 매매 결정** → **애널리스트 종합 리포트** → 체결 → 게시]가 돌아갑니다.
