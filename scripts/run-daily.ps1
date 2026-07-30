@@ -78,6 +78,11 @@ foreach ($P in @("stable","aggressive","normal1","normal2")) {
     if ($LASTEXITCODE -ne 0) { Write-Warning "포트폴리오($P) 갱신 실패(계속 진행)" }
 }
 
+# 보유 종목별 '일별 추이 + 내 매수 시점' 그래프 — 4계좌 전부 돌린 뒤 한 번만
+Write-Host "[보유종목 차트] 생성..."
+& $venvPython "$repo\scripts\holding_charts.py"
+if ($LASTEXITCODE -ne 0) { Write-Warning "보유종목 차트 실패(계속 진행)" }
+
 Write-Host "커밋·푸시..."
 git add -A
 git diff --cached --quiet

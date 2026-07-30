@@ -58,6 +58,19 @@ PERSONAS = {
     "normal2":    {"name": "평범형 2", "emoji": "🙂", "tag": "성향 없음 — 데이터가 가리키는 대로. 동일 지시문 대조군 (fable)"},
 }
 
+# 보유 종목을 페이지에서 🇰🇷/🇺🇸/🌐로 나눠 보여주기 위한 시장 구분.
+#  ⚠️ 통화(KRW/USD)로 나누면 안 된다 — 암호화폐·원자재도 USD라서 '미국'으로 잘못 묶인다.
+MARKET_OF = {"kr_stock": "kr", "kr_index": "kr", "us_stock": "us", "us_sector": "us"}
+MARKET_META = {                                  # 페이지 섹션 제목·정렬 순서
+    "kr":  {"label": "🇰🇷 한국", "order": 0},
+    "us":  {"label": "🇺🇸 미국", "order": 1},
+    "etc": {"label": "🌐 24시간 자산 (암호화폐·원자재)", "order": 2},
+}
+# 보유 종목 색상 팔레트 — 비중 막대와 목록 행이 같은 색을 쓰도록 파이썬에서 확정한다
+# (레이아웃에서 루프 인덱스로 칠하면 한국/미국 섹션을 나눌 때 색이 겹친다)
+PALETTE = ["#3ba272", "#e8a33d", "#8b5fd6", "#d3655f", "#4aa3c0", "#c0699d",
+           "#7d9a3c", "#c98a4b", "#5f7fd6", "#b05fa8", "#3f9e8c", "#cf7060"]
+
 # 24시간 자산(암호화폐·원자재) 표시 단위 — 나머지 주식·ETF는 "주"
 UNIT_OVERRIDE = {"GC=F": "oz", "MGC=F": "oz", "SI=F": "oz", "CL=F": "bbl", "BZ=F": "bbl",
                  "BTC-USD": "BTC", "ETH-USD": "ETH"}
@@ -270,6 +283,8 @@ def main() -> int:
         hold_view.append({
             "ticker": t, "name": h["name"], "qty": qn(h["qty"]),
             "unit": unit_of(t, info["category"]), "currency": info["currency"],
+            "category": info["category"],
+            "market": MARKET_OF.get(info["category"], "etc"),   # 🇰🇷/🇺🇸/🌐 섹션 구분
             "cost_str": won(h["cost_krw"]),
             "pl_krw_str": ("+" if pl_krw >= 0 else "") + won(pl_krw),
             "avg_krw": round(avg), "avg_str": won(avg),
@@ -280,12 +295,29 @@ def main() -> int:
             "pl_pct": round((pr / avg - 1) * 100, 2) if avg else 0.0,
             "lots": lots_view,
         })
-    hold_view.sort(key=lambda x: x["value_krw"], reverse=True)
+    # 시장(🇰🇷→🇺🇸→🌐) 먼저, 그 안에서 평가액 큰 순 — 페이지 섹션 순서와 일치시킨다
+    hold_view.sort(key=lambda x: (MARKET_META[x["market"]]["order"], -x["value_krw"]))
     total = cash + holdings_value
     ret_pct = (total / START_CAPITAL - 1) * 100
-    for hv in hold_view:
+    for i, hv in enumerate(hold_view):
         hv["weight_pct"] = round(hv["value_krw"] / total * 100, 1) if total else 0
         hv["value_str"] = won(hv["value_krw"])
+        hv["color"] = PALETTE[i % len(PALETTE)]      # 비중 막대와 목록 행이 같은 색을 쓰게 고정
+
+    # 시장별 소계 — 페이지에서 "🇰🇷 한국 · 3종목 · 4,120만원 (41.2%)" 섹션 헤더로 쓴다.
+    # ⚠️ 보유 목록 자체는 담지 않는다(중복 저장 시 holdings_view와 어긋난다).
+    #    레이아웃이 holdings_view를 market으로 필터링해 같은 dict를 쓰게 한다.
+    by_market = []
+    for mkt, meta in sorted(MARKET_META.items(), key=lambda kv: kv[1]["order"]):
+        rows = [hv for hv in hold_view if hv["market"] == mkt]
+        if not rows:
+            continue
+        v = sum(hv["value_krw"] for hv in rows)
+        by_market.append({
+            "market": mkt, "label": meta["label"], "count": len(rows),
+            "value_krw": round(v), "value_str": won(v),
+            "weight_pct": round(v / total * 100, 1) if total else 0,
+        })
 
     # 대기 주문 없음(종가 즉시체결) — 페이지 호환 위해 빈 목록 유지
     pending_view = []
@@ -309,7 +341,7 @@ def main() -> int:
         "cash": round(cash), "holdings": holdings, "updated": today,
         "total_value": round(total), "holdings_value": round(holdings_value),
         "return_pct": round(ret_pct, 2), "usdkrw": round(usdkrw, 2) if usdkrw else None,
-        "holdings_view": hold_view, "history": hist,
+        "holdings_view": hold_view, "by_market": by_market, "history": hist,
         "pending_orders": pending, "pending_view": pending_view,
         "total_value_str": won(total), "cash_str": won(cash),
         "holdings_value_str": won(holdings_value), "start_capital_str": won(START_CAPITAL),

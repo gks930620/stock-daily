@@ -16,8 +16,12 @@ permalink: /portfolio/
 
   <header class="hh">
     <h1>같은 시장, 네 개의 뇌</h1>
-    <p>AI 4명이 <b>각자 1억 원</b>으로 굴린다. 같은 시각 같은 데이터를 보지만 <b>🛡️ 안정형은 지키고 🚀 공격형은 밀어붙인다</b> — 성향을 준 극단 양 끝(모델 <code>opus</code>)이다. 나머지 <b>🙂 평범형 1·2는 성향 없이 똑같은 지시문</b>을 받은 대조군(모델 <code>fable</code>): <b>같은 조건에서 판단이 얼마나 갈리는지</b>를 보기 위한 둘이다. 누가 진짜 고수인지는 손익이 말한다.</p>
-    <p class="note">📌 평일 2회 <b>장중</b> 리포트 시점에 <b>AI가 본 그 시세로 체결·평가</b> (🇰🇷 오후 · 🇺🇸 밤) · 수수료·세금·슬리피지 미반영 · 가상 매매이며 투자 조언이 아님</p>
+    <p class="one">각자 1억 · 같은 데이터 · 손익으로 증명</p>
+    <div class="brief">
+      <span class="bi"><b>🛡️ 안정형</b> 지킨다 <i>opus</i></span>
+      <span class="bi"><b>🚀 공격형</b> 밀어붙인다 <i>opus</i></span>
+      <span class="bi"><b>🙂 평범형 1·2</b> 성향 없음 · 동일 지시문 대조군 <i>fable</i></span>
+    </div>
   </header>
 
   <div class="grid">
@@ -61,9 +65,13 @@ permalink: /portfolio/
 
 <style>
 .pfhub{--u:#d63c2f;--dn:#2563d0;}
-.pfhub .hh h1{font-size:clamp(24px,4.6vw,32px);margin:.2em 0 .35em;letter-spacing:-.02em;}
-.pfhub .hh p{font-size:15px;line-height:1.7;color:var(--text);margin:.3em 0;}
-.pfhub .hh .note{font-size:12.5px;color:var(--muted);background:var(--card);border:1px solid var(--line);border-radius:9px;padding:8px 12px;margin-top:10px;}
+.pfhub .hh h1{font-size:clamp(28px,5.4vw,42px);margin:.15em 0 .3em;letter-spacing:-.03em;line-height:1.15;}
+.pfhub .hh .one{font-size:clamp(16px,2.2vw,19px);font-weight:700;color:var(--text);margin:0 0 14px;letter-spacing:-.01em;}
+.pfhub .brief{display:flex;flex-wrap:wrap;gap:8px;}
+.pfhub .bi{font-size:14.5px;color:var(--muted);background:var(--card);border:1px solid var(--line);border-radius:999px;padding:7px 15px;white-space:nowrap;}
+.pfhub .bi b{color:var(--text);font-weight:800;margin-right:5px;}
+.pfhub .bi i{font-style:normal;font-size:11.5px;font-weight:700;color:var(--muted);border:1px solid var(--line);border-radius:5px;padding:1px 5px;margin-left:6px;vertical-align:1px;}
+@media (max-width:520px){.pfhub .bi{white-space:normal;}}
 .pfhub .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin:22px 0 10px;}
 .pfhub .pcard{display:block;text-decoration:none;color:var(--text);background:var(--card);border:1px solid var(--line);border-top:4px solid var(--ac);border-radius:15px;padding:18px 19px;box-shadow:var(--shadow);transition:transform .12s,box-shadow .12s;}
 .pfhub .pcard:hover{transform:translateY(-3px);box-shadow:0 10px 26px rgba(0,0,0,.13);}

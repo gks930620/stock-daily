@@ -657,6 +657,12 @@
           "pl_pct": -3.46
         },
         {
+          "name": "삼성바이오로직스",
+          "value_str": "4,596,000",
+          "weight_pct": 4.6,
+          "pl_pct": 9.62
+        },
+        {
           "name": "필수소비ETF",
           "value_str": "7,164,982",
           "weight_pct": 7.1,
@@ -667,12 +673,6 @@
           "value_str": "6,936,831",
           "weight_pct": 6.9,
           "pl_pct": 1.18
-        },
-        {
-          "name": "삼성바이오로직스",
-          "value_str": "4,596,000",
-          "weight_pct": 4.6,
-          "pl_pct": 9.62
         }
       ]
     }
@@ -689,6 +689,8 @@
       "qty": 69,
       "unit": "주",
       "currency": "KRW",
+      "category": "kr_stock",
+      "market": "kr",
       "cost_str": "11,978,400",
       "pl_krw_str": "-489,900",
       "avg_krw": 173600,
@@ -718,7 +720,9 @@
         }
       ],
       "weight_pct": 11.4,
-      "value_str": "11,488,500"
+      "value_str": "11,488,500",
+      "color": "#3ba272",
+      "chart": "h-stable-105560-ks.png"
     },
     {
       "ticker": "055550.KS",
@@ -726,6 +730,8 @@
       "qty": 96,
       "unit": "주",
       "currency": "KRW",
+      "category": "kr_stock",
+      "market": "kr",
       "cost_str": "9,993,600",
       "pl_krw_str": "-345,600",
       "avg_krw": 104100,
@@ -755,81 +761,9 @@
         }
       ],
       "weight_pct": 9.6,
-      "value_str": "9,648,000"
-    },
-    {
-      "ticker": "XLP",
-      "name": "필수소비ETF",
-      "qty": 57,
-      "unit": "주",
-      "currency": "USD",
-      "cost_str": "6,994,003",
-      "pl_krw_str": "+170,978",
-      "avg_krw": 122702,
-      "avg_str": "122,702",
-      "avg_native_str": "$83.94",
-      "price_krw": 125701,
-      "price_str": "125,701",
-      "price_native_str": "$87.36",
-      "price_date": "2026-07-29",
-      "value_krw": 7164982,
-      "pl_pct": 2.44,
-      "lots": [
-        {
-          "date": "2026-07-24",
-          "session": "us",
-          "qty": 57,
-          "price_krw": 122702,
-          "price_native": 83.94,
-          "currency": "USD",
-          "krw": 6994003,
-          "fx": 1461.78,
-          "price_date": "2026-07-24",
-          "basis": "2026-07-24 리포트 시세",
-          "krw_str": "6,994,003",
-          "price_krw_str": "122,702",
-          "native_str": "$83.94"
-        }
-      ],
-      "weight_pct": 7.1,
-      "value_str": "7,164,982"
-    },
-    {
-      "ticker": "XLV",
-      "name": "헬스케어ETF",
-      "qty": 29,
-      "unit": "주",
-      "currency": "USD",
-      "cost_str": "6,856,243",
-      "pl_krw_str": "+80,588",
-      "avg_krw": 236422,
-      "avg_str": "236,422",
-      "avg_native_str": "$160.42",
-      "price_krw": 239201,
-      "price_str": "239,201",
-      "price_native_str": "$166.24",
-      "price_date": "2026-07-29",
-      "value_krw": 6936831,
-      "pl_pct": 1.18,
-      "lots": [
-        {
-          "date": "2026-07-23",
-          "session": "us",
-          "qty": 29,
-          "price_krw": 236422,
-          "price_native": 160.42,
-          "currency": "USD",
-          "krw": 6856243,
-          "fx": 1473.77,
-          "price_date": "2026-07-23",
-          "basis": "2026-07-23 리포트 시세",
-          "krw_str": "6,856,243",
-          "price_krw_str": "236,422",
-          "native_str": "$160.42"
-        }
-      ],
-      "weight_pct": 6.9,
-      "value_str": "6,936,831"
+      "value_str": "9,648,000",
+      "color": "#e8a33d",
+      "chart": "h-stable-055550-ks.png"
     },
     {
       "ticker": "207940.KS",
@@ -837,6 +771,8 @@
       "qty": 3,
       "unit": "주",
       "currency": "KRW",
+      "category": "kr_stock",
+      "market": "kr",
       "cost_str": "4,192,500",
       "pl_krw_str": "+403,500",
       "avg_krw": 1397500,
@@ -866,7 +802,91 @@
         }
       ],
       "weight_pct": 4.6,
-      "value_str": "4,596,000"
+      "value_str": "4,596,000",
+      "color": "#8b5fd6",
+      "chart": "h-stable-207940-ks.png"
+    },
+    {
+      "ticker": "XLP",
+      "name": "필수소비ETF",
+      "qty": 57,
+      "unit": "주",
+      "currency": "USD",
+      "category": "us_sector",
+      "market": "us",
+      "cost_str": "6,994,003",
+      "pl_krw_str": "+170,978",
+      "avg_krw": 122702,
+      "avg_str": "122,702",
+      "avg_native_str": "$83.94",
+      "price_krw": 125701,
+      "price_str": "125,701",
+      "price_native_str": "$87.36",
+      "price_date": "2026-07-29",
+      "value_krw": 7164982,
+      "pl_pct": 2.44,
+      "lots": [
+        {
+          "date": "2026-07-24",
+          "session": "us",
+          "qty": 57,
+          "price_krw": 122702,
+          "price_native": 83.94,
+          "currency": "USD",
+          "krw": 6994003,
+          "fx": 1461.78,
+          "price_date": "2026-07-24",
+          "basis": "2026-07-24 리포트 시세",
+          "krw_str": "6,994,003",
+          "price_krw_str": "122,702",
+          "native_str": "$83.94"
+        }
+      ],
+      "weight_pct": 7.1,
+      "value_str": "7,164,982",
+      "color": "#d3655f",
+      "chart": "h-stable-xlp.png"
+    },
+    {
+      "ticker": "XLV",
+      "name": "헬스케어ETF",
+      "qty": 29,
+      "unit": "주",
+      "currency": "USD",
+      "category": "us_sector",
+      "market": "us",
+      "cost_str": "6,856,243",
+      "pl_krw_str": "+80,588",
+      "avg_krw": 236422,
+      "avg_str": "236,422",
+      "avg_native_str": "$160.42",
+      "price_krw": 239201,
+      "price_str": "239,201",
+      "price_native_str": "$166.24",
+      "price_date": "2026-07-29",
+      "value_krw": 6936831,
+      "pl_pct": 1.18,
+      "lots": [
+        {
+          "date": "2026-07-23",
+          "session": "us",
+          "qty": 29,
+          "price_krw": 236422,
+          "price_native": 160.42,
+          "currency": "USD",
+          "krw": 6856243,
+          "fx": 1473.77,
+          "price_date": "2026-07-23",
+          "basis": "2026-07-23 리포트 시세",
+          "krw_str": "6,856,243",
+          "price_krw_str": "236,422",
+          "native_str": "$160.42"
+        }
+      ],
+      "weight_pct": 6.9,
+      "value_str": "6,936,831",
+      "color": "#4aa3c0",
+      "chart": "h-stable-xlv.png"
     }
   ],
   "pending_view": [],
@@ -883,7 +903,7 @@
   "persona": "stable",
   "persona_name": "안정형",
   "persona_emoji": "🛡️",
-  "persona_tag": "가치·방어 — 저평가 우량주·배당, 현금 넉넉, 손실 최소 우선",
+  "persona_tag": "가치·방어 — 저평가 우량주·배당, 현금 넉넉, 손실 최소 우선 (opus)",
   "journal_view": [
     {
       "date": "2026-07-30",
@@ -1159,6 +1179,12 @@
           "pl_pct": -3.46
         },
         {
+          "name": "삼성바이오로직스",
+          "value_str": "4,596,000",
+          "weight_pct": 4.6,
+          "pl_pct": 9.62
+        },
+        {
           "name": "필수소비ETF",
           "value_str": "7,164,982",
           "weight_pct": 7.1,
@@ -1169,12 +1195,6 @@
           "value_str": "6,936,831",
           "weight_pct": 6.9,
           "pl_pct": 1.18
-        },
-        {
-          "name": "삼성바이오로직스",
-          "value_str": "4,596,000",
-          "weight_pct": 4.6,
-          "pl_pct": 9.62
         }
       ]
     },
@@ -1444,6 +1464,24 @@
       "cash": 100000000,
       "asof": "🇰🇷 장중 리포트 시점",
       "holdings": []
+    }
+  ],
+  "by_market": [
+    {
+      "market": "kr",
+      "label": "🇰🇷 한국",
+      "count": 3,
+      "value_krw": 25732500,
+      "value_str": "25,732,500",
+      "weight_pct": 25.6
+    },
+    {
+      "market": "us",
+      "label": "🇺🇸 미국",
+      "count": 2,
+      "value_krw": 14101813,
+      "value_str": "14,101,813",
+      "weight_pct": 14.0
     }
   ]
 }

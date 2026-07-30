@@ -2,7 +2,7 @@
 layout: default
 ---
 {% assign p = site.data[page.pf_data] %}
-{% assign colors = "#3ba272,#e8a33d,#8b5fd6,#d3655f,#4aa3c0,#c0699d" | split: "," %}
+{%- comment -%} 종목 색상은 scripts/portfolio.py가 h.color로 확정해 내려준다 (한국/미국 섹션을 나눠도 색이 안 겹치게) {%- endcomment -%}
 <div class="pf1">
 
   {% include pf-switcher.html cur=p.persona %}
@@ -21,37 +21,53 @@ layout: default
 
   <div class="alloc-wrap">
     <div class="alloc">
-      {% for h in p.holdings_view %}<i style="width:{{ h.weight_pct }}%;background:{{ colors[forloop.index0] }}"></i>{% endfor %}<i style="width:{{ p.cash_weight_pct }}%;background:#9fb4cc"></i>
+      {% for h in p.holdings_view %}<i style="width:{{ h.weight_pct }}%;background:{{ h.color | default: '#64748b' }}"></i>{% endfor %}<i style="width:{{ p.cash_weight_pct }}%;background:#9fb4cc"></i>
     </div>
     <div class="alloc-lb">
-      {% for h in p.holdings_view %}<span><i class="dot" style="background:{{ colors[forloop.index0] }}"></i>{{ h.name }} <b>{{ h.weight_pct }}%</b></span>{% endfor %}
+      {% for h in p.holdings_view %}<span><i class="dot" style="background:{{ h.color | default: '#64748b' }}"></i>{{ h.name }} <b>{{ h.weight_pct }}%</b></span>{% endfor %}
       <span><i class="dot" style="background:#9fb4cc"></i>현금 <b>{{ p.cash_weight_pct }}%</b></span>
     </div>
   </div>
 
   <section class="card">
     <h2>보유 종목</h2>
-    {% for h in p.holdings_view %}
-    <details class="row">
-      <summary>
-        <span class="ava" style="background:{{ colors[forloop.index0] }}">{{ h.name | slice: 0, 1 }}</span>
-        <span class="nm"><b>{{ h.name }}</b><span>{{ h.qty }}{{ h.unit }} · 평단 {% if h.avg_native_str %}{{ h.avg_native_str }}{% else %}{{ h.avg_str }}원{% endif %} · 현재 {% if h.price_native_str %}{{ h.price_native_str }}{% else %}{{ h.price_str }}원{% endif %}</span></span>
-        <span class="val"><b>{{ h.value_str }}원</b><span class="{% if h.pl_pct >= 0 %}u{% else %}d{% endif %}">{% if h.pl_pct >= 0 %}▲ +{% else %}▼ {% endif %}{{ h.pl_pct }}%</span></span>
-      </summary>
-      <div class="lots">
-        <div class="lot-h">현재가 {% if h.price_native_str %}{{ h.price_native_str }} <span class="mut">({{ h.price_str }}원)</span>{% else %}{{ h.price_str }}원{% endif %} <span class="mut">· {{ h.currency }} 평가 · 시세기준일 {{ h.price_date }}</span></div>
-        {% for l in h.lots %}
-        <div class="lot">{{ l.date }} {% if l.session == "kr" %}🇰🇷{% elsif l.session == "us" %}🇺🇸{% endif %} 매수 <b>{{ l.qty }}{{ h.unit }}</b> @ {% if l.native_str %}{{ l.native_str }} <span class="mut">({{ l.price_krw_str }}원 · 환율 {{ l.fx }})</span>{% else %}{{ l.price_krw_str }}원{% endif %} = {{ l.krw_str }}원 <span class="mut">· {{ l.basis }}</span></div>
-        {% endfor %}
+
+    {%- comment -%} 🇰🇷 한국 → 🇺🇸 미국 → 🌐 24시간 자산 순서로 나눠 보여준다.
+       소계는 by_market(파이썬 계산), 목록은 holdings_view를 market으로 필터링 —
+       같은 dict를 쓰므로 chart 등 필드가 어긋나지 않는다. {%- endcomment -%}
+    {% for mk in p.by_market %}
+      {% assign rows = p.holdings_view | where: "market", mk.market %}
+      <div class="mkt-h">
+        <span class="mkt-nm">{{ mk.label }}</span>
+        <span class="mkt-sub">{{ mk.count }}종목 · {{ mk.value_str }}원 · 비중 {{ mk.weight_pct }}%</span>
       </div>
-    </details>
+      {% for h in rows %}
+      <details class="row">
+        <summary>
+          <span class="ava" style="background:{{ h.color | default: '#64748b' }}">{{ h.name | slice: 0, 1 }}</span>
+          <span class="nm"><b>{{ h.name }}</b><span>{{ h.qty }}{{ h.unit }} · 평단 {% if h.avg_native_str %}{{ h.avg_native_str }}{% else %}{{ h.avg_str }}원{% endif %} · 현재 {% if h.price_native_str %}{{ h.price_native_str }}{% else %}{{ h.price_str }}원{% endif %}</span></span>
+          <span class="val"><b>{{ h.value_str }}원</b><span class="{% if h.pl_pct >= 0 %}u{% else %}d{% endif %}">{% if h.pl_pct >= 0 %}▲ +{% else %}▼ {% endif %}{{ h.pl_pct }}%</span></span>
+        </summary>
+        <div class="lots">
+          {%- if h.chart %}
+          <img class="hchart" src="{{ '/assets/portfolio/' | append: h.chart | relative_url }}" alt="{{ h.name }} 일별 추이와 매수 시점" loading="lazy">
+          {%- endif %}
+          <div class="lot-h">현재가 {% if h.price_native_str %}{{ h.price_native_str }} <span class="mut">({{ h.price_str }}원)</span>{% else %}{{ h.price_str }}원{% endif %} <span class="mut">· {{ h.currency }} 평가 · 시세기준일 {{ h.price_date }}</span></div>
+          {% for l in h.lots %}
+          <div class="lot">{{ l.date }} {% if l.session == "kr" %}🇰🇷{% elsif l.session == "us" %}🇺🇸{% endif %} 매수 <b>{{ l.qty }}{{ h.unit }}</b> @ {% if l.native_str %}{{ l.native_str }} <span class="mut">({{ l.price_krw_str }}원 · 환율 {{ l.fx }})</span>{% else %}{{ l.price_krw_str }}원{% endif %} = {{ l.krw_str }}원 <span class="mut">· {{ l.basis }}</span></div>
+          {% endfor %}
+        </div>
+      </details>
+      {% endfor %}
     {% endfor %}
+
+    <div class="mkt-h"><span class="mkt-nm">💰 현금</span></div>
     <div class="row cash">
       <span class="ava" style="background:#9fb4cc">₩</span>
       <span class="nm"><b>현금 (예수금)</b><span>다음 매수 대기</span></span>
       <span class="val"><b>{{ p.cash_str }}원</b><span class="mut">{{ p.cash_weight_pct }}%</span></span>
     </div>
-    <p class="mut small">비중 = 총자산 대비 · 손익 = 평균단가 대비(해외는 환율 포함) · 종목을 누르면 거래 내역이 열립니다</p>
+    <p class="mut small">비중 = 총자산 대비 · 손익 = 평균단가 대비(해외는 환율 포함) · 종목을 누르면 <b>일별 추이 그래프(🔴 내 매수 시점 표기)</b>와 거래 내역이 열립니다</p>
   </section>
 
   <section class="card">
@@ -128,6 +144,14 @@ layout: default
 .pf1 .val b{display:block;font-size:15.5px;color:var(--text);}
 .pf1 .val span{font-size:13px;font-weight:700;}
 .pf1 .lots{margin:0 2px 13px 55px;padding:11px 14px;background:color-mix(in srgb,var(--bg) 60%,var(--card));border:1px solid var(--line);border-radius:11px;font-size:13px;}
+/* 종목 펼쳤을 때 보이는 일별 추이 그래프 (🔴 매수 시점 표기) */
+.pf1 .hchart{display:block;width:100%;height:auto;border-radius:9px;background:#fff;margin:0 0 11px;}
+/* 🇰🇷 한국 / 🇺🇸 미국 / 🌐 24시간 자산 섹션 헤더 */
+.pf1 .mkt-h{display:flex;align-items:baseline;flex-wrap:wrap;gap:5px 10px;margin:20px 0 2px;padding:0 2px 7px;border-bottom:2px solid var(--line);}
+.pf1 .mkt-h:first-of-type{margin-top:6px;}
+.pf1 .mkt-nm{font-size:16px;font-weight:800;letter-spacing:-.01em;}
+.pf1 .mkt-sub{font-size:12.5px;color:var(--muted);font-weight:600;font-variant-numeric:tabular-nums;}
+.pf1 .mkt-h + .row{border-top:none;}
 .pf1 .lot-h{font-weight:600;margin-bottom:5px;}
 .pf1 .lot{padding:3px 0;color:var(--text);}
 .pf1 .tag{display:inline-block;min-width:40px;text-align:center;font-size:11.5px;font-weight:800;padding:2px 9px;border-radius:6px;margin-right:8px;}
