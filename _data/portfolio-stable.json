@@ -2,7 +2,7 @@
   "start_date": "2026-07-20",
   "start_capital": 100000000,
   "currency": "KRW",
-  "cash": 48555954,
+  "cash": 44690554,
   "holdings": {
     "105560.KS": {
       "name": "KB금융",
@@ -113,8 +113,8 @@
     },
     "033780.KS": {
       "name": "KT&G",
-      "qty": 44.0,
-      "cost_krw": 7862800.0,
+      "qty": 66.0,
+      "cost_krw": 11728200.0,
       "lots": [
         {
           "date": "2026-07-31",
@@ -127,6 +127,18 @@
           "fx": null,
           "price_date": "2026-07-31",
           "basis": "2026-07-31 리포트 시세"
+        },
+        {
+          "date": "2026-08-04",
+          "session": "kr",
+          "qty": 22,
+          "price_krw": 175700,
+          "price_native": 175700.0,
+          "currency": "KRW",
+          "krw": 3865400,
+          "fx": null,
+          "price_date": "2026-08-04",
+          "basis": "2026-08-04 리포트 시세"
         }
       ]
     }
@@ -145,7 +157,8 @@
     "2026-07-29-us-stable",
     "2026-07-30-kr-stable",
     "2026-07-31-kr-stable",
-    "2026-08-03-kr-stable"
+    "2026-08-03-kr-stable",
+    "2026-08-04-kr-stable"
   ],
   "pending_orders": [],
   "journal": [
@@ -446,6 +459,31 @@
           "price_krw": 1417000,
           "basis": "2026-08-03 리포트 시세",
           "reason": "과열 냉각 RSI49 · 상승배열 · 목표 180만"
+        }
+      ]
+    },
+    {
+      "date": "2026-08-04",
+      "session": "kr",
+      "comment": "KT&G 방어 분할 · 은행 코어 유지 · 고용 대기",
+      "placed": [
+        {
+          "action": "유지",
+          "name": "-",
+          "detail": "은행 21% 한도 · 삼바 추격보류 · 고용 대기"
+        }
+      ],
+      "trades": [
+        {
+          "action": "매수",
+          "ticker": "033780.KS",
+          "name": "KT&G",
+          "krw": 3865400,
+          "krw_str": "3,865,400",
+          "qty": 22,
+          "price_krw": 175700,
+          "basis": "2026-08-04 리포트 시세",
+          "reason": "8월 중간배당 · 목표 22~25만 · 눌림 RSI46"
         }
       ]
     }
@@ -852,14 +890,117 @@
           "pl_pct": -1.8
         }
       ]
+    },
+    {
+      "date": "2026-08-04",
+      "total_value": 99933979,
+      "total_value_str": "99,933,979",
+      "return_pct": -0.07,
+      "day_chg_pct": 0.15,
+      "cash": 44690554,
+      "asof": "🇰🇷 장중 리포트 시점",
+      "holdings": [
+        {
+          "name": "KT&G",
+          "value_str": "11,596,200",
+          "weight_pct": 11.6,
+          "pl_pct": -1.13
+        },
+        {
+          "name": "KB금융",
+          "value_str": "11,578,200",
+          "weight_pct": 11.6,
+          "pl_pct": -3.34
+        },
+        {
+          "name": "신한지주",
+          "value_str": "9,686,400",
+          "weight_pct": 9.7,
+          "pl_pct": -3.07
+        },
+        {
+          "name": "삼성바이오로직스",
+          "value_str": "8,730,000",
+          "weight_pct": 8.7,
+          "pl_pct": 3.39
+        },
+        {
+          "name": "필수소비ETF",
+          "value_str": "6,921,906",
+          "weight_pct": 6.9,
+          "pl_pct": -1.03
+        },
+        {
+          "name": "헬스케어ETF",
+          "value_str": "6,730,719",
+          "weight_pct": 6.7,
+          "pl_pct": -1.83
+        }
+      ]
     }
   ],
-  "updated": "2026-08-03",
-  "total_value": 99784582,
-  "holdings_value": 51228628,
-  "return_pct": -0.22,
-  "usdkrw": 1428.28,
+  "updated": "2026-08-04",
+  "total_value": 99933979,
+  "holdings_value": 55243425,
+  "return_pct": -0.07,
+  "usdkrw": 1427.83,
   "holdings_view": [
+    {
+      "ticker": "033780.KS",
+      "name": "KT&G",
+      "qty": 66,
+      "unit": "주",
+      "currency": "KRW",
+      "category": "kr_stock",
+      "market": "kr",
+      "cost_str": "11,728,200",
+      "pl_krw_str": "-132,000",
+      "avg_krw": 177700,
+      "avg_str": "177,700",
+      "avg_native_str": null,
+      "price_krw": 175700,
+      "price_str": "175,700",
+      "price_native_str": null,
+      "price_date": "2026-08-04",
+      "value_krw": 11596200,
+      "pl_pct": -1.13,
+      "lots": [
+        {
+          "date": "2026-07-31",
+          "session": "kr",
+          "qty": 44,
+          "price_krw": 178700,
+          "price_native": 178700.0,
+          "currency": "KRW",
+          "krw": 7862800,
+          "fx": null,
+          "price_date": "2026-07-31",
+          "basis": "2026-07-31 리포트 시세",
+          "krw_str": "7,862,800",
+          "price_krw_str": "178,700",
+          "native_str": null
+        },
+        {
+          "date": "2026-08-04",
+          "session": "kr",
+          "qty": 22,
+          "price_krw": 175700,
+          "price_native": 175700.0,
+          "currency": "KRW",
+          "krw": 3865400,
+          "fx": null,
+          "price_date": "2026-08-04",
+          "basis": "2026-08-04 리포트 시세",
+          "krw_str": "3,865,400",
+          "price_krw_str": "175,700",
+          "native_str": null
+        }
+      ],
+      "weight_pct": 11.6,
+      "value_str": "11,596,200",
+      "color": "#3ba272",
+      "chart": "h-stable-033780-ks.png"
+    },
     {
       "ticker": "105560.KS",
       "name": "KB금융",
@@ -869,16 +1010,16 @@
       "category": "kr_stock",
       "market": "kr",
       "cost_str": "11,978,400",
-      "pl_krw_str": "-379,500",
+      "pl_krw_str": "-400,200",
       "avg_krw": 173600,
       "avg_str": "173,600",
       "avg_native_str": null,
-      "price_krw": 168100,
-      "price_str": "168,100",
+      "price_krw": 167800,
+      "price_str": "167,800",
       "price_native_str": null,
-      "price_date": "2026-08-03",
-      "value_krw": 11598900,
-      "pl_pct": -3.17,
+      "price_date": "2026-08-04",
+      "value_krw": 11578200,
+      "pl_pct": -3.34,
       "lots": [
         {
           "date": "2026-07-21",
@@ -897,8 +1038,8 @@
         }
       ],
       "weight_pct": 11.6,
-      "value_str": "11,598,900",
-      "color": "#3ba272",
+      "value_str": "11,578,200",
+      "color": "#e8a33d",
       "chart": "h-stable-105560-ks.png"
     },
     {
@@ -910,16 +1051,16 @@
       "category": "kr_stock",
       "market": "kr",
       "cost_str": "9,993,600",
-      "pl_krw_str": "-192,000",
+      "pl_krw_str": "-307,200",
       "avg_krw": 104100,
       "avg_str": "104,100",
       "avg_native_str": null,
-      "price_krw": 102100,
-      "price_str": "102,100",
+      "price_krw": 100900,
+      "price_str": "100,900",
       "price_native_str": null,
-      "price_date": "2026-08-03",
-      "value_krw": 9801600,
-      "pl_pct": -1.92,
+      "price_date": "2026-08-04",
+      "value_krw": 9686400,
+      "pl_pct": -3.07,
       "lots": [
         {
           "date": "2026-07-21",
@@ -937,9 +1078,9 @@
           "native_str": null
         }
       ],
-      "weight_pct": 9.8,
-      "value_str": "9,801,600",
-      "color": "#e8a33d",
+      "weight_pct": 9.7,
+      "value_str": "9,686,400",
+      "color": "#8b5fd6",
       "chart": "h-stable-055550-ks.png"
     },
     {
@@ -951,16 +1092,16 @@
       "category": "kr_stock",
       "market": "kr",
       "cost_str": "8,443,500",
-      "pl_krw_str": "+58,500",
+      "pl_krw_str": "+286,500",
       "avg_krw": 1407250,
       "avg_str": "1,407,250",
       "avg_native_str": null,
-      "price_krw": 1417000,
-      "price_str": "1,417,000",
+      "price_krw": 1455000,
+      "price_str": "1,455,000",
       "price_native_str": null,
-      "price_date": "2026-08-03",
-      "value_krw": 8502000,
-      "pl_pct": 0.69,
+      "price_date": "2026-08-04",
+      "value_krw": 8730000,
+      "pl_pct": 3.39,
       "lots": [
         {
           "date": "2026-07-22",
@@ -993,51 +1134,10 @@
           "native_str": null
         }
       ],
-      "weight_pct": 8.5,
-      "value_str": "8,502,000",
-      "color": "#8b5fd6",
-      "chart": "h-stable-207940-ks.png"
-    },
-    {
-      "ticker": "033780.KS",
-      "name": "KT&G",
-      "qty": 44,
-      "unit": "주",
-      "currency": "KRW",
-      "category": "kr_stock",
-      "market": "kr",
-      "cost_str": "7,862,800",
-      "pl_krw_str": "-193,600",
-      "avg_krw": 178700,
-      "avg_str": "178,700",
-      "avg_native_str": null,
-      "price_krw": 174300,
-      "price_str": "174,300",
-      "price_native_str": null,
-      "price_date": "2026-08-03",
-      "value_krw": 7669200,
-      "pl_pct": -2.46,
-      "lots": [
-        {
-          "date": "2026-07-31",
-          "session": "kr",
-          "qty": 44,
-          "price_krw": 178700,
-          "price_native": 178700.0,
-          "currency": "KRW",
-          "krw": 7862800,
-          "fx": null,
-          "price_date": "2026-07-31",
-          "basis": "2026-07-31 리포트 시세",
-          "krw_str": "7,862,800",
-          "price_krw_str": "178,700",
-          "native_str": null
-        }
-      ],
-      "weight_pct": 7.7,
-      "value_str": "7,669,200",
+      "weight_pct": 8.7,
+      "value_str": "8,730,000",
       "color": "#d3655f",
-      "chart": "h-stable-033780-ks.png"
+      "chart": "h-stable-207940-ks.png"
     },
     {
       "ticker": "XLP",
@@ -1048,16 +1148,16 @@
       "category": "us_sector",
       "market": "us",
       "cost_str": "6,994,003",
-      "pl_krw_str": "-69,916",
+      "pl_krw_str": "-72,098",
       "avg_krw": 122702,
       "avg_str": "122,702",
       "avg_native_str": "$83.94",
-      "price_krw": 121475,
-      "price_str": "121,475",
+      "price_krw": 121437,
+      "price_str": "121,437",
       "price_native_str": "$85.05",
       "price_date": "2026-07-31",
-      "value_krw": 6924087,
-      "pl_pct": -1.0,
+      "value_krw": 6921906,
+      "pl_pct": -1.03,
       "lots": [
         {
           "date": "2026-07-24",
@@ -1076,7 +1176,7 @@
         }
       ],
       "weight_pct": 6.9,
-      "value_str": "6,924,087",
+      "value_str": "6,921,906",
       "color": "#4aa3c0",
       "chart": "h-stable-xlp.png"
     },
@@ -1089,16 +1189,16 @@
       "category": "us_sector",
       "market": "us",
       "cost_str": "6,856,243",
-      "pl_krw_str": "-123,403",
+      "pl_krw_str": "-125,524",
       "avg_krw": 236422,
       "avg_str": "236,422",
       "avg_native_str": "$160.42",
-      "price_krw": 232167,
-      "price_str": "232,167",
+      "price_krw": 232094,
+      "price_str": "232,094",
       "price_native_str": "$162.55",
       "price_date": "2026-07-31",
-      "value_krw": 6732841,
-      "pl_pct": -1.8,
+      "value_krw": 6730719,
+      "pl_pct": -1.83,
       "lots": [
         {
           "date": "2026-07-23",
@@ -1117,27 +1217,52 @@
         }
       ],
       "weight_pct": 6.7,
-      "value_str": "6,732,841",
+      "value_str": "6,730,719",
       "color": "#c0699d",
       "chart": "h-stable-xlv.png"
     }
   ],
   "pending_view": [],
-  "total_value_str": "99,784,582",
-  "cash_str": "48,555,954",
-  "holdings_value_str": "51,228,628",
+  "total_value_str": "99,933,979",
+  "cash_str": "44,690,554",
+  "holdings_value_str": "55,243,425",
   "start_capital_str": "100,000,000",
-  "gain_str": "-215,418",
-  "cash_weight_pct": 48.7,
-  "day_chg_pct": -0.34,
-  "days": 11,
-  "priced_at": "2026-08-03T14:47:52+09:00",
+  "gain_str": "-66,021",
+  "cash_weight_pct": 44.7,
+  "day_chg_pct": 0.15,
+  "days": 12,
+  "priced_at": "2026-08-04T14:30:37+09:00",
   "eval_note": "AI가 장중에 시세를 보고 판단 → 바로 그 가격으로 체결 (🇰🇷 매일 14:45 · 🇺🇸 매일 23:45 발행). 리포트를 본 사람이 30분 안에 같은 가격대로 매수 가능. 손익은 이후 시세로 결정",
   "persona": "stable",
   "persona_name": "안정형",
   "persona_emoji": "🛡️",
   "persona_tag": "가치·방어 — 저평가 우량주·배당, 현금 넉넉, 손실 최소 우선 (opus)",
   "journal_view": [
+    {
+      "date": "2026-08-04",
+      "session": "kr",
+      "comment": "KT&G 방어 분할 · 은행 코어 유지 · 고용 대기",
+      "placed": [
+        {
+          "action": "유지",
+          "name": "-",
+          "detail": "은행 21% 한도 · 삼바 추격보류 · 고용 대기"
+        }
+      ],
+      "trades": [
+        {
+          "action": "매수",
+          "ticker": "033780.KS",
+          "name": "KT&G",
+          "krw": 3865400,
+          "krw_str": "3,865,400",
+          "qty": 22,
+          "price_krw": 175700,
+          "basis": "2026-08-04 리포트 시세",
+          "reason": "8월 중간배당 · 목표 22~25만 · 눌림 RSI46"
+        }
+      ]
+    },
     {
       "date": "2026-08-03",
       "session": "kr",
@@ -1440,6 +1565,53 @@
     }
   ],
   "history_view": [
+    {
+      "date": "2026-08-04",
+      "total_value": 99933979,
+      "total_value_str": "99,933,979",
+      "return_pct": -0.07,
+      "day_chg_pct": 0.15,
+      "cash": 44690554,
+      "asof": "🇰🇷 장중 리포트 시점",
+      "holdings": [
+        {
+          "name": "KT&G",
+          "value_str": "11,596,200",
+          "weight_pct": 11.6,
+          "pl_pct": -1.13
+        },
+        {
+          "name": "KB금융",
+          "value_str": "11,578,200",
+          "weight_pct": 11.6,
+          "pl_pct": -3.34
+        },
+        {
+          "name": "신한지주",
+          "value_str": "9,686,400",
+          "weight_pct": 9.7,
+          "pl_pct": -3.07
+        },
+        {
+          "name": "삼성바이오로직스",
+          "value_str": "8,730,000",
+          "weight_pct": 8.7,
+          "pl_pct": 3.39
+        },
+        {
+          "name": "필수소비ETF",
+          "value_str": "6,921,906",
+          "weight_pct": 6.9,
+          "pl_pct": -1.03
+        },
+        {
+          "name": "헬스케어ETF",
+          "value_str": "6,730,719",
+          "weight_pct": 6.7,
+          "pl_pct": -1.83
+        }
+      ]
+    },
     {
       "date": "2026-08-03",
       "total_value": 99784582,
@@ -1848,16 +2020,16 @@
       "market": "kr",
       "label": "🇰🇷 한국",
       "count": 4,
-      "value_krw": 37571700,
-      "value_str": "37,571,700",
-      "weight_pct": 37.7
+      "value_krw": 41590800,
+      "value_str": "41,590,800",
+      "weight_pct": 41.6
     },
     {
       "market": "us",
       "label": "🇺🇸 미국",
       "count": 2,
-      "value_krw": 13656928,
-      "value_str": "13,656,928",
+      "value_krw": 13652625,
+      "value_str": "13,652,625",
       "weight_pct": 13.7
     }
   ]
