@@ -3,7 +3,7 @@
 **GitHub 서버**가 평일 2회 **장중에** 데이터를 모으고 **Claude가 분석**해, **"지금 이 종목 사라/팔아라"** 리포트를 공개 사이트에 자동 게시합니다. 리포트를 본 사람이 **30분 안에 같은 가격대로 살 수 있는 시각**에 내며, **AI 4인이 각자 1억으로 실제 매매**해 누가 잘하는지 추적합니다 (🛡️안정·🚀공격[opus] + 동일 지시문 대조군 🙂평범형 2인[fable]).
 
 - 🌐 **공개 사이트**: https://gks930620.github.io/stock-daily/
-- ⏰ 평일 2회 장중 자동 실행 (GitHub Actions): **🇰🇷 14:45 발행**(마감 15:30 전 매수 가능) · **🇺🇸 23:45 발행**(장중)
+- ⏰ 평일 2회 장중 자동 실행 (GitHub Actions): **🇰🇷 14:30 발행**(마감 15:30 전 매수 가능) · **🇺🇸 23:45 발행**(장중)
 - 💼 **가상 1억 페이퍼 트레이딩** — 예상에 따라 실제로 매매하고 성과를 추적 ([포트폴리오](https://gks930620.github.io/stock-daily/portfolio/))
 - ⚠️ 투자 조언이 아닙니다. "예측 적중"이 아니라 **근거 있는 확률 + 자기검증** 기록입니다.
 
@@ -22,7 +22,7 @@
 
 ```
 _config.yml / index.md            Jekyll 사이트 설정 / 홈
-_posts/YYYY-MM-DD-kr-market.md    🇰🇷 한국장 리포트 (평일 14:45 발행)
+_posts/YYYY-MM-DD-kr-market.md    🇰🇷 한국장 리포트 (평일 14:30 발행)
 _posts/YYYY-MM-DD-us-market.md    🇺🇸 미국장 리포트 (평일 23:45 발행)
 portfolio.md / portfolio-<id>.md     4인 비교 허브 / 계좌별 상세 페이지
 _data/portfolio-<성향>.json        계좌 상태 (stable·aggressive·normal1·normal2)
@@ -36,7 +36,10 @@ scripts/collect_data.py           시세+경제지표(FRED) 수집
 scripts/make_charts.py            차트 이미지 생성
 scripts/screener.py               비인기 종목 후보 발굴 (한국)
 scripts/portfolio.py              가상 1억 체결·평가·자산곡선
-scripts/run-daily.ps1             로컬 실행 스크립트 (kr|collect|us)
+scripts/holding_charts.py         보유 종목별 일별 추이 그래프 (매수 시점 표기)
+scripts/_rundate.py               회차 기준일(RUN_DATE) — 전 단계가 같은 하루를 보게 하는 기준
+scripts/verify_run.py             커밋 전 산출물 점검 (리포트·주문서 4인·체결 4인)
+scripts/run-daily.ps1             로컬 실행 스크립트 (kr|us)
 .github/workflows/daily.yml       클라우드 자동 실행 (GitHub Actions, 평일 2회 장중)
 docs/                             설계·규칙·문서
 ```

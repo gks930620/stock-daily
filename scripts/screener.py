@@ -21,6 +21,8 @@ from pathlib import Path
 import pandas as pd
 import FinanceDataReader as fdr
 
+from _rundate import run_date
+
 KST = timezone(timedelta(hours=9))
 REPO = Path(__file__).resolve().parent.parent
 
@@ -59,7 +61,7 @@ def get_universe() -> pd.DataFrame:
 
 
 def main() -> int:
-    today = datetime.now(KST).strftime("%Y-%m-%d")
+    today = run_date()          # 회차 기준일 (market.json과 같은 폴더에 떨어져야 한다)
     out_dir = REPO / "data" / today
     out_dir.mkdir(parents=True, exist_ok=True)
     out_path = out_dir / "screener.json"

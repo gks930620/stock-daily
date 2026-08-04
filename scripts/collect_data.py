@@ -21,6 +21,8 @@ import pandas as pd
 import yaml
 import yfinance as yf
 
+from _rundate import run_date
+
 KST = timezone(timedelta(hours=9))
 REPO = Path(__file__).resolve().parent.parent
 
@@ -219,7 +221,7 @@ def collect_macro() -> dict:
 def main() -> int:
     # 선택 인자: 수집 시점 라벨 (morning=08시 / krclose=18시 한국장마감 / uspre=21시 미장전)
     label = sys.argv[1] if len(sys.argv) > 1 else None
-    today = datetime.now(KST).strftime("%Y-%m-%d")
+    today = run_date()          # 회차 기준일 — 자정을 넘겨도 단계마다 갈리지 않는다
     out_dir = REPO / "data" / today
     out_dir.mkdir(parents=True, exist_ok=True)
     out_path = out_dir / "market.json"

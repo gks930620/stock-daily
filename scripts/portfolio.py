@@ -3,7 +3,7 @@
 
 체결 규칙 (docs/RULES.md §3):
   · **장이 열려 있는 동안** AI가 판단하고 리포트를 낸다 → 주문은 **AI가 분석한 그 시세로 즉시 체결**.
-      - 🇰🇷 한국장: 매일 14:45 리포트 → 독자는 15:30 마감 전에 같은 가격대로 매수 가능
+      - 🇰🇷 한국장: 매일 14:30 리포트 → 독자는 15:30 마감 전에 같은 가격대로 매수 가능
       - 🇺🇸 미국장: 매일 23:45 리포트(장중) → 독자는 그 자리에서 매수 가능
   · **체결가 = AI가 본 가격**(market.json의 현재가). 가격을 보고 "싸다/비싸다"를 판단했으니 그 가격에 산다.
     (분석가는 27만원을 보고 샀는데 29만원에 체결되는 식이면 판단 자체가 무의미해진다)
@@ -28,6 +28,15 @@ import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 from matplotlib import font_manager as _fm
+
+from _rundate import run_date
+
+# 윈도우 콘솔(cp949)에서 경고문의 이모지 때문에 죽지 않도록 (리눅스는 원래 UTF-8)
+for _s in (sys.stdout, sys.stderr):
+    try:
+        _s.reconfigure(encoding="utf-8")
+    except Exception:  # noqa: BLE001
+        pass
 
 for _f in ("Malgun Gothic", "NanumGothic", "NanumBarunGothic", "AppleGothic"):
     if _f in {f.name for f in _fm.fontManager.ttflist}:
@@ -102,6 +111,10 @@ def won(n):
     return f"{round(n):,}"
 
 
+def r2(x):
+    return round(float(x), 2) if x is not None else None
+
+
 def next_day(date_str: str) -> str:
     d = datetime.strptime(date_str, "%Y-%m-%d") + timedelta(days=1)
     return d.strftime("%Y-%m-%d")
@@ -169,18 +182,28 @@ def exec_sell(holdings, cash, t, info, qty_req, price_krw, today, session, reaso
         return cash, None
     qty = min(float(qty_req) if qty_req else h["qty"], h["qty"])
     proceeds = qty * price_krw
-    ratio = qty / h["qty"] if h["qty"] else 0
-    h["cost_krw"] *= (1 - ratio); h["qty"] -= qty
-    remain = qty
-    for lot in list(h.get("lots", [])):
+
+    # 원가도 lot과 **같은 방식(선입선출)** 으로 덜어낸다.
+    #   ⚠️ 예전엔 원가는 비율로 깎고(평균법) lot은 FIFO로 지워서, 부분 매도 뒤
+    #      `cost_krw`(→평단)와 화면의 거래내역 합계가 서로 어긋났다.
+    #      이제 `cost_krw == Σ(lot.qty × lot.price_krw)` 가 항상 유지된다.
+    avg_before = h["cost_krw"] / h["qty"] if h["qty"] else 0
+    lots = h.setdefault("lots", [])
+    remain, cost_out = qty, 0.0
+    for lot in list(lots):
         if remain <= 1e-9:
             break
-        take = min(lot["qty"], remain)
-        lot["qty"] = round(lot["qty"] - take, 4)
+        take = min(float(lot["qty"]), remain)
+        cost_out += take * float(lot["price_krw"])
+        lot["qty"] = round(float(lot["qty"]) - take, 4)
         lot["krw"] = round(lot["qty"] * lot["price_krw"])
         remain -= take
         if lot["qty"] <= 1e-9:
-            h["lots"].remove(lot)
+            lots.remove(lot)
+    if remain > 1e-9:                    # lot 기록이 불완전한 구버전 상태 — 남은 몫만 평균법
+        cost_out += remain * avg_before
+    h["cost_krw"] = max(0.0, h["cost_krw"] - cost_out)
+    h["qty"] -= qty
     if h["qty"] <= 1e-9:
         holdings.pop(t, None)
     trade = {"action": "매도", "ticker": t, "name": info["name"], "krw": round(proceeds), "krw_str": won(proceeds),
@@ -198,12 +221,41 @@ def main() -> int:
         print(f"알 수 없는 성향: {persona} — {list(PERSONAS)}", file=sys.stderr)
         return 1
     pmeta = PERSONAS[persona]
-    # 재생(replay)용 오버라이드: PF_TODAY(체결 기준일)·PF_MARKET(시세 스냅샷 경로)
-    today = os.environ.get("PF_TODAY") or datetime.now(KST).strftime("%Y-%m-%d")
+    # 체결 기준일 = 회차 기준일(RUN_DATE). 워크플로가 회차 시작 시 한 번 확정해 넘긴다.
+    #   ⚠️ 여기서 datetime.now()를 쓰면 자정을 넘긴 🇺🇸 세션이 다음 날 폴더를 찾아 주문서를 통째로
+    #      흘린다 (2026-07-28·07-30·07-31 US 12건 유실). 재생(replay)용 오버라이드: PF_TODAY·PF_MARKET.
+    today = run_date("PF_TODAY")
     mfile = os.environ.get("PF_MARKET")
+    orders_dir = REPO / "portfolio" / "orders"
+
+    def unapplied_for(applied_stems, void_stems=()) -> list[Path]:
+        """이 성향 앞으로 나왔는데 체결도 결번도 아닌 주문서 (날짜 무관).
+
+        `void_orders` = **결번**. 파이프라인 사고로 끝내 체결되지 않은 회차를 사후 체결하지 않고
+        "유실"로 확정 기록한 것이다(docs/RULES.md §4-1). 이미 게시된 수익률을 사후에 바꾸지
+        않는다는 원칙에 따른 처리이므로, 미체결 경고 대상에서 제외한다.
+        """
+        if not orders_dir.exists():
+            return []
+        done = set(applied_stems) | set(void_stems)
+        return sorted(p for p in orders_dir.glob(f"*-{persona}.json") if p.stem not in done)
+
     market = load_json(Path(mfile)) if mfile else load_json(REPO / "data" / today / "market.json")
     if not market:
-        print(f"market.json 없음({mfile or 'data/'+today+'/market.json'}) — 포트폴리오 갱신 생략", file=sys.stderr)
+        src = mfile or f"data/{today}/market.json"
+        # 주문서가 이미 나와 있는데 시세가 없다 = 그 주문은 영영 체결되지 않는다. 조용히 넘어가면 안 된다.
+        prior = load_json(REPO / "_data" / f"portfolio-{persona}.json") or {}
+        # 이번 회차 주문서만 본다 — 과거 유실분까지 여기서 실패로 처리하면 이후 회차가 영영 막힌다
+        # (그건 아래 6)의 경고와 verify_run.py가 따로 알린다).
+        stuck = [p for p in unapplied_for(prior.get("applied_orders", []), prior.get("void_orders", []))
+                 if p.stem.startswith(today)]
+        print(f"[{persona}] market.json 없음({src})", file=sys.stderr)
+        if stuck:
+            print(f"[{persona}] ❌ 체결 못 한 주문서 {len(stuck)}건: "
+                  + ", ".join(p.stem for p in stuck), file=sys.stderr)
+            print(f"[{persona}] ❌ RUN_DATE({today})와 수집 날짜가 어긋났을 가능성이 높다 — 워크플로 로그 확인 필요", file=sys.stderr)
+            return 1
+        print(f"[{persona}] 미체결 주문서 없음 — 갱신 생략", file=sys.stderr)
         return 0
     prices, usdkrw = price_map(market)
 
@@ -218,6 +270,7 @@ def main() -> int:
     holdings = state.get("holdings", {})
     cash = float(state.get("cash", START_CAPITAL))
     applied = state.setdefault("applied_orders", [])
+    void = state.setdefault("void_orders", [])          # 결번 — 사고로 유실 확정된 회차 (RULES §4-1)
     pending = state.setdefault("pending_orders", [])
     journal = state.setdefault("journal", [])
 
@@ -226,7 +279,6 @@ def main() -> int:
     #  룩어헤드 아님: 손익은 이 시점 '이후' 가격으로 결정되고 AI는 그걸 못 본다.)
     for od_unused in list(pending):
         pending.remove(od_unused)          # 구방식 잔여 대기주문 정리(있으면)
-    orders_dir = REPO / "portfolio" / "orders"
     new_files = sorted(p for p in orders_dir.glob(f"{today}-*-{persona}.json") if p.stem not in applied) if orders_dir.exists() else []
     for opath in new_files:
         doc = load_json(opath, {})
@@ -290,6 +342,10 @@ def main() -> int:
             "avg_krw": round(avg), "avg_str": won(avg),
             "avg_native_str": (f"${avg_native:,.2f}" if is_usd and avg_native else None),
             "price_krw": round(pr), "price_str": won(pr),
+            # 숫자 원본도 같이 내려준다 — holding_charts.py가 문자열을 되파싱하지 않고,
+            # 차트의 '현재가·수익률'이 페이지와 정확히 같은 값을 쓰게 하기 위함.
+            "price_native": r2(info["price_native"]) if is_usd else None,
+            "avg_native": r2(avg_native) if (is_usd and avg_native) else None,
             "price_native_str": (f"${info['price_native']:,.2f}" if is_usd else None),
             "price_date": info.get("data_date"), "value_krw": round(val),
             "pl_pct": round((pr / avg - 1) * 100, 2) if avg else 0.0,
@@ -349,7 +405,7 @@ def main() -> int:
         "cash_weight_pct": round(cash / total * 100, 1) if total else 0,
         "day_chg_pct": day_chg_pct, "days": len(hist),
         "priced_at": market.get("generated_at_kst", ""),
-        "eval_note": "AI가 장중에 시세를 보고 판단 → 바로 그 가격으로 체결 (🇰🇷 매일 14:45 · 🇺🇸 매일 23:45 발행). 리포트를 본 사람이 30분 안에 같은 가격대로 매수 가능. 손익은 이후 시세로 결정",
+        "eval_note": "AI가 장중에 시세를 보고 판단 → 바로 그 가격으로 체결 (🇰🇷 매일 14:30 · 🇺🇸 매일 23:45 발행). 리포트를 본 사람이 30분 안에 같은 가격대로 매수 가능. 손익은 이후 시세로 결정",
         "persona": persona, "persona_name": pmeta["name"],
         "persona_emoji": pmeta["emoji"], "persona_tag": pmeta["tag"],
     })
@@ -378,6 +434,13 @@ def main() -> int:
     plt.close(fig)
 
     print(f"[{persona}] 총 {total:,.0f}원 ({ret_pct:+.2f}%) · 현금 {cash:,.0f} · 보유 {len(hold_view)}종목 (리포트 시세 체결)")
+
+    # ── 6) 유실 감시 — 과거에 나왔는데 끝내 체결되지 않은 주문서 ──
+    # 실패시키지는 않는다(이미 지난 회차는 되돌릴 수 없고, 매번 죽으면 이후 회차까지 막힌다).
+    # 대신 크게 찍어서 워크플로 점검 스텝과 사람이 바로 알아채게 한다.
+    orphans = [p.stem for p in unapplied_for(applied, void)]
+    if orphans:
+        print(f"[{persona}] ⚠️ 미체결로 남은 과거 주문서 {len(orphans)}건: " + ", ".join(orphans), file=sys.stderr)
     return 0
 
 

@@ -9,7 +9,7 @@ baseurl: "/stock-daily"
 plugins:
   - jekyll-feed
 
-# 빌드에서 제외할 파일
+# 빌드에서 제외할 파일 (사이트에 올릴 필요 없는 소스·설정·작업 파일)
 exclude:
   - README.md
   - docs/
@@ -18,3 +18,8 @@ exclude:
   - prompts/
   - portfolio/orders/
   - blog참고/
+  - config/
+  - requirements.txt
+  - logs/
+  - .claude/
+  - .venv/

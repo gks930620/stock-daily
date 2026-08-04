@@ -88,19 +88,12 @@ def draw(close, hv: dict, persona: str) -> str | None:
             continue
         buys.append((d, agg["pv"] / agg["qty"], agg["qty"]))
 
-    avg = None
-    if is_usd:
-        s = (hv.get("avg_native_str") or "").replace("$", "").replace(",", "")
-        try:
-            avg = float(s) if s else None
-        except ValueError:
-            avg = None
-    else:
-        avg = hv.get("avg_krw")
-    cur = hv["price_native"] if is_usd and hv.get("price_native") is not None else None
-    if cur is None:
-        cur = float(str(hv.get("price_str", "0")).replace(",", "")) if not is_usd else None
-    if cur is None:
+    # 평단·현재가는 portfolio.py가 내려준 **숫자 원본**을 그대로 쓴다.
+    #   ⚠️ 예전엔 없는 키(`price_native`)를 보다 죽은 분기로 빠져 미국 종목만 yfinance 최신 종가를
+    #      썼고, 그래서 차트의 "현재 $X · +N%"가 페이지 숫자와 어긋났다. 같은 값을 봐야 한다.
+    avg = hv.get("avg_native") if is_usd else hv.get("avg_krw")
+    cur = hv.get("price_native") if is_usd else hv.get("price_krw")
+    if cur is None:                      # 구버전 상태 파일 호환 — 최후에만 시세로 대체
         cur = float(close.iloc[-1])
 
     dates = [d.strftime("%Y-%m-%d") for d in close.index]

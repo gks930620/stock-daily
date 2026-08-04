@@ -18,6 +18,8 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import yfinance as yf
 
+from _rundate import run_date
+
 # 한글 폰트: 사용 가능한 후보 중 자동 선택 (윈도우/리눅스 겸용).
 #   윈도우=Malgun Gothic, 리눅스(GitHub Actions)=NanumGothic(fonts-nanum 설치 시).
 from matplotlib import font_manager as _fm
@@ -104,7 +106,7 @@ def make_chart(ticker: str, name: str, out_dir: Path) -> str | None:
 
 
 def main() -> int:
-    today = datetime.now(KST).strftime("%Y-%m-%d")
+    today = run_date()          # 회차 기준일 (collect_data와 같은 날짜를 봐야 한다)
     out_dir = REPO / "assets" / "charts" / today
     out_dir.mkdir(parents=True, exist_ok=True)
 
