@@ -6,6 +6,8 @@
 - ⏰ 평일 2회 장중 자동 실행 (GitHub Actions): **🇰🇷 14:30 발행**(마감 15:30 전 매수 가능) · **🇺🇸 23:45 발행**(장중)
 - 💼 **가상 1억 페이퍼 트레이딩** — 예상에 따라 실제로 매매하고 성과를 추적 ([포트폴리오](https://gks930620.github.io/stock-daily/portfolio/))
 - 🧮 **AI 채점판** — "진짜 잘하는가"를 종목 콜 단위 초과수익으로 판정 ([채점판](https://gks930620.github.io/stock-daily/scoreboard/)). 계좌 수익률은 하루 1표본이라 실력/운 구분이 안 되므로, 모든 종목 콜을 벤치마크 대비로 소급 채점합니다
+- 📊 **기준선** — [코스피를 사서 그냥 들고 있는 계좌](https://gks930620.github.io/stock-daily/portfolio/bench/)를 같이 굴립니다. 판단을 안 하는 이 계좌를 못 이기면 판단이 값을 못 한 것입니다
+- 🤖 **알고리즘 계좌** — 규칙을 코드로 쓰고(`strategies/`), **백테스트 검증구간을 통과한 전략만** 실전 계좌를 받습니다. 전략은 순수 함수라 같은 코드가 라이브와 백테스트에 함께 쓰입니다
 - ⚠️ 투자 조언이 아닙니다. "예측 적중"이 아니라 **근거 있는 확률 + 자기검증** 기록입니다.
 
 ## 📚 문서 지도
@@ -41,6 +43,9 @@ scripts/holding_charts.py         보유 종목별 일별 추이 그래프 (매�
 scripts/_rundate.py               회차 기준일(RUN_DATE) — 전 단계가 같은 하루를 보게 하는 기준
 scripts/verify_run.py             커밋 전 산출물 점검 (리포트·주문서 4인·체결 4인)
 scripts/scoreboard.py             🧮 AI 채점판 — 종목 콜 단위 소급 채점 (/scoreboard/)
+scripts/run_strategy.py           🤖 알고리즘 전략 실행 → 주문서 (라이브)
+scripts/backtest.py               📉 백테스트 — 같은 전략 함수를 과거에 (학습/검증 분리)
+strategies/<id>.py                전략 = 순수 함수 decide(ctx). 라이브·백테스트 공용
 scripts/run-daily.ps1             로컬 실행 스크립트 (kr|us)
 .github/workflows/daily.yml       클라우드 자동 실행 (GitHub Actions, 평일 2회 장중)
 docs/                             설계·규칙·문서

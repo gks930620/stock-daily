@@ -65,7 +65,22 @@ PERSONAS = {
     "aggressive": {"name": "공격형",   "emoji": "🚀", "tag": "성장·모멘텀 — 주도주 추종, 집중 투자, 현금 최소 (opus)"},
     "normal1":    {"name": "평범형 1", "emoji": "🙂", "tag": "성향 없음 — 데이터가 가리키는 대로. 동일 지시문 대조군 (fable)"},
     "normal2":    {"name": "평범형 2", "emoji": "🙂", "tag": "성향 없음 — 데이터가 가리키는 대로. 동일 지시문 대조군 (fable)"},
+    # ── 알고리즘 계좌 (AI 아님 — 코드가 규칙대로 판단한다. strategies/ 참조) ──
+    #   AI 4인과 **같은 시세·같은 체결 규칙**을 쓰므로 채점판에서 직접 비교된다.
+    "bench":      {"name": "벤치마크", "emoji": "📊",
+                   "tag": "코스피 매수 후 보유 — 판단하지 않는 기준선. 이길 수 있어야 실력 (알고리즘)",
+                   "kind": "algo", "strategy": "bench",
+                   # 지수를 직접 산다 → 다른 계좌엔 없는 권한이라 계좌별로 따로 준다.
+                   # (전역 TRADABLE을 열면 AI 4인의 행동이 바뀌어 진행 중인 실험이 오염된다)
+                   "tradable": {"kr_index"}, "session_cats": {"kr": {"kr_index"}, "us": set()},
+                   "fractional": True},
 }
+# ⚠️ 알고리즘 계좌는 **백테스트 검증구간을 통과한 전략만** 여기에 추가한다.
+#    2026-08-05 현재 `meanrev`·`momentum`은 검증구간에서 벤치마크에 크게 졌다
+#    (-68.8%p / -77.1%p) → 계좌 없음. 학습구간만 좋은 규칙을 굴리면 "잘하는지 모르는 계좌"가
+#    하나 더 느는 것뿐이고, 그게 정확히 이 프로젝트가 고치려던 문제다 (docs/RULES.md §0-2·§0-3).
+AI_PERSONAS = [k for k, v in PERSONAS.items() if v.get("kind") != "algo"]
+ALGO_PERSONAS = [k for k, v in PERSONAS.items() if v.get("kind") == "algo"]
 
 # 보유 종목을 페이지에서 🇰🇷/🇺🇸/🌐로 나눠 보여주기 위한 시장 구분.
 #  ⚠️ 통화(KRW/USD)로 나누면 안 된다 — 암호화폐·원자재도 USD라서 '미국'으로 잘못 묶인다.
@@ -147,13 +162,18 @@ def price_map(market: dict):
     return out, usdkrw
 
 
-def exec_buy(holdings, cash, t, info, budget, price_krw, price_native, usdkrw, today, session, reason, basis):
-    """매수 체결. (성공 시 갱신된 cash, trade기록) 반환. 실패 시 (cash, None)."""
+def exec_buy(holdings, cash, t, info, budget, price_krw, price_native, usdkrw, today, session,
+             reason, basis, fractional=False):
+    """매수 체결. (성공 시 갱신된 cash, trade기록) 반환. 실패 시 (cash, None).
+
+    `fractional=True`면 소수 단위로 산다 — 지수(^KS11)처럼 '주'라는 개념이 없는 대상용.
+    (벤치마크 계좌가 쓴다. 일반 주식·ETF는 항상 정수 주수다.)
+    """
     budget = min(float(budget), cash)
     if budget <= 0:
         return cash, None
-    if info["category"] in IMMEDIATE:
-        # 24시간 자산(암호화폐·원자재): 소수 단위 매수가 현실적
+    if fractional or info["category"] in IMMEDIATE:
+        # 24시간 자산(암호화폐·원자재)·지수: 소수 단위 체결이 현실적
         qty = budget / price_krw
         krw = budget
     else:
@@ -221,6 +241,11 @@ def main() -> int:
         print(f"알 수 없는 성향: {persona} — {list(PERSONAS)}", file=sys.stderr)
         return 1
     pmeta = PERSONAS[persona]
+    # 거래 권한은 **계좌별**로 정한다 — 벤치마크 계좌만 지수를 살 수 있어야 하고,
+    # 그 권한을 전역으로 열면 AI 4인의 행동이 바뀌어 진행 중인 실험이 오염된다.
+    tradable = pmeta.get("tradable", TRADABLE)
+    session_cats = pmeta.get("session_cats", SESSION_CATS)
+    fractional = pmeta.get("fractional", False)
     # 체결 기준일 = 회차 기준일(RUN_DATE). 워크플로가 회차 시작 시 한 번 확정해 넘긴다.
     #   ⚠️ 여기서 datetime.now()를 쓰면 자정을 넘긴 🇺🇸 세션이 다음 날 폴더를 찾아 주문서를 통째로
     #      흘린다 (2026-07-28·07-30·07-31 US 12건 유실). 재생(replay)용 오버라이드: PF_TODAY·PF_MARKET.
@@ -294,18 +319,19 @@ def main() -> int:
             info = prices.get(t)
             if not info:
                 print(f"  건너뜀: {t} 시세 없음", file=sys.stderr); continue
-            if act == "buy" and info["category"] not in TRADABLE:
+            if act == "buy" and info["category"] not in tradable:
                 print(f"  건너뜀: {info['name']} 매수불가 분류", file=sys.stderr); continue
             # 세션 ≠ 그 종목의 시장이면 거래 불가 (24시간 자산은 어느 세션이든 허용)
             cat = info["category"]
-            if cat not in IMMEDIATE and session in SESSION_CATS and cat not in SESSION_CATS[session]:
+            if cat not in IMMEDIATE and session in session_cats and cat not in session_cats[session]:
                 print(f"  건너뜀: {info['name']} — '{session}' 세션에선 거래 불가(그 시장은 마감 종가가 오래됨)", file=sys.stderr)
                 continue
             basis = f"{info.get('data_date')} 리포트 시세" if cat not in IMMEDIATE else "즉시(24h)"
             if act == "buy":
                 cash, tr = exec_buy(holdings, cash, t, info, o.get("krw", 0),
                                     info["price_krw"], info["price_native"], usdkrw,
-                                    today, session, o.get("reason", ""), basis)
+                                    today, session, o.get("reason", ""), basis,
+                                    fractional=fractional)
             else:
                 cash, tr = exec_sell(holdings, cash, t, info, o.get("qty"),
                                      info["price_krw"], today, session, o.get("reason", ""), basis)

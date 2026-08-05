@@ -33,7 +33,8 @@ for _s in (sys.stdout, sys.stderr):
         pass
 
 REPO = Path(__file__).resolve().parent.parent
-PERSONAS = ("stable", "aggressive", "normal1", "normal2")
+PERSONAS = ("stable", "aggressive", "normal1", "normal2")   # AI 매니저 4인
+ALGOS = ("bench",)                                          # 알고리즘 계좌 (코드가 판단)
 
 
 def load(path: Path):
@@ -92,6 +93,20 @@ def main() -> int:
         else:
             print(f"  ERR 체결      {stem} — 주문서는 있는데 계좌에 반영 안 됨")
             errors.append(f"미체결: {stem} (RUN_DATE 불일치 또는 portfolio.py 실패)")
+
+    # 4-1) 알고리즘 계좌 — 코드가 내는 주문이라 실패할 이유가 없다. 실패하면 버그다.
+    for a in ALGOS:
+        stem = f"{today}-{mode}-{a}"
+        opath = REPO / "portfolio" / "orders" / f"{stem}.json"
+        applied = set((load(REPO / "_data" / f"portfolio-{a}.json") or {}).get("applied_orders", []))
+        if not opath.exists():
+            print(f"  ERR 알고리즘  {stem}.json 없음")
+            errors.append(f"알고리즘 주문서 없음: {stem}.json (run_strategy.py 실패)")
+        elif stem not in applied:
+            print(f"  ERR 알고리즘  {stem} — 주문서는 있는데 계좌에 반영 안 됨")
+            errors.append(f"알고리즘 미체결: {stem}")
+        else:
+            print(f"  OK  알고리즘  {stem}")
 
     # 5) 과거 유실 이력
     odir = REPO / "portfolio" / "orders"

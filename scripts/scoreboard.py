@@ -201,6 +201,31 @@ def main() -> int:
              "avg_daily_gap": round(sum(gaps) / len(gaps), 2) if gaps else None,
              "max_daily_gap": round(max(gaps), 2) if gaps else None}
 
+    # ── 계좌 대 기준선 — 이 프로젝트의 헤드라인 ─────────────────
+    # "다 손해"처럼 보여도 시장이 더 빠졌으면 이긴 것이다. 기준선(코스피 매수 후 보유)이
+    # 그 눈금이다. ⚠️ 계좌마다 개시일이 다르므로 **각자의 개시일 기준으로** 기준선을 잘라 비교한다.
+    bench_state = load(REPO / "_data" / "portfolio-bench.json") or {}
+    bench_hist = {x["date"]: x["total_value"] for x in bench_state.get("history", [])}
+    bdates = sorted(bench_hist)
+    vs_bench = []
+    if bdates:
+        for p in PERSONAS:
+            st = load(REPO / "_data" / f"portfolio-{p}.json") or {}
+            if not st.get("history"):
+                continue
+            start = st["history"][0]["date"]
+            base = [d for d in bdates if d >= start]
+            if not base:
+                continue
+            b0, b1 = bench_hist[base[0]], bench_hist[bdates[-1]]
+            bret = (b1 / b0 - 1) * 100 if b0 else 0.0
+            r = float(st.get("return_pct", 0))
+            vs_bench.append({"persona": PERSONA_NAME[p], "id": p, "since": start,
+                             "return_pct": round(r, 2), "bench_pct": round(bret, 2),
+                             "excess_pct": round(r - bret, 2), "beat": r > bret,
+                             "days": st.get("days", 0)})
+    beat_n = sum(1 for v in vs_bench if v["beat"])
+
     # ── 최고/최악 콜 ──────────────────────────────────────────
     scored = [c for c in calls if "now" in c["r"]]
     scored.sort(key=lambda c: c["r"]["now"]["excess"])
@@ -216,6 +241,7 @@ def main() -> int:
         "horizons": [{"key": k, "label": lb} for k, _, lb in HORIZONS],
         "overall": overall, "by_persona": by_persona,
         "overlap": overlap, "noise": noise,
+        "vs_bench": vs_bench, "beat_bench": beat_n, "accounts": len(vs_bench),
         "best": best, "worst": worst,
         "note": ("초과수익 = 종목 수익률 − 같은 기간 벤치마크(코스피/S&P500). "
                  "매도는 부호를 뒤집어 채점(팔고 나서 더 빠졌으면 적중). "
@@ -237,6 +263,12 @@ def main() -> int:
                 print(f"   {PERSONA_NAME[p]:13}{v[key]['n']:>5}{v[key]['hit_pct']:>8.0f}%{v[key]['avg_excess']:>+10.2f}%p")
         o = overall[key]
         print(f"   {'전체':13}{o['n']:>5}{o['hit_pct']:>8.0f}%{o['avg_excess']:>+10.2f}%p\n")
+    if vs_bench:
+        print(f"■ 계좌 대 기준선 (📊 코스피 매수 후 보유) — **{beat_n}승 {len(vs_bench)-beat_n}패**")
+        print(f"   {'계좌':13}{'개시':>12}{'수익률':>9}{'기준선':>9}{'초과':>10}")
+        for v in vs_bench:
+            print(f"   {v['persona']:13}{v['since']:>12}{v['return_pct']:>+8.2f}%{v['bench_pct']:>+8.2f}%{v['excess_pct']:>+9.2f}%p")
+        print("   → 절대 손익이 아니라 **기준선 대비**로 본다. 시장이 더 빠졌으면 손해여도 이긴 것이다\n")
     print(f"■ 주문 겹침 — 매수 슬롯 {overlap['buy_slots']}개 중 "
           f"2인 이상 동시 매수 {overlap['shared_2plus_pct']}% · 4인 전원 {overlap['shared_all4_pct']}%")
     if overlap["holdings_jaccard_avg_pct"] is not None:

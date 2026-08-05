@@ -15,6 +15,29 @@ permalink: /scoreboard/
     <p class="sub">{{ s.period.from }} ~ {{ s.period.to }} · {{ s.snapshots }}회차 · 종목 콜 <b>{{ s.overall.calls }}건</b> 소급 채점</p>
   </header>
 
+  {% if s.vs_bench and s.vs_bench.size > 0 %}
+  <section class="card yardstick">
+    <h2>📊 기준선을 이겼는가 — <span class="{% if s.beat_bench > 0 %}u{% else %}d{% endif %}">{{ s.beat_bench }}승 {{ s.accounts | minus: s.beat_bench }}패</span></h2>
+    <p class="mut small">기준선 = <a href="{{ '/portfolio/bench/' | relative_url }}">코스피를 사서 그냥 들고 있는 계좌</a>. 판단을 일절 하지 않습니다.
+    <b>절대 손익이 아니라 기준선 대비로 봐야 합니다</b> — 시장이 더 빠졌으면 손해여도 이긴 것이고, 시장이 올랐는데 덜 올랐으면 손해 안 봐도 진 것입니다.
+    ⚠️ 계좌마다 개시일이 달라 각자의 개시일 기준으로 잘라 비교합니다.</p>
+    <div class="scroll"><table>
+      <thead><tr><th>계좌</th><th>개시</th><th>수익률</th><th>기준선</th><th>초과</th></tr></thead>
+      <tbody>
+        {% for v in s.vs_bench %}
+        <tr>
+          <td class="nm">{{ v.persona }} <span class="mut">{{ v.days }}일차</span></td>
+          <td class="mut">{{ v.since }}</td>
+          <td class="{% if v.return_pct >= 0 %}u{% else %}d{% endif %}">{% if v.return_pct >= 0 %}+{% endif %}{{ v.return_pct }}%</td>
+          <td class="mut">{% if v.bench_pct >= 0 %}+{% endif %}{{ v.bench_pct }}%</td>
+          <td class="big {% if v.excess_pct >= 0 %}u{% else %}d{% endif %}">{% if v.excess_pct >= 0 %}+{% endif %}{{ v.excess_pct }}%p</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table></div>
+  </section>
+  {% endif %}
+
   <div class="lead-cards">
     <div class="lc">
       <div class="k">전체 적중률 <span class="mut">(현재까지)</span></div>
@@ -131,6 +154,9 @@ permalink: /scoreboard/
 .sb .card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px 22px;margin-top:16px;box-shadow:var(--shadow);}
 .sb .card h2{margin:0 0 10px;font-size:16.5px;}
 .sb .card.warn{border-color:color-mix(in srgb,var(--u) 30%,var(--line));}
+.sb .card.yardstick{margin-top:18px;border-style:dashed;}
+.sb .card.yardstick h2{font-size:18px;}
+.sb td.big{font-size:15px;font-weight:800;}
 .sb .two{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;}
 .sb .scroll{overflow-x:auto;}
 .sb table{width:100%;border-collapse:collapse;font-size:13.5px;font-variant-numeric:tabular-nums;min-width:620px;}

@@ -90,6 +90,16 @@ foreach ($P in @("stable","aggressive","normal1","normal2")) {
     if ($LASTEXITCODE -ne 0) { Write-Warning "포트폴리오($P) 갱신 실패(계속 진행)" }
 }
 
+# 🤖 알고리즘 계좌 — 코드가 규칙대로 판단 (strategies/). AI 4인과 같은 시세·같은 체결 규칙.
+#    ⚠️ 전략 추가는 backtest.py 검증구간 통과가 조건 (docs/RULES.md §0-3)
+foreach ($A in @("bench")) {
+    Write-Host "[알고리즘·$A] 전략 실행 → 체결 ($label)..."
+    & $venvPython "$repo\scripts\run_strategy.py" $A $label $A
+    if ($LASTEXITCODE -ne 0) { Write-Warning "전략($A) 실행 실패(계속 진행)" }
+    & $venvPython "$repo\scripts\portfolio.py" $label $A
+    if ($LASTEXITCODE -ne 0) { Write-Warning "알고리즘 계좌($A) 갱신 실패(계속 진행)" }
+}
+
 # 보유 종목별 '일별 추이 + 내 매수 시점' 그래프 — 4계좌 전부 돌린 뒤 한 번만
 Write-Host "[보유종목 차트] 생성..."
 & $venvPython "$repo\scripts\holding_charts.py"

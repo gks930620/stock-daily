@@ -238,6 +238,22 @@ jobs:
       # 보유 종목별 '일별 추이 + 내 매수 시점' 그래프 (포트폴리오 상세에서 종목 펼치면 보임).
       # 4개 계좌를 다 돌린 뒤 한 번만 실행 — 보유 티커 합집합에 대해 티커당 1회만 시세를 받는다.
       # 실패해도 파이프라인을 멈추지 않는다(차트만 빠지고 페이지는 정상).
+      #
+      # 🤖 알고리즘 계좌 — AI가 아니라 코드가 규칙대로 판단한다 (strategies/).
+      #    AI 4인과 **같은 market.json·같은 체결 규칙**을 쓰므로 채점판에서 직접 비교된다.
+      #    · bench = 코스피 매수 후 보유. 판단하지 않는 **기준선**. 못 이기면 판단이 값을 못 한 것.
+      #    ⚠️ 전략을 추가하려면 `python scripts/backtest.py <id>`의 **검증구간**을 먼저 통과해야 한다.
+      #       (2026-08-05 현재 meanrev·momentum은 탈락 — docs/RULES.md §0-3)
+      - name: 알고리즘 계좌 실행 (전략 → 주문 → 체결)
+        env:
+          RUN_DATE: ${{ steps.rd.outputs.run_date }}
+        run: |
+          for A in bench; do
+            echo "───── 알고리즘 계좌: $A ─────"
+            python scripts/run_strategy.py "$A" ${{ steps.mode.outputs.label }} "$A"
+            python scripts/portfolio.py ${{ steps.mode.outputs.label }} "$A"
+          done
+
       - name: 보유 종목별 차트 생성
         run: python scripts/holding_charts.py || echo "보유종목 차트 실패(계속 진행)"
         continue-on-error: true
