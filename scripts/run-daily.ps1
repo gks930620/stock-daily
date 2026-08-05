@@ -95,6 +95,11 @@ Write-Host "[보유종목 차트] 생성..."
 & $venvPython "$repo\scripts\holding_charts.py"
 if ($LASTEXITCODE -ne 0) { Write-Warning "보유종목 차트 실패(계속 진행)" }
 
+# 🧮 AI 채점판 — 종목 콜 단위 소급 채점 (계좌 수익률만으론 실력/운 구분 불가)
+Write-Host "[채점판] 갱신..."
+& $venvPython "$repo\scripts\scoreboard.py"
+if ($LASTEXITCODE -ne 0) { Write-Warning "채점판 실패(계속 진행)" }
+
 # 커밋 전 관문 — 리포트·주문서 4인·체결 4인이 다 맞아야 게시한다 (조용한 실패 금지)
 Write-Host "[점검] 회차 산출물 확인..."
 & $venvPython "$repo\scripts\verify_run.py" $Mode

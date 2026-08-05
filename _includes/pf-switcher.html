@@ -4,10 +4,14 @@
   <a href="{{ '/portfolio/aggressive/' | relative_url }}" {% if include.cur == 'aggressive' %}class="on"{% endif %}>🚀 공격형</a>
   <a href="{{ '/portfolio/normal1/' | relative_url }}" {% if include.cur == 'normal1' %}class="on"{% endif %}>🙂 평범형 1</a>
   <a href="{{ '/portfolio/normal2/' | relative_url }}" {% if include.cur == 'normal2' %}class="on"{% endif %}>🙂 평범형 2</a>
+  <a class="sb-link {% if include.cur == 'scoreboard' %}on{% endif %}" href="{{ '/scoreboard/' | relative_url }}">🧮 채점판</a>
 </div>
 <style>
 .pf-switch{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:0 0 16px;font-size:13.5px;}
 .pf-switch a{border:1px solid var(--line);border-radius:999px;padding:5px 13px;text-decoration:none;color:var(--muted);font-weight:700;background:var(--card);}
 .pf-switch a:hover{color:var(--link);border-color:var(--link);}
 .pf-switch a.on{background:var(--link);border-color:var(--link);color:#fff;}
+/* 채점판 — 계좌가 아니라 '판정' 화면이라 시각적으로 분리 */
+.pf-switch a.sb-link{margin-left:auto;}
+@media (max-width:640px){.pf-switch a.sb-link{margin-left:0;}}
 </style>

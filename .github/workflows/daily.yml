@@ -242,6 +242,15 @@ jobs:
         run: python scripts/holding_charts.py || echo "보유종목 차트 실패(계속 진행)"
         continue-on-error: true
 
+      # 🧮 AI 채점판 — 커밋된 주문서 전체를 종목 콜 단위로 소급 채점한다.
+      #    계좌 수익률은 하루 1표본이라 실력/운 구분이 안 되지만, 종목 콜은 회차당 수십 표본이다.
+      #    실패해도 파이프라인을 멈추지 않는다(채점 페이지만 갱신 안 됨).
+      - name: AI 채점판 갱신
+        env:
+          RUN_DATE: ${{ steps.rd.outputs.run_date }}
+        run: python scripts/scoreboard.py || echo "채점판 실패(계속 진행)"
+        continue-on-error: true
+
       # ⚠️ 커밋 **전**에 점검한다 — 리포트·주문서 4인·체결 4인이 다 맞아야 게시한다.
       #    (초록불인데 결과물이 비어 있던 2026-07~08 사고 재발 방지)
       - name: 회차 산출물 점검
