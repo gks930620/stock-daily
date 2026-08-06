@@ -74,7 +74,13 @@ def main() -> int:
         if not dated:
             errors.append(f"리포트 front matter의 date가 {today}가 아니다: _posts/{post.name}")
 
-    # 3~4) 주문서 4인 + 체결 반영
+    # 3~4) 주문서 + 체결 반영
+    #   ⚠️ 두 가지를 **구분**한다. 성격이 다르다:
+    #     · 주문서가 아예 없다   = 매니저 세션 실패. 이미 워크플로가 재시도하고 경고를 띄웠고,
+    #       2명 미만이면 거기서 죽는다 → 여기선 **경고**로 충분하다(시끄럽게 실패한 일).
+    #     · 주문서는 있는데 미반영 = **조용한 유실**. 이게 §4-1에서 3주간 아무도 몰랐던 그 버그다
+    #       → 반드시 **실패**시킨다.
+    present = 0
     for p in PERSONAS:
         stem = f"{today}-{mode}-{p}"
         opath = REPO / "portfolio" / "orders" / f"{stem}.json"
@@ -85,14 +91,18 @@ def main() -> int:
             errors.append(f"결번 회차 재실행: {stem} (void_orders에 있는데 또 돌았다)")
             continue
         if not opath.exists():
-            print(f"  ERR 주문서    {stem}.json 없음")
-            errors.append(f"주문서 없음: {stem}.json (매니저 세션 실패 의심)")
+            print(f"  --  주문서    {stem}.json 없음 (세션 실패로 이번 회차 불참)")
+            warns.append(f"{p}: 이번 회차 주문서 없음 — 매니저 세션 실패")
             continue
+        present += 1
         if stem in applied:
             print(f"  OK  체결      {stem}")
         else:
             print(f"  ERR 체결      {stem} — 주문서는 있는데 계좌에 반영 안 됨")
             errors.append(f"미체결: {stem} (RUN_DATE 불일치 또는 portfolio.py 실패)")
+    if present == 0:
+        print("  ERR 주문서    4인 전원 없음")
+        errors.append("매니저 주문서가 하나도 없다 — 리포트의 근거가 없는 회차다")
 
     # 4-1) 알고리즘 계좌 — 코드가 내는 주문이라 실패할 이유가 없다. 실패하면 버그다.
     for a in ALGOS:
@@ -128,7 +138,7 @@ def main() -> int:
         for e in errors:
             print(f"   · {e}", file=sys.stderr)
         return 1
-    print(f"\n✅ 회차 점검 통과 — 리포트·주문서 4인·체결 4인 모두 정상 ({today} {mode})")
+    print(f"\n✅ 회차 점검 통과 — 리포트 + 매니저 {present}/{len(PERSONAS)}인 주문·체결 정합 ({today} {mode})")
     return 0
 
 

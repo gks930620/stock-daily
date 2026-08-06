@@ -156,6 +156,7 @@ jobs:
           CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
           MODE: ${{ steps.mode.outputs.mode }}
           REPORT_DATE: ${{ steps.rd.outputs.run_date }}
+        id: mgr
         run: |
           claude --version
           mkdir -p logs
@@ -178,23 +179,60 @@ jobs:
             claude -p "$PROMPT" --model "$MODEL" --effort xhigh \
               --permission-mode bypassPermissions --verbose > "logs/mgr-$P.log" 2>&1
           }
+          missing_list() {
+            M=""
+            for P in stable aggressive normal1 normal2; do
+              [ -f "portfolio/orders/${REPORT_DATE}-${MODE}-${P}.json" ] || M="$M $P"
+            done
+            echo "$M"
+          }
+
+          # 1차: 4인 병렬 (서로를 참조하지 않는 독립 세션이라 동시에 돌려도 안전)
           for P in stable aggressive normal1 normal2; do run_one "$P" & done
           wait
+
+          # 2차: 빠진 매니저만 **순차로** 재시도.
+          #   2026-08-05 KR 런이 이 지점에서 4인 전멸 → 그날 리포트가 통째로 누락됐다.
+          #   원인은 일시적(사용량 한도 추정)이었고 7시간 뒤 US 런은 같은 코드로 정상 동작했다.
+          #   순차로 재시도하는 이유: 동시 요청을 줄여 한도·혼잡에 덜 부딪히게 하려고.
+          MISS="$(missing_list)"
+          if [ -n "$MISS" ]; then
+            echo "::warning::1차 실패 —$MISS · 60초 뒤 순차 재시도"
+            sleep 60
+            for P in $MISS; do
+              echo "───── 재시도: $P ─────"
+              run_one "$P" || true
+            done
+          fi
+
           for P in stable aggressive normal1 normal2; do
             echo "───── 포트폴리오 매니저: $P ─────"
-            cat "logs/mgr-$P.log" || true
+            cat "logs/mgr-$P.log" 2>/dev/null || echo "(로그 없음 — 세션이 시작조차 못 함)"
           done
-          # 주문서가 하나라도 안 나왔으면 여기서 죽는다 (애널리스트가 빈 손으로 글을 쓰지 않게).
-          MISSING=""
+
+          # 판정: 재시도 후에도 부족하면 어디까지 진행할지 정한다.
+          #   · 0~1명  → 리포트를 쓸 근거가 없다. 실패시킨다.
+          #   · 2~3명  → **진행한다.** 하루를 통째로 버리는 것보다 낫고, 빠진 매니저는
+          #              그 회차에 거래를 안 한 것뿐이라 계좌 기록은 정합적이다(누락은 글에 명시).
+          OK_LIST=""; N=0
           for P in stable aggressive normal1 normal2; do
-            F="portfolio/orders/${REPORT_DATE}-${MODE}-${P}.json"
-            [ -f "$F" ] || MISSING="$MISSING $F"
+            if [ -f "portfolio/orders/${REPORT_DATE}-${MODE}-${P}.json" ]; then
+              OK_LIST="${OK_LIST:+$OK_LIST,}$P"; N=$((N+1))
+            fi
           done
-          if [ -n "$MISSING" ]; then
-            echo "::error::주문서 누락 —$MISSING"
+          MISS="$(missing_list)"
+          echo "available=$OK_LIST" >> "$GITHUB_OUTPUT"
+          echo "missing=$(echo $MISS | tr ' ' ',')" >> "$GITHUB_OUTPUT"
+          echo "count=$N" >> "$GITHUB_OUTPUT"
+          if [ "$N" -lt 2 ]; then
+            echo "::error::매니저 $N명만 성공 —$MISS · 리포트를 쓸 근거가 부족해 중단한다"
             exit 1
           fi
-          echo "▶ 주문서 4인분 확인 완료"
+          if [ -n "$MISS" ]; then
+            echo "::warning::매니저 $N/4명으로 진행 — 누락:$MISS"
+          else
+            echo "▶ 주문서 4인분 확인 완료"
+          fi
 
       # 2단계 🧠 애널리스트가 4인의 주문서를 종합해 "오늘의 매수/매도 종목"을 깔끔하게 정리한다.
       - name: Claude 종합 리포트 생성 (4인 주문 종합 — 종목 결론)
@@ -204,6 +242,9 @@ jobs:
           MODE: ${{ steps.mode.outputs.mode }}
           REPORT_DATE: ${{ steps.rd.outputs.run_date }}
           YESTERDAY: ${{ steps.rd.outputs.yesterday }}
+          AVAILABLE: ${{ steps.mgr.outputs.available }}
+          MISSING: ${{ steps.mgr.outputs.missing }}
+          MGR_COUNT: ${{ steps.mgr.outputs.count }}
         run: |
           # 작성 시각은 실제 시각을 쓰되, 자정을 넘겼으면 회차 마지막 순간(23:59)으로 고정한다.
           # (글 파일명은 RUN_DATE 기준이므로 front matter가 다음 날로 튀면 목록·URL이 어긋난다)
@@ -218,7 +259,8 @@ jobs:
           [CI 환경 안내]
           - 오늘 날짜(KST): ${REPORT_DATE} / 어제: ${YESTERDAY}
           - **지금 시각(KST): ${REPORT_TIME}** → front matter의 date를 반드시 \`${REPORT_DATE} ${REPORT_TIME}:00 +0900\` 로 쓸 것 (실제 작성 시각).
-          - 방금 4인이 낸 주문서: portfolio/orders/${REPORT_DATE}-${MODE}-{stable,aggressive,normal1,normal2}.json 를 반드시 읽어 종합하라.
+          - **이번 회차에 주문서를 낸 매니저: ${AVAILABLE}** (${MGR_COUNT}/4명). 각각 portfolio/orders/${REPORT_DATE}-${MODE}-<성향id>.json 를 반드시 읽어 종합하라.$(
+            [ -n "$MISSING" ] && printf '\n          - ⚠️ **세션 실패로 빠진 매니저: %s** — 이들의 주문서는 없다. 없는 것을 지어내지 말고, 글에 "%s 세션 실패로 이번 회차 제외"라고 한 줄 밝혀라. 슬라이드 03은 참여한 매니저만 칸을 만든다.' "$MISSING" "$MISSING")
           - 모델 구성: 안정형·공격형=opus · 평범형1·2=fable (평범형 둘은 동일 모델·동일 지시문의 대조군).
           - git 명령은 직접 실행하지 마라. 파일 생성까지만 하면 커밋·push는 워크플로가 처리한다."
           # --model opus: 항상 최신 Opus / --effort xhigh: 최고 심층추론
