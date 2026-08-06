@@ -12,7 +12,7 @@
 
 ```
 [정해진 시각]  스케줄러가 run-daily.ps1 [모드] 실행
-   kr(14:10) = 수집+차트+스크리너 → 매니저 4인 매매 → 종합 리포트(~14:30) → 체결 → push
+   kr(14:40) = 수집+차트+스크리너 → 매니저 4인 매매 → 종합 리포트(~15:00) → 체결 → push
    us(23:30) = 수집+차트 → 매니저 4인 매매 → 종합 리포트(~23:45) → 체결 → push
 [GitHub Pages]  사이트에 자동 반영 → 사용자 열람 (비용 0)
 ```
@@ -45,7 +45,7 @@ PowerShell을 열고 아래를 붙여넣기:
 $repo = "C:\Users\gks93\workspace\주식시장예상클로드코드"
 $settings = New-ScheduledTaskSettingsSet -StartWhenAvailable -ExecutionTimeLimit (New-TimeSpan -Hours 1)
 
-# 2개 작업 등록: 14:10 kr / 23:30 us (장중)
+# 2개 작업 등록: 14:40 kr / 23:30 us (장중)
 @(
   @{Name="StockDaily-KR"; Time="2:30pm";  Mode="kr"},
   @{Name="StockDaily-US"; Time="11:30pm"; Mode="us"}
@@ -83,7 +83,7 @@ PC를 안 켜도 됩니다. Claude Code 대화창에서:
 
 | 시각(KST) | 모드 | 내용 |
 |---|---|---|
-| 14:10 | `kr` | 🇰🇷 장중 분석 → 14:30 리포트 + 그 시세로 매매 |
+| 14:40 | `kr` | 🇰🇷 장중 분석 → 15:00 리포트 + 그 시세로 매매 |
 | 23:30 | `us` | 🇺🇸 장중 분석 → 23:45 리포트 + 그 시세로 매매 |
 
 ---

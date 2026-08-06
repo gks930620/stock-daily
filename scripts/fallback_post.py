@@ -37,7 +37,7 @@ for _s in (sys.stdout, sys.stderr):
 
 REPO = Path(__file__).resolve().parent.parent
 WEEKDAY = ["월", "화", "수", "목", "금", "토", "일"]
-MARKET = {"kr": ("🇰🇷 한국장", "14:30"), "us": ("🇺🇸 미국장", "23:45")}
+MARKET = {"kr": ("🇰🇷 한국장", "15:00"), "us": ("🇺🇸 미국장", "23:45")}
 
 # 원인 코드 → (제목용 한 줄, 본문 설명)
 REASONS = {

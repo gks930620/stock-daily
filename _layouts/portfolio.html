@@ -80,7 +80,7 @@ layout: default
     {% for j in p.journal_view %}
     <div class="jday">
       <div class="jhead"><b>{{ j.date }}</b>
-        {% if j.session == "kr" %}<span class="sess">🇰🇷 한국장 14:30</span>{% elsif j.session == "us" %}<span class="sess">🇺🇸 미국장 23:45</span>{% endif %}
+        {% if j.session == "kr" %}<span class="sess">🇰🇷 한국장 15:00</span>{% elsif j.session == "us" %}<span class="sess">🇺🇸 미국장 23:45</span>{% endif %}
       </div>
       {% if j.comment != "" %}<p class="jc">{{ j.comment }}</p>{% endif %}
       {% for o in j.placed %}<div class="jr"><span class="tag {% if o.action contains '매수' %}u-bg{% elsif o.action contains '매도' %}d-bg{% else %}h-bg{% endif %}">{{ o.action }}</span>{% if o.name != "-" %}<b>{{ o.name }}</b>{% endif %} <span class="mut">{{ o.detail }}</span></div>{% endfor %}
@@ -107,7 +107,7 @@ layout: default
     <h2>🧾 체결 규칙 & 검증</h2>
     {% include pf-rules.html %}
   </section>
-  <p class="mut small" style="margin:6px 4px 0">⚠️ 가상 매매 기록 · 투자 보장 아님 · 장중 리포트(🇰🇷 14:30 · 🇺🇸 23:45) 시점 시세로 매매 자동 반영 · <a href="{{ '/' | relative_url }}">← 리포트</a></p>
+  <p class="mut small" style="margin:6px 4px 0">⚠️ 가상 매매 기록 · 투자 보장 아님 · 장중 리포트(🇰🇷 15:00 · 🇺🇸 23:45) 시점 시세로 매매 자동 반영 · <a href="{{ '/' | relative_url }}">← 리포트</a></p>
 </div>
 
 <style>
