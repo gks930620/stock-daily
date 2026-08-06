@@ -42,6 +42,7 @@ scripts/portfolio.py              가상 1억 체결·평가·자산곡선
 scripts/holding_charts.py         보유 종목별 일별 추이 그래프 (매수 시점 표기)
 scripts/_rundate.py               회차 기준일(RUN_DATE) — 전 단계가 같은 하루를 보게 하는 기준
 scripts/verify_run.py             커밋 전 산출물 점검 (리포트·주문서 4인·체결 4인)
+scripts/fallback_post.py          회차 실패 시 '발행 실패' 안내글 생성 (AI 아닌 코드가 씀)
 scripts/scoreboard.py             🧮 AI 채점판 — 종목 콜 단위 소급 채점 (/scoreboard/)
 scripts/run_strategy.py           🤖 알고리즘 전략 실행 → 주문서 (라이브)
 scripts/backtest.py               📉 백테스트 — 같은 전략 함수를 과거에 (학습/검증 분리)

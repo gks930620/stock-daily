@@ -256,6 +256,7 @@ jobs:
 
       # 2단계 🧠 애널리스트가 4인의 주문서를 종합해 "오늘의 매수/매도 종목"을 깔끔하게 정리한다.
       - name: Claude 종합 리포트 생성 (4인 주문 종합 — 종목 결론)
+        id: report
         env:
           # 구독(Max) 토큰만 사용. API 키는 넣지 않음 → Max 사용량으로 차감.
           CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
@@ -347,6 +348,46 @@ jobs:
             echo "변경 없음 — 커밋 생략"
           else
             git commit -m "auto(${{ steps.mode.outputs.mode }}): ${{ steps.rd.outputs.run_date }} $(TZ='Asia/Seoul' date '+%H:%M')"
+            git push
+          fi
+
+      # 회차가 깨지면 사이트에 **빈칸 대신 사실**을 남긴다.
+      #   내용이 정해진 문구라 AI가 아니라 코드가 쓴다 — 게다가 이 글이 필요한 상황은
+      #   보통 AI를 못 쓰는 상황(사용량 한도)이라 AI에게 맡기면 정작 필요할 때 못 쓴다.
+      #   원인은 매니저 로그와 각 스텝 결과에서 뽑아 자동 분류한다.
+      - name: 실패 안내글 발행 (코드 생성)
+        if: failure()
+        env:
+          RUN_DATE: ${{ steps.rd.outputs.run_date }}
+          MODE: ${{ steps.mode.outputs.mode }}
+          MGR: ${{ steps.mgr.outcome }}
+          RPT: ${{ steps.report.outcome }}
+        run: |
+          # RUN_DATE가 없으면 회차 자체가 시작 전에 깨진 것 — 남길 글도 특정할 수 없다
+          if [ -z "${RUN_DATE:-}" ] || [ -z "${MODE:-}" ]; then
+            echo "회차 정보 없음 — 안내글 생략"; exit 0
+          fi
+          REASON=unknown; DETAIL=""
+          # 사용량 한도가 가장 흔한 원인이라 먼저 본다 (2026-08-05 KR 사고)
+          if grep -qs "hit your .*limit" logs/mgr-*.log; then
+            REASON=usage
+            DETAIL="$(grep -hos "resets [0-9]\{1,2\}:[0-9][0-9][ap]m (UTC)" logs/mgr-*.log | head -1)"
+          elif [ "${MGR:-}" = "failure" ]; then REASON=manager
+          elif [ "${RPT:-}" = "failure" ]; then REASON=report
+          fi
+          python scripts/fallback_post.py "$MODE" --reason "$REASON" \
+            --detail "$DETAIL" \
+            --run-url "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+
+          git config user.name "stock-daily-bot"
+          git config user.email "actions@users.noreply.github.com"
+          rm -rf logs
+          git pull --rebase --autostash || true
+          git add -A
+          if git diff --cached --quiet; then
+            echo "커밋할 변경 없음"
+          else
+            git commit -m "auto(${MODE}): ${RUN_DATE} 발행 실패 — ${REASON}"
             git push
           fi
 

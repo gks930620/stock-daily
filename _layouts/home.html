@@ -26,7 +26,9 @@ layout: default
       <a href="{{ post.url | relative_url }}">
         <time class="p-date" datetime="{{ post.date | date_to_xmlschema }}"><b>{{ post.date | date: "%Y.%m.%d" }}</b> {{ post.date | date: "%H:%M" }}</time>
         <span class="p-title">{{ post.title }}</span>
-        {% if forloop.first %}<span class="p-badge">최신</span>{% endif %}
+        {%- comment -%} 실패 안내글(코드 생성)은 목록에서 바로 구분되게 한다 {%- endcomment -%}
+        {% if post.failed %}<span class="p-badge fail">발행 실패</span>
+        {% elsif forloop.first %}<span class="p-badge">최신</span>{% endif %}
         <span class="p-arrow" aria-hidden="true">→</span>
       </a>
     </li>
@@ -45,7 +47,9 @@ layout: default
       <a href="{{ post.url | relative_url }}">
         <time class="p-date" datetime="{{ post.date | date_to_xmlschema }}"><b>{{ post.date | date: "%Y.%m.%d" }}</b> {{ post.date | date: "%H:%M" }}</time>
         <span class="p-title">{{ post.title }}</span>
-        {% if forloop.first %}<span class="p-badge">최신</span>{% endif %}
+        {%- comment -%} 실패 안내글(코드 생성)은 목록에서 바로 구분되게 한다 {%- endcomment -%}
+        {% if post.failed %}<span class="p-badge fail">발행 실패</span>
+        {% elsif forloop.first %}<span class="p-badge">최신</span>{% endif %}
         <span class="p-arrow" aria-hidden="true">→</span>
       </a>
     </li>

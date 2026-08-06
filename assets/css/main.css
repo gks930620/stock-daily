@@ -110,6 +110,9 @@ main.container{ padding-top:26px; }
 .post-item .p-title{ flex:1 1 auto; font-weight:600; color:var(--head); }
 .post-item a:hover .p-title{ color:var(--link); }
 .post-item .p-badge{ flex:0 0 auto; font-size:12px; font-weight:700; color:var(--link); background:var(--accent-soft); padding:3px 10px; border-radius:999px; }
+/* 발행 실패 안내글 — 정상 리포트와 헷갈리지 않게 회색 처리 */
+.post-item .p-badge.fail{ color:#7a8899; background:rgba(122,136,153,.14); }
+.post-item a:has(.p-badge.fail) .p-title{ color:var(--muted); }
 .post-item .p-arrow{ flex:0 0 auto; color:#9aa7bd; transition:transform .15s ease; }
 .post-item a:hover .p-arrow{ transform:translateX(3px); color:var(--link); }
 .post-item.latest a{ background:var(--card); border-color:var(--line); box-shadow:var(--shadow); }
