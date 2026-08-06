@@ -197,8 +197,28 @@ jobs:
           #   순차로 재시도하는 이유: 동시 요청을 줄여 한도·혼잡에 덜 부딪히게 하려고.
           MISS="$(missing_list)"
           if [ -n "$MISS" ]; then
-            echo "::warning::1차 실패 —$MISS · 60초 뒤 순차 재시도"
-            sleep 60
+            # 얼마나 기다릴지는 **왜 실패했는지**에 달렸다.
+            #   2026-08-05 KR: 4인 전원 "You've hit your session limit · resets 5:30am (UTC)".
+            #   스텝은 05:24에 포기했는데 리셋이 05:30이었다 — **6분만 더 기다렸으면 됐다.**
+            #   그래서 한도 메시지가 보이면 60초가 아니라 **리셋 시각까지** 기다린다.
+            W=60
+            R=$(grep -ho "resets [0-9]\{1,2\}:[0-9][0-9][ap]m" logs/mgr-*.log 2>/dev/null | head -1 | sed 's/resets //')
+            if [ -n "$R" ]; then
+              TS=$(date -u -d "$R" +%s 2>/dev/null || true)
+              if [ -n "$TS" ]; then
+                D=$(( TS - $(date -u +%s) ))
+                [ "$D" -lt 0 ] && D=$(( D + 86400 ))    # 이미 지난 시각이면 내일 것
+                W=$(( D + 30 ))                          # 리셋 직후 몰리지 않게 여유 30초
+                echo "::warning::사용량 한도 감지 — 리셋 ${R} UTC 까지 $((W/60))분 대기 후 재시도"
+              fi
+            fi
+            # 너무 오래 기다리면 발행 시각을 넘겨 리포트의 의미(30분 내 매수)가 사라진다.
+            if [ "$W" -gt 1500 ]; then
+              echo "::error::재시도까지 $((W/60))분 필요 — 발행 시각을 너무 넘겨 중단한다 (누락:$MISS)"
+              exit 1
+            fi
+            echo "::warning::1차 실패 —$MISS · $((W))초 뒤 순차 재시도"
+            sleep "$W"
             for P in $MISS; do
               echo "───── 재시도: $P ─────"
               run_one "$P" || true
