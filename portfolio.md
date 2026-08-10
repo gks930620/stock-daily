@@ -4,19 +4,14 @@ title: 가상 포트폴리오 · 4인 비교
 permalink: /portfolio/
 ---
 
-{%- comment -%}
-  벤치마크(bench)는 AI가 아니라 **기준선**이다 — 코스피를 사서 그냥 들고 있는 계좌.
-  같은 화면에 두는 이유: 비교 대상이 없으면 "다 손해"인지 "시장보다 덜 잃었는지"를 말할 수 없다.
-{%- endcomment -%}
-{% assign ids = "stable,aggressive,normal1,normal2,bench" | split: "," %}
+{% assign ids = "stable,aggressive,normal1,normal2" | split: "," %}
 {%- comment -%} 평범형 2인은 동일 모델·동일 지시문의 대조군이라 같은 색 — 한 그룹임을 색으로 표시 {%- endcomment -%}
-{% assign accents = "stable:#2f9e7f,aggressive:#d6452f,normal1:#5b7cb8,normal2:#5b7cb8,bench:#7a8899" | split: "," %}
+{% assign accents = "stable:#2f9e7f,aggressive:#d6452f,normal1:#5b7cb8,normal2:#5b7cb8" | split: "," %}
 
-{%- comment -%} 🏆 선두는 **AI 4인 중에서만** 뽑는다 (기준선과 겨루는 게 아니라 서로 겨루는 것) {%- endcomment -%}
 {%- assign best = -99999 -%}
-{%- assign ai_ids = "stable,aggressive,normal1,normal2" | split: "," -%}
-{%- for id in ai_ids -%}{%- assign key = 'portfolio-' | append: id -%}{%- assign pf = site.data[key] -%}{%- if pf.return_pct > best -%}{%- assign best = pf.return_pct -%}{%- endif -%}{%- endfor -%}
-{% assign bench = site.data['portfolio-bench'] %}
+{%- for id in ids -%}{%- assign key = 'portfolio-' | append: id -%}{%- assign pf = site.data[key] -%}{%- if pf.return_pct > best -%}{%- assign best = pf.return_pct -%}{%- endif -%}{%- endfor -%}
+{%- comment -%} 기준선은 계좌가 아니라 숫자 — 채점판이 ^KS11 스냅샷으로 계산해 둔 값을 쓴다 {%- endcomment -%}
+{% assign sb = site.data.scoreboard %}
 
 <div class="pfhub">
   {% include pf-switcher.html %}
@@ -28,11 +23,11 @@ permalink: /portfolio/
       <span class="bi"><b>🛡️ 안정형</b> 지킨다 <i>opus</i></span>
       <span class="bi"><b>🚀 공격형</b> 밀어붙인다 <i>opus</i></span>
       <span class="bi"><b>🙂 평범형 1·2</b> 성향 없음 · 동일 지시문 대조군 <i>fable</i></span>
-      <span class="bi bench"><b>📊 벤치마크</b> 코스피 매수 후 보유 · 판단 없음 <i>기준선</i></span>
     </div>
-    {% if bench %}
-    <p class="yard">📊 <b>기준선 {% if bench.return_pct >= 0 %}+{% endif %}{{ bench.return_pct }}%</b> — 아무 판단도 하지 않고 코스피만 들고 있었을 때의 성적입니다.
-    이걸 못 이기면 <b>판단이 값을 못 한 것</b>입니다.</p>
+    {% if sb.vs_bench and sb.vs_bench.size > 0 %}
+    <p class="yard">📊 <b>기준선 대비 {{ sb.beat_bench }}승 {{ sb.accounts | minus: sb.beat_bench }}패</b> —
+    같은 기간 코스피를 그냥 들고 있었을 때와 비교한 성적입니다. 아무 판단도 안 하는 그 기준선을 못 이기면
+    <b>판단이 값을 못 한 것</b>입니다. <a href="{{ '/scoreboard/' | relative_url }}">채점판에서 자세히 →</a></p>
     {% endif %}
   </header>
 
@@ -42,18 +37,17 @@ permalink: /portfolio/
       {% assign pf = site.data[key] %}
       {% assign ac = "#666" %}
       {% for pair in accents %}{% assign kv = pair | split: ":" %}{% if kv[0] == id %}{% assign ac = kv[1] %}{% endif %}{% endfor %}
-      <a class="pcard {% if id == 'bench' %}is-bench{% endif %}" href="{{ '/portfolio/' | append: id | append: '/' | relative_url }}" style="--ac:{{ ac }}">
+      <a class="pcard" href="{{ '/portfolio/' | append: id | append: '/' | relative_url }}" style="--ac:{{ ac }}">
         <div class="ptop">
           <span class="pemo">{{ pf.persona_emoji }}</span>
           <span class="pnm">{{ pf.persona_name }}</span>
-          {% if id == 'bench' %}<span class="lead yard-tag">기준선</span>
-          {% elsif best != 0 and pf.return_pct == best %}<span class="lead">🏆 선두</span>{% endif %}
+          {% if best != 0 and pf.return_pct == best %}<span class="lead">🏆 선두</span>{% endif %}
         </div>
-        {%- comment -%} 기준선 대비 초과수익 — 이 프로젝트에서 가장 중요한 한 줄 {%- endcomment -%}
-        {% if id != 'bench' and bench %}
-          {% assign exc = pf.return_pct | minus: bench.return_pct %}
-          <div class="vsb {% if exc >= 0 %}u{% else %}d{% endif %}">기준선 대비 {% if exc >= 0 %}+{% endif %}{{ exc | round: 2 }}%p</div>
-        {% endif %}
+        {%- comment -%} 기준선 대비 초과수익 — 이 프로젝트에서 가장 중요한 한 줄.
+             계좌마다 개시일이 달라 채점판이 각자 개시일 기준으로 잘라 계산해 둔 값을 쓴다. {%- endcomment -%}
+        {% for v in sb.vs_bench %}{% if v.id == id %}
+          <div class="vsb {% if v.excess_pct >= 0 %}u{% else %}d{% endif %}">기준선 대비 {% if v.excess_pct >= 0 %}+{% endif %}{{ v.excess_pct }}%p</div>
+        {% endif %}{% endfor %}
         <div class="ptag">{{ pf.persona_tag }}</div>
         <div class="ptot">{{ pf.total_value_str }}<small>원</small></div>
         <div class="pret {% if pf.return_pct >= 0 %}u{% else %}d{% endif %}">
@@ -111,12 +105,8 @@ permalink: /portfolio/
 .pfhub .hp.empty{color:var(--muted);}
 .pfhub .pgo{font-size:13px;font-weight:700;color:var(--ac);}
 .pfhub .foot{font-size:13px;color:var(--muted);margin-top:8px;}
-/* 📊 벤치마크 — AI가 아니라 기준선이라 점선·회색으로 구분 */
-.pfhub .bi.bench{border-style:dashed;}
 .pfhub .yard{font-size:14px;color:var(--muted);margin:14px 0 0;padding:11px 14px;background:var(--card);border:1px dashed var(--line);border-radius:11px;}
 .pfhub .yard b{color:var(--text);}
-.pfhub .pcard.is-bench{border-style:dashed;border-top-style:solid;}
-.pfhub .lead.yard-tag{background:color-mix(in srgb,var(--muted) 14%,transparent);color:var(--muted);}
 .pfhub .vsb{font-size:12.5px;font-weight:800;margin:-8px 0 10px;font-variant-numeric:tabular-nums;}
 .pfhub .vsb.u{color:var(--u);} .pfhub .vsb.d{color:var(--dn);}
 </style>

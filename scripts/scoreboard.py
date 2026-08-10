@@ -202,10 +202,12 @@ def main() -> int:
              "max_daily_gap": round(max(gaps), 2) if gaps else None}
 
     # ── 계좌 대 기준선 — 이 프로젝트의 헤드라인 ─────────────────
-    # "다 손해"처럼 보여도 시장이 더 빠졌으면 이긴 것이다. 기준선(코스피 매수 후 보유)이
-    # 그 눈금이다. ⚠️ 계좌마다 개시일이 다르므로 **각자의 개시일 기준으로** 기준선을 잘라 비교한다.
-    bench_state = load(REPO / "_data" / "portfolio-bench.json") or {}
-    bench_hist = {x["date"]: x["total_value"] for x in bench_state.get("history", [])}
+    # "다 손해"처럼 보여도 시장이 더 빠졌으면 이긴 것이다. 기준선(코스피)이 그 눈금이다.
+    #   ⚠️ 계좌마다 개시일이 다르므로 **각자의 개시일 기준으로** 기준선을 잘라 비교한다.
+    #   기준선은 **계좌가 아니라 숫자**다. 예전엔 코스피를 사서 들고 있는 5번째 계좌를 굴렸는데,
+    #   판정에 필요한 건 "같은 기간 코스피가 얼마나 움직였나" 하나뿐이라 계좌·페이지·자산곡선이
+    #   과했다(2026-08-10 제거). 커밋된 스냅샷의 ^KS11 값이면 똑같은 답이 나온다.
+    bench_hist = {d: p for d in dates if (p := price(d, "^KS11")) is not None}
     bdates = sorted(bench_hist)
     vs_bench = []
     if bdates:
@@ -264,7 +266,7 @@ def main() -> int:
         o = overall[key]
         print(f"   {'전체':13}{o['n']:>5}{o['hit_pct']:>8.0f}%{o['avg_excess']:>+10.2f}%p\n")
     if vs_bench:
-        print(f"■ 계좌 대 기준선 (📊 코스피 매수 후 보유) — **{beat_n}승 {len(vs_bench)-beat_n}패**")
+        print(f"■ 계좌 대 기준선 (📊 같은 기간 코스피) — **{beat_n}승 {len(vs_bench)-beat_n}패**")
         print(f"   {'계좌':13}{'개시':>12}{'수익률':>9}{'기준선':>9}{'초과':>10}")
         for v in vs_bench:
             print(f"   {v['persona']:13}{v['since']:>12}{v['return_pct']:>+8.2f}%{v['bench_pct']:>+8.2f}%{v['excess_pct']:>+9.2f}%p")

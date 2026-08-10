@@ -18,7 +18,7 @@ permalink: /scoreboard/
   {% if s.vs_bench and s.vs_bench.size > 0 %}
   <section class="card yardstick">
     <h2>📊 기준선을 이겼는가 — <span class="{% if s.beat_bench > 0 %}u{% else %}d{% endif %}">{{ s.beat_bench }}승 {{ s.accounts | minus: s.beat_bench }}패</span></h2>
-    <p class="mut small">기준선 = <a href="{{ '/portfolio/bench/' | relative_url }}">코스피를 사서 그냥 들고 있는 계좌</a>. 판단을 일절 하지 않습니다.
+    <p class="mut small">기준선 = <b>같은 기간 코스피</b>(그냥 사서 들고 있었을 때). 판단이 일절 들어가지 않은 눈금입니다.
     <b>절대 손익이 아니라 기준선 대비로 봐야 합니다</b> — 시장이 더 빠졌으면 손해여도 이긴 것이고, 시장이 올랐는데 덜 올랐으면 손해 안 봐도 진 것입니다.
     ⚠️ 계좌마다 개시일이 달라 각자의 개시일 기준으로 잘라 비교합니다.</p>
     <div class="scroll"><table>

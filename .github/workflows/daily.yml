@@ -262,7 +262,23 @@ jobs:
             echo "▶ 주문서 4인분 확인 완료"
           fi
 
-      # 2단계 🧠 애널리스트가 4인의 주문서를 종합해 "오늘의 매수/매도 종목"을 깔끔하게 정리한다.
+      # 2단계 💰 **체결을 먼저 한다.** 매매를 결정하는 건 매니저이고, 리포트는 그걸 정리한 편집물이다.
+      #    ⚠️ 예전엔 리포트 뒤에 체결했는데, 2026-08-06 KR에서 애널리스트가 실패하자 그 뒤 스텝이
+      #       전부 skip되어 **매니저 주문서 4건이 체결되지 않고 유실**됐다.
+      #       글 쓰는 단계가 실패했다고 이미 내려진 거래가 사라지면 안 된다.
+      #    체결가 = AI가 분석한 바로 그 시세(market.json). 가격을 보고 판단했으니 그 가격에 산다.
+      #    룩어헤드 아님: 수익은 이 시점 '이후' 가격에서 나오고, AI는 그걸 볼 수 없다.
+      #    부수 효과 — 리포트가 **오늘 매매까지 반영된** 계좌를 보고 쓰게 된다(슬라이드 03 현금%).
+      - name: 가상 포트폴리오 체결·평가 × 4인 (AI가 본 시세로 체결)
+        env:
+          RUN_DATE: ${{ steps.rd.outputs.run_date }}
+        run: |
+          for P in stable aggressive normal1 normal2; do
+            echo "───── 체결·평가: $P ─────"
+            python scripts/portfolio.py ${{ steps.mode.outputs.label }} $P
+          done
+
+      # 3단계 🧠 애널리스트가 4인의 주문서를 종합해 "오늘의 매수/매도 종목"을 깔끔하게 정리한다.
       - name: Claude 종합 리포트 생성 (4인 주문 종합 — 종목 결론)
         id: report
         env:
@@ -295,36 +311,13 @@ jobs:
           # --model opus: 항상 최신 Opus / --effort xhigh: 최고 심층추론
           claude -p "$PROMPT" --model opus --effort xhigh --permission-mode bypassPermissions --verbose
 
-      # 체결가 = AI가 분석한 바로 그 시세(market.json). 가격을 보고 판단했으니 그 가격에 산다.
-      # 룩어헤드 아님: 수익은 이 시점 '이후' 가격에서 나오고, AI는 그걸 볼 수 없다.
-      - name: 가상 포트폴리오 체결·평가 × 4인 (AI가 본 시세로 체결)
-        env:
-          RUN_DATE: ${{ steps.rd.outputs.run_date }}
-        run: |
-          for P in stable aggressive normal1 normal2; do
-            echo "───── 체결·평가: $P ─────"
-            python scripts/portfolio.py ${{ steps.mode.outputs.label }} $P
-          done
-
       # 보유 종목별 '일별 추이 + 내 매수 시점' 그래프 (포트폴리오 상세에서 종목 펼치면 보임).
       # 4개 계좌를 다 돌린 뒤 한 번만 실행 — 보유 티커 합집합에 대해 티커당 1회만 시세를 받는다.
       # 실패해도 파이프라인을 멈추지 않는다(차트만 빠지고 페이지는 정상).
       #
-      # 🤖 알고리즘 계좌 — AI가 아니라 코드가 규칙대로 판단한다 (strategies/).
-      #    AI 4인과 **같은 market.json·같은 체결 규칙**을 쓰므로 채점판에서 직접 비교된다.
-      #    · bench = 코스피 매수 후 보유. 판단하지 않는 **기준선**. 못 이기면 판단이 값을 못 한 것.
-      #    ⚠️ 전략을 추가하려면 `python scripts/backtest.py <id>`의 **검증구간**을 먼저 통과해야 한다.
-      #       (2026-08-05 현재 meanrev·momentum은 탈락 — docs/RULES.md §0-3)
-      - name: 알고리즘 계좌 실행 (전략 → 주문 → 체결)
-        env:
-          RUN_DATE: ${{ steps.rd.outputs.run_date }}
-        run: |
-          for A in bench; do
-            echo "───── 알고리즘 계좌: $A ─────"
-            python scripts/run_strategy.py "$A" ${{ steps.mode.outputs.label }} "$A"
-            python scripts/portfolio.py ${{ steps.mode.outputs.label }} "$A"
-          done
-
+      # 📊 기준선(코스피)은 **계좌가 아니라 숫자**다 — 채점판이 커밋된 스냅샷의 ^KS11로 직접 계산한다.
+      #    예전엔 코스피를 사서 들고 있는 5번째 계좌를 굴렸지만, 판정에 필요한 건 "같은 기간 시장이
+      #    얼마나 움직였나" 하나뿐이라 계좌·페이지·자산곡선·워크플로 스텝이 과했다 (2026-08-10 제거).
       - name: 보유 종목별 차트 생성
         run: python scripts/holding_charts.py || echo "보유종목 차트 실패(계속 진행)"
         continue-on-error: true

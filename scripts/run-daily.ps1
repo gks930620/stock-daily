@@ -66,8 +66,17 @@ if ($true) {
         & $claude -p $pfPrompt --model $model --effort xhigh --dangerously-skip-permissions
     }
 
-    # ② 애널리스트가 4인 주문서를 종합해 '오늘의 매수/매도 종목' 리포트 작성 — effort xhigh
-    Write-Host "[5] Claude(②애널리스트) 4인 종합 리포트 ($Mode)..."
+    # ② **체결을 먼저.** 매매는 매니저가 결정하고 리포트는 편집물이다.
+    #    ⚠️ 리포트 뒤에 체결하면, 애널리스트가 실패했을 때 이미 내려진 거래가 통째로 사라진다
+    #       (2026-08-06 KR에서 실제로 4건 유실 — daily.yml과 같은 순서를 지킨다).
+    foreach ($P in @("stable","aggressive","normal1","normal2")) {
+        Write-Host "[5] 체결·평가·$P ($label)..."
+        & $venvPython "$repo\scripts\portfolio.py" $label $P
+        if ($LASTEXITCODE -ne 0) { Write-Warning "포트폴리오($P) 갱신 실패(계속 진행)" }
+    }
+
+    # ③ 애널리스트가 4인 주문서를 종합해 '오늘의 매수/매도 종목' 리포트 작성 — effort xhigh
+    Write-Host "[6] Claude(③애널리스트) 4인 종합 리포트 ($Mode)..."
     # 자정을 넘겼으면 회차 마지막 순간(23:59)으로 고정 — 글 파일명은 RUN_DATE 기준이라
     # front matter만 다음 날로 튀면 목록·URL이 어긋난다.
     $nowHM = if ((Get-Date -Format "yyyy-MM-dd") -eq $today) { Get-Date -Format "HH:mm" } else { "23:59" }
@@ -83,22 +92,7 @@ if ($true) {
 
 }
 
-# 체결가 = AI가 분석한 그 시세. 가격을 보고 판단했으니 그 가격에 산다.
-foreach ($P in @("stable","aggressive","normal1","normal2")) {
-    Write-Host "[포트폴리오·$P] 체결·평가 ($label)..."
-    & $venvPython "$repo\scripts\portfolio.py" $label $P
-    if ($LASTEXITCODE -ne 0) { Write-Warning "포트폴리오($P) 갱신 실패(계속 진행)" }
-}
-
-# 🤖 알고리즘 계좌 — 코드가 규칙대로 판단 (strategies/). AI 4인과 같은 시세·같은 체결 규칙.
-#    ⚠️ 전략 추가는 backtest.py 검증구간 통과가 조건 (docs/RULES.md §0-3)
-foreach ($A in @("bench")) {
-    Write-Host "[알고리즘·$A] 전략 실행 → 체결 ($label)..."
-    & $venvPython "$repo\scripts\run_strategy.py" $A $label $A
-    if ($LASTEXITCODE -ne 0) { Write-Warning "전략($A) 실행 실패(계속 진행)" }
-    & $venvPython "$repo\scripts\portfolio.py" $label $A
-    if ($LASTEXITCODE -ne 0) { Write-Warning "알고리즘 계좌($A) 갱신 실패(계속 진행)" }
-}
+# 📊 기준선(코스피)은 계좌가 아니라 숫자다 — 채점판이 ^KS11 스냅샷으로 직접 계산한다.
 
 # 보유 종목별 '일별 추이 + 내 매수 시점' 그래프 — 4계좌 전부 돌린 뒤 한 번만
 Write-Host "[보유종목 차트] 생성..."
