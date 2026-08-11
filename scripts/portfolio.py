@@ -61,10 +61,10 @@ SESSION_LABEL = {"kr": "🇰🇷 한국장", "us": "🇺🇸 미국장", "": ""}
 #     같은 모델·같은 데이터·같은 프롬프트로 판단이 얼마나 갈리는지(편차) 보기 위한 것이므로
 #     둘의 tag도 동일하다. (모델 지정은 daily.yml / run-daily.ps1)
 PERSONAS = {
-    "stable":     {"name": "안정형",   "emoji": "🛡️", "tag": "가치·방어 — 저평가 우량주·배당, 현금 넉넉, 손실 최소 우선 (opus)"},
-    "aggressive": {"name": "공격형",   "emoji": "🚀", "tag": "성장·모멘텀 — 주도주 추종, 집중 투자, 현금 최소 (opus)"},
-    "normal1":    {"name": "평범형 1", "emoji": "🙂", "tag": "성향 없음 — 데이터가 가리키는 대로. 동일 지시문 대조군 (fable)"},
-    "normal2":    {"name": "평범형 2", "emoji": "🙂", "tag": "성향 없음 — 데이터가 가리키는 대로. 동일 지시문 대조군 (fable)"},
+    "stable":     {"name": "안정형",   "emoji": "🛡️", "tag": "가치·방어 · 현금 넉넉 · opus"},
+    "aggressive": {"name": "공격형",   "emoji": "🚀", "tag": "성장·모멘텀 · 집중 투자 · opus"},
+    "normal1":    {"name": "평범형 1", "emoji": "🙂", "tag": "성향 없음 · 동일 지시문 대조군 · fable"},
+    "normal2":    {"name": "평범형 2", "emoji": "🙂", "tag": "성향 없음 · 동일 지시문 대조군 · fable"},
 }
 
 # 보유 종목을 페이지에서 🇰🇷/🇺🇸/🌐로 나눠 보여주기 위한 시장 구분.
@@ -410,7 +410,7 @@ def main() -> int:
         "cash_weight_pct": round(cash / total * 100, 1) if total else 0,
         "day_chg_pct": day_chg_pct, "days": len(hist),
         "priced_at": market.get("generated_at_kst", ""),
-        "eval_note": "AI가 장중에 시세를 보고 판단 → 바로 그 가격으로 체결 (🇰🇷 매일 15:00 · 🇺🇸 매일 23:45 발행). 리포트를 본 사람이 30분 안에 같은 가격대로 매수 가능. 손익은 이후 시세로 결정",
+        "eval_note": "🇰🇷 15:00 · 🇺🇸 23:45 발행 시점 시세로 체결",
         "persona": persona, "persona_name": pmeta["name"],
         "persona_emoji": pmeta["emoji"], "persona_tag": pmeta["tag"],
     })

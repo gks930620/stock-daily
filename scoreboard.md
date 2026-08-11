@@ -11,16 +11,13 @@ permalink: /scoreboard/
 
   <header class="hh">
     <h1>진짜 잘하는가</h1>
-    <p class="one">계좌 수익률은 하루 1표본 · <b>종목 콜은 하루 수십 표본</b></p>
-    <p class="sub">{{ s.period.from }} ~ {{ s.period.to }} · {{ s.snapshots }}회차 · 종목 콜 <b>{{ s.overall.calls }}건</b> 소급 채점</p>
+    <p class="sub">{{ s.period.from }} ~ {{ s.period.to }} · {{ s.snapshots }}회차 · 종목 콜 <b>{{ s.overall.calls }}건</b></p>
   </header>
 
   {% if s.vs_bench and s.vs_bench.size > 0 %}
   <section class="card yardstick">
     <h2>📊 기준선을 이겼는가 — <span class="{% if s.beat_bench > 0 %}u{% else %}d{% endif %}">{{ s.beat_bench }}승 {{ s.accounts | minus: s.beat_bench }}패</span></h2>
-    <p class="mut small">기준선 = <b>같은 기간 코스피</b>(그냥 사서 들고 있었을 때). 판단이 일절 들어가지 않은 눈금입니다.
-    <b>절대 손익이 아니라 기준선 대비로 봐야 합니다</b> — 시장이 더 빠졌으면 손해여도 이긴 것이고, 시장이 올랐는데 덜 올랐으면 손해 안 봐도 진 것입니다.
-    ⚠️ 계좌마다 개시일이 달라 각자의 개시일 기준으로 잘라 비교합니다.</p>
+    <p class="mut small">기준선 = 같은 기간 코스피. 개시일이 달라 각자 개시일 기준으로 자릅니다.</p>
     <div class="scroll"><table>
       <thead><tr><th>계좌</th><th>개시</th><th>수익률</th><th>기준선</th><th>초과</th></tr></thead>
       <tbody>
@@ -63,7 +60,7 @@ permalink: /scoreboard/
 
   <section class="card">
     <h2>보유 기간별 성적</h2>
-    <p class="mut small">초과수익 = 종목 수익률 − 같은 기간 벤치마크(🇰🇷 코스피 / 🇺🇸 S&amp;P500). 시장이 오르내린 몫을 빼야 <b>종목 고르는 실력</b>만 남습니다. 매도는 부호를 뒤집어 채점합니다(팔고 나서 더 빠졌으면 적중).</p>
+    <p class="mut small">초과수익 = 종목 수익률 − 같은 기간 지수(🇰🇷 코스피 / 🇺🇸 S&amp;P500). 매도는 부호를 뒤집어 채점.</p>
     <div class="scroll"><table>
       <thead><tr><th>계좌</th>
         {% for hz in s.horizons %}<th colspan="2">{{ hz.label }}</th>{% endfor %}
@@ -117,27 +114,26 @@ permalink: /scoreboard/
 
   <section class="card">
     <h2>4개의 뇌인가, 하나인가</h2>
-    <p class="mut small">계좌를 4개로 나눈 이유는 <b>분산</b>입니다. 그런데 경로가 달라도 결국 같은 포트폴리오에 도달하면 나눈 의미가 없습니다. 그래서 <b>보유 겹침</b>으로 판정합니다.</p>
+    <p class="mut small">보유 종목이 겹칠수록 계좌를 나눈 의미가 없습니다.</p>
     <div class="ovl">
       {% for p in s.overlap.holdings_pairs %}
       <div class="ov"><span class="pr">{{ p.pair }}</span><span class="jc">{{ p.jaccard_pct }}%</span></div>
       {% endfor %}
     </div>
-    <p class="mut small">주문 겹침(같은 날 같은 종목 동시 매수)은 {{ s.overlap.shared_2plus_pct }}%로 낮습니다 — 종목·타이밍은 갈립니다. 판정은 위의 보유 겹침으로 하세요.</p>
+    <p class="mut small">같은 날 같은 종목 동시 매수는 {{ s.overlap.shared_2plus_pct }}%.</p>
   </section>
 
   <section class="card warn">
-    <h2>⚠️ 이 숫자를 믿을 때의 한계</h2>
+    <h2>⚠️ 한계</h2>
     <ul class="pfr">
-      <li><b>표본이 적습니다.</b> {{ s.snapshots }}회차 · 콜 {{ s.overall.calls }}건. 통계적 결론을 내리기엔 아직 부족합니다.</li>
-      <li><b>콜이 서로 독립이 아닙니다.</b> 여러 계좌가 같은 종목을 사면 그만큼 실질 표본은 줄어듭니다 — 콜 수 ≠ 표본 수.</li>
-      <li><b>노이즈 바닥이 {{ s.noise.avg_daily_gap }}%p</b>(최대 {{ s.noise.max_daily_gap }}%p)입니다. 완전히 동일한 지시문·모델의 두 계좌가 아무 이유 없이 그만큼 갈립니다. 이보다 작은 차이는 실력이 아닙니다.</li>
-      <li>벤치마크는 지수, 콜은 개별 종목이라 <b>변동성(베타)이 보정되지 않았습니다.</b></li>
-      <li>가상 매매 기록이며 <b>투자 조언이 아닙니다.</b></li>
+      <li>{{ s.snapshots }}회차 · 콜 {{ s.overall.calls }}건 — 표본 부족</li>
+      <li>여러 계좌가 같은 종목을 사면 실질 표본은 더 적습니다</li>
+      <li>노이즈 바닥 {{ s.noise.avg_daily_gap }}%p 이하 차이는 실력이 아닙니다</li>
+      <li>베타 미보정 · 수수료·세금 미반영 · 투자 조언 아님</li>
     </ul>
   </section>
 
-  <p class="mut small" style="margin:10px 4px 0">채점 코드: <code>scripts/scoreboard.py</code> · 원본은 커밋된 <code>portfolio/orders/</code>·<code>data/</code>와 대조 가능 · <a href="{{ '/portfolio/' | relative_url }}">← 포트폴리오</a></p>
+  <p class="mut small" style="margin:10px 4px 0"><a href="https://github.com/gks930620/stock-daily/tree/main/portfolio/orders">주문서</a> · <a href="https://github.com/gks930620/stock-daily/tree/main/data">시세</a> 원본 대조 가능 · <a href="{{ '/portfolio/' | relative_url }}">← 포트폴리오</a></p>
 </div>
 
 <style>

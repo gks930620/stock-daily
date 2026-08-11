@@ -67,11 +67,11 @@ layout: default
       <span class="nm"><b>현금 (예수금)</b><span>다음 매수 대기</span></span>
       <span class="val"><b>{{ p.cash_str }}원</b><span class="mut">{{ p.cash_weight_pct }}%</span></span>
     </div>
-    <p class="mut small">비중 = 총자산 대비 · 손익 = 평균단가 대비(해외는 환율 포함) · 종목을 누르면 <b>일별 추이 그래프(🔴 내 매수 시점 표기)</b>와 거래 내역이 열립니다</p>
+    <p class="mut small">비중 = 총자산 대비 · 손익 = 평단 대비(해외는 환율 포함) · 종목을 누르면 추이 그래프와 거래 내역</p>
   </section>
 
   <section class="card">
-    <h2>자산 추이 <span class="mut small">(리포트 시점 평가)</span></h2>
+    <h2>자산 추이</h2>
     <img src="{{ '/assets/portfolio/equity-' | append: p.persona | append: '.png' | relative_url }}" alt="자산 추이 차트">
   </section>
 
@@ -107,7 +107,7 @@ layout: default
     <h2>🧾 체결 규칙 & 검증</h2>
     {% include pf-rules.html %}
   </section>
-  <p class="mut small" style="margin:6px 4px 0">⚠️ 가상 매매 기록 · 투자 보장 아님 · 장중 리포트(🇰🇷 15:00 · 🇺🇸 23:45) 시점 시세로 매매 자동 반영 · <a href="{{ '/' | relative_url }}">← 리포트</a></p>
+  <p class="mut small" style="margin:6px 4px 0">⚠️ 가상 매매 · 투자 조언 아님 · <a href="{{ '/portfolio/' | relative_url }}">← 4인 비교</a></p>
 </div>
 
 <style>

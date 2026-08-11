@@ -5,7 +5,10 @@ layout: default
   <p class="eyebrow">매일 시장 리포트</p>
   <h1 class="hero-title">{{ site.title }}</h1>
   <p class="hero-lede">{{ site.description }}</p>
-  <div class="hero-note">⚠️ 근거 있는 확률·시나리오 기록입니다. 예측 적중이 아니라 자기검증이 목적이며, 매매 판단·책임은 본인에게 있습니다.</div>
+  {%- assign sb = site.data.scoreboard -%}
+  {% if sb.vs_bench and sb.vs_bench.size > 0 %}
+  <div class="hero-note">기준선(코스피) 대비 <b>{{ sb.beat_bench }}승 {{ sb.accounts | minus: sb.beat_bench }}패</b> · 종목 콜 <b>{{ sb.overall.calls }}건</b> 적중률 <b>{{ sb.overall.now.hit_pct }}%</b></div>
+  {% endif %}
   <div class="hero-actions">
     <a class="btn btn-solid" href="https://github.com/gks930620/stock-daily">GitHub</a>
   </div>
@@ -18,7 +21,7 @@ layout: default
 <section class="post-list" aria-label="한국장 리포트">
   <div class="list-head">
     <h2>🇰🇷 한국장 리포트</h2>
-    <span class="count">{{ kr_posts | size }}편 · 평일 15:00 (장중)</span>
+    <span class="count">{{ kr_posts | size }}편 · 평일 15:00</span>
   </div>
   <ol class="posts">
     {% for post in kr_posts %}
@@ -39,7 +42,7 @@ layout: default
 <section class="post-list" aria-label="미국장 리포트">
   <div class="list-head">
     <h2>🇺🇸 미국장 리포트</h2>
-    <span class="count">{{ us_posts | size }}편 · 평일 23:45 (장중)</span>
+    <span class="count">{{ us_posts | size }}편 · 평일 23:45</span>
   </div>
   <ol class="posts">
     {% for post in us_posts %}

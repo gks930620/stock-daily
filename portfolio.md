@@ -18,16 +18,15 @@ permalink: /portfolio/
 
   <header class="hh">
     <h1>같은 시장, 네 개의 뇌</h1>
-    <p class="one">각자 1억 · 같은 데이터 · 손익으로 증명</p>
+    <p class="one">각자 1억 · 같은 데이터 · 같은 체결 규칙</p>
     <div class="brief">
       <span class="bi"><b>🛡️ 안정형</b> 지킨다 <i>opus</i></span>
       <span class="bi"><b>🚀 공격형</b> 밀어붙인다 <i>opus</i></span>
       <span class="bi"><b>🙂 평범형 1·2</b> 성향 없음 · 동일 지시문 대조군 <i>fable</i></span>
     </div>
     {% if sb.vs_bench and sb.vs_bench.size > 0 %}
-    <p class="yard">📊 <b>기준선 대비 {{ sb.beat_bench }}승 {{ sb.accounts | minus: sb.beat_bench }}패</b> —
-    같은 기간 코스피를 그냥 들고 있었을 때와 비교한 성적입니다. 아무 판단도 안 하는 그 기준선을 못 이기면
-    <b>판단이 값을 못 한 것</b>입니다. <a href="{{ '/scoreboard/' | relative_url }}">채점판에서 자세히 →</a></p>
+    <p class="yard">📊 기준선(같은 기간 코스피) 대비 <b>{{ sb.beat_bench }}승 {{ sb.accounts | minus: sb.beat_bench }}패</b>
+    · <a href="{{ '/scoreboard/' | relative_url }}">채점판 →</a></p>
     {% endif %}
   </header>
 
@@ -71,8 +70,8 @@ permalink: /portfolio/
     {% endfor %}
   </div>
 
-  <p class="foot">각 카드를 누르면 그 계좌의 <b>보유종목·평단·매매일지·자산곡선</b>이 증권앱처럼 열립니다.<br>
-  ⚠️ <b>시작일이 다릅니다</b> — 🛡️안정·🚀공격은 2026-07-20 개시, 🙂평범형 1·2는 2026-07-28 개시. 누적 수익률을 나란히 볼 때 감안하세요(카드의 <b>N일차</b> 참고). · <a href="{{ '/' | relative_url }}">← 리포트</a></p>
+  <p class="foot">⚠️ 개시일이 다릅니다 — 🛡️안정·🚀공격 2026-07-20, 🙂평범형 1·2 2026-07-28 (카드의 <b>N일차</b> 참고)
+  · <a href="{{ '/' | relative_url }}">← 리포트</a></p>
 </div>
 
 <style>
