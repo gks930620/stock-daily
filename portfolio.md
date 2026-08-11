@@ -6,7 +6,7 @@ permalink: /portfolio/
 
 {% assign ids = "stable,aggressive,normal1,normal2" | split: "," %}
 {%- comment -%} 평범형 2인은 동일 모델·동일 지시문의 대조군이라 같은 색 — 한 그룹임을 색으로 표시 {%- endcomment -%}
-{% assign accents = "stable:#2f9e7f,aggressive:#d6452f,normal1:#5b7cb8,normal2:#5b7cb8" | split: "," %}
+{% assign accents = "stable:--ac-stable,aggressive:--ac-aggressive,normal1:--ac-normal,normal2:--ac-normal" | split: "," %}
 
 {%- assign best = -99999 -%}
 {%- for id in ids -%}{%- assign key = 'portfolio-' | append: id -%}{%- assign pf = site.data[key] -%}{%- if pf.return_pct > best -%}{%- assign best = pf.return_pct -%}{%- endif -%}{%- endfor -%}
@@ -35,8 +35,8 @@ permalink: /portfolio/
     {% for id in ids %}
       {% assign key = 'portfolio-' | append: id %}
       {% assign pf = site.data[key] %}
-      {% assign ac = "#666" %}
-      {% for pair in accents %}{% assign kv = pair | split: ":" %}{% if kv[0] == id %}{% assign ac = kv[1] %}{% endif %}{% endfor %}
+      {% assign ac = "var(--muted2)" %}
+      {% for pair in accents %}{% assign kv = pair | split: ":" %}{% if kv[0] == id %}{% assign ac = kv[1] | prepend: "var(" | append: ")" %}{% endif %}{% endfor %}
       <a class="pcard" href="{{ '/portfolio/' | append: id | append: '/' | relative_url }}" style="--ac:{{ ac }}">
         <div class="ptop">
           <span class="pemo">{{ pf.persona_emoji }}</span>
@@ -76,17 +76,20 @@ permalink: /portfolio/
 </div>
 
 <style>
-.pfhub{--u:#d63c2f;--dn:#2563d0;}
+.pfhub{--u:var(--up);--dn:var(--down);}
 .pfhub .hh h1{font-size:clamp(28px,5.4vw,42px);margin:.15em 0 .3em;letter-spacing:-.03em;line-height:1.15;}
 .pfhub .hh .one{font-size:clamp(16px,2.2vw,19px);font-weight:700;color:var(--text);margin:0 0 14px;letter-spacing:-.01em;}
 .pfhub .brief{display:flex;flex-wrap:wrap;gap:8px;}
-.pfhub .bi{font-size:14.5px;color:var(--muted);background:var(--card);border:1px solid var(--line);border-radius:999px;padding:7px 15px;white-space:nowrap;}
+.pfhub .bi{font-size:13.5px;color:var(--muted);background:var(--surface);border-radius:999px;padding:7px 16px;white-space:nowrap;box-shadow:var(--sh);}
 .pfhub .bi b{color:var(--text);font-weight:800;margin-right:5px;}
-.pfhub .bi i{font-style:normal;font-size:11.5px;font-weight:700;color:var(--muted);border:1px solid var(--line);border-radius:5px;padding:1px 5px;margin-left:6px;vertical-align:1px;}
+.pfhub .bi i{font-style:normal;font-size:11px;font-weight:700;color:var(--muted2);background:var(--soft);border-radius:999px;padding:2px 8px;margin-left:6px;vertical-align:1px;}
 @media (max-width:520px){.pfhub .bi{white-space:normal;}}
 .pfhub .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin:22px 0 10px;}
-.pfhub .pcard{display:block;text-decoration:none;color:var(--text);background:var(--card);border:1px solid var(--line);border-top:4px solid var(--ac);border-radius:15px;padding:18px 19px;box-shadow:var(--shadow);transition:transform .12s,box-shadow .12s;}
-.pfhub .pcard:hover{transform:translateY(-3px);box-shadow:0 10px 26px rgba(0,0,0,.13);}
+.pfhub .pcard{position:relative;display:block;text-decoration:none;color:var(--text);background:var(--surface);border-radius:var(--radius);padding:20px 20px 18px;box-shadow:var(--sh);transition:transform .18s,box-shadow .18s;}
+/* ④ 카드 윗변 선 — 좌우 16px 띄우고, 이 카드는 계좌 정체성 색을 쓴다 */
+.pfhub .pcard::before{content:"";position:absolute;left:16px;right:16px;top:0;height:2px;border-radius:0 0 3px 3px;background:var(--ac);opacity:.28;transition:opacity .2s;}
+.pfhub .pcard:hover::before{opacity:1;}
+.pfhub .pcard:hover{transform:translateY(-3px);box-shadow:var(--sh-lg);text-decoration:none;}
 .pfhub .ptop{display:flex;align-items:center;gap:9px;}
 .pfhub .pemo{font-size:22px;}
 .pfhub .pnm{font-size:18px;font-weight:800;letter-spacing:-.01em;}
@@ -97,7 +100,7 @@ permalink: /portfolio/
 .pfhub .pret{font-size:16px;font-weight:800;margin:2px 0 12px;font-variant-numeric:tabular-nums;}
 .pfhub .pret.u{color:var(--u);} .pfhub .pret.d{color:var(--dn);}
 .pfhub .pret .pday{font-size:12px;font-weight:600;color:var(--muted);margin-left:6px;}
-.pfhub .pmeta{display:flex;gap:14px;font-size:12.5px;color:var(--muted);padding:10px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);}
+.pfhub .pmeta{display:flex;gap:14px;font-size:12.5px;color:var(--muted2);padding:10px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);}
 .pfhub .pmeta b{color:var(--text);}
 .pfhub .phold{display:flex;flex-wrap:wrap;gap:7px 12px;margin:12px 0;min-height:2.4em;}
 .pfhub .hp{font-size:12.5px;color:var(--text);display:inline-flex;align-items:center;}
@@ -105,7 +108,7 @@ permalink: /portfolio/
 .pfhub .hp.empty{color:var(--muted);}
 .pfhub .pgo{font-size:13px;font-weight:700;color:var(--ac);}
 .pfhub .foot{font-size:13px;color:var(--muted);margin-top:8px;}
-.pfhub .yard{font-size:14px;color:var(--muted);margin:14px 0 0;padding:11px 14px;background:var(--card);border:1px dashed var(--line);border-radius:11px;}
+.pfhub .yard{font-size:13.5px;color:var(--muted);margin:16px 0 0;padding:13px 16px;background:var(--surface);border-radius:var(--radius-sm);box-shadow:var(--sh);}
 .pfhub .yard b{color:var(--text);}
 .pfhub .vsb{font-size:12.5px;font-weight:800;margin:-8px 0 10px;font-variant-numeric:tabular-nums;}
 .pfhub .vsb.u{color:var(--u);} .pfhub .vsb.d{color:var(--dn);}

@@ -18,6 +18,19 @@
 | [docs/CLOUD-AUTOMATION.md](docs/CLOUD-AUTOMATION.md) | ⭐ 클라우드 자동화 (GitHub Actions, Max 사용량, 토큰 발급) |
 | [docs/AUTOMATION.md](docs/AUTOMATION.md) | 로컬 자동화 (윈도우 작업 스케줄러 · 백업용) |
 | [docs/TOOLING.md](docs/TOOLING.md) | 파이썬/venv 환경 설정 |
+| [디자인_Halo/halo-design-kit/](디자인_Halo/halo-design-kit/) | 🎨 **디자인 시스템 Halo** — 원칙·토큰·컴포넌트 |
+
+## 🎨 디자인: Halo
+
+**단일 출처는 `assets/css/halo-tokens.css` 의 `:root` 토큰.** 새 컴포넌트는 토큰만 조합해 만들고
+색·그림자·둥글기를 하드코딩하지 않는다 — 하는 순간 다크 모드가 그 부분만 깨진다.
+
+- 원칙 4개 (`디자인_Halo/halo-design-kit/HALO-디자인-가이드.md`):
+  ① 읽는 면(카드·본문)은 불투명 · ② 그라디언트는 초점에만 · ③ 유리(blur)는 헤더만 · ④ 카드 윗변 1px 그라디언트 선
+- 다크 모드: `<html data-theme>` 방식. 헤더 우측 토글, `localStorage` 저장, FOUC 방지 인라인 스크립트
+- **이 프로젝트만의 예외 2가지**
+  - **시장 등락색은 빨강/파랑을 유지**한다(`--up`/`--down`). 한국식 관례이고 브랜드색이 아니라 **데이터 의미색**이라, Halo 팔레트로 바꾸면 숫자의 뜻이 사라진다
+  - **본문 16.5px** (킷 기본 14.5px). 이 사이트는 앱 UI가 아니라 **읽는 물건**이다
 
 ## 🗂 폴더 구조
 

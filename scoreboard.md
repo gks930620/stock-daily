@@ -141,20 +141,23 @@ permalink: /scoreboard/
 </div>
 
 <style>
-.sb{--u:#d63c2f;--dn:#2563d0;}
+.sb{--u:var(--up);--dn:var(--down);}
 .sb .u{color:var(--u);} .sb .d{color:var(--dn);} .sb .mut{color:var(--muted);} .sb .small{font-size:13px;}
 .sb .hh h1{font-size:clamp(28px,5.4vw,42px);margin:.15em 0 .25em;letter-spacing:-.03em;}
 .sb .hh .one{font-size:clamp(15px,2.1vw,18px);font-weight:700;margin:0 0 6px;}
 .sb .hh .sub{font-size:13.5px;color:var(--muted);margin:0 0 4px;}
 .sb .lead-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin:18px 0 4px;}
-.sb .lc{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:15px 16px;box-shadow:var(--shadow);}
+.sb .lc{position:relative;background:var(--surface);border-radius:var(--radius);padding:17px 18px;box-shadow:var(--sh);}
+.sb .lc::before{content:"";position:absolute;left:16px;right:16px;top:0;height:2px;border-radius:0 0 3px 3px;background:var(--grad);opacity:.16;}
 .sb .lc .k{font-size:12.5px;color:var(--muted);font-weight:700;}
 .sb .lc .v{font-size:29px;font-weight:800;letter-spacing:-.02em;font-variant-numeric:tabular-nums;margin:3px 0 1px;}
 .sb .lc .n{font-size:11.5px;color:var(--muted);}
-.sb .card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px 22px;margin-top:16px;box-shadow:var(--shadow);}
+.sb .card{position:relative;background:var(--surface);border-radius:var(--radius);padding:22px 24px;margin-top:16px;box-shadow:var(--sh);}
+.sb .card::before{content:"";position:absolute;left:16px;right:16px;top:0;height:2px;border-radius:0 0 3px 3px;background:var(--grad);opacity:.16;}
 .sb .card h2{margin:0 0 10px;font-size:16.5px;}
-.sb .card.warn{border-color:color-mix(in srgb,var(--u) 30%,var(--line));}
-.sb .card.yardstick{margin-top:18px;border-style:dashed;}
+.sb .card.warn::before{background:linear-gradient(135deg,var(--warn),var(--up));opacity:.5;}
+.sb .card.yardstick{margin-top:18px;}
+.sb .card.yardstick::before{opacity:.85;height:3px;}
 .sb .card.yardstick h2{font-size:18px;}
 .sb td.big{font-size:15px;font-weight:800;}
 .sb .two{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;}
