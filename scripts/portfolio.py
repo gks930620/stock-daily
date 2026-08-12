@@ -176,8 +176,12 @@ def exec_buy(holdings, cash, t, info, budget, price_krw, price_native, usdkrw, t
         "fx": round(usdkrw, 2) if info["currency"] == "USD" and usdkrw else None,
         "price_date": info.get("data_date"), "basis": basis,
     })
+    is_usd = info["currency"] == "USD"
     trade = {"action": "매수", "ticker": t, "name": info["name"], "krw": round(krw), "krw_str": won(krw),
-             "qty": qn(qty), "price_krw": round(price_krw), "basis": basis, "reason": reason}
+             "qty": qn(qty), "unit": unit_of(t, info["category"]),
+             "price_krw": round(price_krw), "price_str": won(price_krw),
+             "price_native_str": (f"${price_native:,.2f}" if is_usd else None),
+             "basis": basis, "reason": reason}
     return cash - krw, trade
 
 
@@ -211,8 +215,20 @@ def exec_sell(holdings, cash, t, info, qty_req, price_krw, today, session, reaso
     h["qty"] -= qty
     if h["qty"] <= 1e-9:
         holdings.pop(t, None)
+    # 매도는 **평단과 실현손익**이 같이 있어야 의미가 읽힌다.
+    #   ⚠️ 손익은 **평단 기준**으로 낸다. FIFO 원가(cost_out)로 내면 화면에 같이 뜨는
+    #      평단·퍼센트와 부호가 어긋난다("평단보다 싸게 팔았는데 실현 +"). 읽는 사람 기준으로
+    #      "평단 대비 얼마"가 유일하게 말이 되는 숫자다. (계좌 원가 자체는 lot과 같이 FIFO)
+    pl = qty * (price_krw - avg_before)
+    is_usd = info["currency"] == "USD"
     trade = {"action": "매도", "ticker": t, "name": info["name"], "krw": round(proceeds), "krw_str": won(proceeds),
-             "qty": qn(qty), "price_krw": round(price_krw), "basis": basis, "reason": reason}
+             "qty": qn(qty), "unit": unit_of(t, info["category"]),
+             "price_krw": round(price_krw), "price_str": won(price_krw),
+             "price_native_str": (f"${info.get('price_native', 0):,.2f}" if is_usd and info.get("price_native") else None),
+             "avg_krw": round(avg_before), "avg_str": won(avg_before),
+             "pl_krw": round(pl), "pl_str": ("+" if pl >= 0 else "") + won(pl),
+             "pl_pct": round((price_krw / avg_before - 1) * 100, 2) if avg_before else 0.0,
+             "basis": basis, "reason": reason}
     return cash + proceeds, trade
 
 
@@ -284,7 +300,10 @@ def main() -> int:
     #  룩어헤드 아님: 손익은 이 시점 '이후' 가격으로 결정되고 AI는 그걸 못 본다.)
     for od_unused in list(pending):
         pending.remove(od_unused)          # 구방식 잔여 대기주문 정리(있으면)
-    new_files = sorted(p for p in orders_dir.glob(f"{today}-*-{persona}.json") if p.stem not in applied) if orders_dir.exists() else []
+    # ⚠️ 결번(void_orders)은 "유실 확정"이라 다시 체결하지 않는다.
+    #    이걸 빼면 계좌를 처음부터 재생성할 때 과거 유실분이 되살아나 기록이 달라진다.
+    _done = set(applied) | set(void)
+    new_files = sorted(p for p in orders_dir.glob(f"{today}-*-{persona}.json") if p.stem not in _done) if orders_dir.exists() else []
     for opath in new_files:
         doc = load_json(opath, {})
         session = doc.get("session") or (opath.stem.split("-")[-1] if opath.stem.count("-") > 2 else "")
