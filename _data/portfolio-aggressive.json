@@ -2,51 +2,8 @@
   "start_date": "2026-07-20",
   "start_capital": 100000000,
   "currency": "KRW",
-  "cash": 352142,
+  "cash": 2996069,
   "holdings": {
-    "LLY": {
-      "name": "일라이릴리",
-      "qty": 5.0,
-      "cost_krw": 8840283.257199999,
-      "lots": [
-        {
-          "date": "2026-07-24",
-          "session": "us",
-          "qty": 2,
-          "price_krw": 1760027,
-          "price_native": 1204.03,
-          "currency": "USD",
-          "krw": 3520054,
-          "fx": 1461.78,
-          "price_date": "2026-07-24",
-          "basis": "2026-07-24 리포트 시세"
-        },
-        {
-          "date": "2026-07-27",
-          "session": "us",
-          "qty": 1,
-          "price_krw": 1769150,
-          "price_native": 1203.52,
-          "currency": "USD",
-          "krw": 1769150,
-          "fx": 1469.98,
-          "price_date": "2026-07-27",
-          "basis": "2026-07-27 리포트 시세"
-        },
-        {
-          "date": "2026-07-29",
-          "session": "us",
-          "qty": 2,
-          "price_krw": 1775539,
-          "price_native": 1223.43,
-          "currency": "USD",
-          "krw": 3551079,
-          "fx": 1451.28,
-          "price_date": "2026-07-29",
-          "basis": "2026-07-29 리포트 시세"
-        }
-      ]
-    },
     "068270.KS": {
       "name": "셀트리온",
       "qty": 61.0,
@@ -92,8 +49,8 @@
     },
     "NVDA": {
       "name": "엔비디아",
-      "qty": 24.0,
-      "cost_krw": 7515874.085000001,
+      "qty": 42.0,
+      "cost_krw": 13277163.6086,
       "lots": [
         {
           "date": "2026-08-05",
@@ -118,6 +75,18 @@
           "fx": 1417.51,
           "price_date": "2026-08-10",
           "basis": "2026-08-10 리포트 시세"
+        },
+        {
+          "date": "2026-08-17",
+          "session": "us",
+          "qty": 18,
+          "price_krw": 320072,
+          "price_native": 226.67,
+          "currency": "USD",
+          "krw": 5761290,
+          "fx": 1412.06,
+          "price_date": "2026-08-17",
+          "basis": "2026-08-17 리포트 시세"
         }
       ]
     },
@@ -350,7 +319,8 @@
     "2026-08-13-us-aggressive",
     "2026-08-14-kr-aggressive",
     "2026-08-14-us-aggressive",
-    "2026-08-17-kr-aggressive"
+    "2026-08-17-kr-aggressive",
+    "2026-08-17-us-aggressive"
   ],
   "pending_orders": [],
   "journal": [
@@ -1677,6 +1647,47 @@
           "reason": "외인 1.8조 · HBM4 · 60일선 하단 추격"
         }
       ]
+    },
+    {
+      "date": "2026-08-17",
+      "session": "us",
+      "comment": "LLY 트림 · NVDA 추격 · 8/26 실적 촉매 대기",
+      "placed": [],
+      "trades": [
+        {
+          "action": "매도",
+          "ticker": "LLY",
+          "name": "일라이릴리",
+          "krw": 8405217,
+          "krw_str": "8,405,217",
+          "qty": 5,
+          "unit": "주",
+          "price_krw": 1681043,
+          "price_str": "1,681,043",
+          "price_native_str": "$1,190.49",
+          "avg_krw": 1768057,
+          "avg_str": "1,768,057",
+          "pl_krw": -435067,
+          "pl_str": "-435,067",
+          "pl_pct": -4.92,
+          "basis": "2026-08-17 리포트 시세",
+          "reason": "모멘텀 냉각 · RSI52 · 5일 -3.2% · AI대장 로테"
+        },
+        {
+          "action": "매수",
+          "ticker": "NVDA",
+          "name": "엔비디아",
+          "krw": 5761290,
+          "krw_str": "5,761,290",
+          "qty": 18,
+          "unit": "주",
+          "price_krw": 320072,
+          "price_str": "320,072",
+          "price_native_str": "$226.67",
+          "basis": "2026-08-17 리포트 시세",
+          "reason": "8/26 실적 촉매 · MA20·60 탈환 · $314 추격"
+        }
+      ]
     }
   ],
   "history": [
@@ -2766,29 +2777,29 @@
     },
     {
       "date": "2026-08-17",
-      "total_value": 94911687,
-      "total_value_str": "94,911,687",
-      "return_pct": -5.09,
-      "day_chg_pct": 0.15,
-      "cash": 352142,
-      "asof": "🇰🇷 장중 리포트 시점",
+      "total_value": 95774859,
+      "total_value_str": "95,774,859",
+      "return_pct": -4.23,
+      "day_chg_pct": 1.06,
+      "cash": 2996069,
+      "asof": "🇺🇸 장중 리포트 시점",
       "holdings": [
         {
           "name": "삼성SDI",
           "value_str": "12,900,000",
-          "weight_pct": 13.6,
+          "weight_pct": 13.5,
           "pl_pct": 3.94
         },
         {
           "name": "셀트리온",
           "value_str": "12,261,000",
-          "weight_pct": 12.9,
+          "weight_pct": 12.8,
           "pl_pct": 11.41
         },
         {
           "name": "삼성전자",
           "value_str": "10,980,000",
-          "weight_pct": 11.6,
+          "weight_pct": 11.5,
           "pl_pct": 1.17
         },
         {
@@ -2823,30 +2834,24 @@
         },
         {
           "name": "마이크론",
-          "value_str": "16,494,822",
-          "weight_pct": 17.4,
-          "pl_pct": 2.91
-        },
-        {
-          "name": "일라이릴리",
-          "value_str": "8,347,626",
-          "weight_pct": 8.8,
-          "pl_pct": -5.57
+          "value_str": "17,263,281",
+          "weight_pct": 18.0,
+          "pl_pct": 7.7
         },
         {
           "name": "엔비디아",
-          "value_str": "7,644,596",
-          "weight_pct": 8.1,
-          "pl_pct": 1.71
+          "value_str": "13,443,009",
+          "weight_pct": 14.0,
+          "pl_pct": 1.25
         }
       ]
     }
   ],
   "updated": "2026-08-17",
-  "total_value": 94911687,
-  "holdings_value": 94559544,
-  "return_pct": -5.09,
-  "usdkrw": 1414.66,
+  "total_value": 95774859,
+  "holdings_value": 92778790,
+  "return_pct": -4.23,
+  "usdkrw": 1412.06,
   "holdings_view": [
     {
       "ticker": "006400.KS",
@@ -2901,7 +2906,7 @@
           "native_str": null
         }
       ],
-      "weight_pct": 13.6,
+      "weight_pct": 13.5,
       "value_str": "12,900,000",
       "color": "#3ba272"
     },
@@ -2973,7 +2978,7 @@
           "native_str": null
         }
       ],
-      "weight_pct": 12.9,
+      "weight_pct": 12.8,
       "value_str": "12,261,000",
       "color": "#e8a33d"
     },
@@ -3030,7 +3035,7 @@
           "native_str": null
         }
       ],
-      "weight_pct": 11.6,
+      "weight_pct": 11.5,
       "value_str": "10,980,000",
       "color": "#8b5fd6"
     },
@@ -3253,18 +3258,18 @@
       "category": "us_stock",
       "market": "us",
       "cost_str": "16,028,721",
-      "pl_krw_str": "+466,102",
+      "pl_krw_str": "+1,234,560",
       "avg_krw": 1335727,
       "avg_str": "1,335,727",
       "avg_native_str": "$943.67",
-      "price_krw": 1374569,
-      "price_str": "1,374,569",
-      "price_native": 971.66,
+      "price_krw": 1438607,
+      "price_str": "1,438,607",
+      "price_native": 1018.8,
       "avg_native": 943.67,
-      "price_native_str": "$971.66",
-      "price_date": "2026-08-14",
-      "value_krw": 16494822,
-      "pl_pct": 2.91,
+      "price_native_str": "$1,018.80",
+      "price_date": "2026-08-17",
+      "value_krw": 17263281,
+      "pl_pct": 7.7,
       "lots": [
         {
           "date": "2026-08-12",
@@ -3312,103 +3317,31 @@
           "native_str": "$967.23"
         }
       ],
-      "weight_pct": 17.4,
-      "value_str": "16,494,822",
+      "weight_pct": 18.0,
+      "value_str": "17,263,281",
       "color": "#5f7fd6"
-    },
-    {
-      "ticker": "LLY",
-      "name": "일라이릴리",
-      "qty": 5,
-      "unit": "주",
-      "currency": "USD",
-      "category": "us_stock",
-      "market": "us",
-      "cost_str": "8,840,283",
-      "pl_krw_str": "-492,658",
-      "avg_krw": 1768057,
-      "avg_str": "1,768,057",
-      "avg_native_str": "$1,211.69",
-      "price_krw": 1669525,
-      "price_str": "1,669,525",
-      "price_native": 1180.16,
-      "avg_native": 1211.69,
-      "price_native_str": "$1,180.16",
-      "price_date": "2026-08-14",
-      "value_krw": 8347626,
-      "pl_pct": -5.57,
-      "lots": [
-        {
-          "date": "2026-07-24",
-          "session": "us",
-          "qty": 2,
-          "price_krw": 1760027,
-          "price_native": 1204.03,
-          "currency": "USD",
-          "krw": 3520054,
-          "fx": 1461.78,
-          "price_date": "2026-07-24",
-          "basis": "2026-07-24 리포트 시세",
-          "krw_str": "3,520,054",
-          "price_krw_str": "1,760,027",
-          "native_str": "$1,204.03"
-        },
-        {
-          "date": "2026-07-27",
-          "session": "us",
-          "qty": 1,
-          "price_krw": 1769150,
-          "price_native": 1203.52,
-          "currency": "USD",
-          "krw": 1769150,
-          "fx": 1469.98,
-          "price_date": "2026-07-27",
-          "basis": "2026-07-27 리포트 시세",
-          "krw_str": "1,769,150",
-          "price_krw_str": "1,769,150",
-          "native_str": "$1,203.52"
-        },
-        {
-          "date": "2026-07-29",
-          "session": "us",
-          "qty": 2,
-          "price_krw": 1775539,
-          "price_native": 1223.43,
-          "currency": "USD",
-          "krw": 3551079,
-          "fx": 1451.28,
-          "price_date": "2026-07-29",
-          "basis": "2026-07-29 리포트 시세",
-          "krw_str": "3,551,079",
-          "price_krw_str": "1,775,539",
-          "native_str": "$1,223.43"
-        }
-      ],
-      "weight_pct": 8.8,
-      "value_str": "8,347,626",
-      "color": "#b05fa8"
     },
     {
       "ticker": "NVDA",
       "name": "엔비디아",
-      "qty": 24,
+      "qty": 42,
       "unit": "주",
       "currency": "USD",
       "category": "us_stock",
       "market": "us",
-      "cost_str": "7,515,874",
-      "pl_krw_str": "+128,722",
-      "avg_krw": 313161,
-      "avg_str": "313,161",
-      "avg_native_str": "$220.19",
-      "price_krw": 318525,
-      "price_str": "318,525",
-      "price_native": 225.16,
-      "avg_native": 220.19,
-      "price_native_str": "$225.16",
-      "price_date": "2026-08-14",
-      "value_krw": 7644596,
-      "pl_pct": 1.71,
+      "cost_str": "13,277,164",
+      "pl_krw_str": "+165,845",
+      "avg_krw": 316123,
+      "avg_str": "316,123",
+      "avg_native_str": "$222.97",
+      "price_krw": 320072,
+      "price_str": "320,072",
+      "price_native": 226.67,
+      "avg_native": 222.97,
+      "price_native_str": "$226.67",
+      "price_date": "2026-08-17",
+      "value_krw": 13443009,
+      "pl_pct": 1.25,
       "lots": [
         {
           "date": "2026-08-05",
@@ -3439,29 +3372,85 @@
           "krw_str": "1,561,671",
           "price_krw_str": "312,334",
           "native_str": "$220.34"
+        },
+        {
+          "date": "2026-08-17",
+          "session": "us",
+          "qty": 18,
+          "price_krw": 320072,
+          "price_native": 226.67,
+          "currency": "USD",
+          "krw": 5761290,
+          "fx": 1412.06,
+          "price_date": "2026-08-17",
+          "basis": "2026-08-17 리포트 시세",
+          "krw_str": "5,761,290",
+          "price_krw_str": "320,072",
+          "native_str": "$226.67"
         }
       ],
-      "weight_pct": 8.1,
-      "value_str": "7,644,596",
-      "color": "#3f9e8c"
+      "weight_pct": 14.0,
+      "value_str": "13,443,009",
+      "color": "#b05fa8"
     }
   ],
   "pending_view": [],
-  "total_value_str": "94,911,687",
-  "cash_str": "352,142",
-  "holdings_value_str": "94,559,544",
+  "total_value_str": "95,774,859",
+  "cash_str": "2,996,069",
+  "holdings_value_str": "92,778,790",
   "start_capital_str": "100,000,000",
-  "gain_str": "-5,088,313",
-  "cash_weight_pct": 0.4,
-  "day_chg_pct": 0.15,
+  "gain_str": "-4,225,141",
+  "cash_weight_pct": 3.1,
+  "day_chg_pct": 1.06,
   "days": 20,
-  "priced_at": "2026-08-17T14:40:56+09:00",
+  "priced_at": "2026-08-17T23:30:49+09:00",
   "eval_note": "🇰🇷 15:00 · 🇺🇸 23:45 발행 시점 시세로 체결",
   "persona": "aggressive",
   "persona_name": "공격형",
   "persona_emoji": "🚀",
   "persona_tag": "성장·모멘텀 · 집중 투자 · opus",
   "journal_view": [
+    {
+      "date": "2026-08-17",
+      "session": "us",
+      "comment": "LLY 트림 · NVDA 추격 · 8/26 실적 촉매 대기",
+      "placed": [],
+      "trades": [
+        {
+          "action": "매도",
+          "ticker": "LLY",
+          "name": "일라이릴리",
+          "krw": 8405217,
+          "krw_str": "8,405,217",
+          "qty": 5,
+          "unit": "주",
+          "price_krw": 1681043,
+          "price_str": "1,681,043",
+          "price_native_str": "$1,190.49",
+          "avg_krw": 1768057,
+          "avg_str": "1,768,057",
+          "pl_krw": -435067,
+          "pl_str": "-435,067",
+          "pl_pct": -4.92,
+          "basis": "2026-08-17 리포트 시세",
+          "reason": "모멘텀 냉각 · RSI52 · 5일 -3.2% · AI대장 로테"
+        },
+        {
+          "action": "매수",
+          "ticker": "NVDA",
+          "name": "엔비디아",
+          "krw": 5761290,
+          "krw_str": "5,761,290",
+          "qty": 18,
+          "unit": "주",
+          "price_krw": 320072,
+          "price_str": "320,072",
+          "price_native_str": "$226.67",
+          "basis": "2026-08-17 리포트 시세",
+          "reason": "8/26 실적 촉매 · MA20·60 탈환 · $314 추격"
+        }
+      ]
+    },
     {
       "date": "2026-08-17",
       "session": "kr",
@@ -4790,29 +4779,29 @@
   "history_view": [
     {
       "date": "2026-08-17",
-      "total_value": 94911687,
-      "total_value_str": "94,911,687",
-      "return_pct": -5.09,
-      "day_chg_pct": 0.15,
-      "cash": 352142,
-      "asof": "🇰🇷 장중 리포트 시점",
+      "total_value": 95774859,
+      "total_value_str": "95,774,859",
+      "return_pct": -4.23,
+      "day_chg_pct": 1.06,
+      "cash": 2996069,
+      "asof": "🇺🇸 장중 리포트 시점",
       "holdings": [
         {
           "name": "삼성SDI",
           "value_str": "12,900,000",
-          "weight_pct": 13.6,
+          "weight_pct": 13.5,
           "pl_pct": 3.94
         },
         {
           "name": "셀트리온",
           "value_str": "12,261,000",
-          "weight_pct": 12.9,
+          "weight_pct": 12.8,
           "pl_pct": 11.41
         },
         {
           "name": "삼성전자",
           "value_str": "10,980,000",
-          "weight_pct": 11.6,
+          "weight_pct": 11.5,
           "pl_pct": 1.17
         },
         {
@@ -4847,21 +4836,15 @@
         },
         {
           "name": "마이크론",
-          "value_str": "16,494,822",
-          "weight_pct": 17.4,
-          "pl_pct": 2.91
-        },
-        {
-          "name": "일라이릴리",
-          "value_str": "8,347,626",
-          "weight_pct": 8.8,
-          "pl_pct": -5.57
+          "value_str": "17,263,281",
+          "weight_pct": 18.0,
+          "pl_pct": 7.7
         },
         {
           "name": "엔비디아",
-          "value_str": "7,644,596",
-          "weight_pct": 8.1,
-          "pl_pct": 1.71
+          "value_str": "13,443,009",
+          "weight_pct": 14.0,
+          "pl_pct": 1.25
         }
       ]
     },
@@ -5957,15 +5940,15 @@
       "count": 8,
       "value_krw": 62072500,
       "value_str": "62,072,500",
-      "weight_pct": 65.4
+      "weight_pct": 64.8
     },
     {
       "market": "us",
       "label": "🇺🇸 미국",
-      "count": 3,
-      "value_krw": 32487044,
-      "value_str": "32,487,044",
-      "weight_pct": 34.2
+      "count": 2,
+      "value_krw": 30706290,
+      "value_str": "30,706,290",
+      "weight_pct": 32.1
     }
   ],
   "void_orders": [

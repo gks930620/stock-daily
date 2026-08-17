@@ -202,7 +202,8 @@
     "2026-08-13-us-stable",
     "2026-08-14-kr-stable",
     "2026-08-14-us-stable",
-    "2026-08-17-kr-stable"
+    "2026-08-17-kr-stable",
+    "2026-08-17-us-stable"
   ],
   "pending_orders": [],
   "journal": [
@@ -935,6 +936,39 @@
           "reason": "S&P AA · 2Q 서프 +12.7% · 배당 5% · 눌림 물타기"
         }
       ]
+    },
+    {
+      "date": "2026-08-17",
+      "session": "us",
+      "comment": "신고가 고평가 관망 · 현금 방패 · 코어 유지",
+      "placed": [
+        {
+          "action": "유지",
+          "name": "-",
+          "detail": "S&P 신고가 · CAPE40 · 탐욕65 추격 배제"
+        },
+        {
+          "action": "유지",
+          "name": "-",
+          "detail": "Warsh 매파 인상리스크 · 30년물 19년최고 · 방패"
+        },
+        {
+          "action": "유지",
+          "name": "-",
+          "detail": "FOMC의사록·잭슨홀 대기 · 실탄 보류"
+        },
+        {
+          "action": "유지",
+          "name": "-",
+          "detail": "월마트 실적 목전 · XLP 추가 보류"
+        },
+        {
+          "action": "유지",
+          "name": "-",
+          "detail": "XLV·XLP 방어코어 유지 · 매도 배제"
+        }
+      ],
+      "trades": []
     }
   ],
   "history": [
@@ -1754,12 +1788,12 @@
     },
     {
       "date": "2026-08-17",
-      "total_value": 101214752,
-      "total_value_str": "101,214,752",
-      "return_pct": 1.21,
-      "day_chg_pct": 0.02,
+      "total_value": 101132058,
+      "total_value_str": "101,132,058",
+      "return_pct": 1.13,
+      "day_chg_pct": -0.06,
       "cash": 39030554,
-      "asof": "🇰🇷 장중 리포트 시점",
+      "asof": "🇺🇸 장중 리포트 시점",
       "holdings": [
         {
           "name": "KB금융",
@@ -1792,25 +1826,25 @@
           "pl_pct": -2.21
         },
         {
-          "name": "필수소비ETF",
-          "value_str": "6,941,921",
-          "weight_pct": 6.9,
-          "pl_pct": -0.74
+          "name": "헬스케어ETF",
+          "value_str": "6,867,271",
+          "weight_pct": 6.8,
+          "pl_pct": 0.16
         },
         {
-          "name": "헬스케어ETF",
-          "value_str": "6,866,378",
+          "name": "필수소비ETF",
+          "value_str": "6,858,333",
           "weight_pct": 6.8,
-          "pl_pct": 0.15
+          "pl_pct": -1.94
         }
       ]
     }
   ],
   "updated": "2026-08-17",
-  "total_value": 101214752,
-  "holdings_value": 62184198,
-  "return_pct": 1.21,
-  "usdkrw": 1414.66,
+  "total_value": 101132058,
+  "holdings_value": 62101504,
+  "return_pct": 1.13,
+  "usdkrw": 1412.06,
   "holdings_view": [
     {
       "ticker": "105560.KS",
@@ -2068,48 +2102,6 @@
       "color": "#4aa3c0"
     },
     {
-      "ticker": "XLP",
-      "name": "필수소비ETF",
-      "qty": 57,
-      "unit": "주",
-      "currency": "USD",
-      "category": "us_sector",
-      "market": "us",
-      "cost_str": "6,994,003",
-      "pl_krw_str": "-52,083",
-      "avg_krw": 122702,
-      "avg_str": "122,702",
-      "avg_native_str": "$83.94",
-      "price_krw": 121788,
-      "price_str": "121,788",
-      "price_native": 86.09,
-      "avg_native": 83.94,
-      "price_native_str": "$86.09",
-      "price_date": "2026-08-14",
-      "value_krw": 6941921,
-      "pl_pct": -0.74,
-      "lots": [
-        {
-          "date": "2026-07-24",
-          "session": "us",
-          "qty": 57,
-          "price_krw": 122702,
-          "price_native": 83.94,
-          "currency": "USD",
-          "krw": 6994003,
-          "fx": 1461.78,
-          "price_date": "2026-07-24",
-          "basis": "2026-07-24 리포트 시세",
-          "krw_str": "6,994,003",
-          "price_krw_str": "122,702",
-          "native_str": "$83.94"
-        }
-      ],
-      "weight_pct": 6.9,
-      "value_str": "6,941,921",
-      "color": "#c0699d"
-    },
-    {
       "ticker": "XLV",
       "name": "헬스케어ETF",
       "qty": 29,
@@ -2118,18 +2110,18 @@
       "category": "us_sector",
       "market": "us",
       "cost_str": "6,856,243",
-      "pl_krw_str": "+10,134",
+      "pl_krw_str": "+11,028",
       "avg_krw": 236422,
       "avg_str": "236,422",
       "avg_native_str": "$160.42",
-      "price_krw": 236772,
-      "price_str": "236,772",
-      "price_native": 167.37,
+      "price_krw": 236802,
+      "price_str": "236,802",
+      "price_native": 167.7,
       "avg_native": 160.42,
-      "price_native_str": "$167.37",
-      "price_date": "2026-08-14",
-      "value_krw": 6866378,
-      "pl_pct": 0.15,
+      "price_native_str": "$167.70",
+      "price_date": "2026-08-17",
+      "value_krw": 6867271,
+      "pl_pct": 0.16,
       "lots": [
         {
           "date": "2026-07-23",
@@ -2148,26 +2140,101 @@
         }
       ],
       "weight_pct": 6.8,
-      "value_str": "6,866,378",
+      "value_str": "6,867,271",
+      "color": "#c0699d"
+    },
+    {
+      "ticker": "XLP",
+      "name": "필수소비ETF",
+      "qty": 57,
+      "unit": "주",
+      "currency": "USD",
+      "category": "us_sector",
+      "market": "us",
+      "cost_str": "6,994,003",
+      "pl_krw_str": "-135,670",
+      "avg_krw": 122702,
+      "avg_str": "122,702",
+      "avg_native_str": "$83.94",
+      "price_krw": 120322,
+      "price_str": "120,322",
+      "price_native": 85.21,
+      "avg_native": 83.94,
+      "price_native_str": "$85.21",
+      "price_date": "2026-08-17",
+      "value_krw": 6858333,
+      "pl_pct": -1.94,
+      "lots": [
+        {
+          "date": "2026-07-24",
+          "session": "us",
+          "qty": 57,
+          "price_krw": 122702,
+          "price_native": 83.94,
+          "currency": "USD",
+          "krw": 6994003,
+          "fx": 1461.78,
+          "price_date": "2026-07-24",
+          "basis": "2026-07-24 리포트 시세",
+          "krw_str": "6,994,003",
+          "price_krw_str": "122,702",
+          "native_str": "$83.94"
+        }
+      ],
+      "weight_pct": 6.8,
+      "value_str": "6,858,333",
       "color": "#7d9a3c"
     }
   ],
   "pending_view": [],
-  "total_value_str": "101,214,752",
+  "total_value_str": "101,132,058",
   "cash_str": "39,030,554",
-  "holdings_value_str": "62,184,198",
+  "holdings_value_str": "62,101,504",
   "start_capital_str": "100,000,000",
-  "gain_str": "+1,214,752",
+  "gain_str": "+1,132,058",
   "cash_weight_pct": 38.6,
-  "day_chg_pct": 0.02,
+  "day_chg_pct": -0.06,
   "days": 20,
-  "priced_at": "2026-08-17T14:40:56+09:00",
+  "priced_at": "2026-08-17T23:30:49+09:00",
   "eval_note": "🇰🇷 15:00 · 🇺🇸 23:45 발행 시점 시세로 체결",
   "persona": "stable",
   "persona_name": "안정형",
   "persona_emoji": "🛡️",
   "persona_tag": "가치·방어 · 현금 넉넉 · opus",
   "journal_view": [
+    {
+      "date": "2026-08-17",
+      "session": "us",
+      "comment": "신고가 고평가 관망 · 현금 방패 · 코어 유지",
+      "placed": [
+        {
+          "action": "유지",
+          "name": "-",
+          "detail": "S&P 신고가 · CAPE40 · 탐욕65 추격 배제"
+        },
+        {
+          "action": "유지",
+          "name": "-",
+          "detail": "Warsh 매파 인상리스크 · 30년물 19년최고 · 방패"
+        },
+        {
+          "action": "유지",
+          "name": "-",
+          "detail": "FOMC의사록·잭슨홀 대기 · 실탄 보류"
+        },
+        {
+          "action": "유지",
+          "name": "-",
+          "detail": "월마트 실적 목전 · XLP 추가 보류"
+        },
+        {
+          "action": "유지",
+          "name": "-",
+          "detail": "XLV·XLP 방어코어 유지 · 매도 배제"
+        }
+      ],
+      "trades": []
+    },
     {
       "date": "2026-08-17",
       "session": "kr",
@@ -2902,12 +2969,12 @@
   "history_view": [
     {
       "date": "2026-08-17",
-      "total_value": 101214752,
-      "total_value_str": "101,214,752",
-      "return_pct": 1.21,
-      "day_chg_pct": 0.02,
+      "total_value": 101132058,
+      "total_value_str": "101,132,058",
+      "return_pct": 1.13,
+      "day_chg_pct": -0.06,
       "cash": 39030554,
-      "asof": "🇰🇷 장중 리포트 시점",
+      "asof": "🇺🇸 장중 리포트 시점",
       "holdings": [
         {
           "name": "KB금융",
@@ -2940,16 +3007,16 @@
           "pl_pct": -2.21
         },
         {
-          "name": "필수소비ETF",
-          "value_str": "6,941,921",
-          "weight_pct": 6.9,
-          "pl_pct": -0.74
+          "name": "헬스케어ETF",
+          "value_str": "6,867,271",
+          "weight_pct": 6.8,
+          "pl_pct": 0.16
         },
         {
-          "name": "헬스케어ETF",
-          "value_str": "6,866,378",
+          "name": "필수소비ETF",
+          "value_str": "6,858,333",
           "weight_pct": 6.8,
-          "pl_pct": 0.15
+          "pl_pct": -1.94
         }
       ]
     },
@@ -3781,8 +3848,8 @@
       "market": "us",
       "label": "🇺🇸 미국",
       "count": 2,
-      "value_krw": 13808299,
-      "value_str": "13,808,299",
+      "value_krw": 13725604,
+      "value_str": "13,725,604",
       "weight_pct": 13.6
     }
   ],
