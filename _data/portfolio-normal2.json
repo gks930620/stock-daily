@@ -2,7 +2,7 @@
   "start_date": "2026-07-28",
   "start_capital": 100000000,
   "currency": "KRW",
-  "cash": 2464153,
+  "cash": 70153,
   "holdings": {
     "068270.KS": {
       "name": "셀트리온",
@@ -125,8 +125,8 @@
     },
     "005930.KS": {
       "name": "삼성전자",
-      "qty": 31.0,
-      "cost_krw": 8339000.0,
+      "qty": 40.0,
+      "cost_krw": 10733000.0,
       "lots": [
         {
           "date": "2026-08-13",
@@ -139,6 +139,18 @@
           "fx": null,
           "price_date": "2026-08-13",
           "basis": "2026-08-13 리포트 시세"
+        },
+        {
+          "date": "2026-08-27",
+          "session": "kr",
+          "qty": 9,
+          "price_krw": 266000,
+          "price_native": 266000.0,
+          "currency": "KRW",
+          "krw": 2394000,
+          "fx": null,
+          "price_date": "2026-08-27",
+          "basis": "2026-08-27 리포트 시세"
         }
       ]
     },
@@ -266,7 +278,8 @@
     "2026-08-25-kr-normal2",
     "2026-08-25-us-normal2",
     "2026-08-26-kr-normal2",
-    "2026-08-26-us-normal2"
+    "2026-08-26-us-normal2",
+    "2026-08-27-kr-normal2"
   ],
   "pending_orders": [],
   "journal": [
@@ -1285,6 +1298,34 @@
           "price_native_str": "$573.51",
           "basis": "2026-08-26 리포트 시세",
           "reason": "소송 합의 타결 · 오버행 해소 · 고점 -26%"
+        }
+      ]
+    },
+    {
+      "date": "2026-08-27",
+      "session": "kr",
+      "comment": "NVDA 서프라이즈 · 삼전 소액 추가 · 코어 유지",
+      "placed": [
+        {
+          "action": "유지",
+          "name": "-",
+          "detail": "2차전지 +10% 추격 배제 · 잭슨홀 대기"
+        }
+      ],
+      "trades": [
+        {
+          "action": "매수",
+          "ticker": "005930.KS",
+          "name": "삼성전자",
+          "krw": 2394000,
+          "krw_str": "2,394,000",
+          "qty": 9,
+          "unit": "주",
+          "price_krw": 266000,
+          "price_str": "266,000",
+          "price_native_str": null,
+          "basis": "2026-08-27 리포트 시세",
+          "reason": "NVDA 매출 +106% · HBM 확인 · 컨센 49만"
         }
       ]
     }
@@ -2612,13 +2653,90 @@
           "pl_pct": 0.09
         }
       ]
+    },
+    {
+      "date": "2026-08-27",
+      "total_value": 94085073,
+      "total_value_str": "94,085,073",
+      "return_pct": -5.91,
+      "day_chg_pct": 0.26,
+      "cash": 70153,
+      "asof": "🇰🇷 장중 리포트 시점",
+      "holdings": [
+        {
+          "name": "신한지주",
+          "value_str": "18,387,200",
+          "weight_pct": 19.5,
+          "pl_pct": 6.11
+        },
+        {
+          "name": "삼성전자",
+          "value_str": "10,640,000",
+          "weight_pct": 11.3,
+          "pl_pct": -0.87
+        },
+        {
+          "name": "SK하이닉스",
+          "value_str": "6,920,000",
+          "weight_pct": 7.4,
+          "pl_pct": 2.49
+        },
+        {
+          "name": "셀트리온",
+          "value_str": "6,312,900",
+          "weight_pct": 6.7,
+          "pl_pct": 6.34
+        },
+        {
+          "name": "고려아연",
+          "value_str": "4,116,000",
+          "weight_pct": 4.4,
+          "pl_pct": -3.18
+        },
+        {
+          "name": "엔비디아",
+          "value_str": "11,877,004",
+          "weight_pct": 12.6,
+          "pl_pct": -7.56
+        },
+        {
+          "name": "헬스케어ETF",
+          "value_str": "11,749,061",
+          "weight_pct": 12.5,
+          "pl_pct": -1.41
+        },
+        {
+          "name": "아마존",
+          "value_str": "7,192,473",
+          "weight_pct": 7.6,
+          "pl_pct": -8.59
+        },
+        {
+          "name": "비자",
+          "value_str": "5,834,696",
+          "weight_pct": 6.2,
+          "pl_pct": 3.36
+        },
+        {
+          "name": "메타",
+          "value_str": "5,572,288",
+          "weight_pct": 5.9,
+          "pl_pct": 0.11
+        },
+        {
+          "name": "소재ETF",
+          "value_str": "5,413,298",
+          "weight_pct": 5.8,
+          "pl_pct": -0.68
+        }
+      ]
     }
   ],
-  "updated": "2026-08-26",
-  "total_value": 93844188,
-  "holdings_value": 91380035,
-  "return_pct": -6.16,
-  "usdkrw": 1386.53,
+  "updated": "2026-08-27",
+  "total_value": 94085073,
+  "holdings_value": 94014920,
+  "return_pct": -5.91,
+  "usdkrw": 1381.68,
   "holdings_view": [
     {
       "ticker": "055550.KS",
@@ -2629,18 +2747,18 @@
       "category": "kr_stock",
       "market": "kr",
       "cost_str": "17,328,600",
-      "pl_krw_str": "+822,000",
+      "pl_krw_str": "+1,058,600",
       "avg_krw": 102536,
       "avg_str": "102,536",
       "avg_native_str": null,
-      "price_krw": 107400,
-      "price_str": "107,400",
+      "price_krw": 108800,
+      "price_str": "108,800",
       "price_native": null,
       "avg_native": null,
       "price_native_str": null,
-      "price_date": "2026-08-26",
-      "value_krw": 18150600,
-      "pl_pct": 4.74,
+      "price_date": "2026-08-27",
+      "value_krw": 18387200,
+      "pl_pct": 6.11,
       "lots": [
         {
           "date": "2026-07-30",
@@ -2688,32 +2806,32 @@
           "native_str": null
         }
       ],
-      "weight_pct": 19.3,
-      "value_str": "18,150,600",
+      "weight_pct": 19.5,
+      "value_str": "18,387,200",
       "color": "#3ba272",
       "chart": "h-normal2-055550-ks.png"
     },
     {
       "ticker": "005930.KS",
       "name": "삼성전자",
-      "qty": 31,
+      "qty": 40,
       "unit": "주",
       "currency": "KRW",
       "category": "kr_stock",
       "market": "kr",
-      "cost_str": "8,339,000",
-      "pl_krw_str": "-232,500",
-      "avg_krw": 269000,
-      "avg_str": "269,000",
+      "cost_str": "10,733,000",
+      "pl_krw_str": "-93,000",
+      "avg_krw": 268325,
+      "avg_str": "268,325",
       "avg_native_str": null,
-      "price_krw": 261500,
-      "price_str": "261,500",
+      "price_krw": 266000,
+      "price_str": "266,000",
       "price_native": null,
       "avg_native": null,
       "price_native_str": null,
-      "price_date": "2026-08-26",
-      "value_krw": 8106500,
-      "pl_pct": -2.79,
+      "price_date": "2026-08-27",
+      "value_krw": 10640000,
+      "pl_pct": -0.87,
       "lots": [
         {
           "date": "2026-08-13",
@@ -2729,10 +2847,25 @@
           "krw_str": "8,339,000",
           "price_krw_str": "269,000",
           "native_str": null
+        },
+        {
+          "date": "2026-08-27",
+          "session": "kr",
+          "qty": 9,
+          "price_krw": 266000,
+          "price_native": 266000.0,
+          "currency": "KRW",
+          "krw": 2394000,
+          "fx": null,
+          "price_date": "2026-08-27",
+          "basis": "2026-08-27 리포트 시세",
+          "krw_str": "2,394,000",
+          "price_krw_str": "266,000",
+          "native_str": null
         }
       ],
-      "weight_pct": 8.6,
-      "value_str": "8,106,500",
+      "weight_pct": 11.3,
+      "value_str": "10,640,000",
       "color": "#e8a33d",
       "chart": "h-normal2-005930-ks.png"
     },
@@ -2745,18 +2878,18 @@
       "category": "kr_stock",
       "market": "kr",
       "cost_str": "6,752,000",
-      "pl_krw_str": "+0",
+      "pl_krw_str": "+168,000",
       "avg_krw": 1688000,
       "avg_str": "1,688,000",
       "avg_native_str": null,
-      "price_krw": 1688000,
-      "price_str": "1,688,000",
+      "price_krw": 1730000,
+      "price_str": "1,730,000",
       "price_native": null,
       "avg_native": null,
       "price_native_str": null,
-      "price_date": "2026-08-26",
-      "value_krw": 6752000,
-      "pl_pct": 0.0,
+      "price_date": "2026-08-27",
+      "value_krw": 6920000,
+      "pl_pct": 2.49,
       "lots": [
         {
           "date": "2026-08-20",
@@ -2774,8 +2907,8 @@
           "native_str": null
         }
       ],
-      "weight_pct": 7.2,
-      "value_str": "6,752,000",
+      "weight_pct": 7.4,
+      "value_str": "6,920,000",
       "color": "#8b5fd6",
       "chart": "h-normal2-000660-ks.png"
     },
@@ -2788,18 +2921,18 @@
       "category": "kr_stock",
       "market": "kr",
       "cost_str": "5,936,700",
-      "pl_krw_str": "+445,500",
+      "pl_krw_str": "+376,200",
       "avg_krw": 179900,
       "avg_str": "179,900",
       "avg_native_str": null,
-      "price_krw": 193400,
-      "price_str": "193,400",
+      "price_krw": 191300,
+      "price_str": "191,300",
       "price_native": null,
       "avg_native": null,
       "price_native_str": null,
-      "price_date": "2026-08-26",
-      "value_krw": 6382200,
-      "pl_pct": 7.5,
+      "price_date": "2026-08-27",
+      "value_krw": 6312900,
+      "pl_pct": 6.34,
       "lots": [
         {
           "date": "2026-07-29",
@@ -2817,8 +2950,8 @@
           "native_str": null
         }
       ],
-      "weight_pct": 6.8,
-      "value_str": "6,382,200",
+      "weight_pct": 6.7,
+      "value_str": "6,312,900",
       "color": "#d3655f",
       "chart": "h-normal2-068270-ks.png"
     },
@@ -2840,7 +2973,7 @@
       "price_native": null,
       "avg_native": null,
       "price_native_str": null,
-      "price_date": "2026-08-26",
+      "price_date": "2026-08-27",
       "value_krw": 4116000,
       "pl_pct": -3.18,
       "lots": [
@@ -2874,18 +3007,18 @@
       "category": "us_stock",
       "market": "us",
       "cost_str": "12,848,544",
-      "pl_krw_str": "-880,391",
+      "pl_krw_str": "-971,540",
       "avg_krw": 313379,
       "avg_str": "313,379",
       "avg_native_str": "$220.15",
-      "price_krw": 291906,
-      "price_str": "291,906",
-      "price_native": 210.53,
+      "price_krw": 289683,
+      "price_str": "289,683",
+      "price_native": 209.66,
       "avg_native": 220.15,
-      "price_native_str": "$210.53",
+      "price_native_str": "$209.66",
       "price_date": "2026-08-26",
-      "value_krw": 11968153,
-      "pl_pct": -6.85,
+      "value_krw": 11877004,
+      "pl_pct": -7.56,
       "lots": [
         {
           "date": "2026-08-05",
@@ -2903,8 +3036,8 @@
           "native_str": "$220.15"
         }
       ],
-      "weight_pct": 12.8,
-      "value_str": "11,968,153",
+      "weight_pct": 12.6,
+      "value_str": "11,877,004",
       "color": "#c0699d",
       "chart": "h-normal2-nvda.png"
     },
@@ -2917,18 +3050,18 @@
       "category": "us_sector",
       "market": "us",
       "cost_str": "11,917,070",
-      "pl_krw_str": "-58,148",
+      "pl_krw_str": "-168,009",
       "avg_krw": 243206,
       "avg_str": "243,206",
       "avg_native_str": "$167.58",
-      "price_krw": 242019,
-      "price_str": "242,019",
-      "price_native": 174.55,
+      "price_krw": 239777,
+      "price_str": "239,777",
+      "price_native": 173.54,
       "avg_native": 167.58,
-      "price_native_str": "$174.55",
+      "price_native_str": "$173.54",
       "price_date": "2026-08-26",
-      "value_krw": 11858922,
-      "pl_pct": -0.49,
+      "value_krw": 11749061,
+      "pl_pct": -1.41,
       "lots": [
         {
           "date": "2026-07-29",
@@ -2946,8 +3079,8 @@
           "native_str": "$167.58"
         }
       ],
-      "weight_pct": 12.6,
-      "value_str": "11,858,922",
+      "weight_pct": 12.5,
+      "value_str": "11,749,061",
       "color": "#7d9a3c",
       "chart": "h-normal2-xlv.png"
     },
@@ -2960,18 +3093,18 @@
       "category": "us_stock",
       "market": "us",
       "cost_str": "7,868,167",
-      "pl_krw_str": "-680,673",
+      "pl_krw_str": "-675,694",
       "avg_krw": 393408,
       "avg_str": "393,408",
       "avg_native_str": "$278.09",
-      "price_krw": 359375,
-      "price_str": "359,375",
-      "price_native": 259.19,
+      "price_krw": 359624,
+      "price_str": "359,624",
+      "price_native": 260.28,
       "avg_native": 278.09,
-      "price_native_str": "$259.19",
+      "price_native_str": "$260.28",
       "price_date": "2026-08-26",
-      "value_krw": 7187494,
-      "pl_pct": -8.65,
+      "value_krw": 7192473,
+      "pl_pct": -8.59,
       "lots": [
         {
           "date": "2026-08-11",
@@ -2989,8 +3122,8 @@
           "native_str": "$278.09"
         }
       ],
-      "weight_pct": 7.7,
-      "value_str": "7,187,494",
+      "weight_pct": 7.6,
+      "value_str": "7,192,473",
       "color": "#c98a4b",
       "chart": "h-normal2-amzn.png"
     },
@@ -3003,18 +3136,18 @@
       "category": "us_stock",
       "market": "us",
       "cost_str": "5,645,291",
-      "pl_krw_str": "+190,974",
+      "pl_krw_str": "+189,406",
       "avg_krw": 513208,
       "avg_str": "513,208",
       "avg_native_str": "$370.20",
-      "price_krw": 530570,
-      "price_str": "530,570",
-      "price_native": 382.66,
+      "price_krw": 530427,
+      "price_str": "530,427",
+      "price_native": 383.9,
       "avg_native": 370.2,
-      "price_native_str": "$382.66",
+      "price_native_str": "$383.90",
       "price_date": "2026-08-26",
-      "value_krw": 5836265,
-      "pl_pct": 3.38,
+      "value_krw": 5834696,
+      "pl_pct": 3.36,
       "lots": [
         {
           "date": "2026-08-21",
@@ -3033,7 +3166,7 @@
         }
       ],
       "weight_pct": 6.2,
-      "value_str": "5,836,265",
+      "value_str": "5,834,696",
       "color": "#5f7fd6",
       "chart": "h-normal2-v.png"
     },
@@ -3046,18 +3179,18 @@
       "category": "us_stock",
       "market": "us",
       "cost_str": "5,566,322",
-      "pl_krw_str": "+0",
+      "pl_krw_str": "+5,966",
       "avg_krw": 795189,
       "avg_str": "795,189",
       "avg_native_str": "$573.51",
-      "price_krw": 795189,
-      "price_str": "795,189",
-      "price_native": 573.51,
+      "price_krw": 796041,
+      "price_str": "796,041",
+      "price_native": 576.14,
       "avg_native": 573.51,
-      "price_native_str": "$573.51",
+      "price_native_str": "$576.14",
       "price_date": "2026-08-26",
-      "value_krw": 5566322,
-      "pl_pct": 0.0,
+      "value_krw": 5572288,
+      "pl_pct": 0.11,
       "lots": [
         {
           "date": "2026-08-26",
@@ -3076,7 +3209,7 @@
         }
       ],
       "weight_pct": 5.9,
-      "value_str": "5,566,322",
+      "value_str": "5,572,288",
       "color": "#b05fa8",
       "chart": "h-normal2-meta.png"
     },
@@ -3089,18 +3222,18 @@
       "category": "us_sector",
       "market": "us",
       "cost_str": "5,450,544",
-      "pl_krw_str": "+5,035",
+      "pl_krw_str": "-37,246",
       "avg_krw": 74665,
       "avg_str": "74,665",
       "avg_native_str": "$53.96",
-      "price_krw": 74734,
-      "price_str": "74,734",
-      "price_native": 53.9,
+      "price_krw": 74155,
+      "price_str": "74,155",
+      "price_native": 53.67,
       "avg_native": 53.96,
-      "price_native_str": "$53.90",
+      "price_native_str": "$53.67",
       "price_date": "2026-08-26",
-      "value_krw": 5455580,
-      "pl_pct": 0.09,
+      "value_krw": 5413298,
+      "pl_pct": -0.68,
       "lots": [
         {
           "date": "2026-08-24",
@@ -3119,27 +3252,55 @@
         }
       ],
       "weight_pct": 5.8,
-      "value_str": "5,455,580",
+      "value_str": "5,413,298",
       "color": "#3f9e8c",
       "chart": "h-normal2-xlb.png"
     }
   ],
   "pending_view": [],
-  "total_value_str": "93,844,188",
-  "cash_str": "2,464,153",
-  "holdings_value_str": "91,380,035",
+  "total_value_str": "94,085,073",
+  "cash_str": "70,153",
+  "holdings_value_str": "94,014,920",
   "start_capital_str": "100,000,000",
-  "gain_str": "-6,155,812",
-  "cash_weight_pct": 2.6,
-  "day_chg_pct": 0.02,
-  "days": 21,
-  "priced_at": "2026-08-26T23:30:53+09:00",
+  "gain_str": "-5,914,927",
+  "cash_weight_pct": 0.1,
+  "day_chg_pct": 0.26,
+  "days": 22,
+  "priced_at": "2026-08-27T21:38:06+09:00",
   "eval_note": "🇰🇷 15:00 · 🇺🇸 23:45 발행 시점 시세로 체결",
   "persona": "normal2",
   "persona_name": "평범형 2",
   "persona_emoji": "🙂",
   "persona_tag": "성향 없음 · 동일 지시문 대조군 · fable",
   "journal_view": [
+    {
+      "date": "2026-08-27",
+      "session": "kr",
+      "comment": "NVDA 서프라이즈 · 삼전 소액 추가 · 코어 유지",
+      "placed": [
+        {
+          "action": "유지",
+          "name": "-",
+          "detail": "2차전지 +10% 추격 배제 · 잭슨홀 대기"
+        }
+      ],
+      "trades": [
+        {
+          "action": "매수",
+          "ticker": "005930.KS",
+          "name": "삼성전자",
+          "krw": 2394000,
+          "krw_str": "2,394,000",
+          "qty": 9,
+          "unit": "주",
+          "price_krw": 266000,
+          "price_str": "266,000",
+          "price_native_str": null,
+          "basis": "2026-08-27 리포트 시세",
+          "reason": "NVDA 매출 +106% · HBM 확인 · 컨센 49만"
+        }
+      ]
+    },
     {
       "date": "2026-08-26",
       "session": "us",
@@ -4160,6 +4321,83 @@
     }
   ],
   "history_view": [
+    {
+      "date": "2026-08-27",
+      "total_value": 94085073,
+      "total_value_str": "94,085,073",
+      "return_pct": -5.91,
+      "day_chg_pct": 0.26,
+      "cash": 70153,
+      "asof": "🇰🇷 장중 리포트 시점",
+      "holdings": [
+        {
+          "name": "신한지주",
+          "value_str": "18,387,200",
+          "weight_pct": 19.5,
+          "pl_pct": 6.11
+        },
+        {
+          "name": "삼성전자",
+          "value_str": "10,640,000",
+          "weight_pct": 11.3,
+          "pl_pct": -0.87
+        },
+        {
+          "name": "SK하이닉스",
+          "value_str": "6,920,000",
+          "weight_pct": 7.4,
+          "pl_pct": 2.49
+        },
+        {
+          "name": "셀트리온",
+          "value_str": "6,312,900",
+          "weight_pct": 6.7,
+          "pl_pct": 6.34
+        },
+        {
+          "name": "고려아연",
+          "value_str": "4,116,000",
+          "weight_pct": 4.4,
+          "pl_pct": -3.18
+        },
+        {
+          "name": "엔비디아",
+          "value_str": "11,877,004",
+          "weight_pct": 12.6,
+          "pl_pct": -7.56
+        },
+        {
+          "name": "헬스케어ETF",
+          "value_str": "11,749,061",
+          "weight_pct": 12.5,
+          "pl_pct": -1.41
+        },
+        {
+          "name": "아마존",
+          "value_str": "7,192,473",
+          "weight_pct": 7.6,
+          "pl_pct": -8.59
+        },
+        {
+          "name": "비자",
+          "value_str": "5,834,696",
+          "weight_pct": 6.2,
+          "pl_pct": 3.36
+        },
+        {
+          "name": "메타",
+          "value_str": "5,572,288",
+          "weight_pct": 5.9,
+          "pl_pct": 0.11
+        },
+        {
+          "name": "소재ETF",
+          "value_str": "5,413,298",
+          "weight_pct": 5.8,
+          "pl_pct": -0.68
+        }
+      ]
+    },
     {
       "date": "2026-08-26",
       "total_value": 93844188,
@@ -5489,17 +5727,17 @@
       "market": "kr",
       "label": "🇰🇷 한국",
       "count": 5,
-      "value_krw": 43507300,
-      "value_str": "43,507,300",
-      "weight_pct": 46.4
+      "value_krw": 46376100,
+      "value_str": "46,376,100",
+      "weight_pct": 49.3
     },
     {
       "market": "us",
       "label": "🇺🇸 미국",
       "count": 6,
-      "value_krw": 47872736,
-      "value_str": "47,872,736",
-      "weight_pct": 51.0
+      "value_krw": 47638820,
+      "value_str": "47,638,820",
+      "weight_pct": 50.6
     }
   ],
   "void_orders": [
