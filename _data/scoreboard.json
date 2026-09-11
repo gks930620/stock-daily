@@ -27,27 +27,27 @@
     "calls": 314,
     "h1": {
       "n": 314,
-      "hit_pct": 46.2,
+      "hit_pct": 45.9,
       "avg_excess": -0.49,
       "median_excess": 0.0
     },
     "h3": {
       "n": 314,
-      "hit_pct": 45.5,
+      "hit_pct": 45.2,
       "avg_excess": -1.11,
-      "median_excess": -0.47
+      "median_excess": -0.51
     },
     "h5": {
       "n": 314,
-      "hit_pct": 46.2,
-      "avg_excess": -1.13,
-      "median_excess": -0.63
+      "hit_pct": 45.9,
+      "avg_excess": -1.14,
+      "median_excess": -0.72
     },
     "now": {
       "n": 314,
       "hit_pct": 43.9,
       "avg_excess": -2.08,
-      "median_excess": -1.25
+      "median_excess": -1.29
     }
   },
   "by_persona": {
@@ -74,9 +74,9 @@
       },
       "now": {
         "n": 18,
-        "hit_pct": 44.4,
-        "avg_excess": -0.26,
-        "median_excess": -0.44
+        "hit_pct": 33.3,
+        "avg_excess": -0.47,
+        "median_excess": -0.56
       }
     },
     "aggressive": {
@@ -91,20 +91,20 @@
       "h3": {
         "n": 130,
         "hit_pct": 46.2,
-        "avg_excess": -0.95,
+        "avg_excess": -0.94,
         "median_excess": -0.58
       },
       "h5": {
         "n": 130,
         "hit_pct": 44.6,
-        "avg_excess": -1.15,
-        "median_excess": -0.96
+        "avg_excess": -1.14,
+        "median_excess": -0.99
       },
       "now": {
         "n": 130,
         "hit_pct": 40.8,
-        "avg_excess": -2.35,
-        "median_excess": -1.68
+        "avg_excess": -2.38,
+        "median_excess": -1.69
       }
     },
     "normal1": {
@@ -112,26 +112,26 @@
       "calls": 97,
       "h1": {
         "n": 97,
-        "hit_pct": 44.3,
-        "avg_excess": -1.03,
-        "median_excess": -0.14
+        "hit_pct": 43.3,
+        "avg_excess": -1.04,
+        "median_excess": -0.2
       },
       "h3": {
         "n": 97,
-        "hit_pct": 45.4,
-        "avg_excess": -1.66,
-        "median_excess": -0.23
+        "hit_pct": 44.3,
+        "avg_excess": -1.67,
+        "median_excess": -0.32
       },
       "h5": {
         "n": 97,
-        "hit_pct": 45.4,
-        "avg_excess": -1.93,
+        "hit_pct": 44.3,
+        "avg_excess": -1.94,
         "median_excess": -1.15
       },
       "now": {
         "n": 97,
-        "hit_pct": 45.4,
-        "avg_excess": -2.28,
+        "hit_pct": 46.4,
+        "avg_excess": -2.24,
         "median_excess": -1.2
       }
     },
@@ -158,17 +158,17 @@
       },
       "now": {
         "n": 69,
-        "hit_pct": 47.8,
-        "avg_excess": -1.75,
-        "median_excess": -0.49
+        "hit_pct": 49.3,
+        "avg_excess": -1.71,
+        "median_excess": -0.03
       }
     }
   },
   "overlap": {
-    "buy_slots": 159,
-    "shared_2plus_pct": 20.8,
+    "buy_slots": 161,
+    "shared_2plus_pct": 21.1,
     "shared_all4_pct": 0.0,
-    "holdings_jaccard_avg_pct": 25.4,
+    "holdings_jaccard_avg_pct": 27.0,
     "holdings_pairs": [
       {
         "pair": "🛡️ 안정형 × 🚀 공격형",
@@ -179,10 +179,9 @@
         "pair": "🛡️ 안정형 × 🙂 평범형 1",
         "shared": [
           "055550.KS",
-          "105560.KS",
-          "XLV"
+          "105560.KS"
         ],
-        "jaccard_pct": 18.8
+        "jaccard_pct": 11.8
       },
       {
         "pair": "🛡️ 안정형 × 🙂 평범형 2",
@@ -190,28 +189,30 @@
           "055550.KS",
           "105560.KS"
         ],
-        "jaccard_pct": 12.5
+        "jaccard_pct": 11.8
       },
       {
         "pair": "🚀 공격형 × 🙂 평범형 1",
         "shared": [
           "000660.KS",
           "329180.KS",
+          "AAPL",
           "META",
           "NVDA"
         ],
-        "jaccard_pct": 23.5
+        "jaccard_pct": 29.4
       },
       {
         "pair": "🚀 공격형 × 🙂 평범형 2",
         "shared": [
           "000660.KS",
           "329180.KS",
+          "AAPL",
           "META",
           "MU",
           "NVDA"
         ],
-        "jaccard_pct": 33.3
+        "jaccard_pct": 37.5
       },
       {
         "pair": "🙂 평범형 1 × 🙂 평범형 2",
@@ -221,12 +222,13 @@
           "055550.KS",
           "105560.KS",
           "329180.KS",
+          "AAPL",
           "META",
           "NVDA",
           "XLE",
           "XLF"
         ],
-        "jaccard_pct": 64.3
+        "jaccard_pct": 71.4
       }
     ],
     "held_by_all": []
@@ -241,9 +243,9 @@
       "persona": "🛡️ 안정형",
       "id": "stable",
       "since": "2026-07-20",
-      "return_pct": 0.83,
+      "return_pct": 0.77,
       "bench_pct": 1.95,
-      "excess_pct": -1.12,
+      "excess_pct": -1.18,
       "beat": false,
       "days": 40
     },
@@ -251,9 +253,9 @@
       "persona": "🚀 공격형",
       "id": "aggressive",
       "since": "2026-07-20",
-      "return_pct": -15.86,
+      "return_pct": -15.81,
       "bench_pct": 1.95,
-      "excess_pct": -17.81,
+      "excess_pct": -17.76,
       "beat": false,
       "days": 40
     },
@@ -261,9 +263,9 @@
       "persona": "🙂 평범형 1",
       "id": "normal1",
       "since": "2026-07-28",
-      "return_pct": -6.88,
+      "return_pct": -6.8,
       "bench_pct": 14.71,
-      "excess_pct": -21.59,
+      "excess_pct": -21.51,
       "beat": false,
       "days": 34
     },
@@ -271,9 +273,9 @@
       "persona": "🙂 평범형 2",
       "id": "normal2",
       "since": "2026-07-28",
-      "return_pct": -6.33,
+      "return_pct": -6.32,
       "bench_pct": 14.71,
-      "excess_pct": -21.04,
+      "excess_pct": -21.03,
       "beat": false,
       "days": 34
     }

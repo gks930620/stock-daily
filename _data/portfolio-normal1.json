@@ -2,7 +2,7 @@
   "start_date": "2026-07-28",
   "start_capital": 100000000,
   "currency": "KRW",
-  "cash": 10436772,
+  "cash": 13420845,
   "holdings": {
     "035420.KS": {
       "name": "NAVER",
@@ -32,25 +32,6 @@
           "fx": null,
           "price_date": "2026-08-04",
           "basis": "2026-08-04 리포트 시세"
-        }
-      ]
-    },
-    "XLV": {
-      "name": "헬스케어ETF",
-      "qty": 32.0,
-      "cost_krw": 7782576.076800001,
-      "lots": [
-        {
-          "date": "2026-07-29",
-          "session": "us",
-          "qty": 32,
-          "price_krw": 243206,
-          "price_native": 167.58,
-          "currency": "USD",
-          "krw": 7782576,
-          "fx": 1451.28,
-          "price_date": "2026-07-29",
-          "basis": "2026-07-29 리포트 시세"
         }
       ]
     },
@@ -363,6 +344,25 @@
           "basis": "2026-09-11 리포트 시세"
         }
       ]
+    },
+    "GOOGL": {
+      "name": "알파벳(구글)",
+      "qty": 9.0,
+      "cost_krw": 4101108.435,
+      "lots": [
+        {
+          "date": "2026-09-11",
+          "session": "us",
+          "qty": 9,
+          "price_krw": 455679,
+          "price_native": 340.3,
+          "currency": "USD",
+          "krw": 4101108,
+          "fx": 1339.05,
+          "price_date": "2026-09-11",
+          "basis": "2026-09-11 리포트 시세"
+        }
+      ]
     }
   },
   "applied_orders": [
@@ -409,7 +409,8 @@
     "2026-09-09-kr-normal1",
     "2026-09-10-us-normal1",
     "2026-09-10-kr-normal1",
-    "2026-09-11-kr-normal1"
+    "2026-09-11-kr-normal1",
+    "2026-09-11-us-normal1"
   ],
   "pending_orders": [],
   "journal": [
@@ -2323,6 +2324,53 @@
           "price_native_str": null,
           "basis": "2026-09-11 리포트 시세",
           "reason": "엔진증설·SMR 재료 · 거래량 2.7배 · 함정 수주 기대"
+        }
+      ]
+    },
+    {
+      "date": "2026-09-11",
+      "session": "us",
+      "comment": "CPI 통과 · 약체 XLV→GOOGL 교체 · 현금 14%",
+      "placed": [
+        {
+          "action": "유지",
+          "name": "-",
+          "detail": "FOMC 인상 70% 대기 · 추격 회피"
+        }
+      ],
+      "trades": [
+        {
+          "action": "매도",
+          "ticker": "XLV",
+          "name": "헬스케어ETF",
+          "krw": 7085181,
+          "krw_str": "7,085,181",
+          "qty": 32,
+          "unit": "주",
+          "price_krw": 221412,
+          "price_str": "221,412",
+          "price_native_str": "$165.35",
+          "avg_krw": 243206,
+          "avg_str": "243,206",
+          "pl_krw": -697395,
+          "pl_str": "-697,395",
+          "pl_pct": -8.96,
+          "basis": "2026-09-11 리포트 시세",
+          "reason": "섹터 최하위 · 보험 급락 · 6주 제자리"
+        },
+        {
+          "action": "매수",
+          "ticker": "GOOGL",
+          "name": "알파벳(구글)",
+          "krw": 4101108,
+          "krw_str": "4,101,108",
+          "qty": 9,
+          "unit": "주",
+          "price_krw": 455679,
+          "price_str": "455,679",
+          "price_native_str": "$340.30",
+          "basis": "2026-09-11 리포트 시세",
+          "reason": "광고분할 기각 · 제미나이 순풍 · 고점 -15%"
         }
       ]
     }
@@ -4793,12 +4841,12 @@
     },
     {
       "date": "2026-09-11",
-      "total_value": 93116605,
-      "total_value_str": "93,116,605",
-      "return_pct": -6.88,
-      "day_chg_pct": -0.51,
-      "cash": 10436772,
-      "asof": "🇰🇷 장중 리포트 시점",
+      "total_value": 93200141,
+      "total_value_str": "93,200,141",
+      "return_pct": -6.8,
+      "day_chg_pct": -0.42,
+      "cash": 13420845,
+      "asof": "🇺🇸 장중 리포트 시점",
       "holdings": [
         {
           "name": "삼성전자",
@@ -4838,48 +4886,48 @@
         },
         {
           "name": "메타",
-          "value_str": "8,664,720",
-          "weight_pct": 9.3,
-          "pl_pct": 7.67
-        },
-        {
-          "name": "헬스케어ETF",
-          "value_str": "7,128,204",
-          "weight_pct": 7.7,
-          "pl_pct": -8.41
+          "value_str": "8,732,615",
+          "weight_pct": 9.4,
+          "pl_pct": 8.52
         },
         {
           "name": "엔비디아",
-          "value_str": "5,872,399",
+          "value_str": "5,887,535",
           "weight_pct": 6.3,
-          "pl_pct": -5.32
+          "pl_pct": -5.07
         },
         {
           "name": "에너지ETF",
-          "value_str": "5,325,835",
+          "value_str": "5,294,630",
           "weight_pct": 5.7,
-          "pl_pct": 0.21
+          "pl_pct": -0.38
+        },
+        {
+          "name": "알파벳(구글)",
+          "value_str": "4,101,108",
+          "weight_pct": 4.4,
+          "pl_pct": 0.0
         },
         {
           "name": "금융ETF",
-          "value_str": "3,747,070",
+          "value_str": "3,743,903",
           "weight_pct": 4.0,
-          "pl_pct": -5.22
+          "pl_pct": -5.3
         },
         {
           "name": "애플",
-          "value_str": "3,513,005",
-          "weight_pct": 3.8,
-          "pl_pct": 1.4
+          "value_str": "3,590,904",
+          "weight_pct": 3.9,
+          "pl_pct": 3.65
         }
       ]
     }
   ],
   "updated": "2026-09-11",
-  "total_value": 93116605,
-  "holdings_value": 82679833,
-  "return_pct": -6.88,
-  "usdkrw": 1344.66,
+  "total_value": 93200141,
+  "holdings_value": 79779296,
+  "return_pct": -6.8,
+  "usdkrw": 1339.05,
   "holdings_view": [
     {
       "ticker": "005930.KS",
@@ -5253,18 +5301,18 @@
       "category": "us_stock",
       "market": "us",
       "cost_str": "8,047,294",
-      "pl_krw_str": "+617,426",
+      "pl_krw_str": "+685,321",
       "avg_krw": 804729,
       "avg_str": "804,729",
       "avg_native_str": "$584.25",
-      "price_krw": 866472,
-      "price_str": "866,472",
-      "price_native": 644.38,
+      "price_krw": 873261,
+      "price_str": "873,261",
+      "price_native": 652.15,
       "avg_native": 584.25,
-      "price_native_str": "$644.38",
-      "price_date": "2026-09-10",
-      "value_krw": 8664720,
-      "pl_pct": 7.67,
+      "price_native_str": "$652.15",
+      "price_date": "2026-09-11",
+      "value_krw": 8732615,
+      "pl_pct": 8.52,
       "lots": [
         {
           "date": "2026-08-26",
@@ -5297,53 +5345,10 @@
           "native_str": "$609.30"
         }
       ],
-      "weight_pct": 9.3,
-      "value_str": "8,664,720",
+      "weight_pct": 9.4,
+      "value_str": "8,732,615",
       "color": "#7d9a3c",
       "chart": "h-normal1-meta.png"
-    },
-    {
-      "ticker": "XLV",
-      "name": "헬스케어ETF",
-      "qty": 32,
-      "unit": "주",
-      "currency": "USD",
-      "category": "us_sector",
-      "market": "us",
-      "cost_str": "7,782,576",
-      "pl_krw_str": "-654,372",
-      "avg_krw": 243206,
-      "avg_str": "243,206",
-      "avg_native_str": "$167.58",
-      "price_krw": 222756,
-      "price_str": "222,756",
-      "price_native": 165.66,
-      "avg_native": 167.58,
-      "price_native_str": "$165.66",
-      "price_date": "2026-09-10",
-      "value_krw": 7128204,
-      "pl_pct": -8.41,
-      "lots": [
-        {
-          "date": "2026-07-29",
-          "session": "us",
-          "qty": 32,
-          "price_krw": 243206,
-          "price_native": 167.58,
-          "currency": "USD",
-          "krw": 7782576,
-          "fx": 1451.28,
-          "price_date": "2026-07-29",
-          "basis": "2026-07-29 리포트 시세",
-          "krw_str": "7,782,576",
-          "price_krw_str": "243,206",
-          "native_str": "$167.58"
-        }
-      ],
-      "weight_pct": 7.7,
-      "value_str": "7,128,204",
-      "color": "#c98a4b",
-      "chart": "h-normal1-xlv.png"
     },
     {
       "ticker": "NVDA",
@@ -5354,18 +5359,18 @@
       "category": "us_stock",
       "market": "us",
       "cost_str": "6,202,061",
-      "pl_krw_str": "-329,662",
+      "pl_krw_str": "-314,526",
       "avg_krw": 310103,
       "avg_str": "310,103",
       "avg_native_str": "$220.42",
-      "price_krw": 293620,
-      "price_str": "293,620",
-      "price_native": 218.36,
+      "price_krw": 294377,
+      "price_str": "294,377",
+      "price_native": 219.84,
       "avg_native": 220.42,
-      "price_native_str": "$218.36",
-      "price_date": "2026-09-10",
-      "value_krw": 5872399,
-      "pl_pct": -5.32,
+      "price_native_str": "$219.84",
+      "price_date": "2026-09-11",
+      "value_krw": 5887535,
+      "pl_pct": -5.07,
       "lots": [
         {
           "date": "2026-08-05",
@@ -5414,8 +5419,8 @@
         }
       ],
       "weight_pct": 6.3,
-      "value_str": "5,872,399",
-      "color": "#5f7fd6",
+      "value_str": "5,887,535",
+      "color": "#c98a4b",
       "chart": "h-normal1-nvda.png"
     },
     {
@@ -5427,18 +5432,18 @@
       "category": "us_sector",
       "market": "us",
       "cost_str": "5,314,777",
-      "pl_krw_str": "+11,058",
+      "pl_krw_str": "-20,147",
       "avg_krw": 87127,
       "avg_str": "87,127",
       "avg_native_str": "$64.38",
-      "price_krw": 87309,
-      "price_str": "87,309",
-      "price_native": 64.93,
+      "price_krw": 86797,
+      "price_str": "86,797",
+      "price_native": 64.82,
       "avg_native": 64.38,
-      "price_native_str": "$64.93",
-      "price_date": "2026-09-10",
-      "value_krw": 5325835,
-      "pl_pct": 0.21,
+      "price_native_str": "$64.82",
+      "price_date": "2026-09-11",
+      "value_krw": 5294630,
+      "pl_pct": -0.38,
       "lots": [
         {
           "date": "2026-09-01",
@@ -5472,9 +5477,52 @@
         }
       ],
       "weight_pct": 5.7,
-      "value_str": "5,325,835",
-      "color": "#b05fa8",
+      "value_str": "5,294,630",
+      "color": "#5f7fd6",
       "chart": "h-normal1-xle.png"
+    },
+    {
+      "ticker": "GOOGL",
+      "name": "알파벳(구글)",
+      "qty": 9,
+      "unit": "주",
+      "currency": "USD",
+      "category": "us_stock",
+      "market": "us",
+      "cost_str": "4,101,108",
+      "pl_krw_str": "+0",
+      "avg_krw": 455679,
+      "avg_str": "455,679",
+      "avg_native_str": "$340.30",
+      "price_krw": 455679,
+      "price_str": "455,679",
+      "price_native": 340.3,
+      "avg_native": 340.3,
+      "price_native_str": "$340.30",
+      "price_date": "2026-09-11",
+      "value_krw": 4101108,
+      "pl_pct": 0.0,
+      "lots": [
+        {
+          "date": "2026-09-11",
+          "session": "us",
+          "qty": 9,
+          "price_krw": 455679,
+          "price_native": 340.3,
+          "currency": "USD",
+          "krw": 4101108,
+          "fx": 1339.05,
+          "price_date": "2026-09-11",
+          "basis": "2026-09-11 리포트 시세",
+          "krw_str": "4,101,108",
+          "price_krw_str": "455,679",
+          "native_str": "$340.30"
+        }
+      ],
+      "weight_pct": 4.4,
+      "value_str": "4,101,108",
+      "color": "#b05fa8",
+      "chart": "h-normal1-googl.png"
     },
     {
       "ticker": "XLF",
@@ -5485,18 +5533,18 @@
       "category": "us_sector",
       "market": "us",
       "cost_str": "3,953,522",
-      "pl_krw_str": "-206,452",
+      "pl_krw_str": "-209,619",
       "avg_krw": 80684,
       "avg_str": "80,684",
       "avg_native_str": "$58.31",
-      "price_krw": 76471,
-      "price_str": "76,471",
-      "price_native": 56.87,
+      "price_krw": 76406,
+      "price_str": "76,406",
+      "price_native": 57.06,
       "avg_native": 58.31,
-      "price_native_str": "$56.87",
-      "price_date": "2026-09-10",
-      "value_krw": 3747070,
-      "pl_pct": -5.22,
+      "price_native_str": "$57.06",
+      "price_date": "2026-09-11",
+      "value_krw": 3743903,
+      "pl_pct": -5.3,
       "lots": [
         {
           "date": "2026-08-24",
@@ -5515,7 +5563,7 @@
         }
       ],
       "weight_pct": 4.0,
-      "value_str": "3,747,070",
+      "value_str": "3,743,903",
       "color": "#3f9e8c",
       "chart": "h-normal1-xlf.png"
     },
@@ -5528,18 +5576,18 @@
       "category": "us_stock",
       "market": "us",
       "cost_str": "3,464,367",
-      "pl_krw_str": "+48,638",
+      "pl_krw_str": "+126,537",
       "avg_krw": 433046,
       "avg_str": "433,046",
       "avg_native_str": "$312.96",
-      "price_krw": 439126,
-      "price_str": "439,126",
-      "price_native": 326.57,
+      "price_krw": 448863,
+      "price_str": "448,863",
+      "price_native": 335.21,
       "avg_native": 312.96,
-      "price_native_str": "$326.57",
-      "price_date": "2026-09-10",
-      "value_krw": 3513005,
-      "pl_pct": 1.4,
+      "price_native_str": "$335.21",
+      "price_date": "2026-09-11",
+      "value_krw": 3590904,
+      "pl_pct": 3.65,
       "lots": [
         {
           "date": "2026-08-24",
@@ -5557,28 +5605,75 @@
           "native_str": "$312.96"
         }
       ],
-      "weight_pct": 3.8,
-      "value_str": "3,513,005",
+      "weight_pct": 3.9,
+      "value_str": "3,590,904",
       "color": "#cf7060",
       "chart": "h-normal1-aapl.png"
     }
   ],
   "pending_view": [],
-  "total_value_str": "93,116,605",
-  "cash_str": "10,436,772",
-  "holdings_value_str": "82,679,833",
+  "total_value_str": "93,200,141",
+  "cash_str": "13,420,845",
+  "holdings_value_str": "79,779,296",
   "start_capital_str": "100,000,000",
-  "gain_str": "-6,883,395",
-  "cash_weight_pct": 11.2,
-  "day_chg_pct": -0.51,
+  "gain_str": "-6,799,859",
+  "cash_weight_pct": 14.4,
+  "day_chg_pct": -0.42,
   "days": 34,
-  "priced_at": "2026-09-11T16:08:58+09:00",
+  "priced_at": "2026-09-11T23:51:29+09:00",
   "eval_note": "🇰🇷 15:00 · 🇺🇸 23:45 발행 시점 시세로 체결",
   "persona": "normal1",
   "persona_name": "평범형 1",
   "persona_emoji": "🙂",
   "persona_tag": "성향 없음 · 동일 지시문 대조군 · fable",
   "journal_view": [
+    {
+      "date": "2026-09-11",
+      "session": "us",
+      "comment": "CPI 통과 · 약체 XLV→GOOGL 교체 · 현금 14%",
+      "placed": [
+        {
+          "action": "유지",
+          "name": "-",
+          "detail": "FOMC 인상 70% 대기 · 추격 회피"
+        }
+      ],
+      "trades": [
+        {
+          "action": "매도",
+          "ticker": "XLV",
+          "name": "헬스케어ETF",
+          "krw": 7085181,
+          "krw_str": "7,085,181",
+          "qty": 32,
+          "unit": "주",
+          "price_krw": 221412,
+          "price_str": "221,412",
+          "price_native_str": "$165.35",
+          "avg_krw": 243206,
+          "avg_str": "243,206",
+          "pl_krw": -697395,
+          "pl_str": "-697,395",
+          "pl_pct": -8.96,
+          "basis": "2026-09-11 리포트 시세",
+          "reason": "섹터 최하위 · 보험 급락 · 6주 제자리"
+        },
+        {
+          "action": "매수",
+          "ticker": "GOOGL",
+          "name": "알파벳(구글)",
+          "krw": 4101108,
+          "krw_str": "4,101,108",
+          "qty": 9,
+          "unit": "주",
+          "price_krw": 455679,
+          "price_str": "455,679",
+          "price_native_str": "$340.30",
+          "basis": "2026-09-11 리포트 시세",
+          "reason": "광고분할 기각 · 제미나이 순풍 · 고점 -15%"
+        }
+      ]
+    },
     {
       "date": "2026-09-11",
       "session": "kr",
@@ -7496,12 +7591,12 @@
   "history_view": [
     {
       "date": "2026-09-11",
-      "total_value": 93116605,
-      "total_value_str": "93,116,605",
-      "return_pct": -6.88,
-      "day_chg_pct": -0.51,
-      "cash": 10436772,
-      "asof": "🇰🇷 장중 리포트 시점",
+      "total_value": 93200141,
+      "total_value_str": "93,200,141",
+      "return_pct": -6.8,
+      "day_chg_pct": -0.42,
+      "cash": 13420845,
+      "asof": "🇺🇸 장중 리포트 시점",
       "holdings": [
         {
           "name": "삼성전자",
@@ -7541,39 +7636,39 @@
         },
         {
           "name": "메타",
-          "value_str": "8,664,720",
-          "weight_pct": 9.3,
-          "pl_pct": 7.67
-        },
-        {
-          "name": "헬스케어ETF",
-          "value_str": "7,128,204",
-          "weight_pct": 7.7,
-          "pl_pct": -8.41
+          "value_str": "8,732,615",
+          "weight_pct": 9.4,
+          "pl_pct": 8.52
         },
         {
           "name": "엔비디아",
-          "value_str": "5,872,399",
+          "value_str": "5,887,535",
           "weight_pct": 6.3,
-          "pl_pct": -5.32
+          "pl_pct": -5.07
         },
         {
           "name": "에너지ETF",
-          "value_str": "5,325,835",
+          "value_str": "5,294,630",
           "weight_pct": 5.7,
-          "pl_pct": 0.21
+          "pl_pct": -0.38
+        },
+        {
+          "name": "알파벳(구글)",
+          "value_str": "4,101,108",
+          "weight_pct": 4.4,
+          "pl_pct": 0.0
         },
         {
           "name": "금융ETF",
-          "value_str": "3,747,070",
+          "value_str": "3,743,903",
           "weight_pct": 4.0,
-          "pl_pct": -5.22
+          "pl_pct": -5.3
         },
         {
           "name": "애플",
-          "value_str": "3,513,005",
-          "weight_pct": 3.8,
-          "pl_pct": 1.4
+          "value_str": "3,590,904",
+          "weight_pct": 3.9,
+          "pl_pct": 3.65
         }
       ]
     },
@@ -10054,9 +10149,9 @@
       "market": "us",
       "label": "🇺🇸 미국",
       "count": 6,
-      "value_krw": 34251233,
-      "value_str": "34,251,233",
-      "weight_pct": 36.8
+      "value_krw": 31350695,
+      "value_str": "31,350,695",
+      "weight_pct": 33.6
     }
   ],
   "void_orders": [

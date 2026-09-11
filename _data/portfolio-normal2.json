@@ -2,7 +2,7 @@
   "start_date": "2026-07-28",
   "start_capital": 100000000,
   "currency": "KRW",
-  "cash": 4700189,
+  "cash": 211559,
   "holdings": {
     "055550.KS": {
       "name": "신한지주",
@@ -272,6 +272,25 @@
           "basis": "2026-09-11 리포트 시세"
         }
       ]
+    },
+    "AAPL": {
+      "name": "애플",
+      "qty": 10.0,
+      "cost_krw": 4488629.505,
+      "lots": [
+        {
+          "date": "2026-09-11",
+          "session": "us",
+          "qty": 10,
+          "price_krw": 448863,
+          "price_native": 335.21,
+          "currency": "USD",
+          "krw": 4488630,
+          "fx": 1339.05,
+          "price_date": "2026-09-11",
+          "basis": "2026-09-11 리포트 시세"
+        }
+      ]
     }
   },
   "applied_orders": [
@@ -318,7 +337,8 @@
     "2026-09-09-kr-normal2",
     "2026-09-10-us-normal2",
     "2026-09-10-kr-normal2",
-    "2026-09-11-kr-normal2"
+    "2026-09-11-kr-normal2",
+    "2026-09-11-us-normal2"
   ],
   "pending_orders": [],
   "journal": [
@@ -1802,6 +1822,34 @@
           "price_native_str": null,
           "basis": "2026-09-11 리포트 시세",
           "reason": "VLGC 수주 · 거래량 2.7배 · 방산 확대"
+        }
+      ]
+    },
+    {
+      "date": "2026-09-11",
+      "session": "us",
+      "comment": "CPI 통과 안도 · AAPL 편입 · 코어 6종 홀드",
+      "placed": [
+        {
+          "action": "유지",
+          "name": "-",
+          "detail": "FOMC 인상 기반영 · 매도 신호 없음"
+        }
+      ],
+      "trades": [
+        {
+          "action": "매수",
+          "ticker": "AAPL",
+          "name": "애플",
+          "krw": 4488630,
+          "krw_str": "4,488,630",
+          "qty": 10,
+          "unit": "주",
+          "price_krw": 448863,
+          "price_str": "448,863",
+          "price_native_str": "$335.21",
+          "basis": "2026-09-11 리포트 시세",
+          "reason": "폴더블 Duo 흥행 · 상승배열 · 목표 $400"
         }
       ]
     }
@@ -4020,12 +4068,12 @@
     },
     {
       "date": "2026-09-11",
-      "total_value": 93669844,
-      "total_value_str": "93,669,844",
-      "return_pct": -6.33,
-      "day_chg_pct": -0.38,
-      "cash": 4700189,
-      "asof": "🇰🇷 장중 리포트 시점",
+      "total_value": 93678929,
+      "total_value_str": "93,678,929",
+      "return_pct": -6.32,
+      "day_chg_pct": -0.37,
+      "cash": 211559,
+      "asof": "🇺🇸 장중 리포트 시점",
       "holdings": [
         {
           "name": "신한지주",
@@ -4059,48 +4107,54 @@
         },
         {
           "name": "엔비디아",
-          "value_str": "12,038,418",
+          "value_str": "12,069,447",
           "weight_pct": 12.9,
-          "pl_pct": -6.31
+          "pl_pct": -6.06
         },
         {
           "name": "에너지ETF",
-          "value_str": "6,373,540",
+          "value_str": "6,336,197",
           "weight_pct": 6.8,
-          "pl_pct": 0.28
+          "pl_pct": -0.31
         },
         {
           "name": "메타",
-          "value_str": "6,065,304",
+          "value_str": "6,112,830",
           "weight_pct": 6.5,
-          "pl_pct": 4.77
+          "pl_pct": 5.6
         },
         {
           "name": "비자",
-          "value_str": "5,431,499",
+          "value_str": "5,445,220",
           "weight_pct": 5.8,
-          "pl_pct": -3.79
+          "pl_pct": -3.54
         },
         {
           "name": "마이크론",
-          "value_str": "5,257,137",
+          "value_str": "5,214,261",
           "weight_pct": 5.6,
-          "pl_pct": -3.72
+          "pl_pct": -4.51
+        },
+        {
+          "name": "애플",
+          "value_str": "4,488,630",
+          "weight_pct": 4.8,
+          "pl_pct": 0.0
         },
         {
           "name": "금융ETF",
-          "value_str": "3,517,657",
+          "value_str": "3,514,685",
           "weight_pct": 3.8,
-          "pl_pct": -4.32
+          "pl_pct": -4.4
         }
       ]
     }
   ],
   "updated": "2026-09-11",
-  "total_value": 93669844,
-  "holdings_value": 88969655,
-  "return_pct": -6.33,
-  "usdkrw": 1344.66,
+  "total_value": 93678929,
+  "holdings_value": 93467369,
+  "return_pct": -6.32,
+  "usdkrw": 1339.05,
   "holdings_view": [
     {
       "ticker": "055550.KS",
@@ -4401,18 +4455,18 @@
       "category": "us_stock",
       "market": "us",
       "cost_str": "12,848,544",
-      "pl_krw_str": "-810,126",
+      "pl_krw_str": "-779,097",
       "avg_krw": 313379,
       "avg_str": "313,379",
       "avg_native_str": "$220.15",
-      "price_krw": 293620,
-      "price_str": "293,620",
-      "price_native": 218.36,
+      "price_krw": 294377,
+      "price_str": "294,377",
+      "price_native": 219.84,
       "avg_native": 220.15,
-      "price_native_str": "$218.36",
-      "price_date": "2026-09-10",
-      "value_krw": 12038418,
-      "pl_pct": -6.31,
+      "price_native_str": "$219.84",
+      "price_date": "2026-09-11",
+      "value_krw": 12069447,
+      "pl_pct": -6.06,
       "lots": [
         {
           "date": "2026-08-05",
@@ -4431,7 +4485,7 @@
         }
       ],
       "weight_pct": 12.9,
-      "value_str": "12,038,418",
+      "value_str": "12,069,447",
       "color": "#c0699d",
       "chart": "h-normal2-nvda.png"
     },
@@ -4444,18 +4498,18 @@
       "category": "us_sector",
       "market": "us",
       "cost_str": "6,355,970",
-      "pl_krw_str": "+17,570",
+      "pl_krw_str": "-19,773",
       "avg_krw": 87068,
       "avg_str": "87,068",
       "avg_native_str": "$63.67",
-      "price_krw": 87309,
-      "price_str": "87,309",
-      "price_native": 64.93,
+      "price_krw": 86797,
+      "price_str": "86,797",
+      "price_native": 64.82,
       "avg_native": 63.67,
-      "price_native_str": "$64.93",
-      "price_date": "2026-09-10",
-      "value_krw": 6373540,
-      "pl_pct": 0.28,
+      "price_native_str": "$64.82",
+      "price_date": "2026-09-11",
+      "value_krw": 6336197,
+      "pl_pct": -0.31,
       "lots": [
         {
           "date": "2026-09-01",
@@ -4474,7 +4528,7 @@
         }
       ],
       "weight_pct": 6.8,
-      "value_str": "6,373,540",
+      "value_str": "6,336,197",
       "color": "#7d9a3c",
       "chart": "h-normal2-xle.png"
     },
@@ -4487,18 +4541,18 @@
       "category": "us_stock",
       "market": "us",
       "cost_str": "5,788,934",
-      "pl_krw_str": "+276,370",
+      "pl_krw_str": "+323,897",
       "avg_krw": 826991,
       "avg_str": "826,991",
       "avg_native_str": "$609.30",
-      "price_krw": 866472,
-      "price_str": "866,472",
-      "price_native": 644.38,
+      "price_krw": 873261,
+      "price_str": "873,261",
+      "price_native": 652.15,
       "avg_native": 609.3,
-      "price_native_str": "$644.38",
-      "price_date": "2026-09-10",
-      "value_krw": 6065304,
-      "pl_pct": 4.77,
+      "price_native_str": "$652.15",
+      "price_date": "2026-09-11",
+      "value_krw": 6112830,
+      "pl_pct": 5.6,
       "lots": [
         {
           "date": "2026-09-03",
@@ -4517,7 +4571,7 @@
         }
       ],
       "weight_pct": 6.5,
-      "value_str": "6,065,304",
+      "value_str": "6,112,830",
       "color": "#c98a4b",
       "chart": "h-normal2-meta.png"
     },
@@ -4530,18 +4584,18 @@
       "category": "us_stock",
       "market": "us",
       "cost_str": "5,645,291",
-      "pl_krw_str": "-213,792",
+      "pl_krw_str": "-200,071",
       "avg_krw": 513208,
       "avg_str": "513,208",
       "avg_native_str": "$370.20",
-      "price_krw": 493773,
-      "price_str": "493,773",
-      "price_native": 367.21,
+      "price_krw": 495020,
+      "price_str": "495,020",
+      "price_native": 369.68,
       "avg_native": 370.2,
-      "price_native_str": "$367.21",
-      "price_date": "2026-09-10",
-      "value_krw": 5431499,
-      "pl_pct": -3.79,
+      "price_native_str": "$369.68",
+      "price_date": "2026-09-11",
+      "value_krw": 5445220,
+      "pl_pct": -3.54,
       "lots": [
         {
           "date": "2026-08-21",
@@ -4560,7 +4614,7 @@
         }
       ],
       "weight_pct": 5.8,
-      "value_str": "5,431,499",
+      "value_str": "5,445,220",
       "color": "#5f7fd6",
       "chart": "h-normal2-v.png"
     },
@@ -4573,18 +4627,18 @@
       "category": "us_stock",
       "market": "us",
       "cost_str": "5,460,278",
-      "pl_krw_str": "-203,142",
+      "pl_krw_str": "-246,018",
       "avg_krw": 1365070,
       "avg_str": "1,365,070",
       "avg_native_str": "$1,017.38",
-      "price_krw": 1314284,
-      "price_str": "1,314,284",
-      "price_native": 977.41,
+      "price_krw": 1303565,
+      "price_str": "1,303,565",
+      "price_native": 973.5,
       "avg_native": 1017.38,
-      "price_native_str": "$977.41",
-      "price_date": "2026-09-10",
-      "value_krw": 5257137,
-      "pl_pct": -3.72,
+      "price_native_str": "$973.50",
+      "price_date": "2026-09-11",
+      "value_krw": 5214261,
+      "pl_pct": -4.51,
       "lots": [
         {
           "date": "2026-09-08",
@@ -4603,9 +4657,52 @@
         }
       ],
       "weight_pct": 5.6,
-      "value_str": "5,257,137",
+      "value_str": "5,214,261",
       "color": "#b05fa8",
       "chart": "h-normal2-mu.png"
+    },
+    {
+      "ticker": "AAPL",
+      "name": "애플",
+      "qty": 10,
+      "unit": "주",
+      "currency": "USD",
+      "category": "us_stock",
+      "market": "us",
+      "cost_str": "4,488,630",
+      "pl_krw_str": "+0",
+      "avg_krw": 448863,
+      "avg_str": "448,863",
+      "avg_native_str": "$335.21",
+      "price_krw": 448863,
+      "price_str": "448,863",
+      "price_native": 335.21,
+      "avg_native": 335.21,
+      "price_native_str": "$335.21",
+      "price_date": "2026-09-11",
+      "value_krw": 4488630,
+      "pl_pct": 0.0,
+      "lots": [
+        {
+          "date": "2026-09-11",
+          "session": "us",
+          "qty": 10,
+          "price_krw": 448863,
+          "price_native": 335.21,
+          "currency": "USD",
+          "krw": 4488630,
+          "fx": 1339.05,
+          "price_date": "2026-09-11",
+          "basis": "2026-09-11 리포트 시세",
+          "krw_str": "4,488,630",
+          "price_krw_str": "448,863",
+          "native_str": "$335.21"
+        }
+      ],
+      "weight_pct": 4.8,
+      "value_str": "4,488,630",
+      "color": "#3f9e8c",
+      "chart": "h-normal2-aapl.png"
     },
     {
       "ticker": "XLF",
@@ -4616,18 +4713,18 @@
       "category": "us_sector",
       "market": "us",
       "cost_str": "3,676,616",
-      "pl_krw_str": "-158,958",
+      "pl_krw_str": "-161,931",
       "avg_krw": 79926,
       "avg_str": "79,926",
       "avg_native_str": "$58.10",
-      "price_krw": 76471,
-      "price_str": "76,471",
-      "price_native": 56.87,
+      "price_krw": 76406,
+      "price_str": "76,406",
+      "price_native": 57.06,
       "avg_native": 58.1,
-      "price_native_str": "$56.87",
-      "price_date": "2026-09-10",
-      "value_krw": 3517657,
-      "pl_pct": -4.32,
+      "price_native_str": "$57.06",
+      "price_date": "2026-09-11",
+      "value_krw": 3514685,
+      "pl_pct": -4.4,
       "lots": [
         {
           "date": "2026-08-29",
@@ -4646,27 +4743,55 @@
         }
       ],
       "weight_pct": 3.8,
-      "value_str": "3,517,657",
-      "color": "#3f9e8c",
+      "value_str": "3,514,685",
+      "color": "#cf7060",
       "chart": "h-normal2-xlf.png"
     }
   ],
   "pending_view": [],
-  "total_value_str": "93,669,844",
-  "cash_str": "4,700,189",
-  "holdings_value_str": "88,969,655",
+  "total_value_str": "93,678,929",
+  "cash_str": "211,559",
+  "holdings_value_str": "93,467,369",
   "start_capital_str": "100,000,000",
-  "gain_str": "-6,330,156",
-  "cash_weight_pct": 5.0,
-  "day_chg_pct": -0.38,
+  "gain_str": "-6,321,071",
+  "cash_weight_pct": 0.2,
+  "day_chg_pct": -0.37,
   "days": 34,
-  "priced_at": "2026-09-11T16:08:58+09:00",
+  "priced_at": "2026-09-11T23:51:29+09:00",
   "eval_note": "🇰🇷 15:00 · 🇺🇸 23:45 발행 시점 시세로 체결",
   "persona": "normal2",
   "persona_name": "평범형 2",
   "persona_emoji": "🙂",
   "persona_tag": "성향 없음 · 동일 지시문 대조군 · fable",
   "journal_view": [
+    {
+      "date": "2026-09-11",
+      "session": "us",
+      "comment": "CPI 통과 안도 · AAPL 편입 · 코어 6종 홀드",
+      "placed": [
+        {
+          "action": "유지",
+          "name": "-",
+          "detail": "FOMC 인상 기반영 · 매도 신호 없음"
+        }
+      ],
+      "trades": [
+        {
+          "action": "매수",
+          "ticker": "AAPL",
+          "name": "애플",
+          "krw": 4488630,
+          "krw_str": "4,488,630",
+          "qty": 10,
+          "unit": "주",
+          "price_krw": 448863,
+          "price_str": "448,863",
+          "price_native_str": "$335.21",
+          "basis": "2026-09-11 리포트 시세",
+          "reason": "폴더블 Duo 흥행 · 상승배열 · 목표 $400"
+        }
+      ]
+    },
     {
       "date": "2026-09-11",
       "session": "kr",
@@ -6154,12 +6279,12 @@
   "history_view": [
     {
       "date": "2026-09-11",
-      "total_value": 93669844,
-      "total_value_str": "93,669,844",
-      "return_pct": -6.33,
-      "day_chg_pct": -0.38,
-      "cash": 4700189,
-      "asof": "🇰🇷 장중 리포트 시점",
+      "total_value": 93678929,
+      "total_value_str": "93,678,929",
+      "return_pct": -6.32,
+      "day_chg_pct": -0.37,
+      "cash": 211559,
+      "asof": "🇺🇸 장중 리포트 시점",
       "holdings": [
         {
           "name": "신한지주",
@@ -6193,39 +6318,45 @@
         },
         {
           "name": "엔비디아",
-          "value_str": "12,038,418",
+          "value_str": "12,069,447",
           "weight_pct": 12.9,
-          "pl_pct": -6.31
+          "pl_pct": -6.06
         },
         {
           "name": "에너지ETF",
-          "value_str": "6,373,540",
+          "value_str": "6,336,197",
           "weight_pct": 6.8,
-          "pl_pct": 0.28
+          "pl_pct": -0.31
         },
         {
           "name": "메타",
-          "value_str": "6,065,304",
+          "value_str": "6,112,830",
           "weight_pct": 6.5,
-          "pl_pct": 4.77
+          "pl_pct": 5.6
         },
         {
           "name": "비자",
-          "value_str": "5,431,499",
+          "value_str": "5,445,220",
           "weight_pct": 5.8,
-          "pl_pct": -3.79
+          "pl_pct": -3.54
         },
         {
           "name": "마이크론",
-          "value_str": "5,257,137",
+          "value_str": "5,214,261",
           "weight_pct": 5.6,
-          "pl_pct": -3.72
+          "pl_pct": -4.51
+        },
+        {
+          "name": "애플",
+          "value_str": "4,488,630",
+          "weight_pct": 4.8,
+          "pl_pct": 0.0
         },
         {
           "name": "금융ETF",
-          "value_str": "3,517,657",
+          "value_str": "3,514,685",
           "weight_pct": 3.8,
-          "pl_pct": -4.32
+          "pl_pct": -4.4
         }
       ]
     },
@@ -8453,10 +8584,10 @@
     {
       "market": "us",
       "label": "🇺🇸 미국",
-      "count": 6,
-      "value_krw": 38683555,
-      "value_str": "38,683,555",
-      "weight_pct": 41.3
+      "count": 7,
+      "value_krw": 43181270,
+      "value_str": "43,181,270",
+      "weight_pct": 46.1
     }
   ],
   "void_orders": [
