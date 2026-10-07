@@ -2,7 +2,7 @@
   "start_date": "2026-07-20",
   "start_capital": 100000000,
   "currency": "KRW",
-  "cash": 52011598,
+  "cash": 49015898,
   "holdings": {
     "105560.KS": {
       "name": "KB금융",
@@ -25,8 +25,8 @@
     },
     "055550.KS": {
       "name": "신한지주",
-      "qty": 59.0,
-      "cost_krw": 6161500.0,
+      "qty": 88.0,
+      "cost_krw": 9157200.0,
       "lots": [
         {
           "date": "2026-07-21",
@@ -51,6 +51,18 @@
           "fx": null,
           "price_date": "2026-10-02",
           "basis": "2026-10-02 리포트 시세"
+        },
+        {
+          "date": "2026-10-07",
+          "session": "kr",
+          "qty": 29,
+          "price_krw": 103300,
+          "price_native": 103300.0,
+          "currency": "KRW",
+          "krw": 2995700,
+          "fx": null,
+          "price_date": "2026-10-07",
+          "basis": "2026-10-07 리포트 시세"
         }
       ]
     },
@@ -250,7 +262,8 @@
     "2026-10-05-kr-stable",
     "2026-10-06-us-stable",
     "2026-10-06-kr-stable",
-    "2026-10-07-us-stable"
+    "2026-10-07-us-stable",
+    "2026-10-07-kr-stable"
   ],
   "pending_orders": [],
   "journal": [
@@ -2719,6 +2732,34 @@
         }
       ],
       "trades": []
+    },
+    {
+      "date": "2026-10-07",
+      "session": "kr",
+      "comment": "신한 분할 2차 · 현금 49% 방패 · 코어 유지",
+      "placed": [
+        {
+          "action": "유지",
+          "name": "-",
+          "detail": "추가 보류 · FOMC 의사록 D-1 · KT&G 15% 상한"
+        }
+      ],
+      "trades": [
+        {
+          "action": "매수",
+          "ticker": "055550.KS",
+          "name": "신한지주",
+          "krw": 2995700,
+          "krw_str": "2,995,700",
+          "qty": 29,
+          "unit": "주",
+          "price_krw": 103300,
+          "price_str": "103,300",
+          "price_native_str": null,
+          "basis": "2026-10-07 리포트 시세",
+          "reason": "목표 13.5만 · 환원 50%+ · RSI39 눌림"
+        }
+      ]
     }
   ],
   "history": [
@@ -5533,51 +5574,51 @@
     },
     {
       "date": "2026-10-07",
-      "total_value": 99412734,
-      "total_value_str": "99,412,734",
-      "return_pct": -0.59,
-      "day_chg_pct": 0.03,
-      "cash": 52011598,
-      "asof": "🇺🇸 장중 리포트 시점",
+      "total_value": 99656608,
+      "total_value_str": "99,656,608",
+      "return_pct": -0.34,
+      "day_chg_pct": 0.27,
+      "cash": 49015898,
+      "asof": "🇰🇷 장중 리포트 시점",
       "holdings": [
         {
           "name": "KT&G",
-          "value_str": "15,036,500",
-          "weight_pct": 15.1,
-          "pl_pct": -0.27
+          "value_str": "15,266,000",
+          "weight_pct": 15.3,
+          "pl_pct": 1.25
         },
         {
           "name": "KB금융",
-          "value_str": "11,550,600",
-          "weight_pct": 11.6,
-          "pl_pct": -3.57
-        },
-        {
-          "name": "삼성화재",
-          "value_str": "8,138,000",
-          "weight_pct": 8.2,
-          "pl_pct": -0.76
+          "value_str": "11,626,500",
+          "weight_pct": 11.7,
+          "pl_pct": -2.94
         },
         {
           "name": "신한지주",
-          "value_str": "6,183,200",
-          "weight_pct": 6.2,
-          "pl_pct": 0.35
+          "value_str": "9,090,400",
+          "weight_pct": 9.1,
+          "pl_pct": -0.73
+        },
+        {
+          "name": "삼성화재",
+          "value_str": "8,177,000",
+          "weight_pct": 8.2,
+          "pl_pct": -0.28
         },
         {
           "name": "헬스케어ETF",
-          "value_str": "6,492,836",
+          "value_str": "6,480,810",
           "weight_pct": 6.5,
-          "pl_pct": -5.3
+          "pl_pct": -5.48
         }
       ]
     }
   ],
   "updated": "2026-10-07",
-  "total_value": 99412734,
-  "holdings_value": 47401136,
-  "return_pct": -0.59,
-  "usdkrw": 1338.5,
+  "total_value": 99656608,
+  "holdings_value": 50640710,
+  "return_pct": -0.34,
+  "usdkrw": 1337.46,
   "holdings_view": [
     {
       "ticker": "033780.KS",
@@ -5588,18 +5629,18 @@
       "category": "kr_stock",
       "market": "kr",
       "cost_str": "15,077,900",
-      "pl_krw_str": "-41,400",
+      "pl_krw_str": "+188,100",
       "avg_krw": 177387,
       "avg_str": "177,387",
       "avg_native_str": null,
-      "price_krw": 176900,
-      "price_str": "176,900",
+      "price_krw": 179600,
+      "price_str": "179,600",
       "price_native": null,
       "avg_native": null,
       "price_native_str": null,
-      "price_date": "2026-10-02",
-      "value_krw": 15036500,
-      "pl_pct": -0.27,
+      "price_date": "2026-10-07",
+      "value_krw": 15266000,
+      "pl_pct": 1.25,
       "lots": [
         {
           "date": "2026-07-31",
@@ -5647,8 +5688,8 @@
           "native_str": null
         }
       ],
-      "weight_pct": 15.1,
-      "value_str": "15,036,500",
+      "weight_pct": 15.3,
+      "value_str": "15,266,000",
       "color": "#3ba272",
       "chart": "h-stable-033780-ks.png"
     },
@@ -5661,18 +5702,18 @@
       "category": "kr_stock",
       "market": "kr",
       "cost_str": "11,978,400",
-      "pl_krw_str": "-427,800",
+      "pl_krw_str": "-351,900",
       "avg_krw": 173600,
       "avg_str": "173,600",
       "avg_native_str": null,
-      "price_krw": 167400,
-      "price_str": "167,400",
+      "price_krw": 168500,
+      "price_str": "168,500",
       "price_native": null,
       "avg_native": null,
       "price_native_str": null,
-      "price_date": "2026-10-02",
-      "value_krw": 11550600,
-      "pl_pct": -3.57,
+      "price_date": "2026-10-07",
+      "value_krw": 11626500,
+      "pl_pct": -2.94,
       "lots": [
         {
           "date": "2026-07-21",
@@ -5690,10 +5731,83 @@
           "native_str": null
         }
       ],
-      "weight_pct": 11.6,
-      "value_str": "11,550,600",
+      "weight_pct": 11.7,
+      "value_str": "11,626,500",
       "color": "#e8a33d",
       "chart": "h-stable-105560-ks.png"
+    },
+    {
+      "ticker": "055550.KS",
+      "name": "신한지주",
+      "qty": 88,
+      "unit": "주",
+      "currency": "KRW",
+      "category": "kr_stock",
+      "market": "kr",
+      "cost_str": "9,157,200",
+      "pl_krw_str": "-66,800",
+      "avg_krw": 104059,
+      "avg_str": "104,059",
+      "avg_native_str": null,
+      "price_krw": 103300,
+      "price_str": "103,300",
+      "price_native": null,
+      "avg_native": null,
+      "price_native_str": null,
+      "price_date": "2026-10-07",
+      "value_krw": 9090400,
+      "pl_pct": -0.73,
+      "lots": [
+        {
+          "date": "2026-07-21",
+          "session": "kr",
+          "qty": 31,
+          "price_krw": 104100,
+          "price_native": 104100.0,
+          "currency": "KRW",
+          "krw": 3227100,
+          "fx": null,
+          "price_date": "2026-07-21",
+          "basis": "2026-07-21 리포트 시세",
+          "krw_str": "3,227,100",
+          "price_krw_str": "104,100",
+          "native_str": null
+        },
+        {
+          "date": "2026-10-05",
+          "session": "kr",
+          "qty": 28,
+          "price_krw": 104800,
+          "price_native": 104800.0,
+          "currency": "KRW",
+          "krw": 2934400,
+          "fx": null,
+          "price_date": "2026-10-02",
+          "basis": "2026-10-02 리포트 시세",
+          "krw_str": "2,934,400",
+          "price_krw_str": "104,800",
+          "native_str": null
+        },
+        {
+          "date": "2026-10-07",
+          "session": "kr",
+          "qty": 29,
+          "price_krw": 103300,
+          "price_native": 103300.0,
+          "currency": "KRW",
+          "krw": 2995700,
+          "fx": null,
+          "price_date": "2026-10-07",
+          "basis": "2026-10-07 리포트 시세",
+          "krw_str": "2,995,700",
+          "price_krw_str": "103,300",
+          "native_str": null
+        }
+      ],
+      "weight_pct": 9.1,
+      "value_str": "9,090,400",
+      "color": "#8b5fd6",
+      "chart": "h-stable-055550-ks.png"
     },
     {
       "ticker": "000810.KS",
@@ -5704,18 +5818,18 @@
       "category": "kr_stock",
       "market": "kr",
       "cost_str": "8,200,000",
-      "pl_krw_str": "-62,000",
+      "pl_krw_str": "-23,000",
       "avg_krw": 630769,
       "avg_str": "630,769",
       "avg_native_str": null,
-      "price_krw": 626000,
-      "price_str": "626,000",
+      "price_krw": 629000,
+      "price_str": "629,000",
       "price_native": null,
       "avg_native": null,
       "price_native_str": null,
-      "price_date": "2026-10-02",
-      "value_krw": 8138000,
-      "pl_pct": -0.76,
+      "price_date": "2026-10-07",
+      "value_krw": 8177000,
+      "pl_pct": -0.28,
       "lots": [
         {
           "date": "2026-08-07",
@@ -5764,67 +5878,9 @@
         }
       ],
       "weight_pct": 8.2,
-      "value_str": "8,138,000",
-      "color": "#8b5fd6",
-      "chart": "h-stable-000810-ks.png"
-    },
-    {
-      "ticker": "055550.KS",
-      "name": "신한지주",
-      "qty": 59,
-      "unit": "주",
-      "currency": "KRW",
-      "category": "kr_stock",
-      "market": "kr",
-      "cost_str": "6,161,500",
-      "pl_krw_str": "+21,700",
-      "avg_krw": 104432,
-      "avg_str": "104,432",
-      "avg_native_str": null,
-      "price_krw": 104800,
-      "price_str": "104,800",
-      "price_native": null,
-      "avg_native": null,
-      "price_native_str": null,
-      "price_date": "2026-10-02",
-      "value_krw": 6183200,
-      "pl_pct": 0.35,
-      "lots": [
-        {
-          "date": "2026-07-21",
-          "session": "kr",
-          "qty": 31,
-          "price_krw": 104100,
-          "price_native": 104100.0,
-          "currency": "KRW",
-          "krw": 3227100,
-          "fx": null,
-          "price_date": "2026-07-21",
-          "basis": "2026-07-21 리포트 시세",
-          "krw_str": "3,227,100",
-          "price_krw_str": "104,100",
-          "native_str": null
-        },
-        {
-          "date": "2026-10-05",
-          "session": "kr",
-          "qty": 28,
-          "price_krw": 104800,
-          "price_native": 104800.0,
-          "currency": "KRW",
-          "krw": 2934400,
-          "fx": null,
-          "price_date": "2026-10-02",
-          "basis": "2026-10-02 리포트 시세",
-          "krw_str": "2,934,400",
-          "price_krw_str": "104,800",
-          "native_str": null
-        }
-      ],
-      "weight_pct": 6.2,
-      "value_str": "6,183,200",
+      "value_str": "8,177,000",
       "color": "#d3655f",
-      "chart": "h-stable-055550-ks.png"
+      "chart": "h-stable-000810-ks.png"
     },
     {
       "ticker": "XLV",
@@ -5835,18 +5891,18 @@
       "category": "us_sector",
       "market": "us",
       "cost_str": "6,856,243",
-      "pl_krw_str": "-363,407",
+      "pl_krw_str": "-375,434",
       "avg_krw": 236422,
       "avg_str": "236,422",
       "avg_native_str": "$160.42",
-      "price_krw": 223891,
-      "price_str": "223,891",
-      "price_native": 167.27,
+      "price_krw": 223476,
+      "price_str": "223,476",
+      "price_native": 167.09,
       "avg_native": 160.42,
-      "price_native_str": "$167.27",
+      "price_native_str": "$167.09",
       "price_date": "2026-10-06",
-      "value_krw": 6492836,
-      "pl_pct": -5.3,
+      "value_krw": 6480810,
+      "pl_pct": -5.48,
       "lots": [
         {
           "date": "2026-07-23",
@@ -5865,27 +5921,55 @@
         }
       ],
       "weight_pct": 6.5,
-      "value_str": "6,492,836",
+      "value_str": "6,480,810",
       "color": "#4aa3c0",
       "chart": "h-stable-xlv.png"
     }
   ],
   "pending_view": [],
-  "total_value_str": "99,412,734",
-  "cash_str": "52,011,598",
-  "holdings_value_str": "47,401,136",
+  "total_value_str": "99,656,608",
+  "cash_str": "49,015,898",
+  "holdings_value_str": "50,640,710",
   "start_capital_str": "100,000,000",
-  "gain_str": "-587,266",
-  "cash_weight_pct": 52.3,
-  "day_chg_pct": 0.03,
+  "gain_str": "-343,392",
+  "cash_weight_pct": 49.2,
+  "day_chg_pct": 0.27,
   "days": 59,
-  "priced_at": "2026-10-07T02:03:07+09:00",
+  "priced_at": "2026-10-07T17:21:33+09:00",
   "eval_note": "🇰🇷 15:00 · 🇺🇸 23:45 발행 시점 시세로 체결",
   "persona": "stable",
   "persona_name": "안정형",
   "persona_emoji": "🛡️",
   "persona_tag": "가치·방어 · 현금 넉넉 · opus",
   "journal_view": [
+    {
+      "date": "2026-10-07",
+      "session": "kr",
+      "comment": "신한 분할 2차 · 현금 49% 방패 · 코어 유지",
+      "placed": [
+        {
+          "action": "유지",
+          "name": "-",
+          "detail": "추가 보류 · FOMC 의사록 D-1 · KT&G 15% 상한"
+        }
+      ],
+      "trades": [
+        {
+          "action": "매수",
+          "ticker": "055550.KS",
+          "name": "신한지주",
+          "krw": 2995700,
+          "krw_str": "2,995,700",
+          "qty": 29,
+          "unit": "주",
+          "price_krw": 103300,
+          "price_str": "103,300",
+          "price_native_str": null,
+          "basis": "2026-10-07 리포트 시세",
+          "reason": "목표 13.5만 · 환원 50%+ · RSI39 눌림"
+        }
+      ]
+    },
     {
       "date": "2026-10-07",
       "session": "us",
@@ -8356,42 +8440,42 @@
   "history_view": [
     {
       "date": "2026-10-07",
-      "total_value": 99412734,
-      "total_value_str": "99,412,734",
-      "return_pct": -0.59,
-      "day_chg_pct": 0.03,
-      "cash": 52011598,
-      "asof": "🇺🇸 장중 리포트 시점",
+      "total_value": 99656608,
+      "total_value_str": "99,656,608",
+      "return_pct": -0.34,
+      "day_chg_pct": 0.27,
+      "cash": 49015898,
+      "asof": "🇰🇷 장중 리포트 시점",
       "holdings": [
         {
           "name": "KT&G",
-          "value_str": "15,036,500",
-          "weight_pct": 15.1,
-          "pl_pct": -0.27
+          "value_str": "15,266,000",
+          "weight_pct": 15.3,
+          "pl_pct": 1.25
         },
         {
           "name": "KB금융",
-          "value_str": "11,550,600",
-          "weight_pct": 11.6,
-          "pl_pct": -3.57
-        },
-        {
-          "name": "삼성화재",
-          "value_str": "8,138,000",
-          "weight_pct": 8.2,
-          "pl_pct": -0.76
+          "value_str": "11,626,500",
+          "weight_pct": 11.7,
+          "pl_pct": -2.94
         },
         {
           "name": "신한지주",
-          "value_str": "6,183,200",
-          "weight_pct": 6.2,
-          "pl_pct": 0.35
+          "value_str": "9,090,400",
+          "weight_pct": 9.1,
+          "pl_pct": -0.73
+        },
+        {
+          "name": "삼성화재",
+          "value_str": "8,177,000",
+          "weight_pct": 8.2,
+          "pl_pct": -0.28
         },
         {
           "name": "헬스케어ETF",
-          "value_str": "6,492,836",
+          "value_str": "6,480,810",
           "weight_pct": 6.5,
-          "pl_pct": -5.3
+          "pl_pct": -5.48
         }
       ]
     },
@@ -11210,16 +11294,16 @@
       "market": "kr",
       "label": "🇰🇷 한국",
       "count": 4,
-      "value_krw": 40908300,
-      "value_str": "40,908,300",
-      "weight_pct": 41.1
+      "value_krw": 44159900,
+      "value_str": "44,159,900",
+      "weight_pct": 44.3
     },
     {
       "market": "us",
       "label": "🇺🇸 미국",
       "count": 1,
-      "value_krw": 6492836,
-      "value_str": "6,492,836",
+      "value_krw": 6480810,
+      "value_str": "6,480,810",
       "weight_pct": 6.5
     }
   ],
