@@ -2,7 +2,7 @@
   "start_date": "2026-07-20",
   "start_capital": 100000000,
   "currency": "KRW",
-  "cash": 42250601,
+  "cash": 39925243,
   "holdings": {
     "105560.KS": {
       "name": "KB금융",
@@ -189,6 +189,25 @@
           "basis": "2026-10-07 리포트 시세"
         }
       ]
+    },
+    "JNJ": {
+      "name": "존슨앤드존슨",
+      "qty": 7.0,
+      "cost_krw": 2325357.8082,
+      "lots": [
+        {
+          "date": "2026-10-14",
+          "session": "us",
+          "qty": 7,
+          "price_krw": 332194,
+          "price_native": 247.71,
+          "currency": "USD",
+          "krw": 2325358,
+          "fx": 1341.06,
+          "price_date": "2026-10-13",
+          "basis": "2026-10-13 리포트 시세"
+        }
+      ]
     }
   },
   "applied_orders": [
@@ -290,7 +309,8 @@
     "2026-10-10-us-stable",
     "2026-10-12-kr-stable",
     "2026-10-13-us-stable",
-    "2026-10-13-kr-stable"
+    "2026-10-13-kr-stable",
+    "2026-10-14-us-stable"
   ],
   "pending_orders": [],
   "journal": [
@@ -2981,6 +3001,49 @@
         }
       ],
       "trades": []
+    },
+    {
+      "date": "2026-10-14",
+      "session": "us",
+      "comment": "JNJ 분할 1차 · 현금 40% 방패 · CPI 대기",
+      "placed": [
+        {
+          "action": "유지",
+          "name": "-",
+          "detail": "BRK 현금요새 · RSI69 과열 · 추가보류"
+        },
+        {
+          "action": "유지",
+          "name": "-",
+          "detail": "XLV 코어 · MFN 최종·축소 · 보유유지"
+        },
+        {
+          "action": "유지",
+          "name": "-",
+          "detail": "지수 ATH · VIX15 복합 · 추격 배제"
+        },
+        {
+          "action": "유지",
+          "name": "-",
+          "detail": "12월 인상 75%+ · 장기채·리츠 회피"
+        }
+      ],
+      "trades": [
+        {
+          "action": "매수",
+          "ticker": "JNJ",
+          "name": "존슨앤드존슨",
+          "krw": 2325358,
+          "krw_str": "2,325,358",
+          "qty": 7,
+          "unit": "주",
+          "price_krw": 332194,
+          "price_str": "332,194",
+          "price_native_str": "$247.71",
+          "basis": "2026-10-13 리포트 시세",
+          "reason": "실적beat·FY상향 · RSI34 저가 · 방어분할"
+        }
+      ]
     }
   ],
   "history": [
@@ -6068,13 +6131,66 @@
           "pl_pct": -2.49
         }
       ]
+    },
+    {
+      "date": "2026-10-14",
+      "total_value": 98880847,
+      "total_value_str": "98,880,847",
+      "return_pct": -1.12,
+      "day_chg_pct": -0.35,
+      "cash": 39925243,
+      "asof": "🇺🇸 장중 리포트 시점",
+      "holdings": [
+        {
+          "name": "KT&G",
+          "value_str": "15,079,000",
+          "weight_pct": 15.2,
+          "pl_pct": 0.01
+        },
+        {
+          "name": "KB금융",
+          "value_str": "11,233,200",
+          "weight_pct": 11.4,
+          "pl_pct": -6.22
+        },
+        {
+          "name": "신한지주",
+          "value_str": "8,756,000",
+          "weight_pct": 8.9,
+          "pl_pct": -4.38
+        },
+        {
+          "name": "삼성화재",
+          "value_str": "7,956,000",
+          "weight_pct": 8.0,
+          "pl_pct": -2.98
+        },
+        {
+          "name": "버크셔해서웨이",
+          "value_str": "7,003,954",
+          "weight_pct": 7.1,
+          "pl_pct": 3.53
+        },
+        {
+          "name": "헬스케어ETF",
+          "value_str": "6,602,092",
+          "weight_pct": 6.7,
+          "pl_pct": -3.71
+        },
+        {
+          "name": "존슨앤드존슨",
+          "value_str": "2,325,358",
+          "weight_pct": 2.4,
+          "pl_pct": 0.0
+        }
+      ]
     }
   ],
-  "updated": "2026-10-13",
-  "total_value": 99227933,
-  "holdings_value": 56977332,
-  "return_pct": -0.77,
-  "usdkrw": 1340.37,
+  "updated": "2026-10-14",
+  "total_value": 98880847,
+  "holdings_value": 58955604,
+  "return_pct": -1.12,
+  "usdkrw": 1341.06,
   "holdings_view": [
     {
       "ticker": "033780.KS",
@@ -6085,18 +6201,18 @@
       "category": "kr_stock",
       "market": "kr",
       "cost_str": "15,077,900",
-      "pl_krw_str": "+341,100",
+      "pl_krw_str": "+1,100",
       "avg_krw": 177387,
       "avg_str": "177,387",
       "avg_native_str": null,
-      "price_krw": 181400,
-      "price_str": "181,400",
+      "price_krw": 177400,
+      "price_str": "177,400",
       "price_native": null,
       "avg_native": null,
       "price_native_str": null,
-      "price_date": "2026-10-13",
-      "value_krw": 15419000,
-      "pl_pct": 2.26,
+      "price_date": "2026-10-08",
+      "value_krw": 15079000,
+      "pl_pct": 0.01,
       "lots": [
         {
           "date": "2026-07-31",
@@ -6144,8 +6260,8 @@
           "native_str": null
         }
       ],
-      "weight_pct": 15.5,
-      "value_str": "15,419,000",
+      "weight_pct": 15.2,
+      "value_str": "15,079,000",
       "color": "#3ba272",
       "chart": "h-stable-033780-ks.png"
     },
@@ -6158,18 +6274,18 @@
       "category": "kr_stock",
       "market": "kr",
       "cost_str": "11,978,400",
-      "pl_krw_str": "-772,800",
+      "pl_krw_str": "-745,200",
       "avg_krw": 173600,
       "avg_str": "173,600",
       "avg_native_str": null,
-      "price_krw": 162400,
-      "price_str": "162,400",
+      "price_krw": 162800,
+      "price_str": "162,800",
       "price_native": null,
       "avg_native": null,
       "price_native_str": null,
-      "price_date": "2026-10-13",
-      "value_krw": 11205600,
-      "pl_pct": -6.45,
+      "price_date": "2026-10-08",
+      "value_krw": 11233200,
+      "pl_pct": -6.22,
       "lots": [
         {
           "date": "2026-07-21",
@@ -6187,8 +6303,8 @@
           "native_str": null
         }
       ],
-      "weight_pct": 11.3,
-      "value_str": "11,205,600",
+      "weight_pct": 11.4,
+      "value_str": "11,233,200",
       "color": "#e8a33d",
       "chart": "h-stable-105560-ks.png"
     },
@@ -6201,18 +6317,18 @@
       "category": "kr_stock",
       "market": "kr",
       "cost_str": "9,157,200",
-      "pl_krw_str": "-383,600",
+      "pl_krw_str": "-401,200",
       "avg_krw": 104059,
       "avg_str": "104,059",
       "avg_native_str": null,
-      "price_krw": 99700,
-      "price_str": "99,700",
+      "price_krw": 99500,
+      "price_str": "99,500",
       "price_native": null,
       "avg_native": null,
       "price_native_str": null,
-      "price_date": "2026-10-13",
-      "value_krw": 8773600,
-      "pl_pct": -4.19,
+      "price_date": "2026-10-08",
+      "value_krw": 8756000,
+      "pl_pct": -4.38,
       "lots": [
         {
           "date": "2026-07-21",
@@ -6260,8 +6376,8 @@
           "native_str": null
         }
       ],
-      "weight_pct": 8.8,
-      "value_str": "8,773,600",
+      "weight_pct": 8.9,
+      "value_str": "8,756,000",
       "color": "#8b5fd6",
       "chart": "h-stable-055550-ks.png"
     },
@@ -6283,7 +6399,7 @@
       "price_native": null,
       "avg_native": null,
       "price_native_str": null,
-      "price_date": "2026-10-13",
+      "price_date": "2026-10-08",
       "value_krw": 7956000,
       "pl_pct": -2.98,
       "lots": [
@@ -6347,18 +6463,18 @@
       "category": "us_stock",
       "market": "us",
       "cost_str": "6,765,297",
-      "pl_krw_str": "+172,458",
+      "pl_krw_str": "+238,657",
       "avg_krw": 676530,
       "avg_str": "676,530",
       "avg_native_str": "$505.62",
-      "price_krw": 693776,
-      "price_str": "693,776",
-      "price_native": 517.6,
+      "price_krw": 700395,
+      "price_str": "700,395",
+      "price_native": 522.27,
       "avg_native": 505.62,
-      "price_native_str": "$517.60",
-      "price_date": "2026-10-12",
-      "value_krw": 6937755,
-      "pl_pct": 2.55,
+      "price_native_str": "$522.27",
+      "price_date": "2026-10-13",
+      "value_krw": 7003954,
+      "pl_pct": 3.53,
       "lots": [
         {
           "date": "2026-10-08",
@@ -6376,8 +6492,8 @@
           "native_str": "$505.62"
         }
       ],
-      "weight_pct": 7.0,
-      "value_str": "6,937,755",
+      "weight_pct": 7.1,
+      "value_str": "7,003,954",
       "color": "#4aa3c0",
       "chart": "h-stable-brk-b.png"
     },
@@ -6390,18 +6506,18 @@
       "category": "us_sector",
       "market": "us",
       "cost_str": "6,856,243",
-      "pl_krw_str": "-170,866",
+      "pl_krw_str": "-254,151",
       "avg_krw": 236422,
       "avg_str": "236,422",
       "avg_native_str": "$160.42",
-      "price_krw": 230530,
-      "price_str": "230,530",
-      "price_native": 171.99,
+      "price_krw": 227658,
+      "price_str": "227,658",
+      "price_native": 169.76,
       "avg_native": 160.42,
-      "price_native_str": "$171.99",
-      "price_date": "2026-10-12",
-      "value_krw": 6685377,
-      "pl_pct": -2.49,
+      "price_native_str": "$169.76",
+      "price_date": "2026-10-13",
+      "value_krw": 6602092,
+      "pl_pct": -3.71,
       "lots": [
         {
           "date": "2026-07-23",
@@ -6420,27 +6536,113 @@
         }
       ],
       "weight_pct": 6.7,
-      "value_str": "6,685,377",
+      "value_str": "6,602,092",
       "color": "#c0699d",
       "chart": "h-stable-xlv.png"
+    },
+    {
+      "ticker": "JNJ",
+      "name": "존슨앤드존슨",
+      "qty": 7,
+      "unit": "주",
+      "currency": "USD",
+      "category": "us_stock",
+      "market": "us",
+      "cost_str": "2,325,358",
+      "pl_krw_str": "+0",
+      "avg_krw": 332194,
+      "avg_str": "332,194",
+      "avg_native_str": "$247.71",
+      "price_krw": 332194,
+      "price_str": "332,194",
+      "price_native": 247.71,
+      "avg_native": 247.71,
+      "price_native_str": "$247.71",
+      "price_date": "2026-10-13",
+      "value_krw": 2325358,
+      "pl_pct": 0.0,
+      "lots": [
+        {
+          "date": "2026-10-14",
+          "session": "us",
+          "qty": 7,
+          "price_krw": 332194,
+          "price_native": 247.71,
+          "currency": "USD",
+          "krw": 2325358,
+          "fx": 1341.06,
+          "price_date": "2026-10-13",
+          "basis": "2026-10-13 리포트 시세",
+          "krw_str": "2,325,358",
+          "price_krw_str": "332,194",
+          "native_str": "$247.71"
+        }
+      ],
+      "weight_pct": 2.4,
+      "value_str": "2,325,358",
+      "color": "#7d9a3c",
+      "chart": "h-stable-jnj.png"
     }
   ],
   "pending_view": [],
-  "total_value_str": "99,227,933",
-  "cash_str": "42,250,601",
-  "holdings_value_str": "56,977,332",
+  "total_value_str": "98,880,847",
+  "cash_str": "39,925,243",
+  "holdings_value_str": "58,955,604",
   "start_capital_str": "100,000,000",
-  "gain_str": "-772,067",
-  "cash_weight_pct": 42.6,
-  "day_chg_pct": 0.03,
-  "days": 64,
-  "priced_at": "2026-10-13T18:08:48+09:00",
+  "gain_str": "-1,119,153",
+  "cash_weight_pct": 40.4,
+  "day_chg_pct": -0.35,
+  "days": 65,
+  "priced_at": "2026-10-14T02:56:56+09:00",
   "eval_note": "🇰🇷 15:00 · 🇺🇸 23:45 발행 시점 시세로 체결",
   "persona": "stable",
   "persona_name": "안정형",
   "persona_emoji": "🛡️",
   "persona_tag": "가치·방어 · 현금 넉넉 · opus",
   "journal_view": [
+    {
+      "date": "2026-10-14",
+      "session": "us",
+      "comment": "JNJ 분할 1차 · 현금 40% 방패 · CPI 대기",
+      "placed": [
+        {
+          "action": "유지",
+          "name": "-",
+          "detail": "BRK 현금요새 · RSI69 과열 · 추가보류"
+        },
+        {
+          "action": "유지",
+          "name": "-",
+          "detail": "XLV 코어 · MFN 최종·축소 · 보유유지"
+        },
+        {
+          "action": "유지",
+          "name": "-",
+          "detail": "지수 ATH · VIX15 복합 · 추격 배제"
+        },
+        {
+          "action": "유지",
+          "name": "-",
+          "detail": "12월 인상 75%+ · 장기채·리츠 회피"
+        }
+      ],
+      "trades": [
+        {
+          "action": "매수",
+          "ticker": "JNJ",
+          "name": "존슨앤드존슨",
+          "krw": 2325358,
+          "krw_str": "2,325,358",
+          "qty": 7,
+          "unit": "주",
+          "price_krw": 332194,
+          "price_str": "332,194",
+          "price_native_str": "$247.71",
+          "basis": "2026-10-13 리포트 시세",
+          "reason": "실적beat·FY상향 · RSI34 저가 · 방어분할"
+        }
+      ]
+    },
     {
       "date": "2026-10-13",
       "session": "kr",
@@ -9131,6 +9333,59 @@
     }
   ],
   "history_view": [
+    {
+      "date": "2026-10-14",
+      "total_value": 98880847,
+      "total_value_str": "98,880,847",
+      "return_pct": -1.12,
+      "day_chg_pct": -0.35,
+      "cash": 39925243,
+      "asof": "🇺🇸 장중 리포트 시점",
+      "holdings": [
+        {
+          "name": "KT&G",
+          "value_str": "15,079,000",
+          "weight_pct": 15.2,
+          "pl_pct": 0.01
+        },
+        {
+          "name": "KB금융",
+          "value_str": "11,233,200",
+          "weight_pct": 11.4,
+          "pl_pct": -6.22
+        },
+        {
+          "name": "신한지주",
+          "value_str": "8,756,000",
+          "weight_pct": 8.9,
+          "pl_pct": -4.38
+        },
+        {
+          "name": "삼성화재",
+          "value_str": "7,956,000",
+          "weight_pct": 8.0,
+          "pl_pct": -2.98
+        },
+        {
+          "name": "버크셔해서웨이",
+          "value_str": "7,003,954",
+          "weight_pct": 7.1,
+          "pl_pct": 3.53
+        },
+        {
+          "name": "헬스케어ETF",
+          "value_str": "6,602,092",
+          "weight_pct": 6.7,
+          "pl_pct": -3.71
+        },
+        {
+          "name": "존슨앤드존슨",
+          "value_str": "2,325,358",
+          "weight_pct": 2.4,
+          "pl_pct": 0.0
+        }
+      ]
+    },
     {
       "date": "2026-10-13",
       "total_value": 99227933,
@@ -12222,17 +12477,17 @@
       "market": "kr",
       "label": "🇰🇷 한국",
       "count": 4,
-      "value_krw": 43354200,
-      "value_str": "43,354,200",
-      "weight_pct": 43.7
+      "value_krw": 43024200,
+      "value_str": "43,024,200",
+      "weight_pct": 43.5
     },
     {
       "market": "us",
       "label": "🇺🇸 미국",
-      "count": 2,
-      "value_krw": 13623132,
-      "value_str": "13,623,132",
-      "weight_pct": 13.7
+      "count": 3,
+      "value_krw": 15931404,
+      "value_str": "15,931,404",
+      "weight_pct": 16.1
     }
   ],
   "void_orders": [
