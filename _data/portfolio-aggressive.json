@@ -2,12 +2,12 @@
   "start_date": "2026-07-20",
   "start_capital": 100000000,
   "currency": "KRW",
-  "cash": 4248700,
+  "cash": 2356615,
   "holdings": {
     "LLY": {
       "name": "일라이릴리",
-      "qty": 9.0,
-      "cost_krw": 15458070.8716,
+      "qty": 11.0,
+      "cost_krw": 19275373.8544,
       "lots": [
         {
           "date": "2026-10-16",
@@ -56,6 +56,18 @@
           "fx": 1326.23,
           "price_date": "2026-10-22",
           "basis": "2026-10-22 리포트 시세"
+        },
+        {
+          "date": "2026-11-03",
+          "session": "us",
+          "qty": 2,
+          "price_krw": 1908651,
+          "price_native": 1419.42,
+          "currency": "USD",
+          "krw": 3817303,
+          "fx": 1344.67,
+          "price_date": "2026-11-02",
+          "basis": "2026-11-02 리포트 시세"
         }
       ]
     },
@@ -92,8 +104,8 @@
     },
     "TSLA": {
       "name": "테슬라",
-      "qty": 20.0,
-      "cost_krw": 10577313.8977,
+      "qty": 25.0,
+      "cost_krw": 13276873.3897,
       "lots": [
         {
           "date": "2026-10-22",
@@ -142,6 +154,18 @@
           "fx": 1338.84,
           "price_date": "2026-10-29",
           "basis": "2026-10-29 리포트 시세"
+        },
+        {
+          "date": "2026-11-03",
+          "session": "us",
+          "qty": 5,
+          "price_krw": 539912,
+          "price_native": 401.52,
+          "currency": "USD",
+          "krw": 2699559,
+          "fx": 1344.67,
+          "price_date": "2026-11-02",
+          "basis": "2026-11-02 리포트 시세"
         }
       ]
     },
@@ -231,53 +255,22 @@
         }
       ]
     },
-    "XLE": {
-      "name": "에너지ETF",
-      "qty": 63.0,
-      "cost_krw": 5815304.144,
+    "V": {
+      "name": "비자",
+      "qty": 7.0,
+      "cost_krw": 4008770.5441,
       "lots": [
         {
-          "date": "2026-10-29",
+          "date": "2026-11-03",
           "session": "us",
-          "qty": 59,
-          "price_krw": 92256,
-          "price_native": 68.68,
+          "qty": 7,
+          "price_krw": 572682,
+          "price_native": 425.89,
           "currency": "USD",
-          "krw": 5443132,
-          "fx": 1343.28,
-          "price_date": "2026-10-28",
-          "basis": "2026-10-28 리포트 시세"
-        },
-        {
-          "date": "2026-10-31",
-          "session": "us",
-          "qty": 4,
-          "price_krw": 93043,
-          "price_native": 69.76,
-          "currency": "USD",
-          "krw": 372172,
-          "fx": 1333.76,
-          "price_date": "2026-10-30",
-          "basis": "2026-10-30 리포트 시세"
-        }
-      ]
-    },
-    "XOM": {
-      "name": "엑슨모빌",
-      "qty": 12.0,
-      "cost_krw": 2951454.816,
-      "lots": [
-        {
-          "date": "2026-10-29",
-          "session": "us",
-          "qty": 12,
-          "price_krw": 245955,
-          "price_native": 183.1,
-          "currency": "USD",
-          "krw": 2951455,
-          "fx": 1343.28,
-          "price_date": "2026-10-28",
-          "basis": "2026-10-28 리포트 시세"
+          "krw": 4008771,
+          "fx": 1344.67,
+          "price_date": "2026-11-02",
+          "basis": "2026-11-02 리포트 시세"
         }
       ]
     }
@@ -409,7 +402,8 @@
     "2026-10-30-us-aggressive",
     "2026-10-30-kr-aggressive",
     "2026-10-31-us-aggressive",
-    "2026-11-02-kr-aggressive"
+    "2026-11-02-kr-aggressive",
+    "2026-11-03-us-aggressive"
   ],
   "pending_orders": [],
   "journal": [
@@ -5977,6 +5971,100 @@
           "reason": "3Q 83조 · 3년 완판 · 목표 370만 추격"
         }
       ]
+    },
+    {
+      "date": "2026-11-03",
+      "session": "us",
+      "comment": "유가 반전 에너지 컷 · LLY·V 주도주 추격 베팅",
+      "placed": [
+        {
+          "action": "유지",
+          "name": "-",
+          "detail": "Q3 서프 · 가이던스 상향 · 코어 홀드"
+        }
+      ],
+      "trades": [
+        {
+          "action": "매도",
+          "ticker": "XLE",
+          "name": "에너지ETF",
+          "krw": 5719056,
+          "krw_str": "5,719,056",
+          "qty": 63,
+          "unit": "주",
+          "price_krw": 90779,
+          "price_str": "90,779",
+          "price_native_str": "$67.51",
+          "avg_krw": 92306,
+          "avg_str": "92,306",
+          "pl_krw": -96248,
+          "pl_str": "-96,248",
+          "pl_pct": -1.66,
+          "basis": "2026-11-02 리포트 시세",
+          "reason": "유가 -11% 피스딜 반전 · 추세 이탈 · 컷"
+        },
+        {
+          "action": "매도",
+          "ticker": "XOM",
+          "name": "엑슨모빌",
+          "krw": 2914492,
+          "krw_str": "2,914,492",
+          "qty": 12,
+          "unit": "주",
+          "price_krw": 242874,
+          "price_str": "242,874",
+          "price_native_str": "$180.62",
+          "avg_krw": 245955,
+          "avg_str": "245,955",
+          "pl_krw": -36963,
+          "pl_str": "-36,963",
+          "pl_pct": -1.25,
+          "basis": "2026-11-02 리포트 시세",
+          "reason": "브렌트 -11% · 공급쇼크 소멸 · 에너지 컷"
+        },
+        {
+          "action": "매수",
+          "ticker": "LLY",
+          "name": "일라이릴리",
+          "krw": 3817303,
+          "krw_str": "3,817,303",
+          "qty": 2,
+          "unit": "주",
+          "price_krw": 1908651,
+          "price_str": "1,908,651",
+          "price_native_str": "$1,419.42",
+          "basis": "2026-11-02 리포트 시세",
+          "reason": "어닝 서프 · 목표가 $1,625 · 신고가 추격"
+        },
+        {
+          "action": "매수",
+          "ticker": "V",
+          "name": "비자",
+          "krw": 4008771,
+          "krw_str": "4,008,771",
+          "qty": 7,
+          "unit": "주",
+          "price_krw": 572682,
+          "price_str": "572,682",
+          "price_native_str": "$425.89",
+          "basis": "2026-11-02 리포트 시세",
+          "reason": "신고가 돌파 · 목표 $471 · 결제 주도주 추격"
+        },
+        {
+          "action": "매수",
+          "ticker": "TSLA",
+          "name": "테슬라",
+          "krw": 2699559,
+          "krw_str": "2,699,559",
+          "qty": 5,
+          "unit": "주",
+          "price_krw": 539912,
+          "price_str": "539,912",
+          "price_native_str": "$401.52",
+          "basis": "2026-11-02 리포트 시세",
+          "reason": "상승배열 유지 · 로보택시 · 유럽판매 급증"
+        }
+      ]
     }
   ],
   "history": [
@@ -11075,13 +11163,60 @@
           "pl_pct": 2.07
         }
       ]
+    },
+    {
+      "date": "2026-11-03",
+      "total_value": 74773078,
+      "total_value_str": "74,773,078",
+      "return_pct": -25.23,
+      "day_chg_pct": -1.48,
+      "cash": 2356615,
+      "asof": "🇺🇸 장중 리포트 시점",
+      "holdings": [
+        {
+          "name": "SK하이닉스",
+          "value_str": "21,270,000",
+          "weight_pct": 28.4,
+          "pl_pct": -3.97
+        },
+        {
+          "name": "삼성전자",
+          "value_str": "5,625,000",
+          "weight_pct": 7.5,
+          "pl_pct": -3.68
+        },
+        {
+          "name": "일라이릴리",
+          "value_str": "20,995,166",
+          "weight_pct": 28.1,
+          "pl_pct": 8.92
+        },
+        {
+          "name": "테슬라",
+          "value_str": "13,497,797",
+          "weight_pct": 18.1,
+          "pl_pct": 1.66
+        },
+        {
+          "name": "유나이티드헬스",
+          "value_str": "7,019,729",
+          "weight_pct": 9.4,
+          "pl_pct": -3.39
+        },
+        {
+          "name": "비자",
+          "value_str": "4,008,771",
+          "weight_pct": 5.4,
+          "pl_pct": 0.0
+        }
+      ]
     }
   ],
-  "updated": "2026-11-02",
-  "total_value": 75897864,
-  "holdings_value": 71649164,
-  "return_pct": -24.1,
-  "usdkrw": 1340.68,
+  "updated": "2026-11-03",
+  "total_value": 74773078,
+  "holdings_value": 72416463,
+  "return_pct": -25.23,
+  "usdkrw": 1344.67,
   "holdings_view": [
     {
       "ticker": "000660.KS",
@@ -11092,18 +11227,18 @@
       "category": "kr_stock",
       "market": "kr",
       "cost_str": "22,149,000",
-      "pl_krw_str": "-69,000",
+      "pl_krw_str": "-879,000",
       "avg_krw": 1476600,
       "avg_str": "1,476,600",
       "avg_native_str": null,
-      "price_krw": 1472000,
-      "price_str": "1,472,000",
+      "price_krw": 1418000,
+      "price_str": "1,418,000",
       "price_native": null,
       "avg_native": null,
       "price_native_str": null,
-      "price_date": "2026-11-02",
-      "value_krw": 22080000,
-      "pl_pct": -0.31,
+      "price_date": "2026-10-30",
+      "value_krw": 21270000,
+      "pl_pct": -3.97,
       "lots": [
         {
           "date": "2026-10-27",
@@ -11166,8 +11301,8 @@
           "native_str": null
         }
       ],
-      "weight_pct": 29.1,
-      "value_str": "22,080,000",
+      "weight_pct": 28.4,
+      "value_str": "21,270,000",
       "color": "#3ba272",
       "chart": "h-aggressive-000660-ks.png"
     },
@@ -11180,18 +11315,18 @@
       "category": "kr_stock",
       "market": "kr",
       "cost_str": "5,840,000",
-      "pl_krw_str": "-115,000",
+      "pl_krw_str": "-215,000",
       "avg_krw": 233600,
       "avg_str": "233,600",
       "avg_native_str": null,
-      "price_krw": 229000,
-      "price_str": "229,000",
+      "price_krw": 225000,
+      "price_str": "225,000",
       "price_native": null,
       "avg_native": null,
       "price_native_str": null,
-      "price_date": "2026-11-02",
-      "value_krw": 5725000,
-      "pl_pct": -1.97,
+      "price_date": "2026-10-30",
+      "value_krw": 5625000,
+      "pl_pct": -3.68,
       "lots": [
         {
           "date": "2026-10-28",
@@ -11225,31 +11360,31 @@
         }
       ],
       "weight_pct": 7.5,
-      "value_str": "5,725,000",
+      "value_str": "5,625,000",
       "color": "#e8a33d",
       "chart": "h-aggressive-005930-ks.png"
     },
     {
       "ticker": "LLY",
       "name": "일라이릴리",
-      "qty": 9,
+      "qty": 11,
       "unit": "주",
       "currency": "USD",
       "category": "us_stock",
       "market": "us",
-      "cost_str": "15,458,071",
-      "pl_krw_str": "+1,646,137",
-      "avg_krw": 1717563,
-      "avg_str": "1,717,563",
-      "avg_native_str": "$1,288.59",
-      "price_krw": 1900468,
-      "price_str": "1,900,468",
-      "price_native": 1417.54,
-      "avg_native": 1288.59,
-      "price_native_str": "$1,417.54",
-      "price_date": "2026-10-30",
-      "value_krw": 17104208,
-      "pl_pct": 10.65,
+      "cost_str": "19,275,374",
+      "pl_krw_str": "+1,719,793",
+      "avg_krw": 1752307,
+      "avg_str": "1,752,307",
+      "avg_native_str": "$1,312.38",
+      "price_krw": 1908651,
+      "price_str": "1,908,651",
+      "price_native": 1419.42,
+      "avg_native": 1312.38,
+      "price_native_str": "$1,419.42",
+      "price_date": "2026-11-02",
+      "value_krw": 20995166,
+      "pl_pct": 8.92,
       "lots": [
         {
           "date": "2026-10-16",
@@ -11310,34 +11445,49 @@
           "krw_str": "3,479,285",
           "price_krw_str": "1,739,642",
           "native_str": "$1,311.72"
+        },
+        {
+          "date": "2026-11-03",
+          "session": "us",
+          "qty": 2,
+          "price_krw": 1908651,
+          "price_native": 1419.42,
+          "currency": "USD",
+          "krw": 3817303,
+          "fx": 1344.67,
+          "price_date": "2026-11-02",
+          "basis": "2026-11-02 리포트 시세",
+          "krw_str": "3,817,303",
+          "price_krw_str": "1,908,651",
+          "native_str": "$1,419.42"
         }
       ],
-      "weight_pct": 22.5,
-      "value_str": "17,104,208",
+      "weight_pct": 28.1,
+      "value_str": "20,995,166",
       "color": "#8b5fd6",
       "chart": "h-aggressive-lly.png"
     },
     {
       "ticker": "TSLA",
       "name": "테슬라",
-      "qty": 20,
+      "qty": 25,
       "unit": "주",
       "currency": "USD",
       "category": "us_stock",
       "market": "us",
-      "cost_str": "10,577,314",
-      "pl_krw_str": "+143,032",
-      "avg_krw": 528866,
-      "avg_str": "528,866",
-      "avg_native_str": "$398.35",
-      "price_krw": 536017,
-      "price_str": "536,017",
-      "price_native": 399.81,
-      "avg_native": 398.35,
-      "price_native_str": "$399.81",
-      "price_date": "2026-10-30",
-      "value_krw": 10720345,
-      "pl_pct": 1.35,
+      "cost_str": "13,276,873",
+      "pl_krw_str": "+220,924",
+      "avg_krw": 531075,
+      "avg_str": "531,075",
+      "avg_native_str": "$398.98",
+      "price_krw": 539912,
+      "price_str": "539,912",
+      "price_native": 401.52,
+      "avg_native": 398.98,
+      "price_native_str": "$401.52",
+      "price_date": "2026-11-02",
+      "value_krw": 13497797,
+      "pl_pct": 1.66,
       "lots": [
         {
           "date": "2026-10-22",
@@ -11398,10 +11548,25 @@
           "krw_str": "1,082,559",
           "price_krw_str": "541,280",
           "native_str": "$404.29"
+        },
+        {
+          "date": "2026-11-03",
+          "session": "us",
+          "qty": 5,
+          "price_krw": 539912,
+          "price_native": 401.52,
+          "currency": "USD",
+          "krw": 2699559,
+          "fx": 1344.67,
+          "price_date": "2026-11-02",
+          "basis": "2026-11-02 리포트 시세",
+          "krw_str": "2,699,559",
+          "price_krw_str": "539,912",
+          "native_str": "$401.52"
         }
       ],
-      "weight_pct": 14.1,
-      "value_str": "10,720,345",
+      "weight_pct": 18.1,
+      "value_str": "13,497,797",
       "color": "#d3655f",
       "chart": "h-aggressive-tsla.png"
     },
@@ -11414,18 +11579,18 @@
       "category": "us_stock",
       "market": "us",
       "cost_str": "7,265,990",
-      "pl_krw_str": "-172,975",
+      "pl_krw_str": "-246,262",
       "avg_krw": 558922,
       "avg_str": "558,922",
       "avg_native_str": "$421.18",
-      "price_krw": 545617,
-      "price_str": "545,617",
-      "price_native": 406.97,
+      "price_krw": 539979,
+      "price_str": "539,979",
+      "price_native": 401.57,
       "avg_native": 421.18,
-      "price_native_str": "$406.97",
-      "price_date": "2026-10-30",
-      "value_krw": 7093015,
-      "pl_pct": -2.38,
+      "price_native_str": "$401.57",
+      "price_date": "2026-11-02",
+      "value_krw": 7019729,
+      "pl_pct": -3.39,
       "lots": [
         {
           "date": "2026-10-21",
@@ -11458,129 +11623,165 @@
           "native_str": "$425.03"
         }
       ],
-      "weight_pct": 9.3,
-      "value_str": "7,093,015",
+      "weight_pct": 9.4,
+      "value_str": "7,019,729",
       "color": "#4aa3c0",
       "chart": "h-aggressive-unh.png"
     },
     {
-      "ticker": "XLE",
-      "name": "에너지ETF",
-      "qty": 63,
-      "unit": "주",
-      "currency": "USD",
-      "category": "us_sector",
-      "market": "us",
-      "cost_str": "5,815,304",
-      "pl_krw_str": "+98,784",
-      "avg_krw": 92306,
-      "avg_str": "92,306",
-      "avg_native_str": "$68.75",
-      "price_krw": 93874,
-      "price_str": "93,874",
-      "price_native": 70.02,
-      "avg_native": 68.75,
-      "price_native_str": "$70.02",
-      "price_date": "2026-10-30",
-      "value_krw": 5914088,
-      "pl_pct": 1.7,
-      "lots": [
-        {
-          "date": "2026-10-29",
-          "session": "us",
-          "qty": 59,
-          "price_krw": 92256,
-          "price_native": 68.68,
-          "currency": "USD",
-          "krw": 5443132,
-          "fx": 1343.28,
-          "price_date": "2026-10-28",
-          "basis": "2026-10-28 리포트 시세",
-          "krw_str": "5,443,132",
-          "price_krw_str": "92,256",
-          "native_str": "$68.68"
-        },
-        {
-          "date": "2026-10-31",
-          "session": "us",
-          "qty": 4,
-          "price_krw": 93043,
-          "price_native": 69.76,
-          "currency": "USD",
-          "krw": 372172,
-          "fx": 1333.76,
-          "price_date": "2026-10-30",
-          "basis": "2026-10-30 리포트 시세",
-          "krw_str": "372,172",
-          "price_krw_str": "93,043",
-          "native_str": "$69.76"
-        }
-      ],
-      "weight_pct": 7.8,
-      "value_str": "5,914,088",
-      "color": "#c0699d",
-      "chart": "h-aggressive-xle.png"
-    },
-    {
-      "ticker": "XOM",
-      "name": "엑슨모빌",
-      "qty": 12,
+      "ticker": "V",
+      "name": "비자",
+      "qty": 7,
       "unit": "주",
       "currency": "USD",
       "category": "us_stock",
       "market": "us",
-      "cost_str": "2,951,455",
-      "pl_krw_str": "+61,053",
-      "avg_krw": 245955,
-      "avg_str": "245,955",
-      "avg_native_str": "$183.10",
-      "price_krw": 251042,
-      "price_str": "251,042",
-      "price_native": 187.25,
-      "avg_native": 183.1,
-      "price_native_str": "$187.25",
-      "price_date": "2026-10-30",
-      "value_krw": 3012508,
-      "pl_pct": 2.07,
+      "cost_str": "4,008,771",
+      "pl_krw_str": "+0",
+      "avg_krw": 572682,
+      "avg_str": "572,682",
+      "avg_native_str": "$425.89",
+      "price_krw": 572682,
+      "price_str": "572,682",
+      "price_native": 425.89,
+      "avg_native": 425.89,
+      "price_native_str": "$425.89",
+      "price_date": "2026-11-02",
+      "value_krw": 4008771,
+      "pl_pct": 0.0,
       "lots": [
         {
-          "date": "2026-10-29",
+          "date": "2026-11-03",
           "session": "us",
-          "qty": 12,
-          "price_krw": 245955,
-          "price_native": 183.1,
+          "qty": 7,
+          "price_krw": 572682,
+          "price_native": 425.89,
           "currency": "USD",
-          "krw": 2951455,
-          "fx": 1343.28,
-          "price_date": "2026-10-28",
-          "basis": "2026-10-28 리포트 시세",
-          "krw_str": "2,951,455",
-          "price_krw_str": "245,955",
-          "native_str": "$183.10"
+          "krw": 4008771,
+          "fx": 1344.67,
+          "price_date": "2026-11-02",
+          "basis": "2026-11-02 리포트 시세",
+          "krw_str": "4,008,771",
+          "price_krw_str": "572,682",
+          "native_str": "$425.89"
         }
       ],
-      "weight_pct": 4.0,
-      "value_str": "3,012,508",
-      "color": "#7d9a3c",
-      "chart": "h-aggressive-xom.png"
+      "weight_pct": 5.4,
+      "value_str": "4,008,771",
+      "color": "#c0699d",
+      "chart": "h-aggressive-v.png"
     }
   ],
   "pending_view": [],
-  "total_value_str": "75,897,864",
-  "cash_str": "4,248,700",
-  "holdings_value_str": "71,649,164",
+  "total_value_str": "74,773,078",
+  "cash_str": "2,356,615",
+  "holdings_value_str": "72,416,463",
   "start_capital_str": "100,000,000",
-  "gain_str": "-24,102,136",
-  "cash_weight_pct": 5.6,
-  "day_chg_pct": -0.36,
-  "days": 81,
-  "priced_at": "2026-11-02T18:06:13+09:00",
+  "gain_str": "-25,226,922",
+  "cash_weight_pct": 3.2,
+  "day_chg_pct": -1.48,
+  "days": 82,
+  "priced_at": "2026-11-03T05:38:09+09:00",
   "eval_note": "🇰🇷 15:00 · 🇺🇸 23:45 발행 시점 시세로 체결",
   "persona": "aggressive",
   "persona_name": "공격형",
   "persona_emoji": "🚀",
   "persona_tag": "성장·모멘텀 · 집중 투자 · opus",
   "journal_view": [
+    {
+      "date": "2026-11-03",
+      "session": "us",
+      "comment": "유가 반전 에너지 컷 · LLY·V 주도주 추격 베팅",
+      "placed": [
+        {
+          "action": "유지",
+          "name": "-",
+          "detail": "Q3 서프 · 가이던스 상향 · 코어 홀드"
+        }
+      ],
+      "trades": [
+        {
+          "action": "매도",
+          "ticker": "XLE",
+          "name": "에너지ETF",
+          "krw": 5719056,
+          "krw_str": "5,719,056",
+          "qty": 63,
+          "unit": "주",
+          "price_krw": 90779,
+          "price_str": "90,779",
+          "price_native_str": "$67.51",
+          "avg_krw": 92306,
+          "avg_str": "92,306",
+          "pl_krw": -96248,
+          "pl_str": "-96,248",
+          "pl_pct": -1.66,
+          "basis": "2026-11-02 리포트 시세",
+          "reason": "유가 -11% 피스딜 반전 · 추세 이탈 · 컷"
+        },
+        {
+          "action": "매도",
+          "ticker": "XOM",
+          "name": "엑슨모빌",
+          "krw": 2914492,
+          "krw_str": "2,914,492",
+          "qty": 12,
+          "unit": "주",
+          "price_krw": 242874,
+          "price_str": "242,874",
+          "price_native_str": "$180.62",
+          "avg_krw": 245955,
+          "avg_str": "245,955",
+          "pl_krw": -36963,
+          "pl_str": "-36,963",
+          "pl_pct": -1.25,
+          "basis": "2026-11-02 리포트 시세",
+          "reason": "브렌트 -11% · 공급쇼크 소멸 · 에너지 컷"
+        },
+        {
+          "action": "매수",
+          "ticker": "LLY",
+          "name": "일라이릴리",
+          "krw": 3817303,
+          "krw_str": "3,817,303",
+          "qty": 2,
+          "unit": "주",
+          "price_krw": 1908651,
+          "price_str": "1,908,651",
+          "price_native_str": "$1,419.42",
+          "basis": "2026-11-02 리포트 시세",
+          "reason": "어닝 서프 · 목표가 $1,625 · 신고가 추격"
+        },
+        {
+          "action": "매수",
+          "ticker": "V",
+          "name": "비자",
+          "krw": 4008771,
+          "krw_str": "4,008,771",
+          "qty": 7,
+          "unit": "주",
+          "price_krw": 572682,
+          "price_str": "572,682",
+          "price_native_str": "$425.89",
+          "basis": "2026-11-02 리포트 시세",
+          "reason": "신고가 돌파 · 목표 $471 · 결제 주도주 추격"
+        },
+        {
+          "action": "매수",
+          "ticker": "TSLA",
+          "name": "테슬라",
+          "krw": 2699559,
+          "krw_str": "2,699,559",
+          "qty": 5,
+          "unit": "주",
+          "price_krw": 539912,
+          "price_str": "539,912",
+          "price_native_str": "$401.52",
+          "basis": "2026-11-02 리포트 시세",
+          "reason": "상승배열 유지 · 로보택시 · 유럽판매 급증"
+        }
+      ]
+    },
     {
       "date": "2026-11-02",
       "session": "kr",
@@ -17149,6 +17350,53 @@
   ],
   "history_view": [
     {
+      "date": "2026-11-03",
+      "total_value": 74773078,
+      "total_value_str": "74,773,078",
+      "return_pct": -25.23,
+      "day_chg_pct": -1.48,
+      "cash": 2356615,
+      "asof": "🇺🇸 장중 리포트 시점",
+      "holdings": [
+        {
+          "name": "SK하이닉스",
+          "value_str": "21,270,000",
+          "weight_pct": 28.4,
+          "pl_pct": -3.97
+        },
+        {
+          "name": "삼성전자",
+          "value_str": "5,625,000",
+          "weight_pct": 7.5,
+          "pl_pct": -3.68
+        },
+        {
+          "name": "일라이릴리",
+          "value_str": "20,995,166",
+          "weight_pct": 28.1,
+          "pl_pct": 8.92
+        },
+        {
+          "name": "테슬라",
+          "value_str": "13,497,797",
+          "weight_pct": 18.1,
+          "pl_pct": 1.66
+        },
+        {
+          "name": "유나이티드헬스",
+          "value_str": "7,019,729",
+          "weight_pct": 9.4,
+          "pl_pct": -3.39
+        },
+        {
+          "name": "비자",
+          "value_str": "4,008,771",
+          "weight_pct": 5.4,
+          "pl_pct": 0.0
+        }
+      ]
+    },
+    {
       "date": "2026-11-02",
       "total_value": 75897864,
       "total_value_str": "75,897,864",
@@ -22250,17 +22498,17 @@
       "market": "kr",
       "label": "🇰🇷 한국",
       "count": 2,
-      "value_krw": 27805000,
-      "value_str": "27,805,000",
-      "weight_pct": 36.6
+      "value_krw": 26895000,
+      "value_str": "26,895,000",
+      "weight_pct": 36.0
     },
     {
       "market": "us",
       "label": "🇺🇸 미국",
-      "count": 5,
-      "value_krw": 43844164,
-      "value_str": "43,844,164",
-      "weight_pct": 57.8
+      "count": 4,
+      "value_krw": 45521463,
+      "value_str": "45,521,463",
+      "weight_pct": 60.9
     }
   ],
   "void_orders": [
