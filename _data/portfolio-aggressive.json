@@ -2,7 +2,7 @@
   "start_date": "2026-07-20",
   "start_capital": 100000000,
   "currency": "KRW",
-  "cash": 2356615,
+  "cash": 210821,
   "holdings": {
     "LLY": {
       "name": "일라이릴리",
@@ -104,8 +104,8 @@
     },
     "TSLA": {
       "name": "테슬라",
-      "qty": 25.0,
-      "cost_krw": 13276873.3897,
+      "qty": 29.0,
+      "cost_krw": 15422667.625699999,
       "lots": [
         {
           "date": "2026-10-22",
@@ -166,6 +166,18 @@
           "fx": 1344.67,
           "price_date": "2026-11-02",
           "basis": "2026-11-02 리포트 시세"
+        },
+        {
+          "date": "2026-11-04",
+          "session": "us",
+          "qty": 4,
+          "price_krw": 536449,
+          "price_native": 398.98,
+          "currency": "USD",
+          "krw": 2145794,
+          "fx": 1344.55,
+          "price_date": "2026-11-03",
+          "basis": "2026-11-03 리포트 시세"
         }
       ]
     },
@@ -403,7 +415,8 @@
     "2026-10-30-kr-aggressive",
     "2026-10-31-us-aggressive",
     "2026-11-02-kr-aggressive",
-    "2026-11-03-us-aggressive"
+    "2026-11-03-us-aggressive",
+    "2026-11-04-us-aggressive"
   ],
   "pending_orders": [],
   "journal": [
@@ -6065,6 +6078,49 @@
           "reason": "상승배열 유지 · 로보택시 · 유럽판매 급증"
         }
       ]
+    },
+    {
+      "date": "2026-11-04",
+      "session": "us",
+      "comment": "칩 반등 회피 · TSLA 올라탄다 · 헬스 코어 홀드",
+      "placed": [
+        {
+          "action": "유지",
+          "name": "-",
+          "detail": "+68%·목표 $1,600·52주 신고가 홀드"
+        },
+        {
+          "action": "유지",
+          "name": "-",
+          "detail": "실적 beat · 목표 $500 · 결제 주도주 홀드"
+        },
+        {
+          "action": "유지",
+          "name": "-",
+          "detail": "가이던스 상향 · 적정가 $481 · 홀드"
+        },
+        {
+          "action": "유지",
+          "name": "-",
+          "detail": "실적 후 -6% · 하락배열 · 칩 반등 회피"
+        }
+      ],
+      "trades": [
+        {
+          "action": "매수",
+          "ticker": "TSLA",
+          "name": "테슬라",
+          "krw": 2145794,
+          "krw_str": "2,145,794",
+          "qty": 4,
+          "unit": "주",
+          "price_krw": 536449,
+          "price_str": "536,449",
+          "price_native_str": "$398.98",
+          "basis": "2026-11-03 리포트 시세",
+          "reason": "상승배열 · 로보택시 확장 · 비AI 추격"
+        }
+      ]
     }
   ],
   "history": [
@@ -11210,13 +11266,60 @@
           "pl_pct": 0.0
         }
       ]
+    },
+    {
+      "date": "2026-11-04",
+      "total_value": 75625691,
+      "total_value_str": "75,625,691",
+      "return_pct": -24.37,
+      "day_chg_pct": 1.14,
+      "cash": 210821,
+      "asof": "🇺🇸 장중 리포트 시점",
+      "holdings": [
+        {
+          "name": "SK하이닉스",
+          "value_str": "22,080,000",
+          "weight_pct": 29.2,
+          "pl_pct": -0.31
+        },
+        {
+          "name": "삼성전자",
+          "value_str": "5,725,000",
+          "weight_pct": 7.6,
+          "pl_pct": -1.97
+        },
+        {
+          "name": "일라이릴리",
+          "value_str": "21,017,548",
+          "weight_pct": 27.8,
+          "pl_pct": 9.04
+        },
+        {
+          "name": "테슬라",
+          "value_str": "15,557,008",
+          "weight_pct": 20.6,
+          "pl_pct": 0.87
+        },
+        {
+          "name": "유나이티드헬스",
+          "value_str": "7,063,325",
+          "weight_pct": 9.3,
+          "pl_pct": -2.79
+        },
+        {
+          "name": "비자",
+          "value_str": "3,971,989",
+          "weight_pct": 5.3,
+          "pl_pct": -0.92
+        }
+      ]
     }
   ],
-  "updated": "2026-11-03",
-  "total_value": 74773078,
-  "holdings_value": 72416463,
-  "return_pct": -25.23,
-  "usdkrw": 1344.67,
+  "updated": "2026-11-04",
+  "total_value": 75625691,
+  "holdings_value": 75414870,
+  "return_pct": -24.37,
+  "usdkrw": 1344.55,
   "holdings_view": [
     {
       "ticker": "000660.KS",
@@ -11227,18 +11330,18 @@
       "category": "kr_stock",
       "market": "kr",
       "cost_str": "22,149,000",
-      "pl_krw_str": "-879,000",
+      "pl_krw_str": "-69,000",
       "avg_krw": 1476600,
       "avg_str": "1,476,600",
       "avg_native_str": null,
-      "price_krw": 1418000,
-      "price_str": "1,418,000",
+      "price_krw": 1472000,
+      "price_str": "1,472,000",
       "price_native": null,
       "avg_native": null,
       "price_native_str": null,
-      "price_date": "2026-10-30",
-      "value_krw": 21270000,
-      "pl_pct": -3.97,
+      "price_date": "2026-11-02",
+      "value_krw": 22080000,
+      "pl_pct": -0.31,
       "lots": [
         {
           "date": "2026-10-27",
@@ -11301,8 +11404,8 @@
           "native_str": null
         }
       ],
-      "weight_pct": 28.4,
-      "value_str": "21,270,000",
+      "weight_pct": 29.2,
+      "value_str": "22,080,000",
       "color": "#3ba272",
       "chart": "h-aggressive-000660-ks.png"
     },
@@ -11315,18 +11418,18 @@
       "category": "kr_stock",
       "market": "kr",
       "cost_str": "5,840,000",
-      "pl_krw_str": "-215,000",
+      "pl_krw_str": "-115,000",
       "avg_krw": 233600,
       "avg_str": "233,600",
       "avg_native_str": null,
-      "price_krw": 225000,
-      "price_str": "225,000",
+      "price_krw": 229000,
+      "price_str": "229,000",
       "price_native": null,
       "avg_native": null,
       "price_native_str": null,
-      "price_date": "2026-10-30",
-      "value_krw": 5625000,
-      "pl_pct": -3.68,
+      "price_date": "2026-11-02",
+      "value_krw": 5725000,
+      "pl_pct": -1.97,
       "lots": [
         {
           "date": "2026-10-28",
@@ -11359,8 +11462,8 @@
           "native_str": null
         }
       ],
-      "weight_pct": 7.5,
-      "value_str": "5,625,000",
+      "weight_pct": 7.6,
+      "value_str": "5,725,000",
       "color": "#e8a33d",
       "chart": "h-aggressive-005930-ks.png"
     },
@@ -11373,18 +11476,18 @@
       "category": "us_stock",
       "market": "us",
       "cost_str": "19,275,374",
-      "pl_krw_str": "+1,719,793",
+      "pl_krw_str": "+1,742,175",
       "avg_krw": 1752307,
       "avg_str": "1,752,307",
       "avg_native_str": "$1,312.38",
-      "price_krw": 1908651,
-      "price_str": "1,908,651",
-      "price_native": 1419.42,
+      "price_krw": 1910686,
+      "price_str": "1,910,686",
+      "price_native": 1421.06,
       "avg_native": 1312.38,
-      "price_native_str": "$1,419.42",
-      "price_date": "2026-11-02",
-      "value_krw": 20995166,
-      "pl_pct": 8.92,
+      "price_native_str": "$1,421.06",
+      "price_date": "2026-11-03",
+      "value_krw": 21017548,
+      "pl_pct": 9.04,
       "lots": [
         {
           "date": "2026-10-16",
@@ -11462,32 +11565,32 @@
           "native_str": "$1,419.42"
         }
       ],
-      "weight_pct": 28.1,
-      "value_str": "20,995,166",
+      "weight_pct": 27.8,
+      "value_str": "21,017,548",
       "color": "#8b5fd6",
       "chart": "h-aggressive-lly.png"
     },
     {
       "ticker": "TSLA",
       "name": "테슬라",
-      "qty": 25,
+      "qty": 29,
       "unit": "주",
       "currency": "USD",
       "category": "us_stock",
       "market": "us",
-      "cost_str": "13,276,873",
-      "pl_krw_str": "+220,924",
-      "avg_krw": 531075,
-      "avg_str": "531,075",
+      "cost_str": "15,422,668",
+      "pl_krw_str": "+134,341",
+      "avg_krw": 531816,
+      "avg_str": "531,816",
       "avg_native_str": "$398.98",
-      "price_krw": 539912,
-      "price_str": "539,912",
-      "price_native": 401.52,
+      "price_krw": 536449,
+      "price_str": "536,449",
+      "price_native": 398.98,
       "avg_native": 398.98,
-      "price_native_str": "$401.52",
-      "price_date": "2026-11-02",
-      "value_krw": 13497797,
-      "pl_pct": 1.66,
+      "price_native_str": "$398.98",
+      "price_date": "2026-11-03",
+      "value_krw": 15557008,
+      "pl_pct": 0.87,
       "lots": [
         {
           "date": "2026-10-22",
@@ -11563,10 +11666,25 @@
           "krw_str": "2,699,559",
           "price_krw_str": "539,912",
           "native_str": "$401.52"
+        },
+        {
+          "date": "2026-11-04",
+          "session": "us",
+          "qty": 4,
+          "price_krw": 536449,
+          "price_native": 398.98,
+          "currency": "USD",
+          "krw": 2145794,
+          "fx": 1344.55,
+          "price_date": "2026-11-03",
+          "basis": "2026-11-03 리포트 시세",
+          "krw_str": "2,145,794",
+          "price_krw_str": "536,449",
+          "native_str": "$398.98"
         }
       ],
-      "weight_pct": 18.1,
-      "value_str": "13,497,797",
+      "weight_pct": 20.6,
+      "value_str": "15,557,008",
       "color": "#d3655f",
       "chart": "h-aggressive-tsla.png"
     },
@@ -11579,18 +11697,18 @@
       "category": "us_stock",
       "market": "us",
       "cost_str": "7,265,990",
-      "pl_krw_str": "-246,262",
+      "pl_krw_str": "-202,666",
       "avg_krw": 558922,
       "avg_str": "558,922",
       "avg_native_str": "$421.18",
-      "price_krw": 539979,
-      "price_str": "539,979",
-      "price_native": 401.57,
+      "price_krw": 543333,
+      "price_str": "543,333",
+      "price_native": 404.1,
       "avg_native": 421.18,
-      "price_native_str": "$401.57",
-      "price_date": "2026-11-02",
-      "value_krw": 7019729,
-      "pl_pct": -3.39,
+      "price_native_str": "$404.10",
+      "price_date": "2026-11-03",
+      "value_krw": 7063325,
+      "pl_pct": -2.79,
       "lots": [
         {
           "date": "2026-10-21",
@@ -11623,8 +11741,8 @@
           "native_str": "$425.03"
         }
       ],
-      "weight_pct": 9.4,
-      "value_str": "7,019,729",
+      "weight_pct": 9.3,
+      "value_str": "7,063,325",
       "color": "#4aa3c0",
       "chart": "h-aggressive-unh.png"
     },
@@ -11637,18 +11755,18 @@
       "category": "us_stock",
       "market": "us",
       "cost_str": "4,008,771",
-      "pl_krw_str": "+0",
+      "pl_krw_str": "-36,782",
       "avg_krw": 572682,
       "avg_str": "572,682",
       "avg_native_str": "$425.89",
-      "price_krw": 572682,
-      "price_str": "572,682",
-      "price_native": 425.89,
+      "price_krw": 567427,
+      "price_str": "567,427",
+      "price_native": 422.02,
       "avg_native": 425.89,
-      "price_native_str": "$425.89",
-      "price_date": "2026-11-02",
-      "value_krw": 4008771,
-      "pl_pct": 0.0,
+      "price_native_str": "$422.02",
+      "price_date": "2026-11-03",
+      "value_krw": 3971989,
+      "pl_pct": -0.92,
       "lots": [
         {
           "date": "2026-11-03",
@@ -11666,28 +11784,71 @@
           "native_str": "$425.89"
         }
       ],
-      "weight_pct": 5.4,
-      "value_str": "4,008,771",
+      "weight_pct": 5.3,
+      "value_str": "3,971,989",
       "color": "#c0699d",
       "chart": "h-aggressive-v.png"
     }
   ],
   "pending_view": [],
-  "total_value_str": "74,773,078",
-  "cash_str": "2,356,615",
-  "holdings_value_str": "72,416,463",
+  "total_value_str": "75,625,691",
+  "cash_str": "210,821",
+  "holdings_value_str": "75,414,870",
   "start_capital_str": "100,000,000",
-  "gain_str": "-25,226,922",
-  "cash_weight_pct": 3.2,
-  "day_chg_pct": -1.48,
-  "days": 82,
-  "priced_at": "2026-11-03T05:38:09+09:00",
+  "gain_str": "-24,374,309",
+  "cash_weight_pct": 0.3,
+  "day_chg_pct": 1.14,
+  "days": 83,
+  "priced_at": "2026-11-04T03:14:34+09:00",
   "eval_note": "🇰🇷 15:00 · 🇺🇸 23:45 발행 시점 시세로 체결",
   "persona": "aggressive",
   "persona_name": "공격형",
   "persona_emoji": "🚀",
   "persona_tag": "성장·모멘텀 · 집중 투자 · opus",
   "journal_view": [
+    {
+      "date": "2026-11-04",
+      "session": "us",
+      "comment": "칩 반등 회피 · TSLA 올라탄다 · 헬스 코어 홀드",
+      "placed": [
+        {
+          "action": "유지",
+          "name": "-",
+          "detail": "+68%·목표 $1,600·52주 신고가 홀드"
+        },
+        {
+          "action": "유지",
+          "name": "-",
+          "detail": "실적 beat · 목표 $500 · 결제 주도주 홀드"
+        },
+        {
+          "action": "유지",
+          "name": "-",
+          "detail": "가이던스 상향 · 적정가 $481 · 홀드"
+        },
+        {
+          "action": "유지",
+          "name": "-",
+          "detail": "실적 후 -6% · 하락배열 · 칩 반등 회피"
+        }
+      ],
+      "trades": [
+        {
+          "action": "매수",
+          "ticker": "TSLA",
+          "name": "테슬라",
+          "krw": 2145794,
+          "krw_str": "2,145,794",
+          "qty": 4,
+          "unit": "주",
+          "price_krw": 536449,
+          "price_str": "536,449",
+          "price_native_str": "$398.98",
+          "basis": "2026-11-03 리포트 시세",
+          "reason": "상승배열 · 로보택시 확장 · 비AI 추격"
+        }
+      ]
+    },
     {
       "date": "2026-11-03",
       "session": "us",
@@ -17350,6 +17511,53 @@
   ],
   "history_view": [
     {
+      "date": "2026-11-04",
+      "total_value": 75625691,
+      "total_value_str": "75,625,691",
+      "return_pct": -24.37,
+      "day_chg_pct": 1.14,
+      "cash": 210821,
+      "asof": "🇺🇸 장중 리포트 시점",
+      "holdings": [
+        {
+          "name": "SK하이닉스",
+          "value_str": "22,080,000",
+          "weight_pct": 29.2,
+          "pl_pct": -0.31
+        },
+        {
+          "name": "삼성전자",
+          "value_str": "5,725,000",
+          "weight_pct": 7.6,
+          "pl_pct": -1.97
+        },
+        {
+          "name": "일라이릴리",
+          "value_str": "21,017,548",
+          "weight_pct": 27.8,
+          "pl_pct": 9.04
+        },
+        {
+          "name": "테슬라",
+          "value_str": "15,557,008",
+          "weight_pct": 20.6,
+          "pl_pct": 0.87
+        },
+        {
+          "name": "유나이티드헬스",
+          "value_str": "7,063,325",
+          "weight_pct": 9.3,
+          "pl_pct": -2.79
+        },
+        {
+          "name": "비자",
+          "value_str": "3,971,989",
+          "weight_pct": 5.3,
+          "pl_pct": -0.92
+        }
+      ]
+    },
+    {
       "date": "2026-11-03",
       "total_value": 74773078,
       "total_value_str": "74,773,078",
@@ -22498,17 +22706,17 @@
       "market": "kr",
       "label": "🇰🇷 한국",
       "count": 2,
-      "value_krw": 26895000,
-      "value_str": "26,895,000",
-      "weight_pct": 36.0
+      "value_krw": 27805000,
+      "value_str": "27,805,000",
+      "weight_pct": 36.8
     },
     {
       "market": "us",
       "label": "🇺🇸 미국",
       "count": 4,
-      "value_krw": 45521463,
-      "value_str": "45,521,463",
-      "weight_pct": 60.9
+      "value_krw": 47609870,
+      "value_str": "47,609,870",
+      "weight_pct": 63.0
     }
   ],
   "void_orders": [
