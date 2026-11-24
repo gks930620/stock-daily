@@ -1,0 +1,1 @@
+- [KR report timing gotcha](kr-report-timing-gotcha.md) — KR 리포트 기준가는 '장중'이 아니라 마감 후 종가 스냅샷; 슬라이드 구절·마침표 0~2개, 채점은 excess_pct
