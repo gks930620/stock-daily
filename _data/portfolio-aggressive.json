@@ -2,7 +2,7 @@
   "start_date": "2026-07-20",
   "start_capital": 100000000,
   "currency": "KRW",
-  "cash": 428475,
+  "cash": 100675,
   "holdings": {
     "LLY": {
       "name": "일라이릴리",
@@ -73,8 +73,8 @@
     },
     "068270.KS": {
       "name": "셀트리온",
-      "qty": 83.0,
-      "cost_krw": 17779000.0,
+      "qty": 94.0,
+      "cost_krw": 20149500.0,
       "lots": [
         {
           "date": "2026-11-05",
@@ -123,6 +123,18 @@
           "fx": null,
           "price_date": "2026-11-19",
           "basis": "2026-11-19 리포트 시세"
+        },
+        {
+          "date": "2026-11-26",
+          "session": "kr",
+          "qty": 11,
+          "price_krw": 215500,
+          "price_native": 215500.0,
+          "currency": "KRW",
+          "krw": 2370500,
+          "fx": null,
+          "price_date": "2026-11-26",
+          "basis": "2026-11-26 리포트 시세"
         }
       ]
     },
@@ -171,17 +183,17 @@
     },
     "352820.KS": {
       "name": "하이브",
-      "qty": 54.0,
-      "cost_krw": 9160300.0,
+      "qty": 43.0,
+      "cost_krw": 7327700.0,
       "lots": [
         {
           "date": "2026-11-18",
           "session": "kr",
-          "qty": 30,
+          "qty": 19.0,
           "price_krw": 166600,
           "price_native": 166600.0,
           "currency": "KRW",
-          "krw": 4998000,
+          "krw": 3165400,
           "fx": null,
           "price_date": "2026-11-18",
           "basis": "2026-11-18 리포트 시세"
@@ -384,7 +396,8 @@
     "2026-11-24-kr-aggressive",
     "2026-11-25-us-aggressive",
     "2026-11-25-kr-aggressive",
-    "2026-11-26-us-aggressive"
+    "2026-11-26-us-aggressive",
+    "2026-11-26-kr-aggressive"
   ],
   "pending_orders": [],
   "journal": [
@@ -7073,6 +7086,47 @@
         }
       ],
       "trades": []
+    },
+    {
+      "date": "2026-11-26",
+      "session": "kr",
+      "comment": "셀트 올라탄다 · 하이브 일부 차익 · 주도株 교체",
+      "placed": [],
+      "trades": [
+        {
+          "action": "매도",
+          "ticker": "352820.KS",
+          "name": "하이브",
+          "krw": 2042700,
+          "krw_str": "2,042,700",
+          "qty": 11,
+          "unit": "주",
+          "price_krw": 185700,
+          "price_str": "185,700",
+          "price_native_str": null,
+          "avg_krw": 169635,
+          "avg_str": "169,635",
+          "pl_krw": 176713,
+          "pl_str": "+176,713",
+          "pl_pct": 9.47,
+          "basis": "2026-11-26 리포트 시세",
+          "reason": "목표가 하향·내년 역성장·볼린저0.92 과열 차익"
+        },
+        {
+          "action": "매수",
+          "ticker": "068270.KS",
+          "name": "셀트리온",
+          "krw": 2370500,
+          "krw_str": "2,370,500",
+          "qty": 11,
+          "unit": "주",
+          "price_krw": 215500,
+          "price_str": "215,500",
+          "price_native_str": null,
+          "basis": "2026-11-26 리포트 시세",
+          "reason": "상승배열 주도株·목표 31만·금리인상 방어"
+        }
+      ]
     }
   ],
   "history": [
@@ -12915,73 +12969,73 @@
     },
     {
       "date": "2026-11-26",
-      "total_value": 66753882,
-      "total_value_str": "66,753,882",
-      "return_pct": -33.25,
-      "day_chg_pct": -1.41,
-      "cash": 428475,
-      "asof": "🇺🇸 장중 리포트 시점",
+      "total_value": 67916199,
+      "total_value_str": "67,916,199",
+      "return_pct": -32.08,
+      "day_chg_pct": 0.31,
+      "cash": 100675,
+      "asof": "🇰🇷 장중 리포트 시점",
       "holdings": [
         {
           "name": "셀트리온",
-          "value_str": "17,347,000",
-          "weight_pct": 26.0,
-          "pl_pct": -2.43
+          "value_str": "20,257,000",
+          "weight_pct": 29.8,
+          "pl_pct": 0.53
         },
         {
           "name": "하이브",
-          "value_str": "9,331,200",
-          "weight_pct": 14.0,
-          "pl_pct": 1.87
+          "value_str": "7,985,100",
+          "weight_pct": 11.8,
+          "pl_pct": 8.97
         },
         {
           "name": "일라이릴리",
-          "value_str": "20,673,372",
-          "weight_pct": 31.0,
-          "pl_pct": 7.25
+          "value_str": "20,581,355",
+          "weight_pct": 30.3,
+          "pl_pct": 6.78
         },
         {
           "name": "애플",
-          "value_str": "16,688,283",
-          "weight_pct": 25.0,
-          "pl_pct": 1.77
+          "value_str": "16,725,488",
+          "weight_pct": 24.6,
+          "pl_pct": 1.99
         },
         {
           "name": "천연가스",
-          "value_str": "2,285,552",
-          "weight_pct": 3.4,
-          "pl_pct": -0.63
+          "value_str": "2,266,581",
+          "weight_pct": 3.3,
+          "pl_pct": -1.45
         }
       ]
     }
   ],
   "updated": "2026-11-26",
-  "total_value": 66753882,
-  "holdings_value": 66325407,
-  "return_pct": -33.25,
-  "usdkrw": 1344.03,
+  "total_value": 67916199,
+  "holdings_value": 67815524,
+  "return_pct": -32.08,
+  "usdkrw": 1343.92,
   "holdings_view": [
     {
       "ticker": "068270.KS",
       "name": "셀트리온",
-      "qty": 83,
+      "qty": 94,
       "unit": "주",
       "currency": "KRW",
       "category": "kr_stock",
       "market": "kr",
-      "cost_str": "17,779,000",
-      "pl_krw_str": "-432,000",
-      "avg_krw": 214205,
-      "avg_str": "214,205",
+      "cost_str": "20,149,500",
+      "pl_krw_str": "+107,500",
+      "avg_krw": 214356,
+      "avg_str": "214,356",
       "avg_native_str": null,
-      "price_krw": 209000,
-      "price_str": "209,000",
+      "price_krw": 215500,
+      "price_str": "215,500",
       "price_native": null,
       "avg_native": null,
       "price_native_str": null,
-      "price_date": "2026-11-24",
-      "value_krw": 17347000,
-      "pl_pct": -2.43,
+      "price_date": "2026-11-26",
+      "value_krw": 20257000,
+      "pl_pct": 0.53,
       "lots": [
         {
           "date": "2026-11-05",
@@ -13042,47 +13096,62 @@
           "krw_str": "2,795,000",
           "price_krw_str": "215,000",
           "native_str": null
+        },
+        {
+          "date": "2026-11-26",
+          "session": "kr",
+          "qty": 11,
+          "price_krw": 215500,
+          "price_native": 215500.0,
+          "currency": "KRW",
+          "krw": 2370500,
+          "fx": null,
+          "price_date": "2026-11-26",
+          "basis": "2026-11-26 리포트 시세",
+          "krw_str": "2,370,500",
+          "price_krw_str": "215,500",
+          "native_str": null
         }
       ],
-      "weight_pct": 26.0,
-      "value_str": "17,347,000",
+      "weight_pct": 29.8,
+      "value_str": "20,257,000",
       "color": "#3ba272",
       "chart": "h-aggressive-068270-ks.png"
     },
     {
       "ticker": "352820.KS",
       "name": "하이브",
-      "qty": 54,
+      "qty": 43,
       "unit": "주",
       "currency": "KRW",
       "category": "kr_stock",
       "market": "kr",
-      "cost_str": "9,160,300",
-      "pl_krw_str": "+170,900",
-      "avg_krw": 169635,
-      "avg_str": "169,635",
+      "cost_str": "7,327,700",
+      "pl_krw_str": "+657,400",
+      "avg_krw": 170412,
+      "avg_str": "170,412",
       "avg_native_str": null,
-      "price_krw": 172800,
-      "price_str": "172,800",
+      "price_krw": 185700,
+      "price_str": "185,700",
       "price_native": null,
       "avg_native": null,
       "price_native_str": null,
-      "price_date": "2026-11-24",
-      "value_krw": 9331200,
-      "pl_pct": 1.87,
+      "price_date": "2026-11-26",
+      "value_krw": 7985100,
+      "pl_pct": 8.97,
       "lots": [
         {
           "date": "2026-11-18",
           "session": "kr",
-          "qty": 30,
+          "qty": 19,
           "price_krw": 166600,
           "price_native": 166600.0,
           "currency": "KRW",
-          "krw": 4998000,
+          "krw": 3165400,
           "fx": null,
           "price_date": "2026-11-18",
           "basis": "2026-11-18 리포트 시세",
-          "krw_str": "4,998,000",
+          "krw_str": "3,165,400",
           "price_krw_str": "166,600",
           "native_str": null
         },
@@ -13117,8 +13186,8 @@
           "native_str": null
         }
       ],
-      "weight_pct": 14.0,
-      "value_str": "9,331,200",
+      "weight_pct": 11.8,
+      "value_str": "7,985,100",
       "color": "#e8a33d",
       "chart": "h-aggressive-352820-ks.png"
     },
@@ -13131,18 +13200,18 @@
       "category": "us_stock",
       "market": "us",
       "cost_str": "19,275,374",
-      "pl_krw_str": "+1,397,998",
+      "pl_krw_str": "+1,305,981",
       "avg_krw": 1752307,
       "avg_str": "1,752,307",
       "avg_native_str": "$1,312.38",
-      "price_krw": 1879397,
-      "price_str": "1,879,397",
-      "price_native": 1398.33,
+      "price_krw": 1871032,
+      "price_str": "1,871,032",
+      "price_native": 1392.22,
       "avg_native": 1312.38,
-      "price_native_str": "$1,398.33",
+      "price_native_str": "$1,392.22",
       "price_date": "2026-11-25",
-      "value_krw": 20673372,
-      "pl_pct": 7.25,
+      "value_krw": 20581355,
+      "pl_pct": 6.78,
       "lots": [
         {
           "date": "2026-10-16",
@@ -13220,8 +13289,8 @@
           "native_str": "$1,419.42"
         }
       ],
-      "weight_pct": 31.0,
-      "value_str": "20,673,372",
+      "weight_pct": 30.3,
+      "value_str": "20,581,355",
       "color": "#8b5fd6",
       "chart": "h-aggressive-lly.png"
     },
@@ -13234,18 +13303,18 @@
       "category": "us_stock",
       "market": "us",
       "cost_str": "16,398,374",
-      "pl_krw_str": "+289,909",
+      "pl_krw_str": "+327,114",
       "avg_krw": 468525,
       "avg_str": "468,525",
       "avg_native_str": "$350.82",
-      "price_krw": 476808,
-      "price_str": "476,808",
-      "price_native": 354.76,
+      "price_krw": 477871,
+      "price_str": "477,871",
+      "price_native": 355.58,
       "avg_native": 350.82,
-      "price_native_str": "$354.76",
+      "price_native_str": "$355.58",
       "price_date": "2026-11-25",
-      "value_krw": 16688283,
-      "pl_pct": 1.77,
+      "value_krw": 16725488,
+      "pl_pct": 1.99,
       "lots": [
         {
           "date": "2026-11-18",
@@ -13293,8 +13362,8 @@
           "native_str": "$353.90"
         }
       ],
-      "weight_pct": 25.0,
-      "value_str": "16,688,283",
+      "weight_pct": 24.6,
+      "value_str": "16,725,488",
       "color": "#d3655f",
       "chart": "h-aggressive-aapl.png"
     },
@@ -13307,18 +13376,18 @@
       "category": "commodity",
       "market": "etc",
       "cost_str": "2,300,000",
-      "pl_krw_str": "-14,448",
+      "pl_krw_str": "-33,419",
       "avg_krw": 4937,
       "avg_str": "4,937",
       "avg_native_str": "$3.68",
-      "price_krw": 4906,
-      "price_str": "4,906",
-      "price_native": 3.65,
+      "price_krw": 4865,
+      "price_str": "4,865",
+      "price_native": 3.62,
       "avg_native": 3.68,
-      "price_native_str": "$3.65",
-      "price_date": "2026-11-25",
-      "value_krw": 2285552,
-      "pl_pct": -0.63,
+      "price_native_str": "$3.62",
+      "price_date": "2026-11-26",
+      "value_krw": 2266581,
+      "pl_pct": -1.45,
       "lots": [
         {
           "date": "2026-11-25",
@@ -13336,28 +13405,69 @@
           "native_str": "$3.68"
         }
       ],
-      "weight_pct": 3.4,
-      "value_str": "2,285,552",
+      "weight_pct": 3.3,
+      "value_str": "2,266,581",
       "color": "#4aa3c0",
       "chart": "h-aggressive-ng-f.png"
     }
   ],
   "pending_view": [],
-  "total_value_str": "66,753,882",
-  "cash_str": "428,475",
-  "holdings_value_str": "66,325,407",
+  "total_value_str": "67,916,199",
+  "cash_str": "100,675",
+  "holdings_value_str": "67,815,524",
   "start_capital_str": "100,000,000",
-  "gain_str": "-33,246,118",
-  "cash_weight_pct": 0.6,
-  "day_chg_pct": -1.41,
+  "gain_str": "-32,083,801",
+  "cash_weight_pct": 0.1,
+  "day_chg_pct": 0.31,
   "days": 97,
-  "priced_at": "2026-11-26T05:22:50+09:00",
+  "priced_at": "2026-11-26T19:38:13+09:00",
   "eval_note": "🇰🇷 15:00 · 🇺🇸 23:45 발행 시점 시세로 체결",
   "persona": "aggressive",
   "persona_name": "공격형",
   "persona_emoji": "🚀",
   "persona_tag": "성장·모멘텀 · 집중 투자 · opus",
   "journal_view": [
+    {
+      "date": "2026-11-26",
+      "session": "kr",
+      "comment": "셀트 올라탄다 · 하이브 일부 차익 · 주도株 교체",
+      "placed": [],
+      "trades": [
+        {
+          "action": "매도",
+          "ticker": "352820.KS",
+          "name": "하이브",
+          "krw": 2042700,
+          "krw_str": "2,042,700",
+          "qty": 11,
+          "unit": "주",
+          "price_krw": 185700,
+          "price_str": "185,700",
+          "price_native_str": null,
+          "avg_krw": 169635,
+          "avg_str": "169,635",
+          "pl_krw": 176713,
+          "pl_str": "+176,713",
+          "pl_pct": 9.47,
+          "basis": "2026-11-26 리포트 시세",
+          "reason": "목표가 하향·내년 역성장·볼린저0.92 과열 차익"
+        },
+        {
+          "action": "매수",
+          "ticker": "068270.KS",
+          "name": "셀트리온",
+          "krw": 2370500,
+          "krw_str": "2,370,500",
+          "qty": 11,
+          "unit": "주",
+          "price_krw": 215500,
+          "price_str": "215,500",
+          "price_native_str": null,
+          "basis": "2026-11-26 리포트 시세",
+          "reason": "상승배열 주도株·목표 31만·금리인상 방어"
+        }
+      ]
+    },
     {
       "date": "2026-11-26",
       "session": "us",
@@ -20048,42 +20158,42 @@
   "history_view": [
     {
       "date": "2026-11-26",
-      "total_value": 66753882,
-      "total_value_str": "66,753,882",
-      "return_pct": -33.25,
-      "day_chg_pct": -1.41,
-      "cash": 428475,
-      "asof": "🇺🇸 장중 리포트 시점",
+      "total_value": 67916199,
+      "total_value_str": "67,916,199",
+      "return_pct": -32.08,
+      "day_chg_pct": 0.31,
+      "cash": 100675,
+      "asof": "🇰🇷 장중 리포트 시점",
       "holdings": [
         {
           "name": "셀트리온",
-          "value_str": "17,347,000",
-          "weight_pct": 26.0,
-          "pl_pct": -2.43
+          "value_str": "20,257,000",
+          "weight_pct": 29.8,
+          "pl_pct": 0.53
         },
         {
           "name": "하이브",
-          "value_str": "9,331,200",
-          "weight_pct": 14.0,
-          "pl_pct": 1.87
+          "value_str": "7,985,100",
+          "weight_pct": 11.8,
+          "pl_pct": 8.97
         },
         {
           "name": "일라이릴리",
-          "value_str": "20,673,372",
-          "weight_pct": 31.0,
-          "pl_pct": 7.25
+          "value_str": "20,581,355",
+          "weight_pct": 30.3,
+          "pl_pct": 6.78
         },
         {
           "name": "애플",
-          "value_str": "16,688,283",
-          "weight_pct": 25.0,
-          "pl_pct": 1.77
+          "value_str": "16,725,488",
+          "weight_pct": 24.6,
+          "pl_pct": 1.99
         },
         {
           "name": "천연가스",
-          "value_str": "2,285,552",
-          "weight_pct": 3.4,
-          "pl_pct": -0.63
+          "value_str": "2,266,581",
+          "weight_pct": 3.3,
+          "pl_pct": -1.45
         }
       ]
     },
@@ -25930,25 +26040,25 @@
       "market": "kr",
       "label": "🇰🇷 한국",
       "count": 2,
-      "value_krw": 26678200,
-      "value_str": "26,678,200",
-      "weight_pct": 40.0
+      "value_krw": 28242100,
+      "value_str": "28,242,100",
+      "weight_pct": 41.6
     },
     {
       "market": "us",
       "label": "🇺🇸 미국",
       "count": 2,
-      "value_krw": 37361655,
-      "value_str": "37,361,655",
-      "weight_pct": 56.0
+      "value_krw": 37306843,
+      "value_str": "37,306,843",
+      "weight_pct": 54.9
     },
     {
       "market": "etc",
       "label": "🌐 24시간 자산 (암호화폐·원자재)",
       "count": 1,
-      "value_krw": 2285552,
-      "value_str": "2,285,552",
-      "weight_pct": 3.4
+      "value_krw": 2266581,
+      "value_str": "2,266,581",
+      "weight_pct": 3.3
     }
   ],
   "void_orders": [
