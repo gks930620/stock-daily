@@ -2,7 +2,7 @@
   "start_date": "2026-07-20",
   "start_capital": 100000000,
   "currency": "KRW",
-  "cash": 100675,
+  "cash": 128475,
   "holdings": {
     "LLY": {
       "name": "일라이릴리",
@@ -181,49 +181,6 @@
         }
       ]
     },
-    "352820.KS": {
-      "name": "하이브",
-      "qty": 43.0,
-      "cost_krw": 7327700.0,
-      "lots": [
-        {
-          "date": "2026-11-18",
-          "session": "kr",
-          "qty": 19.0,
-          "price_krw": 166600,
-          "price_native": 166600.0,
-          "currency": "KRW",
-          "krw": 3165400,
-          "fx": null,
-          "price_date": "2026-11-18",
-          "basis": "2026-11-18 리포트 시세"
-        },
-        {
-          "date": "2026-11-23",
-          "session": "kr",
-          "qty": 17,
-          "price_krw": 172000,
-          "price_native": 172000.0,
-          "currency": "KRW",
-          "krw": 2924000,
-          "fx": null,
-          "price_date": "2026-11-23",
-          "basis": "2026-11-23 리포트 시세"
-        },
-        {
-          "date": "2026-11-25",
-          "session": "kr",
-          "qty": 7,
-          "price_krw": 176900,
-          "price_native": 176900.0,
-          "currency": "KRW",
-          "krw": 1238300,
-          "fx": null,
-          "price_date": "2026-11-25",
-          "basis": "2026-11-25 리포트 시세"
-        }
-      ]
-    },
     "NG=F": {
       "name": "천연가스",
       "qty": 465.89638464405516,
@@ -240,6 +197,44 @@
           "fx": 1341.5,
           "price_date": "2026-11-24",
           "basis": "즉시(24h)"
+        }
+      ]
+    },
+    "000660.KS": {
+      "name": "SK하이닉스",
+      "qty": 5.0,
+      "cost_krw": 5550000.0,
+      "lots": [
+        {
+          "date": "2026-11-27",
+          "session": "kr",
+          "qty": 5,
+          "price_krw": 1110000,
+          "price_native": 1110000.0,
+          "currency": "KRW",
+          "krw": 5550000,
+          "fx": null,
+          "price_date": "2026-11-27",
+          "basis": "2026-11-27 리포트 시세"
+        }
+      ]
+    },
+    "373220.KS": {
+      "name": "LG에너지솔루션",
+      "qty": 8.0,
+      "cost_krw": 2532000.0,
+      "lots": [
+        {
+          "date": "2026-11-27",
+          "session": "kr",
+          "qty": 8,
+          "price_krw": 316500,
+          "price_native": 316500.0,
+          "currency": "KRW",
+          "krw": 2532000,
+          "fx": null,
+          "price_date": "2026-11-27",
+          "basis": "2026-11-27 리포트 시세"
         }
       ]
     }
@@ -398,7 +393,8 @@
     "2026-11-25-kr-aggressive",
     "2026-11-26-us-aggressive",
     "2026-11-26-kr-aggressive",
-    "2026-11-27-us-aggressive"
+    "2026-11-27-us-aggressive",
+    "2026-11-27-kr-aggressive"
   ],
   "pending_orders": [],
   "journal": [
@@ -7141,6 +7137,61 @@
         }
       ],
       "trades": []
+    },
+    {
+      "date": "2026-11-27",
+      "session": "kr",
+      "comment": "외인 주도株 올라탄다 · 하이브→반도체·배터리 교체",
+      "placed": [],
+      "trades": [
+        {
+          "action": "매도",
+          "ticker": "352820.KS",
+          "name": "하이브",
+          "krw": 8109800,
+          "krw_str": "8,109,800",
+          "qty": 43,
+          "unit": "주",
+          "price_krw": 188600,
+          "price_str": "188,600",
+          "price_native_str": null,
+          "avg_krw": 170412,
+          "avg_str": "170,412",
+          "pl_krw": 782100,
+          "pl_str": "+782,100",
+          "pl_pct": 10.67,
+          "basis": "2026-11-27 리포트 시세",
+          "reason": "목표 줄하향 · 랠리 소외 · 차익실현 교체"
+        },
+        {
+          "action": "매수",
+          "ticker": "000660.KS",
+          "name": "SK하이닉스",
+          "krw": 5550000,
+          "krw_str": "5,550,000",
+          "qty": 5,
+          "unit": "주",
+          "price_krw": 1110000,
+          "price_str": "1,110,000",
+          "price_native_str": null,
+          "basis": "2026-11-27 리포트 시세",
+          "reason": "외인 주도 반도체 추격 · 목표 320만 · HBM"
+        },
+        {
+          "action": "매수",
+          "ticker": "373220.KS",
+          "name": "LG에너지솔루션",
+          "krw": 2532000,
+          "krw_str": "2,532,000",
+          "qty": 8,
+          "unit": "주",
+          "price_krw": 316500,
+          "price_str": "316,500",
+          "price_native_str": null,
+          "basis": "2026-11-27 리포트 시세",
+          "reason": "2차전지 반등 베팅 · MA20 회복 · ESS 구조적"
+        }
+      ]
     }
   ],
   "history": [
@@ -13024,51 +13075,57 @@
     },
     {
       "date": "2026-11-27",
-      "total_value": 67649498,
-      "total_value_str": "67,649,498",
-      "return_pct": -32.35,
-      "day_chg_pct": -0.39,
-      "cash": 100675,
-      "asof": "🇺🇸 장중 리포트 시점",
+      "total_value": 68240344,
+      "total_value_str": "68,240,344",
+      "return_pct": -31.76,
+      "day_chg_pct": 0.48,
+      "cash": 128475,
+      "asof": "🇰🇷 장중 리포트 시점",
       "holdings": [
         {
           "name": "셀트리온",
-          "value_str": "20,398,000",
-          "weight_pct": 30.2,
-          "pl_pct": 1.23
+          "value_str": "20,774,000",
+          "weight_pct": 30.4,
+          "pl_pct": 3.1
         },
         {
-          "name": "하이브",
-          "value_str": "7,606,700",
-          "weight_pct": 11.2,
-          "pl_pct": 3.81
+          "name": "SK하이닉스",
+          "value_str": "5,550,000",
+          "weight_pct": 8.1,
+          "pl_pct": 0.0
+        },
+        {
+          "name": "LG에너지솔루션",
+          "value_str": "2,532,000",
+          "weight_pct": 3.7,
+          "pl_pct": 0.0
         },
         {
           "name": "일라이릴리",
-          "value_str": "20,572,626",
-          "weight_pct": 30.4,
-          "pl_pct": 6.73
+          "value_str": "20,429,130",
+          "weight_pct": 29.9,
+          "pl_pct": 5.99
         },
         {
           "name": "애플",
-          "value_str": "16,718,394",
-          "weight_pct": 24.7,
-          "pl_pct": 1.95
+          "value_str": "16,601,781",
+          "weight_pct": 24.3,
+          "pl_pct": 1.24
         },
         {
           "name": "천연가스",
-          "value_str": "2,253,103",
+          "value_str": "2,224,957",
           "weight_pct": 3.3,
-          "pl_pct": -2.04
+          "pl_pct": -3.26
         }
       ]
     }
   ],
   "updated": "2026-11-27",
-  "total_value": 67649498,
-  "holdings_value": 67548823,
-  "return_pct": -32.35,
-  "usdkrw": 1343.35,
+  "total_value": 68240344,
+  "holdings_value": 68111869,
+  "return_pct": -31.76,
+  "usdkrw": 1333.98,
   "holdings_view": [
     {
       "ticker": "068270.KS",
@@ -13079,18 +13136,18 @@
       "category": "kr_stock",
       "market": "kr",
       "cost_str": "20,149,500",
-      "pl_krw_str": "+248,500",
+      "pl_krw_str": "+624,500",
       "avg_krw": 214356,
       "avg_str": "214,356",
       "avg_native_str": null,
-      "price_krw": 217000,
-      "price_str": "217,000",
+      "price_krw": 221000,
+      "price_str": "221,000",
       "price_native": null,
       "avg_native": null,
       "price_native_str": null,
-      "price_date": "2026-11-25",
-      "value_krw": 20398000,
-      "pl_pct": 1.23,
+      "price_date": "2026-11-27",
+      "value_krw": 20774000,
+      "pl_pct": 3.1,
       "lots": [
         {
           "date": "2026-11-05",
@@ -13168,83 +13225,96 @@
           "native_str": null
         }
       ],
-      "weight_pct": 30.2,
-      "value_str": "20,398,000",
+      "weight_pct": 30.4,
+      "value_str": "20,774,000",
       "color": "#3ba272",
       "chart": "h-aggressive-068270-ks.png"
     },
     {
-      "ticker": "352820.KS",
-      "name": "하이브",
-      "qty": 43,
+      "ticker": "000660.KS",
+      "name": "SK하이닉스",
+      "qty": 5,
       "unit": "주",
       "currency": "KRW",
       "category": "kr_stock",
       "market": "kr",
-      "cost_str": "7,327,700",
-      "pl_krw_str": "+279,000",
-      "avg_krw": 170412,
-      "avg_str": "170,412",
+      "cost_str": "5,550,000",
+      "pl_krw_str": "+0",
+      "avg_krw": 1110000,
+      "avg_str": "1,110,000",
       "avg_native_str": null,
-      "price_krw": 176900,
-      "price_str": "176,900",
+      "price_krw": 1110000,
+      "price_str": "1,110,000",
       "price_native": null,
       "avg_native": null,
       "price_native_str": null,
-      "price_date": "2026-11-25",
-      "value_krw": 7606700,
-      "pl_pct": 3.81,
+      "price_date": "2026-11-27",
+      "value_krw": 5550000,
+      "pl_pct": 0.0,
       "lots": [
         {
-          "date": "2026-11-18",
+          "date": "2026-11-27",
           "session": "kr",
-          "qty": 19,
-          "price_krw": 166600,
-          "price_native": 166600.0,
+          "qty": 5,
+          "price_krw": 1110000,
+          "price_native": 1110000.0,
           "currency": "KRW",
-          "krw": 3165400,
+          "krw": 5550000,
           "fx": null,
-          "price_date": "2026-11-18",
-          "basis": "2026-11-18 리포트 시세",
-          "krw_str": "3,165,400",
-          "price_krw_str": "166,600",
-          "native_str": null
-        },
-        {
-          "date": "2026-11-23",
-          "session": "kr",
-          "qty": 17,
-          "price_krw": 172000,
-          "price_native": 172000.0,
-          "currency": "KRW",
-          "krw": 2924000,
-          "fx": null,
-          "price_date": "2026-11-23",
-          "basis": "2026-11-23 리포트 시세",
-          "krw_str": "2,924,000",
-          "price_krw_str": "172,000",
-          "native_str": null
-        },
-        {
-          "date": "2026-11-25",
-          "session": "kr",
-          "qty": 7,
-          "price_krw": 176900,
-          "price_native": 176900.0,
-          "currency": "KRW",
-          "krw": 1238300,
-          "fx": null,
-          "price_date": "2026-11-25",
-          "basis": "2026-11-25 리포트 시세",
-          "krw_str": "1,238,300",
-          "price_krw_str": "176,900",
+          "price_date": "2026-11-27",
+          "basis": "2026-11-27 리포트 시세",
+          "krw_str": "5,550,000",
+          "price_krw_str": "1,110,000",
           "native_str": null
         }
       ],
-      "weight_pct": 11.2,
-      "value_str": "7,606,700",
+      "weight_pct": 8.1,
+      "value_str": "5,550,000",
       "color": "#e8a33d",
-      "chart": "h-aggressive-352820-ks.png"
+      "chart": "h-aggressive-000660-ks.png"
+    },
+    {
+      "ticker": "373220.KS",
+      "name": "LG에너지솔루션",
+      "qty": 8,
+      "unit": "주",
+      "currency": "KRW",
+      "category": "kr_stock",
+      "market": "kr",
+      "cost_str": "2,532,000",
+      "pl_krw_str": "+0",
+      "avg_krw": 316500,
+      "avg_str": "316,500",
+      "avg_native_str": null,
+      "price_krw": 316500,
+      "price_str": "316,500",
+      "price_native": null,
+      "avg_native": null,
+      "price_native_str": null,
+      "price_date": "2026-11-27",
+      "value_krw": 2532000,
+      "pl_pct": 0.0,
+      "lots": [
+        {
+          "date": "2026-11-27",
+          "session": "kr",
+          "qty": 8,
+          "price_krw": 316500,
+          "price_native": 316500.0,
+          "currency": "KRW",
+          "krw": 2532000,
+          "fx": null,
+          "price_date": "2026-11-27",
+          "basis": "2026-11-27 리포트 시세",
+          "krw_str": "2,532,000",
+          "price_krw_str": "316,500",
+          "native_str": null
+        }
+      ],
+      "weight_pct": 3.7,
+      "value_str": "2,532,000",
+      "color": "#8b5fd6",
+      "chart": "h-aggressive-373220-ks.png"
     },
     {
       "ticker": "LLY",
@@ -13255,18 +13325,18 @@
       "category": "us_stock",
       "market": "us",
       "cost_str": "19,275,374",
-      "pl_krw_str": "+1,297,252",
+      "pl_krw_str": "+1,153,756",
       "avg_krw": 1752307,
       "avg_str": "1,752,307",
       "avg_native_str": "$1,312.38",
-      "price_krw": 1870239,
-      "price_str": "1,870,239",
+      "price_krw": 1857194,
+      "price_str": "1,857,194",
       "price_native": 1392.22,
       "avg_native": 1312.38,
       "price_native_str": "$1,392.22",
       "price_date": "2026-11-25",
-      "value_krw": 20572626,
-      "pl_pct": 6.73,
+      "value_krw": 20429130,
+      "pl_pct": 5.99,
       "lots": [
         {
           "date": "2026-10-16",
@@ -13344,9 +13414,9 @@
           "native_str": "$1,419.42"
         }
       ],
-      "weight_pct": 30.4,
-      "value_str": "20,572,626",
-      "color": "#8b5fd6",
+      "weight_pct": 29.9,
+      "value_str": "20,429,130",
+      "color": "#d3655f",
       "chart": "h-aggressive-lly.png"
     },
     {
@@ -13358,18 +13428,18 @@
       "category": "us_stock",
       "market": "us",
       "cost_str": "16,398,374",
-      "pl_krw_str": "+320,020",
+      "pl_krw_str": "+203,407",
       "avg_krw": 468525,
       "avg_str": "468,525",
       "avg_native_str": "$350.82",
-      "price_krw": 477668,
-      "price_str": "477,668",
+      "price_krw": 474337,
+      "price_str": "474,337",
       "price_native": 355.58,
       "avg_native": 350.82,
       "price_native_str": "$355.58",
       "price_date": "2026-11-25",
-      "value_krw": 16718394,
-      "pl_pct": 1.95,
+      "value_krw": 16601781,
+      "pl_pct": 1.24,
       "lots": [
         {
           "date": "2026-11-18",
@@ -13417,9 +13487,9 @@
           "native_str": "$353.90"
         }
       ],
-      "weight_pct": 24.7,
-      "value_str": "16,718,394",
-      "color": "#d3655f",
+      "weight_pct": 24.3,
+      "value_str": "16,601,781",
+      "color": "#4aa3c0",
       "chart": "h-aggressive-aapl.png"
     },
     {
@@ -13431,18 +13501,18 @@
       "category": "commodity",
       "market": "etc",
       "cost_str": "2,300,000",
-      "pl_krw_str": "-46,897",
+      "pl_krw_str": "-75,043",
       "avg_krw": 4937,
       "avg_str": "4,937",
       "avg_native_str": "$3.68",
-      "price_krw": 4836,
-      "price_str": "4,836",
-      "price_native": 3.6,
+      "price_krw": 4776,
+      "price_str": "4,776",
+      "price_native": 3.58,
       "avg_native": 3.68,
-      "price_native_str": "$3.60",
-      "price_date": "2026-11-26",
-      "value_krw": 2253103,
-      "pl_pct": -2.04,
+      "price_native_str": "$3.58",
+      "price_date": "2026-11-27",
+      "value_krw": 2224957,
+      "pl_pct": -3.26,
       "lots": [
         {
           "date": "2026-11-25",
@@ -13461,27 +13531,82 @@
         }
       ],
       "weight_pct": 3.3,
-      "value_str": "2,253,103",
-      "color": "#4aa3c0",
+      "value_str": "2,224,957",
+      "color": "#c0699d",
       "chart": "h-aggressive-ng-f.png"
     }
   ],
   "pending_view": [],
-  "total_value_str": "67,649,498",
-  "cash_str": "100,675",
-  "holdings_value_str": "67,548,823",
+  "total_value_str": "68,240,344",
+  "cash_str": "128,475",
+  "holdings_value_str": "68,111,869",
   "start_capital_str": "100,000,000",
-  "gain_str": "-32,350,502",
-  "cash_weight_pct": 0.1,
-  "day_chg_pct": -0.39,
+  "gain_str": "-31,759,656",
+  "cash_weight_pct": 0.2,
+  "day_chg_pct": 0.48,
   "days": 98,
-  "priced_at": "2026-11-27T04:59:41+09:00",
+  "priced_at": "2026-11-27T19:40:28+09:00",
   "eval_note": "🇰🇷 15:00 · 🇺🇸 23:45 발행 시점 시세로 체결",
   "persona": "aggressive",
   "persona_name": "공격형",
   "persona_emoji": "🚀",
   "persona_tag": "성장·모멘텀 · 집중 투자 · opus",
   "journal_view": [
+    {
+      "date": "2026-11-27",
+      "session": "kr",
+      "comment": "외인 주도株 올라탄다 · 하이브→반도체·배터리 교체",
+      "placed": [],
+      "trades": [
+        {
+          "action": "매도",
+          "ticker": "352820.KS",
+          "name": "하이브",
+          "krw": 8109800,
+          "krw_str": "8,109,800",
+          "qty": 43,
+          "unit": "주",
+          "price_krw": 188600,
+          "price_str": "188,600",
+          "price_native_str": null,
+          "avg_krw": 170412,
+          "avg_str": "170,412",
+          "pl_krw": 782100,
+          "pl_str": "+782,100",
+          "pl_pct": 10.67,
+          "basis": "2026-11-27 리포트 시세",
+          "reason": "목표 줄하향 · 랠리 소외 · 차익실현 교체"
+        },
+        {
+          "action": "매수",
+          "ticker": "000660.KS",
+          "name": "SK하이닉스",
+          "krw": 5550000,
+          "krw_str": "5,550,000",
+          "qty": 5,
+          "unit": "주",
+          "price_krw": 1110000,
+          "price_str": "1,110,000",
+          "price_native_str": null,
+          "basis": "2026-11-27 리포트 시세",
+          "reason": "외인 주도 반도체 추격 · 목표 320만 · HBM"
+        },
+        {
+          "action": "매수",
+          "ticker": "373220.KS",
+          "name": "LG에너지솔루션",
+          "krw": 2532000,
+          "krw_str": "2,532,000",
+          "qty": 8,
+          "unit": "주",
+          "price_krw": 316500,
+          "price_str": "316,500",
+          "price_native_str": null,
+          "basis": "2026-11-27 리포트 시세",
+          "reason": "2차전지 반등 베팅 · MA20 회복 · ESS 구조적"
+        }
+      ]
+    },
     {
       "date": "2026-11-27",
       "session": "us",
@@ -20226,42 +20351,48 @@
   "history_view": [
     {
       "date": "2026-11-27",
-      "total_value": 67649498,
-      "total_value_str": "67,649,498",
-      "return_pct": -32.35,
-      "day_chg_pct": -0.39,
-      "cash": 100675,
-      "asof": "🇺🇸 장중 리포트 시점",
+      "total_value": 68240344,
+      "total_value_str": "68,240,344",
+      "return_pct": -31.76,
+      "day_chg_pct": 0.48,
+      "cash": 128475,
+      "asof": "🇰🇷 장중 리포트 시점",
       "holdings": [
         {
           "name": "셀트리온",
-          "value_str": "20,398,000",
-          "weight_pct": 30.2,
-          "pl_pct": 1.23
+          "value_str": "20,774,000",
+          "weight_pct": 30.4,
+          "pl_pct": 3.1
         },
         {
-          "name": "하이브",
-          "value_str": "7,606,700",
-          "weight_pct": 11.2,
-          "pl_pct": 3.81
+          "name": "SK하이닉스",
+          "value_str": "5,550,000",
+          "weight_pct": 8.1,
+          "pl_pct": 0.0
+        },
+        {
+          "name": "LG에너지솔루션",
+          "value_str": "2,532,000",
+          "weight_pct": 3.7,
+          "pl_pct": 0.0
         },
         {
           "name": "일라이릴리",
-          "value_str": "20,572,626",
-          "weight_pct": 30.4,
-          "pl_pct": 6.73
+          "value_str": "20,429,130",
+          "weight_pct": 29.9,
+          "pl_pct": 5.99
         },
         {
           "name": "애플",
-          "value_str": "16,718,394",
-          "weight_pct": 24.7,
-          "pl_pct": 1.95
+          "value_str": "16,601,781",
+          "weight_pct": 24.3,
+          "pl_pct": 1.24
         },
         {
           "name": "천연가스",
-          "value_str": "2,253,103",
+          "value_str": "2,224,957",
           "weight_pct": 3.3,
-          "pl_pct": -2.04
+          "pl_pct": -3.26
         }
       ]
     },
@@ -26148,25 +26279,25 @@
     {
       "market": "kr",
       "label": "🇰🇷 한국",
-      "count": 2,
-      "value_krw": 28004700,
-      "value_str": "28,004,700",
-      "weight_pct": 41.4
+      "count": 3,
+      "value_krw": 28856000,
+      "value_str": "28,856,000",
+      "weight_pct": 42.3
     },
     {
       "market": "us",
       "label": "🇺🇸 미국",
       "count": 2,
-      "value_krw": 37291020,
-      "value_str": "37,291,020",
-      "weight_pct": 55.1
+      "value_krw": 37030911,
+      "value_str": "37,030,911",
+      "weight_pct": 54.3
     },
     {
       "market": "etc",
       "label": "🌐 24시간 자산 (암호화폐·원자재)",
       "count": 1,
-      "value_krw": 2253103,
-      "value_str": "2,253,103",
+      "value_krw": 2224957,
+      "value_str": "2,224,957",
       "weight_pct": 3.3
     }
   ],
